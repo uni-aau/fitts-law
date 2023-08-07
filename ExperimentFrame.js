@@ -98,9 +98,9 @@ class ExperimentFrame {
         const isLastBlock = this.blockNumber === this.totalBlocks;
 
         if (isLastBlock) {
-
+            console.log("Successfully finished experiment!")
             // Close the browser window
-            window.close();
+            // window.close();
         }
     }
 
