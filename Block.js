@@ -31,19 +31,19 @@ class Block {
                 for (var j = 0; j < this.trialDirection.length; j++) { // loop to go through interaction direction
 
                     // check and assign startIndex, and TargetIndex for each direction
-                    if (this.trialDirection[j] == 'Up') {
+                    if (this.trialDirection[j] === 'Up') {
                         this.startIndex = 1;
                         this.targetIndex = 3;
                     }
-                    if (this.trialDirection[j] == 'Down') {
+                    if (this.trialDirection[j] === 'Down') {
                         this.startIndex = 3;
                         this.targetIndex = 1;
                     }
-                    if (this.trialDirection[j] == 'Right') {
+                    if (this.trialDirection[j] === 'Right') {
                         this.startIndex = 2;
                         this.targetIndex = 0;
                     }
-                    if (this.trialDirection[j] == 'Left') {
+                    if (this.trialDirection[j] === 'Left') {
                         this.startIndex = 0;
                         this.targetIndex = 2;
                     }
