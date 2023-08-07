@@ -12,11 +12,11 @@
 </head>
 <body>
 
-<div id="currentTrialText">Trial No.:</div>
-<div id="currentTrialIndex"></div>
-<div id="totalTrialsText">Total Trials:</div>
-<div id="totalTrialsIndex"></div>
-<div id="trialsToBreakText">Next Break in <p id="trialsToBreakIndex"></p> &emsp; &emsp; trials</div>
+<div id="currentTrialText">Trial No.: %s</div>
+<div id="currentBlocksText">Block No.: %s</div>
+<div id="totalTrialsText">Total Trials: %s</div>
+<div id="totalBlocksText">Total Blocks: %s</div>
+<div id="trialsToBreakText">Next Break in %s trials</div>
 
 <canvas height="600" id="trialCanvas" width="800"></canvas>
 
@@ -73,7 +73,7 @@
         document.body.style.pointerEvents = 'auto';
 
         // Request full-screen mode for the document body
-        const docBody = document.documentElement;
+/*        const docBody = document.documentElement;
         if (docBody.requestFullscreen) {
             docBody.requestFullscreen();
         } else if (docBody.mozRequestFullScreen) {
@@ -82,7 +82,7 @@
             docBody.webkitRequestFullscreen();
         } else if (docBody.msRequestFullscreen) {
             docBody.msRequestFullscreen();
-        }
+        }*/
 
         // Start the experiment
         experimentFrame.showTrial();
