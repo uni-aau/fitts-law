@@ -94,7 +94,7 @@ class ExperimentFrame {
         currentBlockIndexEl.innerText = currentBlockIndexEl.innerHTML.replace("%s", this.blockNumber);
 
         const totalBlockIndexEl = document.getElementById("totalBlocksText");
-        totalBlockIndexEl.innerText = totalBlockIndexEl.innerHTML.replace("%s", this.getTotalBlocks());
+        totalBlockIndexEl.innerText = totalBlockIndexEl.innerHTML.replace("%s", Config.numBlocks);
 
         const trialsToBlockIndexEI = document.getElementById("trialsToBreakText");
         trialsToBlockIndexEI.innerText = trialsToBlockIndexEI.innerHTML.replace("%s", this.getRemainingTrials());
@@ -118,10 +118,6 @@ class ExperimentFrame {
             totalTrials += block.trialsNum;
         }
         return totalTrials;
-    }
-
-    getTotalBlocks() {
-        return -1; //TODO
     }
 
     getRemainingTrials() {
