@@ -84,8 +84,8 @@ class Block {
 
 // Shuffling function using Fisher-Yates algorithm
     shuffleArray(array) {
-        var currentIndex = array.length;
-        var temporaryValue, randomIndex;
+        let currentIndex = array.length;
+        let temporaryValue, randomIndex;
 
         // While there remain elements to shuffle
         while (currentIndex !== 0) {
