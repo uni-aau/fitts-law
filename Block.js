@@ -1,16 +1,16 @@
 class Block {
-    constructor(blockNumber, experimentType, shape, intDevice, rectsize, startSize, numRects) {
+    constructor(blockNumber, experimentType, shape, intDevice, rectSize, startSize, numRects) {
         this.shape = shape;
-        this.targetHeight = [4, 8, 10, 15, 6, 8, 10, 12, 16, 20, 15, 20, 25, 4, 4, 4, 8, 8, 8, 10, 10, 10];
-        this.targetWidth = [4, 8, 10, 15, 4, 4, 4, 8, 8, 8, 10, 10, 10, 6, 8, 10, 12, 16, 20, 15, 20, 25];
-        this.amplitude = [33, 50];
-        this.trialDirection = ['Left', 'Up', 'Right', 'Down']; //  Direction of the required interaction
+        this.targetHeight = Config.targetHeight;
+        this.targetWidth = Config.targetWidth;
+        this.amplitude = Config.amplitude;
+        this.trialDirection = Config.trialDirection;
         this.intDevice = intDevice;
         this.blockNumber = blockNumber;
         this.experimentType = experimentType;
         this.startSize = startSize;
         this.numRects = numRects;
-        this.rectsize = rectsize;
+        this.rectSize = rectSize;
         this.trialId = 1; // Initialize the trial ID
 
         this.currentstartIndex = null;

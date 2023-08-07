@@ -1,13 +1,13 @@
 class Experiment {
     constructor() {
-        this.experimentType = "STS"; //
-        this.shape = "rectangle"; // rectangle or circle
-        this.intDevice = "Mouse";  //"Mouse" , "Touch"  , "Laser Pointer"
-        this.startSize = 10;
+        this.experimentType = Config.experimentType;
+        this.shape = Config.shape; // rectangle or circle
+        this.intDevice = Config.intDevice
+        this.startSize = Config.startSize;
         this.rectSize = this.startSize // set the size of the other reectangles
         this.blocks = [];
-        this.numBlocks = 1;
-        this.numRects = 4;
+        this.numBlocks = Config.numBlocks;
+        this.numRects = Config.numRects;
         let block = 1;
 
         for (let i = 0; i < this.numBlocks; i++) {

@@ -1,11 +1,12 @@
 class ExperimentFrame {
+
     constructor() {
         this.blockNumber = 1;
         this.trialNumber = 1;
         this.experiment = new Experiment();
         this.totalBlocks = this.experiment.getNumBlocks(); // Track the total number of blocks
         // Set the number of trials per break
-        this.trialsPerBreak = 3;
+        this.trialsPerBreak = Config.trialsPerBreak;
     }
 
     // Show only the target and start rectangles on the screen
@@ -118,7 +119,7 @@ class ExperimentFrame {
         return remainingTrialsToBreak;
     }
 
-    // print all of the trials on the console
+    // print all the trials on the console
     printAllTrials() {
         for (let i = 0; i < this.experiment.getNumBlocks(); i++) {
             const block = this.experiment.getBlock(i + 1);
