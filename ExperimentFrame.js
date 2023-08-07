@@ -84,20 +84,20 @@ class ExperimentFrame {
     }
 
     showIndexes() {
-        const currentTrialIndexEl = document.getElementById("currentTrialText");
-        currentTrialIndexEl.innerText = currentTrialIndexEl.innerHTML.replace("%s", this.trialNumber);
+        const currentTrialIndexEl = document.getElementById("currentTrialNumber");
+        currentTrialIndexEl.textContent = this.trialNumber;
 
-        const totalTrialIndexEl = document.getElementById("totalTrialsText");
-        totalTrialIndexEl.innerText = totalTrialIndexEl.innerHTML.replace("%s", this.getTotalTrials());
+        const currentBlockIndexEl = document.getElementById("currentBlockNumber");
+        currentBlockIndexEl.textContent = this.blockNumber;
 
-        const currentBlockIndexEl = document.getElementById("currentBlocksText");
-        currentBlockIndexEl.innerText = currentBlockIndexEl.innerHTML.replace("%s", this.blockNumber);
+        const totalTrialIndexEl = document.getElementById("totalTrialCount");
+        totalTrialIndexEl.textContent = this.getTotalTrials();
 
-        const totalBlockIndexEl = document.getElementById("totalBlocksText");
-        totalBlockIndexEl.innerText = totalBlockIndexEl.innerHTML.replace("%s", Config.numBlocks);
+        const totalBlockIndexEl = document.getElementById("totalBlockCount");
+        totalBlockIndexEl.textContent = Config.numBlocks;
 
-        const trialsToBlockIndexEI = document.getElementById("trialsToBreakText");
-        trialsToBlockIndexEI.innerText = trialsToBlockIndexEI.innerHTML.replace("%s", this.getRemainingTrials());
+        const trialsToBlockIndexEI = document.getElementById("breakCount");
+        trialsToBlockIndexEI.textContent = this.getRemainingTrials();
     }
 
     experimentFinished() {
