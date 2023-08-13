@@ -146,7 +146,7 @@ class STRectsDrawing {
         const distanceToStartCenter = Math.sqrt((pressedX - this.startX) ** 2 + (pressedY - this.startY) ** 2);
         console.log("distanceToTarget = " + distanceToTargetCenter + " distanceStart = " + distanceToStartCenter);
 
-        const halfWidth = this.startSizePx/2;
+        const halfWidth = this.startSizePx / 2;
         const isRectangleClickInStartElement = pressedX >= this.startX - halfWidth &&
             pressedX <= this.startX + halfWidth &&
             pressedY >= this.startY - halfWidth &&
@@ -176,8 +176,8 @@ class STRectsDrawing {
                 : targetWidthPx / 2;
             const distanceToTargetCenter = Math.sqrt((pressedX - this.targetX) ** 2 + (pressedY - this.targetY) ** 2);
 
-            const targetSizeHalfWidth = targetWidthPx/2;
-            const targetSizeHalfHeight = targetHeightPx/2;
+            const targetSizeHalfWidth = targetWidthPx / 2;
+            const targetSizeHalfHeight = targetHeightPx / 2;
 
             const isRectangleClickInTargetElement = pressedX >= this.targetX - targetSizeHalfWidth &&
                 pressedX <= this.targetX + targetSizeHalfWidth &&
@@ -192,14 +192,14 @@ class STRectsDrawing {
 
             // TODO only works for rectangles
             if (this.startClicked && !this.isTargetClicked) {
-                if(isRectangleClickInTargetElement) {
+                if (isRectangleClickInTargetElement) {
                     console.log("Click was inside the element")
                     this.onTargetClicked();
                     this.handleTargetClick();
                     this.isTargetClicked = true;
-                } else if(isRectangleClickInTargetElementWithTolerance) {
+                } else if (isRectangleClickInTargetElementWithTolerance) {
                     console.log("Click was in " + Config.clickTolerancePx + "px click tolerance")
-                    if(Config.isMissSkipped) {
+                    if (Config.isMissSkipped) {
                         this.onTargetClicked();
                         this.handleTargetClick();
                         this.isTargetClicked = true;
