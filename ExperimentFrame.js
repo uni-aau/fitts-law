@@ -93,6 +93,10 @@ class ExperimentFrame {
         const totalTrialIndexEl = document.getElementById("totalTrialCount");
         totalTrialIndexEl.textContent = this.getTotalTrials();
 
+        const totalTrialIndexPerBlockEl = document.getElementById("totalTrialCountPerBlock");
+        totalTrialIndexPerBlockEl.textContent = this.getTotalTrialsPerBlock();
+
+
         const totalBlockIndexEl = document.getElementById("totalBlockCount");
         totalBlockIndexEl.textContent = Config.numBlocks;
 
@@ -109,6 +113,10 @@ class ExperimentFrame {
             // Close the browser window
             // window.close();
         }
+    }
+
+    getTotalTrialsPerBlock() {
+        return this.getTotalTrials() / Config.numBlocks;
     }
 
     getTotalTrials() {

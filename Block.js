@@ -26,9 +26,9 @@ class Block {
         this.trials = [];
 
         // Nested loops to generate the trials
-        for (var i = 0; i < this.targetWidth.length; i++) { // loop to go through target width
-            for (var k = 0; k < this.amplitude.length; k++) { // loop to go through Amplitude
-                for (var j = 0; j < this.trialDirection.length; j++) { // loop to go through interaction direction
+        for (let i = 0; i < this.targetWidth.length; i++) { // loop to go through target width
+            for (let k = 0; k < this.amplitude.length; k++) { // loop to go through Amplitude
+                for (let j = 0; j < this.trialDirection.length; j++) { // loop to go through interaction direction
 
                     // check and assign startIndex, and TargetIndex for each direction
                     if (this.trialDirection[j] === 'Up') {
