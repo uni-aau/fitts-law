@@ -20,19 +20,19 @@ class STRectsDrawing {
     }
 
     initializeVariables(canvas) {
-        this.canvasCenterX = canvas.width / 2;
-        this.canvasCenterY = canvas.height / 2;
-        this.amplitudePx = mm2px(this.amplitude);
-        this.angle = (2 * Math.PI) / this.numRects; // todo numRects wird gar nicht verwendet?
+        const canvasCenterX = canvas.width / 2;
+        const canvasCenterY = canvas.height / 2;
+        const amplitudePx = mm2px(this.amplitude);
+        const angle = (2 * Math.PI) / this.numRects; // todo numRects wird gar nicht verwendet?
 
         // Coordinates of the start center point
-        this.startX = this.canvasCenterX + this.amplitudePx * Math.cos(this.startIndex * this.angle);
-        this.startY = this.canvasCenterY + this.amplitudePx * Math.sin(this.startIndex * this.angle);
+        this.startX = canvasCenterX + amplitudePx * Math.cos(this.startIndex * angle);
+        this.startY = canvasCenterY + amplitudePx * Math.sin(this.startIndex * angle);
         this.startSizePx = mm2px(this.startSize);
 
         // Coordinates of the target center point
-        this.targetX = this.canvasCenterX + this.amplitudePx * Math.cos(this.targetIndex * this.angle);
-        this.targetY = this.canvasCenterY + this.amplitudePx * Math.sin(this.targetIndex * this.angle);
+        this.targetX = canvasCenterX + amplitudePx * Math.cos(this.targetIndex * angle);
+        this.targetY = canvasCenterY + amplitudePx * Math.sin(this.targetIndex * angle);
 
         console.log("StartX = " + this.startX + " startY = " + this.startY + " targetX = " + this.targetX + " targetY = " + this.targetY)
     }
