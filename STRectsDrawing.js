@@ -81,13 +81,12 @@ class STRectsDrawing {
         const targetX = centerX + amplitudePx * Math.cos(this.targetIndex * angle);
         const targetY = centerY + amplitudePx * Math.sin(this.targetIndex * angle);
         // Coordinates of top left corner of the rectangle (center - half of the width of rect)
+        this.targetWidthPx = mm2px(this.targetWidth);
+        this.targetHeightPx = mm2px(this.targetHeight);
         const targetRectX = targetX - this.targetWidthPx / 2;
         const targetRectY = targetY - this.targetHeightPx / 2;
 
         if (this.shape === "rectangle") {
-            this.targetWidthPx = mm2px(this.targetWidth);
-            this.targetHeightPx = mm2px(this.targetHeight);
-
             context.strokeRect(
                 targetRectX,
                 targetRectY,
