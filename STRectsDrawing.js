@@ -109,7 +109,7 @@ class STRectsDrawing {
         } else {
             console.error("No shape with the name " + this.shape + " registered");
         }
-        this.printToConsole();
+        this.printToConsole(); // todo
     }
 
     removeAllEventListeners(element) {
@@ -205,10 +205,16 @@ class STRectsDrawing {
                     context.fill();
                 }*/
                 this.onTargetClicked();
+                this.handleTargetClick();
                 this.isTargetClicked = true;
             }
 
         }
+    }
+
+    handleTargetClick() {
+        console.log("Successfully called on target clicked");
+        // Use to save data or print to console
     }
 
     printToConsole() {

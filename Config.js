@@ -6,7 +6,7 @@ class Config {
     static numBlocks = 3;
     static numRects = 4;
 
-    static trialsPerBreak = 3;
+    static trialsPerBreak = 30;
 
     // Block Config
     // static targetHeight = [4, 8, 10, 15, 6, 8, 10, 12, 16, 20, 15, 20, 25, 4, 4, 4, 8, 8, 8, 10, 10, 10];
@@ -22,4 +22,5 @@ class Config {
     static elementStrokeStyle = "black";
     static startElementFillStyle = "rgba(144, 238, 144, 0.8)";
     static targetElementFillStyle = "rgba(255, 102, 102, 0.8)";
+    static targetElementSelectionStyle = "rgba(0, 0, 139, 0.8)"; // Dark blue color
 }
