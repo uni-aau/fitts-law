@@ -28,6 +28,7 @@ class STRectsDrawing {
         // Coordinates of the start center point
         this.startX = canvasCenterX + amplitudePx * Math.cos(this.startIndex * angle);
         this.startY = canvasCenterY + amplitudePx * Math.sin(this.startIndex * angle);
+
         this.startSizePx = mm2px(this.startSize);
 
         // Coordinates of the target center point
@@ -88,23 +89,23 @@ class STRectsDrawing {
         context.fillStyle = Config.targetElementFillStyle;
 
         // Coordinates of top left corner of the rectangle (center - half of the width of rect)
-        this.targetWidthPx = mm2px(this.targetWidth);
-        this.targetHeightPx = mm2px(this.targetHeight);
-        const targetRectX = this.targetX - this.targetWidthPx / 2;
-        const targetRectY = this.targetY - this.targetHeightPx / 2;
+        const targetWidthPx = mm2px(this.targetWidth);
+        const targetHeightPx = mm2px(this.targetHeight);
+        const targetRectX = this.targetX - targetWidthPx / 2;
+        const targetRectY = this.targetY - targetHeightPx / 2;
 
         if (this.shape === "rectangle") {
             context.strokeRect(
                 targetRectX,
                 targetRectY,
-                this.targetWidthPx,
-                this.targetHeightPx
+                targetWidthPx,
+                targetHeightPx
             );
             context.fillRect(
                 targetRectX,
                 targetRectY,
-                this.targetWidthPx,
-                this.targetHeightPx
+                targetWidthPx,
+                targetHeightPx
             );
         } else if (this.shape === "circle") {
             const targetSize = mm2px(this.targetWidth);
@@ -137,7 +138,7 @@ class STRectsDrawing {
 
         this.initializeVariables(canvas);
 
-        const startPx = mm2px(this.startSize);
+        const startPx = mm2px(this.startSize); // TODO
         const targetWidthPx = mm2px(this.targetWidth); // Width of the target rectangle
         const targetHeightPx = mm2px(this.targetHeight); // Height of the target rectangle
 
@@ -151,8 +152,8 @@ class STRectsDrawing {
         if (!this.startClicked && distanceToStartCenter < startPx / 2) {
             // Clicked on the start
             context.fillStyle = Config.targetElementSelectionStyle;
-
             context.beginPath(); // removes previous drawing operations
+
             if (this.shape === "rectangle") {
                 context.fillRect(this.targetX - targetWidthPx / 2, this.targetY - targetHeightPx / 2, targetWidthPx, targetHeightPx);
             } else if (this.shape === "circle") {
@@ -165,8 +166,8 @@ class STRectsDrawing {
             // Clicked outside the start
             // Target Size of rect or circle
             const targetSize = this.shape === "rectangle"
-                ? Math.max(mm2px(this.targetWidth), mm2px(this.targetHeight))
-                : mm2px(this.targetWidth) / 2;
+                ? Math.max(targetWidthPx, targetHeightPx)
+                : targetWidthPx / 2;
             const distanceToTargetCenter = Math.sqrt((pressedX - this.targetX) ** 2 + (pressedY - this.targetY) ** 2);
 
             // TODO rework click check
