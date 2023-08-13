@@ -110,8 +110,7 @@ class ExperimentFrame {
 
         if (isLastBlock) {
             console.log("Successfully finished experiment!")
-            // Close the browser window
-            // window.close();
+            showStartWindow();
         }
     }
 
@@ -129,8 +128,7 @@ class ExperimentFrame {
     }
 
     getRemainingTrials() {
-        const remainingTrialsToBreak = this.trialsPerBreak - (this.trialNumber % this.trialsPerBreak);
-        return remainingTrialsToBreak;
+        return this.trialsPerBreak - (this.trialNumber % this.trialsPerBreak);
     }
 
     // print all the trials on the console
@@ -144,5 +142,4 @@ class ExperimentFrame {
             }
         }
     }
-
 }

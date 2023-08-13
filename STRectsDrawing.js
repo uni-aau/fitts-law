@@ -1,16 +1,16 @@
 class STRectsDrawing {
-    constructor(trial, trialNumber, Size, nums, onTargetClicked) {
+    constructor(trial, trialNumber, rectSize, numRects, onTargetClicked) {
         this.shape = trial.shape;
         this.startClicked = false;
         this.isTargetClicked = false;
         this.startIndex = trial.startIndex;
         this.targetIndex = trial.targetIndex;
-        this.nums = nums;
+        this.numRects = numRects;
         this.amplitude = trial.amplitude;
         this.startSize = trial.startSize;
         this.targetWidth = trial.targetWidth;
         this.targetHeight = trial.targetHeight;
-        this.Size = Size;
+        this.rectSize = rectSize;
         this.trialId = trial.trialId;
         this.trialDirection = trial.trialDirection;
         this.onTargetClicked = onTargetClicked;
@@ -20,15 +20,13 @@ class STRectsDrawing {
     }
 
     showRects() {
+        let startSizePx, startX, startY;
 
+        // Defines canvas
         const canvas = document.getElementById("trialCanvas");
         const context = canvas.getContext("2d");
 
-        let startSizePx = 0;
-
-        let startX = 0;
-        let startY = 0;
-
+        // Calculates width/height of window and clears rect
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
         context.clearRect(0, 0, canvas.width, canvas.height);
@@ -39,28 +37,31 @@ class STRectsDrawing {
         const centerX = canvas.width / 2;
         const centerY = canvas.height / 2;
         const amplitudePx = mm2px(this.amplitude);
-        const angle = (2 * Math.PI) / this.nums;
+        const angle = (2 * Math.PI) / this.numRects; // todo numRects wird gar nicht verwendet?
 
-        context.strokeStyle = "black";
+        // Start element creation
+        context.strokeStyle = Config.elementStrokeStyle;
+        context.fillStyle = Config.startElementFillStyle;
 
         startSizePx = mm2px(this.startSize);
 
-        const startColor = "rgba(144, 238, 144, 0.8)";
-        context.fillStyle = startColor;
-
         startX = centerX + amplitudePx * Math.cos(this.startIndex * angle);
         startY = centerY + amplitudePx * Math.sin(this.startIndex * angle);
+        const rectX = startX - startSizePx / 2;
+        const rectY = startY - startSizePx / 2;
+
+        console.log("Angle = " + angle + " startX = " + startX + " startY = " + startY + " rectX = " + rectX + " rectY =" + rectY);
 
         if (this.shape === "rectangle") {
             context.strokeRect(
-                startX - startSizePx / 2,
-                startY - startSizePx / 2,
+                rectX,
+                rectY,
                 startSizePx,
                 startSizePx
             );
             context.fillRect(
-                startX - startSizePx / 2,
-                startY - startSizePx / 2,
+                rectX,
+                rectY,
                 startSizePx,
                 startSizePx
             );
@@ -69,36 +70,44 @@ class STRectsDrawing {
             context.arc(startX, startY, startSizePx / 2, 0, 2 * Math.PI);
             context.stroke();
             context.fill();
+        } else {
+            console.error("No shape with the name " + this.shape + " registered");
         }
 
-        const targetColor = "rgba(255, 102, 102, 0.8)";
-        context.fillStyle = targetColor;
+        // Target Element creation
+        context.fillStyle = Config.targetElementFillStyle;
 
+        // Target Points of the center point of the target element
         const targetX = centerX + amplitudePx * Math.cos(this.targetIndex * angle);
         const targetY = centerY + amplitudePx * Math.sin(this.targetIndex * angle);
+        // Coordinates of top left corner of the rectangle (center - half of the width of rect)
+        const targetRectX = targetX - this.targetWidthPx / 2;
+        const targetRectY = targetY - this.targetHeightPx / 2;
 
         if (this.shape === "rectangle") {
             this.targetWidthPx = mm2px(this.targetWidth);
             this.targetHeightPx = mm2px(this.targetHeight);
 
             context.strokeRect(
-                targetX - this.targetWidthPx / 2,
-                targetY - this.targetHeightPx / 2,
+                targetRectX,
+                targetRectY,
                 this.targetWidthPx,
                 this.targetHeightPx
             );
             context.fillRect(
-                targetX - this.targetWidthPx / 2,
-                targetY - this.targetHeightPx / 2,
+                targetRectX,
+                targetRectY,
                 this.targetWidthPx,
                 this.targetHeightPx
             );
         } else if (this.shape === "circle") {
-            targetSize = mm2px(this.targetWidth);
+            const targetSize = mm2px(this.targetWidth);
             context.beginPath();
             context.arc(targetX, targetY, targetSize / 2, 0, 2 * Math.PI);
             context.stroke();
             context.fill();
+        } else {
+            console.error("No shape with the name " + this.shape + " registered");
         }
         this.printToConsole();
     }
@@ -114,7 +123,7 @@ class STRectsDrawing {
         const centerX = canvas.width / 2;
         const centerY = canvas.height / 2;
         const amplitudePx = mm2px(this.amplitude);
-        const angle = (2 * Math.PI) / this.nums;
+        const angle = (2 * Math.PI) / this.numRects;
 
         const startX = centerX + amplitudePx * Math.cos(this.startIndex * angle);
         const startY = centerY + amplitudePx * Math.sin(this.startIndex * angle);
