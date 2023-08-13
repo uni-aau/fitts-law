@@ -19,13 +19,30 @@ class STRectsDrawing {
         this.intDevice = trial.intDevice;
     }
 
+    initializeVariables(canvas) {
+        this.canvasCenterX = canvas.width / 2;
+        this.canvasCenterY = canvas.height / 2;
+        this.amplitudePx = mm2px(this.amplitude);
+        this.angle = (2 * Math.PI) / this.numRects; // todo numRects wird gar nicht verwendet?
+
+        // Coordinates of the start center point
+        this.startX = this.canvasCenterX + this.amplitudePx * Math.cos(this.startIndex * this.angle);
+        this.startY = this.canvasCenterY + this.amplitudePx * Math.sin(this.startIndex * this.angle);
+        this.startSizePx = mm2px(this.startSize);
+
+        // Coordinates of the target center point
+        this.targetX = this.canvasCenterX + this.amplitudePx * Math.cos(this.targetIndex * this.angle);
+        this.targetY = this.canvasCenterY + this.amplitudePx * Math.sin(this.targetIndex * this.angle);
+    }
+
     showRects() {
-        let startSizePx, startX, startY;
+        // let startSizePx, startX, startY;
 
         // Defines canvas
         let canvasOld = document.getElementById("trialCanvas");
         const canvas = this.removeAllEventListeners(canvasOld) // otherwise multiple clicks will be registered
         const context = canvas.getContext("2d");
+        this.initializeVariables(canvas)
 
         // Calculates width/height of window and clears rect
         canvas.width = window.innerWidth;
@@ -34,41 +51,33 @@ class STRectsDrawing {
 
         canvas.addEventListener("click", this.handleCanvasClick);
 
-        const canvasCenterX = canvas.width / 2;
-        const canvasCenterY = canvas.height / 2;
-        const amplitudePx = mm2px(this.amplitude);
-        const angle = (2 * Math.PI) / this.numRects; // todo numRects wird gar nicht verwendet?
-
         // Start element creation
         context.strokeStyle = Config.elementStrokeStyle;
         context.fillStyle = Config.startElementFillStyle;
 
-        // Coordinates of the start center point
-        startX = canvasCenterX + amplitudePx * Math.cos(this.startIndex * angle);
-        startY = canvasCenterY + amplitudePx * Math.sin(this.startIndex * angle);
-        // Coordinates of top left corner of the rectangle (center - half of the width of rect)
-        startSizePx = mm2px(this.startSize);
-        const rectX = startX - startSizePx / 2;
-        const rectY = startY - startSizePx / 2;
 
-        console.log("Angle = " + angle + " startX = " + startX + " startY = " + startY + " rectX = " + rectX + " rectY =" + rectY);
+        // Coordinates of top left corner of the rectangle (center - half of the width of rect)
+        const rectX = this.startX - this.startSizePx / 2;
+        const rectY = this.startY - this.startSizePx / 2;
+
+        // console.log("Angle = " + angle + " startX = " + startX + " startY = " + startY + " rectX = " + rectX + " rectY =" + rectY);
 
         if (this.shape === "rectangle") {
             context.strokeRect(
                 rectX,
                 rectY,
-                startSizePx,
-                startSizePx
+                this.startSizePx,
+                this.startSizePx
             );
             context.fillRect(
                 rectX,
                 rectY,
-                startSizePx,
-                startSizePx
+                this.startSizePx,
+                this.startSizePx
             );
         } else if (this.shape === "circle") {
             context.beginPath();
-            context.arc(startX, startY, startSizePx / 2, 0, 2 * Math.PI);
+            context.arc(this.startX, this.startY, this.startSizePx / 2, 0, 2 * Math.PI);
             context.stroke();
             context.fill();
         } else {
@@ -78,14 +87,11 @@ class STRectsDrawing {
         // Target Element creation
         context.fillStyle = Config.targetElementFillStyle;
 
-        // Coordinates of the target center point
-        const targetX = canvasCenterX + amplitudePx * Math.cos(this.targetIndex * angle);
-        const targetY = canvasCenterY + amplitudePx * Math.sin(this.targetIndex * angle);
         // Coordinates of top left corner of the rectangle (center - half of the width of rect)
         this.targetWidthPx = mm2px(this.targetWidth);
         this.targetHeightPx = mm2px(this.targetHeight);
-        const targetRectX = targetX - this.targetWidthPx / 2;
-        const targetRectY = targetY - this.targetHeightPx / 2;
+        const targetRectX = this.targetX - this.targetWidthPx / 2;
+        const targetRectY = this.targetY - this.targetHeightPx / 2;
 
         if (this.shape === "rectangle") {
             context.strokeRect(
@@ -103,7 +109,7 @@ class STRectsDrawing {
         } else if (this.shape === "circle") {
             const targetSize = mm2px(this.targetWidth);
             context.beginPath();
-            context.arc(targetX, targetY, targetSize / 2, 0, 2 * Math.PI);
+            context.arc(this.targetX, this.targetY, targetSize / 2, 0, 2 * Math.PI);
             context.stroke();
             context.fill();
         } else {
@@ -182,33 +188,10 @@ class STRectsDrawing {
 
             // TODO rework click check
             if (this.startClicked && !this.isTargetClicked && distanceToTargetCenter < targetSize) {
-                // Clicked on the target
-/*                context.beginPath();
-                if (this.shape === "rectangle") {
-                    console.log("True?")
-                    context.fillStyle = "rgba(0, 0, 139, 0.8)"; // Dark blue color for target
-                    context.fillRect(
-                        targetX - this.targetWidthPX / 2,
-                        targetY - this.targetHeightPX / 2,
-                        this.targetWidthPX,
-                        this.targetHeightpX
-                    );
-                } else if (this.shape === "circle") {
-                    context.fillStyle = "rgba(0, 0, 139, 0.8)"; // Dark blue color for target
-                    context.arc(
-                        targetX,
-                        targetY,
-                        targetSize,
-                        0,
-                        2 * Math.PI
-                    );
-                    context.fill();
-                }*/
                 this.onTargetClicked();
                 this.handleTargetClick();
                 this.isTargetClicked = true;
             }
-
         }
     }
 
