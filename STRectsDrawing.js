@@ -29,7 +29,7 @@ class STRectsDrawing {
         this.startX = canvasCenterX + amplitudePx * Math.cos(this.startIndex * angle);
         this.startY = canvasCenterY + amplitudePx * Math.sin(this.startIndex * angle);
 
-        this.startSizePx = mm2px(this.startSize);
+        this.startSizePx = mm2px(this.startSize); // size of start element (it's currently always a*a)
 
         // Coordinates of the target center point
         this.targetX = canvasCenterX + amplitudePx * Math.cos(this.targetIndex * angle);
@@ -114,6 +114,7 @@ class STRectsDrawing {
             context.stroke();
             context.fill();
         } else {
+            alert("No shape as " + this.shape + " is registered!")
             console.error("No shape with the name " + this.shape + " registered");
         }
         this.printToConsole(); // todo
@@ -138,7 +139,6 @@ class STRectsDrawing {
 
         this.initializeVariables(canvas);
 
-        const startPx = mm2px(this.startSize); // TODO
         const targetWidthPx = mm2px(this.targetWidth); // Width of the target rectangle
         const targetHeightPx = mm2px(this.targetHeight); // Height of the target rectangle
 
@@ -146,10 +146,16 @@ class STRectsDrawing {
         const distanceToStartCenter = Math.sqrt((pressedX - this.startX) ** 2 + (pressedY - this.startY) ** 2);
         console.log("distanceToTarget = " + distanceToTargetCenter + " distanceStart = " + distanceToStartCenter);
 
-        console.log(distanceToStartCenter < startPx / 2)
+        const halfWidth = this.startSizePx/2;
+        const isRectangleClickInStartElement = pressedX >= this.startX - halfWidth &&
+            pressedX <= this.startX + halfWidth &&
+            pressedY >= this.startY - halfWidth &&
+            pressedY <= this.startY + halfWidth
+        const isCircleClickInStartElement = distanceToStartCenter < this.startSizePx / 2;
+        console.log(isRectangleClickInStartElement + " / " + isCircleClickInStartElement);
 
-        // TODO check ob check ausreicht
-        if (!this.startClicked && distanceToStartCenter < startPx / 2) {
+        // TODO currently only rectangle
+        if (!this.startClicked && isRectangleClickInStartElement) {
             // Clicked on the start
             context.fillStyle = Config.targetElementSelectionStyle;
             context.beginPath(); // removes previous drawing operations
@@ -170,11 +176,39 @@ class STRectsDrawing {
                 : targetWidthPx / 2;
             const distanceToTargetCenter = Math.sqrt((pressedX - this.targetX) ** 2 + (pressedY - this.targetY) ** 2);
 
-            // TODO rework click check
-            if (this.startClicked && !this.isTargetClicked && distanceToTargetCenter < targetSize) {
-                this.onTargetClicked();
-                this.handleTargetClick();
-                this.isTargetClicked = true;
+            const targetSizeHalfWidth = targetWidthPx/2;
+            const targetSizeHalfHeight = targetHeightPx/2;
+
+            const isRectangleClickInTargetElement = pressedX >= this.targetX - targetSizeHalfWidth &&
+                pressedX <= this.targetX + targetSizeHalfWidth &&
+                pressedY >= this.targetY - targetSizeHalfHeight &&
+                pressedY <= this.targetY + targetSizeHalfHeight
+            const isRectangleClickInTargetElementWithTolerance = pressedX >= this.targetX - targetSizeHalfWidth - Config.clickTolerancePx &&
+                pressedX <= this.targetX + targetSizeHalfWidth + Config.clickTolerancePx &&
+                pressedY >= this.targetY - targetSizeHalfHeight - Config.clickTolerancePx &&
+                pressedY <= this.targetY + targetSizeHalfHeight + Config.clickTolerancePx
+
+            console.log(isRectangleClickInStartElement)
+
+            // TODO only works for rectangles
+            if (this.startClicked && !this.isTargetClicked) {
+                if(isRectangleClickInTargetElement) {
+                    console.log("Click was inside the element")
+                    this.onTargetClicked();
+                    this.handleTargetClick();
+                    this.isTargetClicked = true;
+                } else if(isRectangleClickInTargetElementWithTolerance) {
+                    console.log("Click was in " + Config.clickTolerancePx + "px click tolerance")
+                    if(Config.isMissSkipped) {
+                        this.onTargetClicked();
+                        this.handleTargetClick();
+                        this.isTargetClicked = true;
+                    } else {
+                        // TODO message to do again?
+                    }
+                } else {
+                    console.log("Click was not in tolerance")
+                }
             }
         }
     }
@@ -211,6 +245,5 @@ class STRectsDrawing {
             this.trialDirection
         );
     }
-
 }
 
