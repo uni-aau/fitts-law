@@ -23,7 +23,8 @@ class STRectsDrawing {
         let startSizePx, startX, startY;
 
         // Defines canvas
-        const canvas = document.getElementById("trialCanvas");
+        let canvasOld = document.getElementById("trialCanvas");
+        const canvas = this.removeAllEventListeners(canvasOld) // otherwise multiple clicks will be registered
         const context = canvas.getContext("2d");
 
         // Calculates width/height of window and clears rect
@@ -31,11 +32,10 @@ class STRectsDrawing {
         canvas.height = window.innerHeight;
         context.clearRect(0, 0, canvas.width, canvas.height);
 
-        canvas.removeEventListener("click", this.handleCanvasClick);
         canvas.addEventListener("click", this.handleCanvasClick);
 
-        const centerX = canvas.width / 2;
-        const centerY = canvas.height / 2;
+        const canvasCenterX = canvas.width / 2;
+        const canvasCenterY = canvas.height / 2;
         const amplitudePx = mm2px(this.amplitude);
         const angle = (2 * Math.PI) / this.numRects; // todo numRects wird gar nicht verwendet?
 
@@ -43,10 +43,11 @@ class STRectsDrawing {
         context.strokeStyle = Config.elementStrokeStyle;
         context.fillStyle = Config.startElementFillStyle;
 
+        // Coordinates of the start center point
+        startX = canvasCenterX + amplitudePx * Math.cos(this.startIndex * angle);
+        startY = canvasCenterY + amplitudePx * Math.sin(this.startIndex * angle);
+        // Coordinates of top left corner of the rectangle (center - half of the width of rect)
         startSizePx = mm2px(this.startSize);
-
-        startX = centerX + amplitudePx * Math.cos(this.startIndex * angle);
-        startY = centerY + amplitudePx * Math.sin(this.startIndex * angle);
         const rectX = startX - startSizePx / 2;
         const rectY = startY - startSizePx / 2;
 
@@ -77,9 +78,9 @@ class STRectsDrawing {
         // Target Element creation
         context.fillStyle = Config.targetElementFillStyle;
 
-        // Target Points of the center point of the target element
-        const targetX = centerX + amplitudePx * Math.cos(this.targetIndex * angle);
-        const targetY = centerY + amplitudePx * Math.sin(this.targetIndex * angle);
+        // Coordinates of the target center point
+        const targetX = canvasCenterX + amplitudePx * Math.cos(this.targetIndex * angle);
+        const targetY = canvasCenterY + amplitudePx * Math.sin(this.targetIndex * angle);
         // Coordinates of top left corner of the rectangle (center - half of the width of rect)
         this.targetWidthPx = mm2px(this.targetWidth);
         this.targetHeightPx = mm2px(this.targetHeight);
@@ -111,37 +112,53 @@ class STRectsDrawing {
         this.printToConsole();
     }
 
+    removeAllEventListeners(element) {
+        const clone = element.cloneNode(true);
+        element.parentNode.replaceChild(clone, element);
+        return clone;
+    }
+
 
     handleCanvasClick(event) {
+        console.log("Click")
         const canvas = document.getElementById("trialCanvas");
         const context = canvas.getContext("2d");
-        const rect = canvas.getBoundingClientRect();
-        const x = event.clientX - rect.left;
-        const y = event.clientY - rect.top;
 
-        const centerX = canvas.width / 2;
-        const centerY = canvas.height / 2;
+        // Handle click position
+        const rect = canvas.getBoundingClientRect();
+        const pressedX = event.clientX - rect.left;
+        const pressedY = event.clientY - rect.top;
+        console.log("PressX = " + pressedX + " PressY = " + pressedY);
+
+        // Handle canvas variables (todo eigene methode?)
+        const canvasCenterX = canvas.width / 2;
+        const canvasCenterY = canvas.height / 2;
         const amplitudePx = mm2px(this.amplitude);
         const angle = (2 * Math.PI) / this.numRects;
 
-        const startX = centerX + amplitudePx * Math.cos(this.startIndex * angle);
-        const startY = centerY + amplitudePx * Math.sin(this.startIndex * angle);
-        const targetX = centerX + amplitudePx * Math.cos(this.targetIndex * angle);
-        const targetY = centerY + amplitudePx * Math.sin(this.targetIndex * angle);
+        // Coordinates of the start & target center point
+        const startX = canvasCenterX + amplitudePx * Math.cos(this.startIndex * angle);
+        const startY = canvasCenterY + amplitudePx * Math.sin(this.startIndex * angle);
+        const targetX = canvasCenterX + amplitudePx * Math.cos(this.targetIndex * angle);
+        const targetY = canvasCenterY + amplitudePx * Math.sin(this.targetIndex * angle);
+        console.log("StartX = " + startX + " startY = " + startY + " targetX = " + targetX + " targetY = " + targetY)
 
         const startPx = mm2px(this.startSize);
         const targetWidthPx = mm2px(this.targetWidth); // Width of the target rectangle
         const targetHeightPx = mm2px(this.targetHeight); // Height of the target rectangle
 
-        const distanceTotarget = Math.sqrt((x - targetX) ** 2 + (y - targetY) ** 2);
-        const distanceToStart = Math.sqrt((x - startX) ** 2 + (y - startY) ** 2);
+        const distanceToTargetCenter = Math.sqrt((pressedX - targetX) ** 2 + (pressedY - targetY) ** 2);
+        const distanceToStartCenter = Math.sqrt((pressedX - startX) ** 2 + (pressedY - startY) ** 2);
+        console.log("distanceToTarget = " + distanceToTargetCenter + " distanceStart = " + distanceToStartCenter);
 
-        if (!this.startClicked && distanceToStart < startPx / 2) {
+        console.log(distanceToStartCenter < startPx / 2)
+
+        // TODO check ob check ausreicht
+        if (!this.startClicked && distanceToStartCenter < startPx / 2) {
             // Clicked on the start
-            context.fillStyle = "rgba(0, 0, 139, 0.8)"; // Dark blue color
+            context.fillStyle = Config.targetElementSelectionStyle;
 
-
-            context.beginPath();
+            context.beginPath(); // removes previous drawing operations
             if (this.shape === "rectangle") {
                 context.fillRect(targetX - targetWidthPx / 2, targetY - targetHeightPx / 2, targetWidthPx, targetHeightPx);
             } else if (this.shape === "circle") {
@@ -152,18 +169,23 @@ class STRectsDrawing {
             this.startClicked = true;
         } else {
             // Clicked outside the start
-            const targetX = centerX + amplitudePx * Math.cos(this.targetIndex * angle);
-            const targetY = centerY + amplitudePx * Math.sin(this.targetIndex * angle);
 
+            // Coordinates of the target center point
+            const targetX = canvasCenterX + amplitudePx * Math.cos(this.targetIndex * angle);
+            const targetY = canvasCenterY + amplitudePx * Math.sin(this.targetIndex * angle);
+            
+            // Target Size of rect or circle
             const targetSize = this.shape === "rectangle"
                 ? Math.max(mm2px(this.targetWidth), mm2px(this.targetHeight))
                 : mm2px(this.targetWidth) / 2;
-            const distanceToTarget = Math.sqrt((x - targetX) ** 2 + (y - targetY) ** 2);
+            const distanceToTargetCenter = Math.sqrt((pressedX - targetX) ** 2 + (pressedY - targetY) ** 2);
 
-            if (this.startClicked && !this.isTargetClicked && distanceToTarget < targetSize) {
+            // TODO rework click check
+            if (this.startClicked && !this.isTargetClicked && distanceToTargetCenter < targetSize) {
                 // Clicked on the target
-                context.beginPath();
+/*                context.beginPath();
                 if (this.shape === "rectangle") {
+                    console.log("True?")
                     context.fillStyle = "rgba(0, 0, 139, 0.8)"; // Dark blue color for target
                     context.fillRect(
                         targetX - this.targetWidthPX / 2,
@@ -181,7 +203,7 @@ class STRectsDrawing {
                         2 * Math.PI
                     );
                     context.fill();
-                }
+                }*/
                 this.onTargetClicked();
                 this.isTargetClicked = true;
             }
