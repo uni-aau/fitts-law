@@ -11,4 +11,18 @@ class DataRecorder {
     getDataArray() {
         return this.dataArray;
     }
+
+    generateCSVDownloadLink() {
+        const csvContent = this.dataArray.map(row => row.join(',')).join('\n');
+        const blob = new Blob([csvContent], { type: 'text/csv' });
+        const url = URL.createObjectURL(blob);
+
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = 'data.csv';
+        link.textContent = 'Download CSV';
+
+        document.body.appendChild(link);
+        console.log(link);
+    }
 }

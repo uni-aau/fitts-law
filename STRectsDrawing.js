@@ -236,6 +236,8 @@ class STRectsDrawing {
 
         this.dataRecorder.addDataRow([1, 2, 3]);
         console.log(this.dataRecorder.getDataArray());
+
+        this.dataRecorder.generateCSVDownloadLink();
     }
 
     printToConsole() {
