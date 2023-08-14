@@ -6,7 +6,7 @@ class Config {
     static numBlocks = 3;
     static numRects = 4;
 
-    static trialsPerBreak = 30;
+    static trialsPerBreak = NaN;
 
     // Block Config
     // static targetHeight = [4, 8, 10, 15, 6, 8, 10, 12, 16, 20, 15, 20, 25, 4, 4, 4, 8, 8, 8, 10, 10, 10];
@@ -18,7 +18,7 @@ class Config {
     static trialDirection = ['Left', 'Up', 'Right', 'Down']; //  Direction of the required interaction
 
     static clickTolerancePx = 10 // determines the click tolerance where it would be a miss
-    static isMissSkipped = true;
+    static isMissSkipped = false;
 
 
     static elementStrokeStyle = "black";
