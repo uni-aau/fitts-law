@@ -14,11 +14,11 @@ class Config {
     // static amplitude = [33, 50];
     static targetHeight = [4]
     static targetWidth = [10]
-    static amplitude = [33, 50]
+    static amplitude = [20, 30]
     static trialDirection = ['Left', 'Up', 'Right', 'Down']; //  Direction of the required interaction
 
     static clickTolerancePx = 10 // determines the click tolerance where it would be a miss
-    static isMissSkipped = false;
+    static isMissSkipped = true;
 
 
     static elementStrokeStyle = "black";

@@ -232,11 +232,16 @@ class STRectsDrawing {
     printTrial() {
         console.log(`Information about finished trial: Amplitude: ${this.amplitude} (${mm2px(this.amplitude)}px) | Coordinates of Start center point: X=${this.startX} Y=${this.startY} | Coordinates of Target center point: X=${this.targetX} Y=${this.targetY}`);
         //TODO clicked position besser loggen (zB wenn klick auf start wird was geloggt und wenn klick auf ende der rest. bezüglich pressedX, Y targetSize usw
+        // TODO blocknumber, click anzahl
         console.log(`Information about click: Clicked position: X=${this.pressedX} Y=${this.pressedY} | Click distance to start center: ${this.distanceToStartCenter} | Click distance to target center: ${this.distanceToTargetCenter} | isMiss? ${this.isMiss} | Miss Amount: ${this.missAmount} | Click tolerancePx: ${Config.clickTolerancePx}`);
 
-        this.dataRecorder.addDataRow([1, 2, 3]);
-        console.log(this.dataRecorder.getDataArray());
+        this.dataRecorder.addDataRow([this.trialNumber, this.trialId, "none", this.shape, this.intDevice, this.startIndex, this.targetIndex, 
+        this.amplitude, this.amplitudePx, this.startSize, this.targetWidth, this.targetHeight, this.trialDirection, 
+        this.startX, this.startY, this.targetX, this.targetY, this.pressedX, this.pressedY, this.distanceToStartCenter, 
+        this.distanceToTargetCenter, this.isMiss, this.missAmount]);
 
+
+        console.log(this.dataRecorder.getDataArray());
         this.dataRecorder.generateCSVDownloadLink();
     }
 
