@@ -15,6 +15,10 @@ p {
     color: black;
 }
 
+#breakCount {
+    color: red;
+}
+
 #currentTrialText {
     position: absolute;
     top: 10px;
