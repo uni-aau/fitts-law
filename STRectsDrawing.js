@@ -38,7 +38,7 @@ class STRectsDrawing {
         this.targetX = canvasCenterX + amplitudePx * Math.cos(this.targetIndex * angle);
         this.targetY = canvasCenterY + amplitudePx * Math.sin(this.targetIndex * angle);
 
-        console.log("StartX = " + this.startX + " startY = " + this.startY + " targetX = " + this.targetX + " targetY = " + this.targetY)
+        // console.log("StartX = " + this.startX + " startY = " + this.startY + " targetX = " + this.targetX + " targetY = " + this.targetY)
     }
 
     showRects() {
@@ -155,7 +155,7 @@ class STRectsDrawing {
             this.pressedY >= this.startY - halfWidth &&
             this.pressedY <= this.startY + halfWidth
         const isCircleClickInStartElement = this.distanceToStartCenter < this.startSizePx / 2;
-        console.log(isRectangleClickInStartElement + " / " + isCircleClickInStartElement);
+        // console.log(isRectangleClickInStartElement + " / " + isCircleClickInStartElement);
 
         // TODO currently only rectangle
         if (!this.startClicked && isRectangleClickInStartElement) {
@@ -191,7 +191,7 @@ class STRectsDrawing {
                 this.pressedY >= this.targetY - targetSizeHalfHeight - Config.clickTolerancePx &&
                 this.pressedY <= this.targetY + targetSizeHalfHeight + Config.clickTolerancePx
 
-            console.log(isRectangleClickInStartElement)
+            // console.log(isRectangleClickInStartElement)
 
             // TODO only works for rectangles
             if (this.startClicked && !this.isTargetClicked) {
