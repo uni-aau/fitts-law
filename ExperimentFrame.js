@@ -7,6 +7,7 @@ class ExperimentFrame {
         this.totalBlocks = this.experiment.getNumBlocks(); // Track the total number of blocks
         // Set the number of trials per break
         this.trialsPerBreak = Config.trialsPerBreak;
+        this.dataRecorder = new DataRecorder();
     }
 
     // Show only the target and start rectangles on the screen
@@ -18,7 +19,7 @@ class ExperimentFrame {
             this.printAllTrials();
         }
 
-        const STRectDrawing = new STRectsDrawing(trial, this.trialNumber, this.experiment.rectSize, this.experiment.numRects, () => {
+        const STRectDrawing = new STRectsDrawing(trial, this.trialNumber, this.experiment.rectSize, this.experiment.numRects, this.dataRecorder, () => {
             this.trialCompleted();
         });
 

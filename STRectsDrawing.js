@@ -1,5 +1,5 @@
 class STRectsDrawing {
-    constructor(trial, trialNumber, rectSize, numRects, onTargetClicked) {
+    constructor(trial, trialNumber, rectSize, numRects, dataRecorder, onTargetClicked) {
         this.shape = trial.shape;
         this.startClicked = false;
         this.isTargetClicked = false;
@@ -17,6 +17,7 @@ class STRectsDrawing {
         this.handleCanvasClick = this.handleCanvasClick.bind(this);
         this.trialNumber = trialNumber;
         this.intDevice = trial.intDevice;
+        this.dataRecorder = dataRecorder;
 
         this.isMiss = false;
         this.missAmount = 0;
@@ -226,10 +227,15 @@ class STRectsDrawing {
         this.isTargetClicked = true;
     }
 
+    // dataArray = [];
+
     printTrial() {
         console.log(`Information about finished trial: Amplitude: ${this.amplitude} (${mm2px(this.amplitude)}px) | Coordinates of Start center point: X=${this.startX} Y=${this.startY} | Coordinates of Target center point: X=${this.targetX} Y=${this.targetY}`);
         //TODO clicked position besser loggen (zB wenn klick auf start wird was geloggt und wenn klick auf ende der rest. bezüglich pressedX, Y targetSize usw
         console.log(`Information about click: Clicked position: X=${this.pressedX} Y=${this.pressedY} | Click distance to start center: ${this.distanceToStartCenter} | Click distance to target center: ${this.distanceToTargetCenter} | isMiss? ${this.isMiss} | Miss Amount: ${this.missAmount} | Click tolerancePx: ${Config.clickTolerancePx}`);
+
+        this.dataRecorder.addDataRow([1, 2, 3]);
+        console.log(this.dataRecorder.getDataArray());
     }
 
     printToConsole() {
