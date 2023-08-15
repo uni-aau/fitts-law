@@ -143,7 +143,7 @@ class STRectsDrawing {
         console.log("PressX = " + this.pressedX + " PressY = " + this.pressedY);
 
         this.initializeVariables(canvas);
-        click++;
+        this.clicks++;
 
         const targetWidthPx = mm2px(this.targetWidth); // Width of the target rectangle
         const targetHeightPx = mm2px(this.targetHeight); // Height of the target rectangle
@@ -235,8 +235,6 @@ class STRectsDrawing {
         this.isTargetClicked = true;
     }
 
-    // dataArray = [];
-
     printTrial() {
         console.log(`Information about finished trial: Amplitude: ${this.amplitude} (${mm2px(this.amplitude)}px) | Coordinates of Start center point: X=${this.startX} Y=${this.startY} | Coordinates of Target center point: X=${this.targetX} Y=${this.targetY}`);
         
@@ -249,7 +247,7 @@ class STRectsDrawing {
             this.amplitude, mm2px(this.amplitude), this.startSize, this.targetWidth, this.targetHeight, this.trialDirection,
             this.startX, this.startY, this.targetX, this.targetY, this.startClickedPositionX, this.startClickedPositionY,
                 this.targetClickedPositionX, this.targetClickedPositionY, this.distanceToStartCenter,
-            this.distanceToTargetCenter, this.isMiss, this.missAmount]);
+            this.distanceToTargetCenter, this.isMiss, this.missAmount, this.clicks]);
     
     
             console.log(this.dataRecorder.getDataArray());
