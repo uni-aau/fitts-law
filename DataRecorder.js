@@ -8,7 +8,7 @@ class DataRecorder {
             "start_size", "target_width", "target_height", "trial_direction", "start_center_x",
             "start_center_y", "target_center_x", "target_center_y",
             "start_click_position_x", "start_click_position_y", "target_click_position_x", "target_click_position_y", "click_distance_to_start_center",
-            "click_distance_to_target_center", "isMiss", "miss_in_tolerance_amount", "clicks_amount"]);
+            "click_distance_to_target_center", "isMiss", "miss_in_tolerance_amount", "clicks_amount", "taken_time_to_click_ms", "taken_time_to_click_s"]);
     }
 
     addDataRow(data) {

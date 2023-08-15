@@ -162,6 +162,7 @@ class STRectsDrawing {
             this.startClickedPositionX = this.pressedX;
             this.startClickedPositionY = this.pressedY;
             this.distanceToStartCenter = Math.sqrt((this.pressedX - this.startX) ** 2 + (this.pressedY - this.startY) ** 2);
+            this.timeStart = performance.now();
 
             // Clicked on the start
             context.fillStyle = Config.targetElementSelectionStyle;
@@ -202,6 +203,7 @@ class STRectsDrawing {
                 this.targetClickedPositionX = this.pressedX;
                 this.targetClickedPositionY = this.pressedY;
                 this.distanceToTargetCenter = Math.sqrt((this.pressedX - this.targetX) ** 2 + (this.pressedY - this.targetY) ** 2);
+                this.timeEnd = performance.now(); // todo check ob passt
 
                 if (isRectangleClickInTargetElement) {
                     console.log("Click was inside the element. Misses = " + this.missAmount);
@@ -243,11 +245,15 @@ class STRectsDrawing {
     }
 
     saveTrialData() {
+        this.takenTimeToClickMs = this.timeEnd - this.timeStart;
+        this.takenTimeToClickS = this.timeEnd - this.timeStart;
+        // console.log(`Call took ${(this.timeEnd-this.timeStart)/1000}`);
+
         this.dataRecorder.addDataRow([this.trialNumber, this.trialId, null, this.shape, this.intDevice, this.startIndex, this.targetIndex,
             this.amplitude, mm2px(this.amplitude), this.startSize, this.targetWidth, this.targetHeight, this.trialDirection,
             this.startX, this.startY, this.targetX, this.targetY, this.startClickedPositionX, this.startClickedPositionY,
                 this.targetClickedPositionX, this.targetClickedPositionY, this.distanceToStartCenter,
-            this.distanceToTargetCenter, this.isMiss, this.missAmount, this.clicks]);
+            this.distanceToTargetCenter, this.isMiss, this.missAmount, this.clicks, this.takenTimeToClickMs, this.takenTimeToClickS]);
     
     
             console.log(this.dataRecorder.getDataArray());
