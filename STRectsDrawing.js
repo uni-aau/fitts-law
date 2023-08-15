@@ -246,8 +246,7 @@ class STRectsDrawing {
 
     saveTrialData() {
         this.takenTimeToClickMs = this.timeEnd - this.timeStart;
-        this.takenTimeToClickS = this.timeEnd - this.timeStart;
-        // console.log(`Call took ${(this.timeEnd-this.timeStart)/1000}`);
+        this.takenTimeToClickS = (this.timeEnd - this.timeStart)/1000;
 
         this.dataRecorder.addDataRow([this.trialNumber, this.trialId, null, this.shape, this.intDevice, this.startIndex, this.targetIndex,
             this.amplitude, mm2px(this.amplitude), this.startSize, this.targetWidth, this.targetHeight, this.trialDirection,
