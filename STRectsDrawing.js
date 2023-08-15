@@ -20,6 +20,7 @@ class STRectsDrawing {
         this.dataRecorder = dataRecorder;
 
         this.isMiss = false;
+        this.clicks = 0;
         this.missAmount = 0;
     }
 
@@ -142,13 +143,11 @@ class STRectsDrawing {
         console.log("PressX = " + this.pressedX + " PressY = " + this.pressedY);
 
         this.initializeVariables(canvas);
+        click++;
 
         const targetWidthPx = mm2px(this.targetWidth); // Width of the target rectangle
         const targetHeightPx = mm2px(this.targetHeight); // Height of the target rectangle
 
-        this.distanceToTargetCenter = Math.sqrt((this.pressedX - this.targetX) ** 2 + (this.pressedY - this.targetY) ** 2);
-        this.distanceToStartCenter = Math.sqrt((this.pressedX - this.startX) ** 2 + (this.pressedY - this.startY) ** 2);
-        // console.log("distanceToTarget = " + distanceToTargetCenter + " distanceStart = " + distanceToStartCenter);
 
         const halfWidth = this.startSizePx / 2;
         const isRectangleClickInStartElement = this.pressedX >= this.startX - halfWidth &&
@@ -160,6 +159,10 @@ class STRectsDrawing {
 
         // TODO currently only rectangle
         if (!this.startClicked && isRectangleClickInStartElement) {
+            this.startClickedPositionX = this.pressedX;
+            this.startClickedPositionY = this.pressedY;
+            this.distanceToStartCenter = Math.sqrt((this.pressedX - this.startX) ** 2 + (this.pressedY - this.startY) ** 2);
+
             // Clicked on the start
             context.fillStyle = Config.targetElementSelectionStyle;
             context.beginPath(); // removes previous drawing operations
@@ -196,6 +199,10 @@ class STRectsDrawing {
 
             // TODO only works for rectangles
             if (this.startClicked && !this.isTargetClicked) {
+                this.targetClickedPositionX = this.pressedX;
+                this.targetClickedPositionY = this.pressedY;
+                this.distanceToTargetCenter = Math.sqrt((this.pressedX - this.targetX) ** 2 + (this.pressedY - this.targetY) ** 2);
+
                 if (isRectangleClickInTargetElement) {
                     console.log("Click was inside the element. Misses = " + this.missAmount);
                     this.finishTrial()
@@ -216,9 +223,10 @@ class STRectsDrawing {
     }
 
     handleTargetClick() {
+        // Used to save data or print to console
         console.log("Successfully clicked on target!");
         this.printTrial();
-        // Use to save data or print to console
+        this.saveTrialData();
     }
 
     finishTrial() {
@@ -231,18 +239,21 @@ class STRectsDrawing {
 
     printTrial() {
         console.log(`Information about finished trial: Amplitude: ${this.amplitude} (${mm2px(this.amplitude)}px) | Coordinates of Start center point: X=${this.startX} Y=${this.startY} | Coordinates of Target center point: X=${this.targetX} Y=${this.targetY}`);
-        //TODO clicked position besser loggen (zB wenn klick auf start wird was geloggt und wenn klick auf ende der rest. bezüglich pressedX, Y targetSize usw
-        // TODO blocknumber, click anzahl
-        console.log(`Information about click: Clicked position: X=${this.pressedX} Y=${this.pressedY} | Click distance to start center: ${this.distanceToStartCenter} | Click distance to target center: ${this.distanceToTargetCenter} | isMiss? ${this.isMiss} | Miss Amount: ${this.missAmount} | Click tolerancePx: ${Config.clickTolerancePx}`);
+        
+        // TODO blocknumber
+        console.log(`Information about click: Clicked start position: X=${this.startClickedPositionX} Y=${this.startClickedPositionX} | Clicked target position: X=${this.targetClickedPositionX} Y=${this.targetClickedPositionY} | Click distance to start center: ${this.distanceToStartCenter} | Click distance to target center: ${this.distanceToTargetCenter} | isMiss? ${this.isMiss} | Miss Amount: ${this.missAmount} | Click tolerancePx: ${Config.clickTolerancePx}`);
+    }
 
-        this.dataRecorder.addDataRow([this.trialNumber, this.trialId, "none", this.shape, this.intDevice, this.startIndex, this.targetIndex, 
-        this.amplitude, this.amplitudePx, this.startSize, this.targetWidth, this.targetHeight, this.trialDirection, 
-        this.startX, this.startY, this.targetX, this.targetY, this.pressedX, this.pressedY, this.distanceToStartCenter, 
-        this.distanceToTargetCenter, this.isMiss, this.missAmount]);
-
-
-        console.log(this.dataRecorder.getDataArray());
-        this.dataRecorder.generateCSVDownloadLink();
+    saveTrialData() {
+        this.dataRecorder.addDataRow([this.trialNumber, this.trialId, null, this.shape, this.intDevice, this.startIndex, this.targetIndex,
+            this.amplitude, mm2px(this.amplitude), this.startSize, this.targetWidth, this.targetHeight, this.trialDirection,
+            this.startX, this.startY, this.targetX, this.targetY, this.startClickedPositionX, this.startClickedPositionY,
+                this.targetClickedPositionX, this.targetClickedPositionY, this.distanceToStartCenter,
+            this.distanceToTargetCenter, this.isMiss, this.missAmount]);
+    
+    
+            console.log(this.dataRecorder.getDataArray());
+            this.dataRecorder.generateCSVDownloadLink();
     }
 
     printToConsole() {
