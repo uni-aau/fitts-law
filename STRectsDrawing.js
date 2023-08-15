@@ -239,24 +239,24 @@ class STRectsDrawing {
 
     printTrial() {
         console.log(`Information about finished trial: Amplitude: ${this.amplitude} (${mm2px(this.amplitude)}px) | Coordinates of Start center point: X=${this.startX} Y=${this.startY} | Coordinates of Target center point: X=${this.targetX} Y=${this.targetY}`);
-        
+
         // TODO blocknumber
         console.log(`Information about click: Clicked start position: X=${this.startClickedPositionX} Y=${this.startClickedPositionX} | Clicked target position: X=${this.targetClickedPositionX} Y=${this.targetClickedPositionY} | Click distance to start center: ${this.distanceToStartCenter} | Click distance to target center: ${this.distanceToTargetCenter} | isMiss? ${this.isMiss} | Miss Amount: ${this.missAmount} | Click tolerancePx: ${Config.clickTolerancePx}`);
     }
 
     saveTrialData() {
         this.takenTimeToClickMs = this.timeEnd - this.timeStart;
-        this.takenTimeToClickS = (this.timeEnd - this.timeStart)/1000;
+        this.takenTimeToClickS = (this.timeEnd - this.timeStart) / 1000;
 
         this.dataRecorder.addDataRow([this.trialNumber, this.trialId, null, this.shape, this.intDevice, this.startIndex, this.targetIndex,
             this.amplitude, mm2px(this.amplitude), this.startSize, this.targetWidth, this.targetHeight, this.trialDirection,
             this.startX, this.startY, this.targetX, this.targetY, this.startClickedPositionX, this.startClickedPositionY,
-                this.targetClickedPositionX, this.targetClickedPositionY, this.distanceToStartCenter,
+            this.targetClickedPositionX, this.targetClickedPositionY, this.distanceToStartCenter,
             this.distanceToTargetCenter, this.isMiss, this.missAmount, this.clicks, this.takenTimeToClickMs, this.takenTimeToClickS]);
-    
-    
-            console.log(this.dataRecorder.getDataArray());
-            this.dataRecorder.generateCSVDownloadLink();
+
+
+        console.log(this.dataRecorder.getDataArray());
+        this.dataRecorder.generateCSVDownloadLink();
     }
 
     printToConsole() {
