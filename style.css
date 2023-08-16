@@ -88,15 +88,31 @@ input[type=text] {
 }
 
 .modal-content {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    display: flex; /* Use flexbox to arrange the buttons side by side */
+    flex-direction: row; /* Arrange items horizontally */
+    justify-content: center; /* Center the buttons horizontally */
+    align-items: center; /* Center the buttons vertically */
+    top:50%;
     background-color: #1adf24;
     padding: 40px;
     text-align: center;
 }
+/*
 
+.modal-content button {
+    font-size: 20px;
+    font-weight: bold;
+    margin-top: 10px;
+    !*width: 220px;*!
+    !*height: 50px;*!
+    !*background-color: #1adf24;*!
+    !*color: #000000;*!
+    border-radius: 10px;
+    transition-duration: 0.4s;
+    margin-right: 10px; !* Add margin between the buttons *!
+}
+
+*/
 
 button {
     margin-top: 10px;

@@ -2,7 +2,6 @@ class DataRecorder {
     constructor() {
         this.dataArray = [];
 
-        // TODO click time
         this.dataArray.push(["trial_number", "trial_id", "user_id", "shape", "int_device",
             "start_index", "target_index", "amplitude", "amplitude_px",
             "start_size", "target_width", "target_height", "trial_direction", "start_center_x",
@@ -19,7 +18,7 @@ class DataRecorder {
         return this.dataArray;
     }
 
-    generateCSVDownloadLink() {
+    generateCSVDownloadLink(isDownload) {
         const csvContent = this.dataArray.map(row => row.join(',')).join('\n');
         const blob = new Blob([csvContent], { type: 'text/csv' });
         const url = URL.createObjectURL(blob);
@@ -29,6 +28,17 @@ class DataRecorder {
         link.download = 'data.csv';
         link.textContent = 'Download CSV';
 
+        this.printDownloadableCsvFileToConsole(link)
+        if(isDownload) this.downloadGeneratedCsvFile(link);
+    }
+
+    downloadGeneratedCsvFile(link) {
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    }
+
+    printDownloadableCsvFileToConsole(link) {
         document.body.appendChild(link);
         console.log(link);
     }

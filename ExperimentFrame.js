@@ -66,6 +66,26 @@ class ExperimentFrame {
         });
     }
 
+    // TODO update comments
+    // Function to display the break window
+    displayFinishWindow() {
+        // Get the break window modal
+        const finishWindow = document.getElementById('finishWindow');
+        // Show the modal
+        finishWindow.style.display = 'block';
+
+        // Disable the rest of the page interaction while the break window is visible
+        document.body.style.pointerEvents = 'none';
+
+        const downloadDataButton = document.getElementById('downloadData');
+
+        // Event listener for the continue button
+        downloadDataButton.addEventListener('click', () => {
+            this.dataRecorder.generateCSVDownloadLink(true);
+            location.reload();
+        });
+    }
+
     trialCompleted() {
         const currentBlock = this.experiment.getBlock(this.blockNumber);
 
@@ -121,7 +141,9 @@ class ExperimentFrame {
 
         if (isLastBlock) {
             console.log("Successfully finished experiment!")
-            showStartWindow();
+            // showStartWindow();
+            this.displayFinishWindow()
+
         }
     }
 
