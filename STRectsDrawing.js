@@ -1,5 +1,5 @@
 class STRectsDrawing {
-    constructor(trial, trialNumber, rectSize, numRects, dataRecorder, onTargetClicked) {
+    constructor(trial, trialNumber, rectSize, numRects, dataRecorder, username, onTargetClicked) {
         this.shape = trial.shape;
         this.startClicked = false;
         this.isTargetClicked = false;
@@ -18,6 +18,7 @@ class STRectsDrawing {
         this.trialNumber = trialNumber;
         this.intDevice = trial.intDevice;
         this.dataRecorder = dataRecorder;
+        this.username = username;
 
         this.isMiss = false;
         this.clicks = 0;
@@ -248,7 +249,7 @@ class STRectsDrawing {
         this.takenTimeToClickMs = this.timeEnd - this.timeStart;
         this.takenTimeToClickS = (this.timeEnd - this.timeStart) / 1000;
 
-        this.dataRecorder.addDataRow([this.trialNumber, this.trialId, null, this.shape, this.intDevice, this.startIndex, this.targetIndex,
+        this.dataRecorder.addDataRow([this.trialNumber, this.trialId, this.username, this.shape, this.intDevice, this.startIndex, this.targetIndex,
             this.amplitude, mm2px(this.amplitude), this.startSize, this.targetWidth, this.targetHeight, this.trialDirection,
             this.startX, this.startY, this.targetX, this.targetY, this.startClickedPositionX, this.startClickedPositionY,
             this.targetClickedPositionX, this.targetClickedPositionY, this.distanceToStartCenter,
@@ -262,7 +263,9 @@ class STRectsDrawing {
     printToConsole() {
         console.log(
             "Information from Drawing: " +
-            "Trial Number: " +
+            "Username: " +
+            this.username +
+            " | Trial Number: " +
             this.trialNumber +
             " | Trial ID: " +
             this.trialId +

@@ -10,8 +10,18 @@ class ExperimentFrame {
         this.dataRecorder = new DataRecorder();
     }
 
+    initializeExperiment() {
+        this.username = document.getElementById("name_input").value;
+        if(this.username === "") {
+            console.log("No username inserted - Using general username");
+            this.username = Config.generalUsername;
+        }
+        this.showTrial();
+    }
+
     // Show only the target and start rectangles on the screen
     showTrial() {
+
         const trial = this.experiment.getBlock(this.blockNumber).getTrial(this.trialNumber);
         if (!this.printedFirstBlock) {
 
@@ -19,7 +29,7 @@ class ExperimentFrame {
             this.printAllTrials();
         }
 
-        const STRectDrawing = new STRectsDrawing(trial, this.trialNumber, this.experiment.rectSize, this.experiment.numRects, this.dataRecorder, () => {
+        const STRectDrawing = new STRectsDrawing(trial, this.trialNumber, this.experiment.rectSize, this.experiment.numRects, this.dataRecorder, this.username, () => {
             this.trialCompleted();
         });
 

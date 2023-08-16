@@ -37,7 +37,10 @@
 <!-- Start Window Modal -->
 <div class="modal" id="startWindow">
     <div class="modal-content">
-        <p>Press start once you are ready</p>
+        <p>Press start once you are ready<br>
+            <label for="name_input">Your name:</label>
+            <input id="name_input" type="text"
+                   placeholder="Enter your name..."></p><br>
         <button id="startButton" style="margin-right:80px; font-size: 20px; font-weight: bold; margin-top:10px; width:220px; height:50px; background-color:#1adf24; color: #000000; 
         border-radius:10px; transition-duration: 0.4s;">Start
         </button>
@@ -89,7 +92,7 @@
                 }*/
 
         // Start the experiment
-        experimentFrame.showTrial();
+        experimentFrame.initializeExperiment();
     }
 
     // Event listener for the start button

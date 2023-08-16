@@ -21,6 +21,7 @@ class Config {
     static isMissSkipped = true;
 
 
+    static generalUsername = "none";
     static elementStrokeStyle = "black";
     static startElementFillStyle = "rgba(144, 238, 144, 0.8)";
     static targetElementFillStyle = "rgba(255, 102, 102, 0.8)";
