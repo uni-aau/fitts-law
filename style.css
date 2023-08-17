@@ -88,11 +88,10 @@ input[type=text] {
 }
 
 .modal-content {
-    display: flex; /* Use flexbox to arrange the buttons side by side */
-    flex-direction: row; /* Arrange items horizontally */
-    justify-content: center; /* Center the buttons horizontally */
-    align-items: center; /* Center the buttons vertically */
-    top:50%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     background-color: #1adf24;
     padding: 40px;
     text-align: center;
