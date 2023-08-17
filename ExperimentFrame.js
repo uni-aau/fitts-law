@@ -21,10 +21,8 @@ class ExperimentFrame {
 
     // Show only the target and start rectangles on the screen
     showTrial() {
-
         const trial = this.experiment.getBlock(this.blockNumber).getTrial(this.trialNumber);
         if (!this.printedFirstBlock) {
-
             this.printedFirstBlock = true;
             this.printAllTrials();
         }
@@ -45,41 +43,31 @@ class ExperimentFrame {
 
     // Function to display the break window
     displayBreakWindow() {
-        // Get the break window modal
-        const breakWindow = document.getElementById('breakWindow');
-        // Show the modal
-        breakWindow.style.display = 'block';
+        const breakWindow = document.getElementById('breakWindow'); // Get the break window modal
+        breakWindow.style.display = 'block'; // Show the modal
 
         // Disable the rest of the page interaction while the break window is visible
         document.body.style.pointerEvents = 'none';
 
-        // Get the continue button
         const continueButton = document.getElementById('continueButton');
 
         // Event listener for the continue button
         continueButton.addEventListener('click', () => {
-            // Hide the break window modal
-            breakWindow.style.display = 'none';
-
-            // Enable the page interaction again
-            document.body.style.pointerEvents = 'auto';
+            breakWindow.style.display = 'none'; // Hide the break window modal
+            document.body.style.pointerEvents = 'auto'; // Enable the page interaction again
         });
     }
 
-    // TODO update comments
-    // Function to display the break window
+    // Function to display the finish window
     displayFinishWindow() {
-        // Get the break window modal
         const finishWindow = document.getElementById('finishWindow');
-        // Show the modal
-        finishWindow.style.display = 'block';
-
+        finishWindow.style.display = 'block'; //show modal
         // Disable the rest of the page interaction while the break window is visible
         document.body.style.pointerEvents = 'none';
 
         const downloadDataButton = document.getElementById('downloadData');
 
-        // Event listener for the continue button
+        // Event listener for the finish button
         downloadDataButton.addEventListener('click', () => {
             this.dataRecorder.generateCSVDownloadLink(true);
             location.reload();
@@ -127,7 +115,6 @@ class ExperimentFrame {
         const totalTrialIndexPerBlockEl = document.getElementById("totalTrialCountPerBlock");
         totalTrialIndexPerBlockEl.textContent = this.getTotalTrialsPerBlock();
 
-
         const totalBlockIndexEl = document.getElementById("totalBlockCount");
         totalBlockIndexEl.textContent = Config.numBlocks;
 
@@ -141,14 +128,9 @@ class ExperimentFrame {
 
         if (isLastBlock) {
             console.log("Successfully finished experiment!")
-            // showStartWindow();
             this.displayFinishWindow()
 
         }
-    }
-
-    getTotalTrialsPerBlock() {
-        return this.getTotalTrials() / Config.numBlocks;
     }
 
     getTotalTrials() {
@@ -158,6 +140,10 @@ class ExperimentFrame {
             totalTrials += block.trialsNum;
         }
         return totalTrials;
+    }
+
+    getTotalTrialsPerBlock() {
+        return this.getTotalTrials() / Config.numBlocks;
     }
 
     getRemainingTrials() {

@@ -49,7 +49,5 @@ class Experiment {
         this.usedIndices.push(randomIndex);
         return randomIndex;
     }
-
-
 }
 
