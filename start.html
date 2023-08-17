@@ -12,9 +12,12 @@
 </head>
 <body>
 
-<div id="currentTrialText">Trial No.: <span id="currentTrialNumber">0</span></div>
-<div id="currentBlocksText">Block No.:<span id="currentBlockNumber">0</span></div>
-<div id="totalTrialsText">Total Trials: <span id="totalTrialCountPerBlock">0</span> / <span id="totalTrialCount">0</span> (max)</div>
+<button id="download-button">Download Data</button>
+<div id="currentTrialText">Trial No.: <span id="currentTrialNumber">0</span> / <span id="totalCurrentTrialNumber">0</span> (total)</div>
+<div id="currentBlocksText">Block No.: <span id="currentBlockNumber">0</span></div>
+<div id="totalTrialsText">Total Trials: <span id="totalTrialCountPerBlock">0</span> / <span
+        id="totalTrialCount">0</span> (max)
+</div>
 <div id="totalBlocksText">Total Blocks: <span id="totalBlockCount">0</span></div>
 <div id="trialsToBreakText">Next Break in <span id="breakCount">0</span> trials</div>
 
@@ -31,10 +34,23 @@
     </div>
 </div>
 
+<!-- Break Window Modal -->
+<div class="modal" id="finishWindow">
+    <div class="modal-content">
+        <p>Congratulations! You finished all trials :)</p>
+        <button autofocus id="downloadData" style="margin-right:80px; font-size: 20px; font-weight: bold; margin-top:10px; width:300px; height:80px; background-color:#1adf24; color: #000000;
+        border-radius:10px; transition-duration: 0.4s;">Download Trial Data and Restart
+        </button>
+    </div>
+</div>
+
 <!-- Start Window Modal -->
 <div class="modal" id="startWindow">
     <div class="modal-content">
-        <p>Press start once you are ready</p>
+        <p>Press start once you are ready<br>
+            <label for="name_input">Your name:</label>
+            <input id="name_input" type="text"
+                   placeholder="Enter your name..."></p><br>
         <button id="startButton" style="margin-right:80px; font-size: 20px; font-weight: bold; margin-top:10px; width:220px; height:50px; background-color:#1adf24; color: #000000; 
         border-radius:10px; transition-duration: 0.4s;">Start
         </button>
@@ -49,6 +65,7 @@
 <script src="STRectsDrawing.js"></script>
 <script src="ExperimentFrame.js"></script>
 <script src="Support.js"></script>
+<script src="DataRecorder.js"></script>
 <script>
     //experiment.printBlock();
     const experimentFrame = new ExperimentFrame();
@@ -73,19 +90,19 @@
         document.body.style.pointerEvents = 'auto';
 
         // Request full-screen mode for the document body
-/*        const docBody = document.documentElement;
-        if (docBody.requestFullscreen) {
-            docBody.requestFullscreen();
-        } else if (docBody.mozRequestFullScreen) {
-            docBody.mozRequestFullScreen();
-        } else if (docBody.webkitRequestFullscreen) {
-            docBody.webkitRequestFullscreen();
-        } else if (docBody.msRequestFullscreen) {
-            docBody.msRequestFullscreen();
-        }*/
+        /*        const docBody = document.documentElement;
+                if (docBody.requestFullscreen) {
+                    docBody.requestFullscreen();
+                } else if (docBody.mozRequestFullScreen) {
+                    docBody.mozRequestFullScreen();
+                } else if (docBody.webkitRequestFullscreen) {
+                    docBody.webkitRequestFullscreen();
+                } else if (docBody.msRequestFullscreen) {
+                    docBody.msRequestFullscreen();
+                }*/
 
         // Start the experiment
-        experimentFrame.showTrial();
+        experimentFrame.initializeExperiment();
     }
 
     // Event listener for the start button

@@ -15,6 +15,16 @@ p {
     color: black;
 }
 
+input[type=text] {
+    border: none;
+    border-radius: 10px;
+    font-size: 25px;
+}
+
+#breakCount {
+    color: red;
+}
+
 #currentTrialText {
     position: absolute;
     top: 10px;
@@ -38,16 +48,17 @@ p {
 #totalTrialsText {
     position: absolute;
     top: 30px;
-    right: 250px;
+    right: 270px;
     z-index: 999;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     font-weight: bold;
     font-size: 0.95em;
 }
+
 #totalBlocksText {
     position: absolute;
     top: 30px;
-    right: 75px;
+    right: 78px;
     z-index: 999;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     font-weight: bold;
@@ -85,7 +96,6 @@ p {
     padding: 40px;
     text-align: center;
 }
-
 
 button {
     margin-top: 10px;

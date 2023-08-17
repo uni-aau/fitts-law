@@ -4,7 +4,7 @@ class Experiment {
         this.shape = Config.shape; // rectangle or circle
         this.intDevice = Config.intDevice
         this.startSize = Config.startSize;
-        this.rectSize = this.startSize // set the size of the other reectangles
+        this.rectSize = this.startSize // set the size of the other rectangles
         this.blocks = [];
         this.numBlocks = Config.numBlocks;
         this.numRects = Config.numRects;
@@ -49,7 +49,5 @@ class Experiment {
         this.usedIndices.push(randomIndex);
         return randomIndex;
     }
-
-
 }
 
