@@ -3,6 +3,7 @@ class ExperimentFrame {
     constructor() {
         this.blockNumber = 1;
         this.trialNumber = 1;
+        this.totalCurrentTrialNumber = 1;
         this.experiment = new Experiment();
         this.totalBlocks = this.experiment.getNumBlocks(); // Track the total number of blocks
         // Set the number of trials per break
@@ -93,6 +94,7 @@ class ExperimentFrame {
 
     getNextTrial() {
         this.trialNumber++;
+        this.totalCurrentTrialNumber++;
         this.showTrial();
     }
 
@@ -105,6 +107,9 @@ class ExperimentFrame {
     showIndexes() {
         const currentTrialIndexEl = document.getElementById("currentTrialNumber");
         currentTrialIndexEl.textContent = this.trialNumber;
+
+        const totalCurrentTrialIndexEl = document.getElementById("totalCurrentTrialNumber");
+        totalCurrentTrialIndexEl.textContent = this.totalCurrentTrialNumber;
 
         const currentBlockIndexEl = document.getElementById("currentBlockNumber");
         currentBlockIndexEl.textContent = this.blockNumber;
