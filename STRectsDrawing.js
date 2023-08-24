@@ -165,9 +165,6 @@ class STRectsDrawing {
         if(this.shape === "rectangle") isInStartRange = isRectangleClickInStartElement;
         else if(this.shape === "circle") isInStartRange = isCircleClickInStartElement;
 
-        console.log(isInStartRange + " / " + isRectangleClickInStartElement + " / " + isCircleClickInStartElement)
-
-        // TODO currently only rectangle
         if (!this.startClicked && isInStartRange) {
             this.startClickedPositionX = this.pressedX;
             this.startClickedPositionY = this.pressedY;
@@ -186,11 +183,9 @@ class STRectsDrawing {
             }
             this.startClicked = true;
         } else { // Clicked outside the start
-            this.distanceToTargetCenter = Math.sqrt((this.pressedX - this.targetX) ** 2 + (this.pressedY - this.targetY) ** 2);
-
+            // Determines click in target rectangle
             const targetSizeHalfWidthPx = targetWidthPx / 2;
             const targetSizeHalfHeightPx = targetHeightPx / 2;
-
             const isRectangleClickInTargetElement = this.pressedX >= this.targetX - targetSizeHalfWidthPx &&
                 this.pressedX <= this.targetX + targetSizeHalfWidthPx &&
                 this.pressedY >= this.targetY - targetSizeHalfHeightPx &&
@@ -200,21 +195,31 @@ class STRectsDrawing {
                 this.pressedY >= this.targetY - targetSizeHalfHeightPx - Config.clickTolerancePx &&
                 this.pressedY <= this.targetY + targetSizeHalfHeightPx + Config.clickTolerancePx
 
+            // Determines click in target circle
+            this.distanceToTargetCenter = Math.sqrt((this.pressedX - this.targetX) ** 2 + (this.pressedY - this.targetY) ** 2);
             const targetSizePx = mm2px(this.targetWidth); // todo vereinigen mit start
             const isCircleClickInTargetElement = this.distanceToTargetCenter < targetSizePx / 2;
             const isCircleClickInTargetElementWithTolerance = this.distanceToTargetCenter < (targetSizePx + Config.clickTolerancePx) / 2;
             console.log("Click in circle? " + isCircleClickInTargetElement + " / " + isCircleClickInTargetElementWithTolerance+" / " + isRectangleClickInTargetElement)
 
-            // TODO only works for rectangles
             if (this.startClicked && !this.isTargetClicked) {
                 this.targetClickedPositionX = this.pressedX;
                 this.targetClickedPositionY = this.pressedY;
                 this.timeEnd = performance.now(); // todo check ob passt
 
-                if (isRectangleClickInTargetElement) {
+                // Determines the click radius for circle or rectangle (need to be recoded when more shapes are added)
+                const isInTargetElement = this.shape === "rectangle"
+                    ? isRectangleClickInTargetElement
+                    : isCircleClickInTargetElement;
+
+                const isInTargetElementWithTolerance = this.shape === "rectangle"
+                    ? isRectangleClickInTargetElementWithTolerance
+                    : isCircleClickInTargetElementWithTolerance;
+
+                if (isInTargetElement) {
                     console.log("Click was inside the element. Misses = " + this.missAmount);
                     this.finishTrial()
-                } else if (isRectangleClickInTargetElementWithTolerance) {
+                } else if (isInTargetElementWithTolerance) {
                     console.log("Click was in " + Config.clickTolerancePx + "px click tolerance")
                     this.isMiss = true;
                     this.missAmount++;
@@ -250,6 +255,7 @@ class STRectsDrawing {
         console.log(`Information about click: Clicked start position: X=${this.startClickedPositionX} Y=${this.startClickedPositionX} | Clicked target position: X=${this.targetClickedPositionX} Y=${this.targetClickedPositionY} | Click distance to start center: ${this.distanceToStartCenter} | Click distance to target center: ${this.distanceToTargetCenter} | isMiss? ${this.isMiss} | Miss Amount: ${this.missAmount} | Click tolerancePx: ${Config.clickTolerancePx}`);
     }
 
+    // TODO check size bei circle
     saveTrialData() {
         this.takenTimeToClickMs = this.timeEnd - this.timeStart;
         this.takenTimeToClickS = (this.timeEnd - this.timeStart) / 1000;
@@ -259,7 +265,6 @@ class STRectsDrawing {
             this.startX, this.startY, this.targetX, this.targetY, this.startClickedPositionX, this.startClickedPositionY,
             this.targetClickedPositionX, this.targetClickedPositionY, this.distanceToStartCenter,
             this.distanceToTargetCenter, this.isMiss, this.missAmount, this.clicks, this.takenTimeToClickMs, this.takenTimeToClickS]);
-
 
         console.log(this.dataRecorder.getDataArray());
         this.dataRecorder.generateCSVDownloadLink(false);
