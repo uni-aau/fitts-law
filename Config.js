@@ -2,7 +2,7 @@ class Config {
     static experimentType = "STS";
     static shape = "circle"; // rectangle or circle
     static intDevice = "Mouse"; // Mouse, Touch, Laser Pointer
-    static startSize = 10; // Size of the start block (todo random?)
+    static startSize = 10; // Size of the start block (always AxA)
     static numBlocks = 3;
     static numRects = 4;
 
