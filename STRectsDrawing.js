@@ -258,7 +258,6 @@ class STRectsDrawing {
     handleMouseDown(event) {
         this.touchDownPositionX = event.clientX;
         this.touchDownPositionY = event.clientY;
-        console.log("handle - " + this.touchDownPositionX);
     }
 
     handleMouseUp(event) {
@@ -301,6 +300,13 @@ class STRectsDrawing {
         console.log(this.dataRecorder.getDataArray());
         this.dataRecorder.generateCSVDownloadLink(false);
     }
+
+    // TODO
+    /*
+    - Add new variables to csv data
+    - Remove old general click position (touchDown / pressedX) from csv
+    - Fully remove pressedX and replace it witH touchDown method
+    */
 
     printToConsole() {
         console.log(
