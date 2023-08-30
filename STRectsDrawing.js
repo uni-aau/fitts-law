@@ -20,6 +20,13 @@ class STRectsDrawing {
         this.dataRecorder = dataRecorder;
         this.username = username;
 
+        this.touchDownPositionX = 0;
+        this.touchDownPositionY = 0;
+        this.touchUpPositionX = 0;
+        this.touchUpPositionY = 0;
+        this.handleMouseDown = this.handleMouseDown.bind(this);
+        this.handleMouseUp = this.handleMouseUp.bind(this);
+
         this.isMiss = false;
         this.clicks = 0;
         this.missAmount = 0;
@@ -40,8 +47,6 @@ class STRectsDrawing {
         // Coordinates of the target center point
         this.targetX = canvasCenterX + amplitudePx * Math.cos(this.targetIndex * angle);
         this.targetY = canvasCenterY + amplitudePx * Math.sin(this.targetIndex * angle);
-
-        // console.log("StartX = " + this.startX + " startY = " + this.startY + " targetX = " + this.targetX + " targetY = " + this.targetY)
     }
 
     showRects() {
@@ -67,7 +72,8 @@ class STRectsDrawing {
         const rectX = this.startX - this.startSizePx / 2;
         const rectY = this.startY - this.startSizePx / 2;
 
-        // console.log("Angle = " + angle + " startX = " + startX + " startY = " + startY + " rectX = " + rectX + " rectY =" + rectY);
+        document.addEventListener("mousedown", this.handleMouseDown);
+        document.addEventListener("mouseup", this.handleMouseUp);
 
         if (this.shape === "rectangle") {
             context.strokeRect(
@@ -168,6 +174,14 @@ class STRectsDrawing {
         if (!this.startClicked && isInStartRange) {
             this.startClickedPositionX = this.pressedX;
             this.startClickedPositionY = this.pressedY;
+            // Todo rename names
+            // Determines the start touchDown and touchUp position
+            this.startClickedPostitionXTouchDown = this.touchDownPositionX;
+            this.startClickedPositionYTouchDown = this.touchDownPositionY;
+            this.startClickedPositionXTouchUp = this.touchUpPositionX;
+            this.startClickedPositionYTouchUp = this.touchUpPositionY;
+
+
             this.timeStart = performance.now();
 
             // Clicked on the start
@@ -205,7 +219,13 @@ class STRectsDrawing {
             if (this.startClicked && !this.isTargetClicked) {
                 this.targetClickedPositionX = this.pressedX;
                 this.targetClickedPositionY = this.pressedY;
-                this.timeEnd = performance.now(); // todo check ob passt
+                this.timeEnd = performance.now(); // Determines the time between start and target click
+
+                // Determines the target touchDown and touchUp position
+                this.targetClickedPostitionXTouchDown = this.touchDownPositionX;
+                this.targetClickedPositionYTouchDown = this.touchDownPositionY;
+                this.targetClickedPositionXTouchUp = this.touchUpPositionX;
+                this.targetClickedPositionYTouchUp = this.touchUpPositionY;
 
                 // Determines the click radius for circle or rectangle (need to be recoded when more shapes are added)
                 const isInTargetElement = this.shape === "rectangle"
@@ -235,6 +255,17 @@ class STRectsDrawing {
         }
     }
 
+    handleMouseDown(event) {
+        this.touchDownPositionX = event.clientX;
+        this.touchDownPositionY = event.clientY;
+        console.log("handle - " + this.touchDownPositionX);
+    }
+
+    handleMouseUp(event) {
+        this.touchUpPositionX = event.clientX;
+        this.touchUpPositionY = event.clientY;
+    }
+
     handleTargetClick() {
         // Used to save data or print to console
         console.log("Successfully clicked on target!");
@@ -253,6 +284,7 @@ class STRectsDrawing {
 
         // TODO blocknumber
         console.log(`Information about click: Clicked start position: X=${this.startClickedPositionX} Y=${this.startClickedPositionX} | Clicked target position: X=${this.targetClickedPositionX} Y=${this.targetClickedPositionY} | Click distance to start center: ${this.distanceToStartCenter} | Click distance to target center: ${this.distanceToTargetCenter} | isMiss? ${this.isMiss} | Miss Amount: ${this.missAmount} | Click tolerancePx: ${Config.clickTolerancePx}`);
+        console.log(`Information about click postion: StartTouchDown: X=${this.startClickedPostitionXTouchDown} Y=${this.startClickedPositionYTouchDown}, StartTouchUp: X=${this.startClickedPositionXTouchUp} Y=${this.startClickedPositionYTouchUp}, TargetTouchDown: X=${this.targetClickedPostitionXTouchDown} Y=${this.targetClickedPositionYTouchDown}, TargetTouchUp: X=${this.targetClickedPositionXTouchUp} Y=${this.targetClickedPositionYTouchUp}`);
     }
 
     // TODO check size bei circle
