@@ -27,9 +27,10 @@ class STRectsDrawing {
         this.handleMouseDown = this.handleMouseDown.bind(this);
         this.handleMouseUp = this.handleMouseUp.bind(this);
 
-        this.isMiss = false;
-        this.clicksAmount = 0;
-        this.missInToleranceAmount = 0;
+        this.isMiss = false; // determines if the trial had a miss
+        this.clicksAmount = 0; // determines the amount of clicks until the trial was finished
+        this.missAmount = 0; // determines the overall miss amount until the target rectangle was clicked (also in tolerance incremented)
+        this.missInToleranceAmount = 0; // determines the misses that are in the tolerance range (relevant if skip at miss is disabled)
     }
 
     initializeVariables(canvas) {
@@ -232,11 +233,12 @@ class STRectsDrawing {
                     : isCircleClickInTargetElementWithTolerance;
 
                 if (isInTargetElement) {
-                    console.log("Click was inside the element. Misses = " + this.missInToleranceAmount);
+                    console.log("Click was inside the element. Misses in tolerance = " + this.missInToleranceAmount + " / Overall misses = " + this.missAmount);
                     this.finishTrial()
                 } else if (isInTargetElementWithTolerance) {
                     console.log("Click was in " + Config.clickTolerancePx + "px click tolerance")
                     this.isMiss = true;
+                    this.missAmount++;
                     this.missInToleranceAmount++;
                     if (Config.isMissSkipped) {
                         this.finishTrial();
@@ -244,6 +246,7 @@ class STRectsDrawing {
                         // TODO message to do again?
                     }
                 } else {
+                    this.missAmount++;
                     console.log("Click was not in tolerance")
                 }
             }
@@ -276,7 +279,7 @@ class STRectsDrawing {
     printTrial() {
         console.log(`Information about finished trial: Amplitude: ${this.amplitude} (${mm2px(this.amplitude)}px) | Coordinates of Start center point: X=${this.startCenterX} Y=${this.startCenterY} | Coordinates of Target center point: X=${this.targetX} Y=${this.targetY}`);
         console.log(`Information about click position: StartTouchDown: X=${this.startClickedPostitionXTouchDown} Y=${this.startClickedPositionYTouchDown}, StartTouchUp: X=${this.startClickedPositionXTouchUp} Y=${this.startClickedPositionYTouchUp}, TargetTouchDown: X=${this.targetClickedPostitionXTouchDown} Y=${this.targetClickedPositionYTouchDown}, TargetTouchUp: X=${this.targetClickedPositionXTouchUp} Y=${this.targetClickedPositionYTouchUp}`);
-        console.log(`Information about click: Click distance to start center: ${this.clickDistanceToStartCenter} | Click distance to target center: ${this.distanceToTargetCenter} | isMiss? ${this.isMiss} | Miss Amount: ${this.missInToleranceAmount} | Click tolerancePx: ${Config.clickTolerancePx}`);
+        console.log(`Information about click: Click distance to start center: ${this.clickDistanceToStartCenter} | Click distance to target center: ${this.distanceToTargetCenter} | isMiss? ${this.isMiss} | Miss Amount: ${this.missAmount} | Miss in tolerance: ${this.missInToleranceAmount} | Click tolerancePx: ${Config.clickTolerancePx}`);
     }
 
     // TODO check size bei circle
