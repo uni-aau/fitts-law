@@ -167,8 +167,8 @@ class STRectsDrawing {
 
         // Determines if the click was in the specific start shape
         let isInStartRange = false;
-        if(this.shape === "rectangle") isInStartRange = isRectangleClickInStartElement;
-        else if(this.shape === "circle") isInStartRange = isCircleClickInStartElement;
+        if (this.shape === "rectangle") isInStartRange = isRectangleClickInStartElement;
+        else if (this.shape === "circle") isInStartRange = isCircleClickInStartElement;
 
         if (!this.startClicked && isInStartRange) {
             // TODO USELESS
@@ -214,7 +214,7 @@ class STRectsDrawing {
             const targetSizePx = mm2px(this.targetWidth); // todo vereinigen mit start
             const isCircleClickInTargetElement = this.distanceToTargetCenter < targetSizePx / 2;
             const isCircleClickInTargetElementWithTolerance = this.distanceToTargetCenter < (targetSizePx + Config.clickTolerancePx) / 2;
-            console.log("Click in circle? " + isCircleClickInTargetElement + " / " + isCircleClickInTargetElementWithTolerance+" / " + isRectangleClickInTargetElement)
+            console.log("Click in circle? " + isCircleClickInTargetElement + " / " + isCircleClickInTargetElementWithTolerance + " / " + isRectangleClickInTargetElement)
 
             if (this.startClicked && !this.isTargetClicked) {
                 this.targetClickedPositionX = this.pressedX;
