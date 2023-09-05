@@ -138,7 +138,6 @@ class STRectsDrawing {
         return clone;
     }
 
-
     handleCanvasClick(event) {
         const canvas = document.getElementById("trialCanvas");
         const context = canvas.getContext("2d");
@@ -172,6 +171,7 @@ class STRectsDrawing {
         else if(this.shape === "circle") isInStartRange = isCircleClickInStartElement;
 
         if (!this.startClicked && isInStartRange) {
+            // TODO USELESS
             this.startClickedPositionX = this.pressedX;
             this.startClickedPositionY = this.pressedY;
             // Todo rename names
@@ -280,10 +280,8 @@ class STRectsDrawing {
 
     printTrial() {
         console.log(`Information about finished trial: Amplitude: ${this.amplitude} (${mm2px(this.amplitude)}px) | Coordinates of Start center point: X=${this.startX} Y=${this.startY} | Coordinates of Target center point: X=${this.targetX} Y=${this.targetY}`);
-
-        // TODO blocknumber
-        console.log(`Information about click: Clicked start position: X=${this.startClickedPositionX} Y=${this.startClickedPositionX} | Clicked target position: X=${this.targetClickedPositionX} Y=${this.targetClickedPositionY} | Click distance to start center: ${this.distanceToStartCenter} | Click distance to target center: ${this.distanceToTargetCenter} | isMiss? ${this.isMiss} | Miss Amount: ${this.missAmount} | Click tolerancePx: ${Config.clickTolerancePx}`);
-        console.log(`Information about click postion: StartTouchDown: X=${this.startClickedPostitionXTouchDown} Y=${this.startClickedPositionYTouchDown}, StartTouchUp: X=${this.startClickedPositionXTouchUp} Y=${this.startClickedPositionYTouchUp}, TargetTouchDown: X=${this.targetClickedPostitionXTouchDown} Y=${this.targetClickedPositionYTouchDown}, TargetTouchUp: X=${this.targetClickedPositionXTouchUp} Y=${this.targetClickedPositionYTouchUp}`);
+        console.log(`Information about click position: StartTouchDown: X=${this.startClickedPostitionXTouchDown} Y=${this.startClickedPositionYTouchDown}, StartTouchUp: X=${this.startClickedPositionXTouchUp} Y=${this.startClickedPositionYTouchUp}, TargetTouchDown: X=${this.targetClickedPostitionXTouchDown} Y=${this.targetClickedPositionYTouchDown}, TargetTouchUp: X=${this.targetClickedPositionXTouchUp} Y=${this.targetClickedPositionYTouchUp}`);
+        console.log(`Information about click: Click distance to start center: ${this.distanceToStartCenter} | Click distance to target center: ${this.distanceToTargetCenter} | isMiss? ${this.isMiss} | Miss Amount: ${this.missAmount} | Click tolerancePx: ${Config.clickTolerancePx}`);
     }
 
     // TODO check size bei circle
@@ -292,10 +290,13 @@ class STRectsDrawing {
         this.takenTimeToClickS = (this.timeEnd - this.timeStart) / 1000;
 
         this.dataRecorder.addDataRow([this.trialNumber, this.trialId, this.username, this.shape, this.intDevice, this.startIndex, this.targetIndex,
-            this.amplitude, mm2px(this.amplitude), this.startSize, this.targetWidth, this.targetHeight, this.trialDirection,
-            this.startX, this.startY, this.targetX, this.targetY, this.startClickedPositionX, this.startClickedPositionY,
-            this.targetClickedPositionX, this.targetClickedPositionY, this.distanceToStartCenter,
+            this.amplitude, this.startSize, this.targetWidth, this.targetHeight, this.trialDirection,
+            this.startX, this.startY, this.targetX, this.targetY, this.startClickedPostitionXTouchDown, this.startClickedPositionYTouchDown,
+            this.startClickedPositionXTouchUp, this.startClickedPositionYTouchUp, this.targetClickedPostitionXTouchDown, this.targetClickedPositionYTouchDown,
+            this.targetClickedPositionXTouchUp, this.targetClickedPositionYTouchUp, this.distanceToStartCenter,
             this.distanceToTargetCenter, this.isMiss, this.missAmount, this.clicks, this.takenTimeToClickMs, this.takenTimeToClickS]);
+
+        //TODO startXY zu startCenterX , distance to clickDistance, missAmount -> missInTolernace oder so, clicks zu clickAmount
 
         console.log(this.dataRecorder.getDataArray());
         this.dataRecorder.generateCSVDownloadLink(false);
@@ -303,7 +304,7 @@ class STRectsDrawing {
 
     // TODO
     /*
-    - Add new variables to csv data
+    - Add new variables to csv data [DONE]
     - Remove old general click position (touchDown / pressedX) from csv
     - Fully remove pressedX and replace it witH touchDown method
     */
