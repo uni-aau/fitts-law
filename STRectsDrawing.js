@@ -10,7 +10,6 @@ class STRectsDrawing {
         this.startSize = trial.startSize;
         this.targetWidth = trial.targetWidth;
         this.targetHeight = trial.targetHeight;
-        this.rectSize = rectSize;
         this.trialId = trial.trialId;
         this.trialDirection = trial.trialDirection;
         this.onTargetClicked = onTargetClicked;
@@ -130,7 +129,7 @@ class STRectsDrawing {
             alert("No shape as " + this.shape + " is registered!")
             console.error("No shape with the name " + this.shape + " registered");
         }
-        this.printToConsole(); // todo
+        this.printToConsole();
     }
 
     removeAllEventListeners(element) {
@@ -172,7 +171,6 @@ class STRectsDrawing {
         else if (this.shape === "circle") isInStartRange = isCircleClickInStartElement;
 
         if (!this.startClicked && isInStartRange) {
-            // Todo rename names
             // Determines the start touchDown and touchUp position
             this.startClickedPostitionXTouchDown = this.touchDownPositionX;
             this.startClickedPositionYTouchDown = this.touchDownPositionY;
