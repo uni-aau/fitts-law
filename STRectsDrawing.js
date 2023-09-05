@@ -26,9 +26,9 @@ class STRectsDrawing {
         this.handleMouseDown = this.handleMouseDown.bind(this);
         this.handleMouseUp = this.handleMouseUp.bind(this);
 
-        this.isMiss = false; // determines if the trial had a miss
-        this.clicksAmount = 0; // determines the amount of clicks until the trial was finished
-        this.missAmount = 0; // determines the overall miss amount until the target rectangle was clicked (also in tolerance incremented)
+        this.isMiss = false;            // determines if the trial had a miss
+        this.clicksAmount = 0;          // determines the amount of clicks until the trial was finished
+        this.missAmount = 0;            // determines the overall miss amount until the target rectangle was clicked (also in tolerance incremented)
         this.missInToleranceAmount = 0; // determines the misses that are in the tolerance range (relevant if skip at miss is disabled)
     }
 

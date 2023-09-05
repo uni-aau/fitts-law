@@ -21,7 +21,7 @@ class DataRecorder {
 
     generateCSVDownloadLink(isDownload) {
         const csvContent = this.dataArray.map(row => row.join(',')).join('\n');
-        const blob = new Blob([csvContent], { type: 'text/csv' });
+        const blob = new Blob([csvContent], {type: 'text/csv'});
         const url = URL.createObjectURL(blob);
 
         const link = document.createElement('a');
@@ -30,7 +30,7 @@ class DataRecorder {
         link.textContent = 'Download CSV';
 
         this.printDownloadableCsvFileToConsole(link)
-        if(isDownload) this.downloadGeneratedCsvFile(link);
+        if (isDownload) this.downloadGeneratedCsvFile(link);
     }
 
     downloadGeneratedCsvFile(link) {

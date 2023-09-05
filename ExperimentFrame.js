@@ -13,7 +13,7 @@ class ExperimentFrame {
 
     initializeExperiment() {
         this.username = document.getElementById("name_input").value;
-        if(this.username === "") {
+        if (this.username === "") {
             console.log("No username inserted - Using general username");
             this.username = Config.generalUsername;
         }
