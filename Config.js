@@ -17,7 +17,7 @@ class Config {
     static amplitude = [20]
     static trialDirection = ['Left', 'Up', 'Right', 'Down']; //  Direction of the required interaction
 
-    static clickTolerancePx = 10 // determines the click tolerance where it would be a miss
+    static clickTolerancePx = 20 // determines the click tolerance where it would be a miss
     static isMissSkipped = true;
 
 
