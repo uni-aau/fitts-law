@@ -46,8 +46,8 @@ class STRectsDrawing {
         this.startSizePx = mm2px(this.startSize); // size of start element (it's currently always a*a)
 
         // Coordinates of the target center point
-        this.targetX = canvasCenterX + amplitudePx * Math.cos(this.targetIndex * angle);
-        this.targetY = canvasCenterY + amplitudePx * Math.sin(this.targetIndex * angle);
+        this.targetCenterX = canvasCenterX + amplitudePx * Math.cos(this.targetIndex * angle);
+        this.targetCenterY = canvasCenterY + amplitudePx * Math.sin(this.targetIndex * angle);
     }
 
     showRects() {
@@ -104,8 +104,8 @@ class STRectsDrawing {
         // Coordinates of top left corner of the rectangle (center - half of the width of rect)
         const targetWidthPx = mm2px(this.targetWidth);
         const targetHeightPx = mm2px(this.targetHeight);
-        const targetRectX = this.targetX - targetWidthPx / 2;
-        const targetRectY = this.targetY - targetHeightPx / 2;
+        const targetRectX = this.targetCenterX - targetWidthPx / 2;
+        const targetRectY = this.targetCenterY - targetHeightPx / 2;
 
         if (this.shape === "rectangle") {
             context.strokeRect(
@@ -123,7 +123,7 @@ class STRectsDrawing {
         } else if (this.shape === "circle") {
             const targetSize = mm2px(this.targetWidth);
             context.beginPath();
-            context.arc(this.targetX, this.targetY, targetSize / 2, 0, 2 * Math.PI);
+            context.arc(this.targetCenterX, this.targetCenterY, targetSize / 2, 0, 2 * Math.PI);
             context.stroke();
             context.fill();
         } else {
@@ -187,7 +187,7 @@ class STRectsDrawing {
             context.beginPath(); // removes previous drawing operations
 
             if (this.shape === "rectangle") {
-                context.fillRect(this.targetX - targetWidthPx / 2, this.targetY - targetHeightPx / 2, targetWidthPx, targetHeightPx);
+                context.fillRect(this.targetCenterX - targetWidthPx / 2, this.targetCenterY - targetHeightPx / 2, targetWidthPx, targetHeightPx);
             } else if (this.shape === "circle") {
                 const startSizePx = mm2px(this.startSize) / 2;
                 context.arc(this.startCenterX, this.startCenterY, startSizePx, 0, 2 * Math.PI);
@@ -198,17 +198,17 @@ class STRectsDrawing {
             // Determines click in target rectangle
             const targetSizeHalfWidthPx = targetWidthPx / 2;
             const targetSizeHalfHeightPx = targetHeightPx / 2;
-            const isRectangleClickInTargetElement = this.pressedX >= this.targetX - targetSizeHalfWidthPx &&
-                this.pressedX <= this.targetX + targetSizeHalfWidthPx &&
-                this.pressedY >= this.targetY - targetSizeHalfHeightPx &&
-                this.pressedY <= this.targetY + targetSizeHalfHeightPx
-            const isRectangleClickInTargetElementWithTolerance = this.pressedX >= this.targetX - targetSizeHalfWidthPx - Config.clickTolerancePx &&
-                this.pressedX <= this.targetX + targetSizeHalfWidthPx + Config.clickTolerancePx &&
-                this.pressedY >= this.targetY - targetSizeHalfHeightPx - Config.clickTolerancePx &&
-                this.pressedY <= this.targetY + targetSizeHalfHeightPx + Config.clickTolerancePx
+            const isRectangleClickInTargetElement = this.pressedX >= this.targetCenterX - targetSizeHalfWidthPx &&
+                this.pressedX <= this.targetCenterX + targetSizeHalfWidthPx &&
+                this.pressedY >= this.targetCenterY - targetSizeHalfHeightPx &&
+                this.pressedY <= this.targetCenterY + targetSizeHalfHeightPx
+            const isRectangleClickInTargetElementWithTolerance = this.pressedX >= this.targetCenterX - targetSizeHalfWidthPx - Config.clickTolerancePx &&
+                this.pressedX <= this.targetCenterX + targetSizeHalfWidthPx + Config.clickTolerancePx &&
+                this.pressedY >= this.targetCenterY - targetSizeHalfHeightPx - Config.clickTolerancePx &&
+                this.pressedY <= this.targetCenterY + targetSizeHalfHeightPx + Config.clickTolerancePx
 
             // Determines click in target circle
-            this.distanceToTargetCenter = Math.sqrt((this.pressedX - this.targetX) ** 2 + (this.pressedY - this.targetY) ** 2);
+            this.distanceToTargetCenter = Math.sqrt((this.pressedX - this.targetCenterX) ** 2 + (this.pressedY - this.targetCenterY) ** 2);
             const targetSizePx = mm2px(this.targetWidth); // todo vereinigen mit start
             const isCircleClickInTargetElement = this.distanceToTargetCenter < targetSizePx / 2;
             const isCircleClickInTargetElementWithTolerance = this.distanceToTargetCenter < (targetSizePx + Config.clickTolerancePx) / 2;
@@ -277,7 +277,7 @@ class STRectsDrawing {
     }
 
     printTrial() {
-        console.log(`Information about finished trial: Amplitude: ${this.amplitude} (${mm2px(this.amplitude)}px) | Coordinates of Start center point: X=${this.startCenterX} Y=${this.startCenterY} | Coordinates of Target center point: X=${this.targetX} Y=${this.targetY}`);
+        console.log(`Information about finished trial: Amplitude: ${this.amplitude} (${mm2px(this.amplitude)}px) | Coordinates of Start center point: X=${this.startCenterX} Y=${this.startCenterY} | Coordinates of Target center point: X=${this.targetCenterX} Y=${this.targetCenterY}`);
         console.log(`Information about click position: StartTouchDown: X=${this.startClickedPostitionXTouchDown} Y=${this.startClickedPositionYTouchDown}, StartTouchUp: X=${this.startClickedPositionXTouchUp} Y=${this.startClickedPositionYTouchUp}, TargetTouchDown: X=${this.targetClickedPostitionXTouchDown} Y=${this.targetClickedPositionYTouchDown}, TargetTouchUp: X=${this.targetClickedPositionXTouchUp} Y=${this.targetClickedPositionYTouchUp}`);
         console.log(`Information about click: Click distance to start center: ${this.clickDistanceToStartCenter} | Click distance to target center: ${this.distanceToTargetCenter} | isMiss? ${this.isMiss} | Miss Amount: ${this.missAmount} | Miss in tolerance: ${this.missInToleranceAmount} | Click tolerancePx: ${Config.clickTolerancePx}`);
     }
@@ -289,7 +289,7 @@ class STRectsDrawing {
 
         this.dataRecorder.addDataRow([this.trialNumber, this.trialId, this.username, this.shape, this.intDevice, this.startIndex, this.targetIndex,
             this.amplitude, this.startSize, this.targetWidth, this.targetHeight, this.trialDirection,
-            this.startCenterX, this.startCenterY, this.targetX, this.targetY, this.startClickedPostitionXTouchDown, this.startClickedPositionYTouchDown,
+            this.startCenterX, this.startCenterY, this.targetCenterX, this.targetCenterY, this.startClickedPostitionXTouchDown, this.startClickedPositionYTouchDown,
             this.startClickedPositionXTouchUp, this.startClickedPositionYTouchUp, this.targetClickedPostitionXTouchDown, this.targetClickedPositionYTouchDown,
             this.targetClickedPositionXTouchUp, this.targetClickedPositionYTouchUp, this.clickDistanceToStartCenter,
             this.distanceToTargetCenter, this.isMiss, this.missAmount, this.missInToleranceAmount, this.clicksAmount, this.takenTimeToClickMs, this.takenTimeToClickS]);
@@ -300,8 +300,6 @@ class STRectsDrawing {
 
     // TODO
     /*
-    - Add new variables to csv data [DONE]
-    - Remove old general click position (touchDown / pressedX) from csv
     - Fully remove pressedX and replace it witH touchDown method
     */
 
