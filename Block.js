@@ -11,7 +11,7 @@ class Block {
         this.startSize = startSize;
         this.numRects = numRects;
         this.rectSize = rectSize;
-        this.trialId = 1; // Initialize the trial ID2
+        this.trialId = 1; // Initialize the trial ID
 
         this.currentstartIndex = null;
         this.currentTargetIndex = null;
