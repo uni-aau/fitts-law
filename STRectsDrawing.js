@@ -10,7 +10,6 @@ class STRectsDrawing {
         this.startSize = trial.startSize;
         this.targetWidth = trial.targetWidth;
         this.targetHeight = trial.targetHeight;
-        this.rectSize = rectSize;
         this.trialId = trial.trialId;
         this.trialDirection = trial.trialDirection;
         this.onTargetClicked = onTargetClicked;
@@ -20,9 +19,17 @@ class STRectsDrawing {
         this.dataRecorder = dataRecorder;
         this.username = username;
 
-        this.isMiss = false;
-        this.clicks = 0;
-        this.missAmount = 0;
+        this.touchDownPositionX = 0;
+        this.touchDownPositionY = 0;
+        this.touchUpPositionX = 0;
+        this.touchUpPositionY = 0;
+        this.handleMouseDown = this.handleMouseDown.bind(this);
+        this.handleMouseUp = this.handleMouseUp.bind(this);
+
+        this.isMiss = false;            // determines if the trial had a miss
+        this.clicksAmount = 0;          // determines the amount of clicks until the trial was finished
+        this.missAmount = 0;            // determines the overall miss amount until the target rectangle was clicked (also in tolerance incremented)
+        this.missInToleranceAmount = 0; // determines the misses that are in the tolerance range (relevant if skip at miss is disabled)
     }
 
     initializeVariables(canvas) {
@@ -32,22 +39,20 @@ class STRectsDrawing {
         const angle = (2 * Math.PI) / this.numRects;
 
         // Coordinates of the start center point
-        this.startX = canvasCenterX + amplitudePx * Math.cos(this.startIndex * angle);
-        this.startY = canvasCenterY + amplitudePx * Math.sin(this.startIndex * angle);
+        this.startCenterX = canvasCenterX + amplitudePx * Math.cos(this.startIndex * angle);
+        this.startCenterY = canvasCenterY + amplitudePx * Math.sin(this.startIndex * angle);
 
         this.startSizePx = mm2px(this.startSize); // size of start element (it's currently always a*a)
 
         // Coordinates of the target center point
-        this.targetX = canvasCenterX + amplitudePx * Math.cos(this.targetIndex * angle);
-        this.targetY = canvasCenterY + amplitudePx * Math.sin(this.targetIndex * angle);
-
-        // console.log("StartX = " + this.startX + " startY = " + this.startY + " targetX = " + this.targetX + " targetY = " + this.targetY)
+        this.targetCenterX = canvasCenterX + amplitudePx * Math.cos(this.targetIndex * angle);
+        this.targetCenterY = canvasCenterY + amplitudePx * Math.sin(this.targetIndex * angle);
     }
 
     showRects() {
         // Defines canvas
         let canvasOld = document.getElementById("trialCanvas");
-        const canvas = this.removeAllEventListeners(canvasOld) // otherwise multiple clicks will be registered
+        const canvas = this.removeAllEventListeners(canvasOld) // otherwise multiple clicksAmount will be registered
         const context = canvas.getContext("2d");
 
         // Calculates width/height of window and clears rect
@@ -64,10 +69,11 @@ class STRectsDrawing {
 
 
         // Coordinates of top left corner of the rectangle (center - half of the width of rect)
-        const rectX = this.startX - this.startSizePx / 2;
-        const rectY = this.startY - this.startSizePx / 2;
+        const rectX = this.startCenterX - this.startSizePx / 2;
+        const rectY = this.startCenterY - this.startSizePx / 2;
 
-        // console.log("Angle = " + angle + " startX = " + startX + " startY = " + startY + " rectX = " + rectX + " rectY =" + rectY);
+        document.addEventListener("mousedown", this.handleMouseDown);
+        document.addEventListener("mouseup", this.handleMouseUp);
 
         if (this.shape === "rectangle") {
             context.strokeRect(
@@ -84,7 +90,7 @@ class STRectsDrawing {
             );
         } else if (this.shape === "circle") {
             context.beginPath();
-            context.arc(this.startX, this.startY, this.startSizePx / 2, 0, 2 * Math.PI);
+            context.arc(this.startCenterX, this.startCenterY, this.startSizePx / 2, 0, 2 * Math.PI);
             context.stroke();
             context.fill();
         } else {
@@ -97,8 +103,8 @@ class STRectsDrawing {
         // Coordinates of top left corner of the rectangle (center - half of the width of rect)
         const targetWidthPx = mm2px(this.targetWidth);
         const targetHeightPx = mm2px(this.targetHeight);
-        const targetRectX = this.targetX - targetWidthPx / 2;
-        const targetRectY = this.targetY - targetHeightPx / 2;
+        const targetRectX = this.targetCenterX - targetWidthPx / 2;
+        const targetRectY = this.targetCenterY - targetHeightPx / 2;
 
         if (this.shape === "rectangle") {
             context.strokeRect(
@@ -116,14 +122,14 @@ class STRectsDrawing {
         } else if (this.shape === "circle") {
             const targetSize = mm2px(this.targetWidth);
             context.beginPath();
-            context.arc(this.targetX, this.targetY, targetSize / 2, 0, 2 * Math.PI);
+            context.arc(this.targetCenterX, this.targetCenterY, targetSize / 2, 0, 2 * Math.PI);
             context.stroke();
             context.fill();
         } else {
             alert("No shape as " + this.shape + " is registered!")
             console.error("No shape with the name " + this.shape + " registered");
         }
-        this.printToConsole(); // todo
+        this.printToConsole();
     }
 
     removeAllEventListeners(element) {
@@ -131,7 +137,6 @@ class STRectsDrawing {
         element.parentNode.replaceChild(clone, element);
         return clone;
     }
-
 
     handleCanvasClick(event) {
         const canvas = document.getElementById("trialCanvas");
@@ -144,25 +149,35 @@ class STRectsDrawing {
         console.log("PressX = " + this.pressedX + " PressY = " + this.pressedY);
 
         this.initializeVariables(canvas);
-        this.clicks++;
+        this.clicksAmount++;
 
+        // Checks whether the click was in the start rectangle
         const targetWidthPx = mm2px(this.targetWidth); // Width of the target rectangle
         const targetHeightPx = mm2px(this.targetHeight); // Height of the target rectangle
+        const halfWidthPx = this.startSizePx / 2;
+        const isRectangleClickInStartElement = this.pressedX >= this.startCenterX - halfWidthPx &&
+            this.pressedX <= this.startCenterX + halfWidthPx &&
+            this.pressedY >= this.startCenterY - halfWidthPx &&
+            this.pressedY <= this.startCenterY + halfWidthPx
 
 
-        const halfWidth = this.startSizePx / 2;
-        const isRectangleClickInStartElement = this.pressedX >= this.startX - halfWidth &&
-            this.pressedX <= this.startX + halfWidth &&
-            this.pressedY >= this.startY - halfWidth &&
-            this.pressedY <= this.startY + halfWidth
-        const isCircleClickInStartElement = this.distanceToStartCenter < this.startSizePx / 2;
-        // console.log(isRectangleClickInStartElement + " / " + isCircleClickInStartElement);
+        // Checks whether the click was in the start circle
+        this.clickDistanceToStartCenter = Math.sqrt((this.pressedX - this.startCenterX) ** 2 + (this.pressedY - this.startCenterY) ** 2);
+        const isCircleClickInStartElement = this.clickDistanceToStartCenter < this.startSizePx / 2;
 
-        // TODO currently only rectangle
-        if (!this.startClicked && isRectangleClickInStartElement) {
-            this.startClickedPositionX = this.pressedX;
-            this.startClickedPositionY = this.pressedY;
-            this.distanceToStartCenter = Math.sqrt((this.pressedX - this.startX) ** 2 + (this.pressedY - this.startY) ** 2);
+        // Determines if the click was in the specific start shape
+        let isInStartRange = false;
+        if (this.shape === "rectangle") isInStartRange = isRectangleClickInStartElement;
+        else if (this.shape === "circle") isInStartRange = isCircleClickInStartElement;
+
+        if (!this.startClicked && isInStartRange) {
+            // Determines the start touchDown and touchUp position
+            this.startClickedPostitionXTouchDown = this.touchDownPositionX;
+            this.startClickedPositionYTouchDown = this.touchDownPositionY;
+            this.startClickedPositionXTouchUp = this.touchUpPositionX;
+            this.startClickedPositionYTouchUp = this.touchUpPositionY;
+
+
             this.timeStart = performance.now();
 
             // Clicked on the start
@@ -170,59 +185,80 @@ class STRectsDrawing {
             context.beginPath(); // removes previous drawing operations
 
             if (this.shape === "rectangle") {
-                context.fillRect(this.targetX - targetWidthPx / 2, this.targetY - targetHeightPx / 2, targetWidthPx, targetHeightPx);
+                context.fillRect(this.targetCenterX - targetWidthPx / 2, this.targetCenterY - targetHeightPx / 2, targetWidthPx, targetHeightPx);
             } else if (this.shape === "circle") {
                 const startSizePx = mm2px(this.startSize) / 2;
-                context.arc(this.startX, this.startY, startSizePx, 0, 2 * Math.PI);
+                context.arc(this.startCenterX, this.startCenterY, startSizePx, 0, 2 * Math.PI);
                 context.fill();
             }
             this.startClicked = true;
-        } else {
-            // Clicked outside the start
-            // Target Size of rect or circle
-            const targetSize = this.shape === "rectangle"
-                ? Math.max(targetWidthPx, targetHeightPx)
-                : targetWidthPx / 2;
-            const distanceToTargetCenter = Math.sqrt((this.pressedX - this.targetX) ** 2 + (this.pressedY - this.targetY) ** 2);
+        } else { // Clicked outside the start
+            // Determines click in target rectangle
+            const targetSizeHalfWidthPx = targetWidthPx / 2;
+            const targetSizeHalfHeightPx = targetHeightPx / 2;
+            const isRectangleClickInTargetElement = this.pressedX >= this.targetCenterX - targetSizeHalfWidthPx &&
+                this.pressedX <= this.targetCenterX + targetSizeHalfWidthPx &&
+                this.pressedY >= this.targetCenterY - targetSizeHalfHeightPx &&
+                this.pressedY <= this.targetCenterY + targetSizeHalfHeightPx
+            const isRectangleClickInTargetElementWithTolerance = this.pressedX >= this.targetCenterX - targetSizeHalfWidthPx - Config.clickTolerancePx &&
+                this.pressedX <= this.targetCenterX + targetSizeHalfWidthPx + Config.clickTolerancePx &&
+                this.pressedY >= this.targetCenterY - targetSizeHalfHeightPx - Config.clickTolerancePx &&
+                this.pressedY <= this.targetCenterY + targetSizeHalfHeightPx + Config.clickTolerancePx
 
-            const targetSizeHalfWidth = targetWidthPx / 2;
-            const targetSizeHalfHeight = targetHeightPx / 2;
+            // Determines click in target circle
+            this.distanceToTargetCenter = Math.sqrt((this.pressedX - this.targetCenterX) ** 2 + (this.pressedY - this.targetCenterY) ** 2);
+            const targetSizePx = mm2px(this.targetWidth); // todo vereinigen mit start
+            const isCircleClickInTargetElement = this.distanceToTargetCenter < targetSizePx / 2;
+            const isCircleClickInTargetElementWithTolerance = this.distanceToTargetCenter < (targetSizePx + Config.clickTolerancePx) / 2;
+            console.log("Click in circle? " + isCircleClickInTargetElement + " / " + isCircleClickInTargetElementWithTolerance + " / " + isRectangleClickInTargetElement)
 
-            const isRectangleClickInTargetElement = this.pressedX >= this.targetX - targetSizeHalfWidth &&
-                this.pressedX <= this.targetX + targetSizeHalfWidth &&
-                this.pressedY >= this.targetY - targetSizeHalfHeight &&
-                this.pressedY <= this.targetY + targetSizeHalfHeight
-            const isRectangleClickInTargetElementWithTolerance = this.pressedX >= this.targetX - targetSizeHalfWidth - Config.clickTolerancePx &&
-                this.pressedX <= this.targetX + targetSizeHalfWidth + Config.clickTolerancePx &&
-                this.pressedY >= this.targetY - targetSizeHalfHeight - Config.clickTolerancePx &&
-                this.pressedY <= this.targetY + targetSizeHalfHeight + Config.clickTolerancePx
-
-            // console.log(isRectangleClickInStartElement)
-
-            // TODO only works for rectangles
             if (this.startClicked && !this.isTargetClicked) {
-                this.targetClickedPositionX = this.pressedX;
-                this.targetClickedPositionY = this.pressedY;
-                this.distanceToTargetCenter = Math.sqrt((this.pressedX - this.targetX) ** 2 + (this.pressedY - this.targetY) ** 2);
-                this.timeEnd = performance.now(); // todo check ob passt
+                this.timeEnd = performance.now(); // Determines the time between start and target click
 
-                if (isRectangleClickInTargetElement) {
-                    console.log("Click was inside the element. Misses = " + this.missAmount);
+                // Determines the target touchDown and touchUp position
+                this.targetClickedPostitionXTouchDown = this.touchDownPositionX;
+                this.targetClickedPositionYTouchDown = this.touchDownPositionY;
+                this.targetClickedPositionXTouchUp = this.touchUpPositionX;
+                this.targetClickedPositionYTouchUp = this.touchUpPositionY;
+
+                // Determines the click radius for circle or rectangle (need to be recoded when more shapes are added)
+                const isInTargetElement = this.shape === "rectangle"
+                    ? isRectangleClickInTargetElement
+                    : isCircleClickInTargetElement;
+
+                const isInTargetElementWithTolerance = this.shape === "rectangle"
+                    ? isRectangleClickInTargetElementWithTolerance
+                    : isCircleClickInTargetElementWithTolerance;
+
+                if (isInTargetElement) {
+                    console.log("Click was inside the element. Misses in tolerance = " + this.missInToleranceAmount + " / Overall misses = " + this.missAmount);
                     this.finishTrial()
-                } else if (isRectangleClickInTargetElementWithTolerance) {
+                } else if (isInTargetElementWithTolerance) {
                     console.log("Click was in " + Config.clickTolerancePx + "px click tolerance")
                     this.isMiss = true;
                     this.missAmount++;
+                    this.missInToleranceAmount++;
                     if (Config.isMissSkipped) {
                         this.finishTrial();
                     } else {
                         // TODO message to do again?
                     }
                 } else {
+                    this.missAmount++;
                     console.log("Click was not in tolerance")
                 }
             }
         }
+    }
+
+    handleMouseDown(event) {
+        this.touchDownPositionX = event.clientX;
+        this.touchDownPositionY = event.clientY;
+    }
+
+    handleMouseUp(event) {
+        this.touchUpPositionX = event.clientX;
+        this.touchUpPositionY = event.clientY;
     }
 
     handleTargetClick() {
@@ -239,26 +275,31 @@ class STRectsDrawing {
     }
 
     printTrial() {
-        console.log(`Information about finished trial: Amplitude: ${this.amplitude} (${mm2px(this.amplitude)}px) | Coordinates of Start center point: X=${this.startX} Y=${this.startY} | Coordinates of Target center point: X=${this.targetX} Y=${this.targetY}`);
-
-        // TODO blocknumber
-        console.log(`Information about click: Clicked start position: X=${this.startClickedPositionX} Y=${this.startClickedPositionX} | Clicked target position: X=${this.targetClickedPositionX} Y=${this.targetClickedPositionY} | Click distance to start center: ${this.distanceToStartCenter} | Click distance to target center: ${this.distanceToTargetCenter} | isMiss? ${this.isMiss} | Miss Amount: ${this.missAmount} | Click tolerancePx: ${Config.clickTolerancePx}`);
+        console.log(`Information about finished trial: Amplitude: ${this.amplitude} (${mm2px(this.amplitude)}px) | Coordinates of Start center point: X=${this.startCenterX} Y=${this.startCenterY} | Coordinates of Target center point: X=${this.targetCenterX} Y=${this.targetCenterY}`);
+        console.log(`Information about click position: StartTouchDown: X=${this.startClickedPostitionXTouchDown} Y=${this.startClickedPositionYTouchDown}, StartTouchUp: X=${this.startClickedPositionXTouchUp} Y=${this.startClickedPositionYTouchUp}, TargetTouchDown: X=${this.targetClickedPostitionXTouchDown} Y=${this.targetClickedPositionYTouchDown}, TargetTouchUp: X=${this.targetClickedPositionXTouchUp} Y=${this.targetClickedPositionYTouchUp}`);
+        console.log(`Information about click: Click distance to start center: ${this.clickDistanceToStartCenter} | Click distance to target center: ${this.distanceToTargetCenter} | isMiss? ${this.isMiss} | Miss Amount: ${this.missAmount} | Miss in tolerance: ${this.missInToleranceAmount} | Click tolerancePx: ${Config.clickTolerancePx}`);
     }
 
+    // TODO check size bei circle
     saveTrialData() {
         this.takenTimeToClickMs = this.timeEnd - this.timeStart;
         this.takenTimeToClickS = (this.timeEnd - this.timeStart) / 1000;
 
         this.dataRecorder.addDataRow([this.trialNumber, this.trialId, this.username, this.shape, this.intDevice, this.startIndex, this.targetIndex,
-            this.amplitude, mm2px(this.amplitude), this.startSize, this.targetWidth, this.targetHeight, this.trialDirection,
-            this.startX, this.startY, this.targetX, this.targetY, this.startClickedPositionX, this.startClickedPositionY,
-            this.targetClickedPositionX, this.targetClickedPositionY, this.distanceToStartCenter,
-            this.distanceToTargetCenter, this.isMiss, this.missAmount, this.clicks, this.takenTimeToClickMs, this.takenTimeToClickS]);
-
+            this.amplitude, this.startSize, this.targetWidth, this.targetHeight, this.trialDirection,
+            this.startCenterX, this.startCenterY, this.targetCenterX, this.targetCenterY, this.startClickedPostitionXTouchDown, this.startClickedPositionYTouchDown,
+            this.startClickedPositionXTouchUp, this.startClickedPositionYTouchUp, this.targetClickedPostitionXTouchDown, this.targetClickedPositionYTouchDown,
+            this.targetClickedPositionXTouchUp, this.targetClickedPositionYTouchUp, this.clickDistanceToStartCenter,
+            this.distanceToTargetCenter, this.isMiss, this.missAmount, this.missInToleranceAmount, this.clicksAmount, this.takenTimeToClickMs, this.takenTimeToClickS]);
 
         console.log(this.dataRecorder.getDataArray());
         this.dataRecorder.generateCSVDownloadLink(false);
     }
+
+    // TODO
+    /*
+    - Fully remove pressedX and replace it witH touchDown method
+    */
 
     printToConsole() {
         console.log(

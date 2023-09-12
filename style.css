@@ -17,8 +17,8 @@ p {
 
 input[type=text] {
     border: none;
-    border-radius: 10px;
-    font-size: 25px;
+    border-radius: 8px;
+    font-size: 24px;
 }
 
 #breakCount {
@@ -93,7 +93,7 @@ input[type=text] {
     left: 50%;
     transform: translate(-50%, -50%);
     background-color: #1adf24;
-    padding: 40px;
+    padding: 50px;
     text-align: center;
 }
 
