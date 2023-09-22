@@ -178,7 +178,7 @@ class STRectsDrawing {
             this.startClickedPositionYTouchUp = this.touchUpPositionY;
 
 
-            this.timeStart = performance.now();
+            this.startTimeStartToEndClick = performance.now();
 
             // Clicked on the start
             context.fillStyle = Config.targetElementSelectionStyle;
@@ -213,7 +213,7 @@ class STRectsDrawing {
             console.log("Click in circle? " + isCircleClickInTargetElement + " / " + isCircleClickInTargetElementWithTolerance + " / " + isRectangleClickInTargetElement)
 
             if (this.startClicked && !this.isTargetClicked) {
-                this.timeStartToEnd = performance.now(); // Determines the time between start and target click
+                this.endTimeClickStartToEnd = performance.now(); // Determines the time between start and target click
 
                 // Determines the target touchDown and touchUp position
                 this.targetClickedPostitionXTouchDown = this.touchDownPositionX;
@@ -282,7 +282,7 @@ class STRectsDrawing {
 
     // TODO check size bei circle
     saveTrialData() {
-        this.takenTimeToClickFromStartToEndMs = this.timeStartToEnd - this.timeStart;
+        this.takenTimeToClickFromStartToEndMs = this.endTimeClickStartToEnd - this.startTimeStartToEndClick;
 
         this.dataRecorder.addDataRow([this.trialNumber, this.trialId, this.username, this.shape, this.intDevice, this.startIndex, this.targetIndex,
             this.amplitude, this.startSize, this.targetWidth, this.targetHeight, this.trialDirection,
