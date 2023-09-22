@@ -213,7 +213,7 @@ class STRectsDrawing {
             console.log("Click in circle? " + isCircleClickInTargetElement + " / " + isCircleClickInTargetElementWithTolerance + " / " + isRectangleClickInTargetElement)
 
             if (this.startClicked && !this.isTargetClicked) {
-                this.timeEnd = performance.now(); // Determines the time between start and target click
+                this.timeStartToEnd = performance.now(); // Determines the time between start and target click
 
                 // Determines the target touchDown and touchUp position
                 this.targetClickedPostitionXTouchDown = this.touchDownPositionX;
@@ -282,15 +282,15 @@ class STRectsDrawing {
 
     // TODO check size bei circle
     saveTrialData() {
-        this.takenTimeToClickMs = this.timeEnd - this.timeStart;
-        this.takenTimeToClickS = (this.timeEnd - this.timeStart) / 1000;
+        this.takenTimeToClickFromStartToEndMs = this.timeStartToEnd - this.timeStart;
+        this.takenTimeToClickFromStartToEndS = (this.timeStartToEnd - this.timeStart) / 1000;
 
         this.dataRecorder.addDataRow([this.trialNumber, this.trialId, this.username, this.shape, this.intDevice, this.startIndex, this.targetIndex,
             this.amplitude, this.startSize, this.targetWidth, this.targetHeight, this.trialDirection,
             this.startCenterX, this.startCenterY, this.targetCenterX, this.targetCenterY, this.startClickedPostitionXTouchDown, this.startClickedPositionYTouchDown,
             this.startClickedPositionXTouchUp, this.startClickedPositionYTouchUp, this.targetClickedPostitionXTouchDown, this.targetClickedPositionYTouchDown,
             this.targetClickedPositionXTouchUp, this.targetClickedPositionYTouchUp, this.clickDistanceToStartCenter,
-            this.distanceToTargetCenter, this.isMiss, this.missAmount, this.missInToleranceAmount, this.clicksAmount, this.takenTimeToClickMs, this.takenTimeToClickS]);
+            this.distanceToTargetCenter, this.isMiss, this.missAmount, this.missInToleranceAmount, this.clicksAmount, this.takenTimeToClickFromStartToEndMs, this.takenTimeToClickFromStartToEndS]);
 
         console.log(this.dataRecorder.getDataArray());
         this.dataRecorder.generateCSVDownloadLink(false);
