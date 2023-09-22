@@ -283,14 +283,13 @@ class STRectsDrawing {
     // TODO check size bei circle
     saveTrialData() {
         this.takenTimeToClickFromStartToEndMs = this.timeStartToEnd - this.timeStart;
-        this.takenTimeToClickFromStartToEndS = (this.timeStartToEnd - this.timeStart) / 1000;
 
         this.dataRecorder.addDataRow([this.trialNumber, this.trialId, this.username, this.shape, this.intDevice, this.startIndex, this.targetIndex,
             this.amplitude, this.startSize, this.targetWidth, this.targetHeight, this.trialDirection,
             this.startCenterX, this.startCenterY, this.targetCenterX, this.targetCenterY, this.startClickedPostitionXTouchDown, this.startClickedPositionYTouchDown,
             this.startClickedPositionXTouchUp, this.startClickedPositionYTouchUp, this.targetClickedPostitionXTouchDown, this.targetClickedPositionYTouchDown,
             this.targetClickedPositionXTouchUp, this.targetClickedPositionYTouchUp, this.clickDistanceToStartCenter,
-            this.distanceToTargetCenter, this.isMiss, this.missAmount, this.missInToleranceAmount, this.clicksAmount, this.takenTimeToClickFromStartToEndMs, this.takenTimeToClickFromStartToEndS]);
+            this.distanceToTargetCenter, this.isMiss, this.missAmount, this.missInToleranceAmount, this.clicksAmount, this.takenTimeToClickFromStartToEndMs]);
 
         console.log(this.dataRecorder.getDataArray());
         this.dataRecorder.generateCSVDownloadLink(false);
