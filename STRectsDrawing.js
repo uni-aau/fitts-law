@@ -294,7 +294,8 @@ class STRectsDrawing {
             this.startCenterX, this.startCenterY, this.targetCenterX, this.targetCenterY, this.startClickedPostitionXTouchDown, this.startClickedPositionYTouchDown,
             this.startClickedPositionXTouchUp, this.startClickedPositionYTouchUp, this.targetClickedPostitionXTouchDown, this.targetClickedPositionYTouchDown,
             this.targetClickedPositionXTouchUp, this.targetClickedPositionYTouchUp, this.clickDistanceToStartCenter,
-            this.distanceToTargetCenter, this.isMiss, this.missAmount, this.missInToleranceAmount, this.clicksAmount, this.takenTimeToClickFromStartToEndMs]);
+            this.distanceToTargetCenter, this.isMiss, this.missAmount, this.missInToleranceAmount, this.clicksAmount, this.takenTimeToClickFromStartToEndMs,
+            this.startTimeTouchDownToTouchUpMs, this.targetTimeTouchDownToTouchUpMs]);
 
         console.log(this.dataRecorder.getDataArray());
         this.dataRecorder.generateCSVDownloadLink(false);
