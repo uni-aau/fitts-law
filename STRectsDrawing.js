@@ -176,6 +176,7 @@ class STRectsDrawing {
             this.startClickedPositionYTouchDown = this.touchDownPositionY;
             this.startClickedPositionXTouchUp = this.touchUpPositionX;
             this.startClickedPositionYTouchUp = this.touchUpPositionY;
+            this.startTimeTouchDownToTouchUpMs = this.getTouchDownTouchUpTimeDifference();
 
 
             this.startTimeStartToEndClick = performance.now();
@@ -220,6 +221,7 @@ class STRectsDrawing {
                 this.targetClickedPositionYTouchDown = this.touchDownPositionY;
                 this.targetClickedPositionXTouchUp = this.touchUpPositionX;
                 this.targetClickedPositionYTouchUp = this.touchUpPositionY;
+                this.targetTimeTouchDownToTouchUpMs = this.getTouchDownTouchUpTimeDifference();
 
                 // Determines the click radius for circle or rectangle (need to be recoded when more shapes are added)
                 const isInTargetElement = this.shape === "rectangle"
@@ -254,11 +256,13 @@ class STRectsDrawing {
     handleMouseDown(event) {
         this.touchDownPositionX = event.clientX;
         this.touchDownPositionY = event.clientY;
+        this.touchDownTime = performance.now();
     }
 
     handleMouseUp(event) {
         this.touchUpPositionX = event.clientX;
         this.touchUpPositionY = event.clientY;
+        this.touchUpTime = performance.now();
     }
 
     handleTargetClick() {
@@ -278,11 +282,12 @@ class STRectsDrawing {
         console.log(`Information about finished trial: Amplitude: ${this.amplitude} (${mm2px(this.amplitude)}px) | Coordinates of Start center point: X=${this.startCenterX} Y=${this.startCenterY} | Coordinates of Target center point: X=${this.targetCenterX} Y=${this.targetCenterY}`);
         console.log(`Information about click position: StartTouchDown: X=${this.startClickedPostitionXTouchDown} Y=${this.startClickedPositionYTouchDown}, StartTouchUp: X=${this.startClickedPositionXTouchUp} Y=${this.startClickedPositionYTouchUp}, TargetTouchDown: X=${this.targetClickedPostitionXTouchDown} Y=${this.targetClickedPositionYTouchDown}, TargetTouchUp: X=${this.targetClickedPositionXTouchUp} Y=${this.targetClickedPositionYTouchUp}`);
         console.log(`Information about click: Click distance to start center: ${this.clickDistanceToStartCenter} | Click distance to target center: ${this.distanceToTargetCenter} | isMiss? ${this.isMiss} | Miss Amount: ${this.missAmount} | Miss in tolerance: ${this.missInToleranceAmount} | Click tolerancePx: ${Config.clickTolerancePx}`);
+        console.log(`Information about times: StartTouchDownToTouchUpTime: ${this.startTimeTouchDownToTouchUpMs} | TargetTouchDownToTouchUpTime: ${this.targetTimeTouchDownToTouchUpMs}`)
     }
 
     // TODO check size bei circle
     saveTrialData() {
-        this.takenTimeToClickFromStartToEndMs = this.endTimeClickStartToEnd - this.startTimeStartToEndClick;
+        this.takenTimeToClickFromStartToEndMs = this.endTimeClickStartToEnd - this.startTimeStartToEndClick; // TODO falsche methode
 
         this.dataRecorder.addDataRow([this.trialNumber, this.trialId, this.username, this.shape, this.intDevice, this.startIndex, this.targetIndex,
             this.amplitude, this.startSize, this.targetWidth, this.targetHeight, this.trialDirection,
@@ -293,6 +298,10 @@ class STRectsDrawing {
 
         console.log(this.dataRecorder.getDataArray());
         this.dataRecorder.generateCSVDownloadLink(false);
+    }
+
+    getTouchDownTouchUpTimeDifference() {
+        return this.touchUpTime - this.touchDownTime;
     }
 
     // TODO
