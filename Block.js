@@ -30,8 +30,6 @@ class Block {
         this.trials = [];
 
         for(let i = 0; i < this.trialDataCategories.length; i++) {
-            const category = this.trialDataCategories[i][0];
-            console.log("Category = " + category)
             const trialDirection = this.trialDataCategories[i][4];
 
             // check and assign startIndex, and TargetIndex for each direction
@@ -55,6 +53,7 @@ class Block {
             // Create a trial object with the current combination of values
             const trial = new Trial(
                 this.trialId,
+                this.trialDataCategories[i][0],
                 this.shape,
                 trialDirection,
                 this.intDevice,
