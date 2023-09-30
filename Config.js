@@ -33,9 +33,9 @@ class Config {
 
     // Category, targetWidth, targetHeight, Amplitude, trialDirection
     static trialsDataCategories = [
-            ["C1", 10, 4, 20, 'Left'],
-            ["C2", 10, 2, 10, 'Right'],
-            ["C3", 5, 10, 15, 'Up'],
-            ["C4", 10, 6, 12, 'Down']
+            ["C1", 10, 4, 30, 'Left'],
+            ["C2", 10, 2, 20, 'Right'],
+            ["C3", 5, 10, 25, 'Up'],
+            ["C4", 10, 6, 22, 'Down']
     ];
 }
