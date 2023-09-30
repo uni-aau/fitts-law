@@ -29,4 +29,13 @@ class Config {
     static startElementFillStyle = "rgba(144, 238, 144, 0.8)";
     static targetElementFillStyle = "rgba(255, 102, 102, 0.8)";
     static targetElementSelectionStyle = "rgba(0, 0, 139, 0.8)"; // Dark blue color
+
+
+    // Category, targetWidth, targetHeight, Amplitude, trialDirection
+    static trialsDataCategories = [
+            ["C1", 10, 4, 20, 'Left'],
+            ["C2", 10, 2, 10, 'Right'],
+            ["C3", 5, 10, 15, 'Up'],
+            ["C4", 10, 6, 12, 'Down']
+    ];
 }
