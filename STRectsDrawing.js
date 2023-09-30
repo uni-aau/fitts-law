@@ -201,16 +201,16 @@ class STRectsDrawing {
                 this.pressedX <= this.targetCenterX + targetSizeHalfWidthPx &&
                 this.pressedY >= this.targetCenterY - targetSizeHalfHeightPx &&
                 this.pressedY <= this.targetCenterY + targetSizeHalfHeightPx
-            const isRectangleClickInTargetElementWithTolerance = this.pressedX >= this.targetCenterX - targetSizeHalfWidthPx - Config.clickTolerancePx &&
-                this.pressedX <= this.targetCenterX + targetSizeHalfWidthPx + Config.clickTolerancePx &&
-                this.pressedY >= this.targetCenterY - targetSizeHalfHeightPx - Config.clickTolerancePx &&
-                this.pressedY <= this.targetCenterY + targetSizeHalfHeightPx + Config.clickTolerancePx
+            const isRectangleClickInTargetElementWithTolerance = this.pressedX >= this.targetCenterX - targetSizeHalfWidthPx - Config.clickTolerance(this.amplitude) &&
+                this.pressedX <= this.targetCenterX + targetSizeHalfWidthPx + Config.clickTolerance(this.amplitude) &&
+                this.pressedY >= this.targetCenterY - targetSizeHalfHeightPx - Config.clickTolerance(this.amplitude) &&
+                this.pressedY <= this.targetCenterY + targetSizeHalfHeightPx + Config.clickTolerance(this.amplitude)
 
             // Determines click in target circle
             this.distanceToTargetCenter = Math.sqrt((this.pressedX - this.targetCenterX) ** 2 + (this.pressedY - this.targetCenterY) ** 2);
             const targetSizePx = mm2px(this.targetWidth); // todo vereinigen mit start
             const isCircleClickInTargetElement = this.distanceToTargetCenter < targetSizePx / 2;
-            const isCircleClickInTargetElementWithTolerance = this.distanceToTargetCenter < (targetSizePx + Config.clickTolerancePx) / 2;
+            const isCircleClickInTargetElementWithTolerance = this.distanceToTargetCenter < (targetSizePx + Config.clickTolerance(this.amplitude)) / 2;
             console.log("Click in circle? " + isCircleClickInTargetElement + " / " + isCircleClickInTargetElementWithTolerance + " / " + isRectangleClickInTargetElement)
 
             if (this.startClicked && !this.isTargetClicked) {
@@ -236,7 +236,7 @@ class STRectsDrawing {
                     console.log("Click was inside the element. Misses in tolerance = " + this.missInToleranceAmount + " / Overall misses = " + this.missAmount);
                     this.finishTrial()
                 } else if (isInTargetElementWithTolerance) {
-                    console.log("Click was in " + Config.clickTolerancePx + "px click tolerance")
+                    console.log("Click was in " + Config.clickTolerance(this.amplitude) + "click tolerance")
                     this.isMiss = true;
                     this.missAmount++;
                     this.missInToleranceAmount++;
@@ -281,7 +281,7 @@ class STRectsDrawing {
     printTrial() {
         console.log(`Information about finished trial: Amplitude: ${this.amplitude} (${mm2px(this.amplitude)}px) | Coordinates of Start center point: X=${this.startCenterX} Y=${this.startCenterY} | Coordinates of Target center point: X=${this.targetCenterX} Y=${this.targetCenterY}`);
         console.log(`Information about click position: StartTouchDown: X=${this.startClickedPostitionXTouchDown} Y=${this.startClickedPositionYTouchDown}, StartTouchUp: X=${this.startClickedPositionXTouchUp} Y=${this.startClickedPositionYTouchUp}, TargetTouchDown: X=${this.targetClickedPostitionXTouchDown} Y=${this.targetClickedPositionYTouchDown}, TargetTouchUp: X=${this.targetClickedPositionXTouchUp} Y=${this.targetClickedPositionYTouchUp}`);
-        console.log(`Information about click: Click distance to start center: ${this.clickDistanceToStartCenter} | Click distance to target center: ${this.distanceToTargetCenter} | isMiss? ${this.isMiss} | Miss Amount: ${this.missAmount} | Miss in tolerance: ${this.missInToleranceAmount} | Click tolerancePx: ${Config.clickTolerancePx}`);
+        console.log(`Information about click: Click distance to start center: ${this.clickDistanceToStartCenter} | Click distance to target center: ${this.distanceToTargetCenter} | isMiss? ${this.isMiss} | Miss Amount: ${this.missAmount} | Miss in tolerance: ${this.missInToleranceAmount} | Click tolerance: ${Config.clickTolerance(this.amplitude)}`);
         console.log(`Information about times: StartTouchDownToTouchUpTime: ${this.startTimeTouchDownToTouchUpMs} | TargetTouchDownToTouchUpTime: ${this.targetTimeTouchDownToTouchUpMs}`)
     }
 
