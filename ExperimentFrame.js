@@ -23,10 +23,10 @@ class ExperimentFrame {
     // Show only the target and start rectangles on the screen
     showTrial() {
         this.totalFinishedTrialsAmount++;
-        const currentBlock = this.experiment.getBlock(this.blockNumber);
-        const currentTrial = currentBlock.getTrial(this.trialNumber);
+        this.currentBlock = this.experiment.getBlock(this.blockNumber);
+        const currentTrial = this.currentBlock.getTrial(this.trialNumber);
 
-        currentBlock.reAddTrial(this.trialNumber);
+        this.currentBlock.reAddTrial(this.trialNumber);
 
         if (!this.printedFirstBlock) {
             this.printedFirstBlock = true;
@@ -138,7 +138,6 @@ class ExperimentFrame {
         if (isLastBlock) {
             console.log("Successfully finished experiment!")
             this.displayFinishWindow()
-
         }
     }
 
@@ -152,8 +151,7 @@ class ExperimentFrame {
     }
 
     getTotalTrialsPerBlock() {
-        // TODO mögliche ansätze - block von oben holen und einfach die allgemeine size auslesen, starttrials (von oben)/numBlocks - totalTrials
-        return this.getTotalTrials() / Config.numBlocks;
+        return this.currentBlock.getTrialsAmount();
     }
 
     getRemainingTrials() {

@@ -80,13 +80,16 @@ class Block {
         return this.trials[trialNumber - 1];
     }
 
+    getTrialsAmount() {
+        return this.trialsNum;
+    }
+
     // readds trial to block and shuffles array (e.g if trial was wrongly clicked)
     reAddTrial(trialNumber) {
         const trial = this.trials[trialNumber - 1];
         this.trialsNum++;
         this.trials.push(trial);
         this.shuffleArray(this.trials)
-        console.log("Debug - Successfully readded " + trial);
     }
 
 
@@ -115,7 +118,6 @@ class Block {
             array[currentIndex] = array[randomIndex];
             array[randomIndex] = temporaryValue;
         }
-
         return array;
     }
 
