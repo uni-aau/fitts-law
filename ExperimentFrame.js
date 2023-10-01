@@ -70,7 +70,7 @@ class ExperimentFrame {
 
         // Event listener for the finish button
         downloadDataButton.addEventListener('click', () => {
-            this.dataRecorder.generateCSVDownloadLink(true);
+            this.dataRecorder.generateCsvDownloadLink(true);
             location.reload();
         });
     }

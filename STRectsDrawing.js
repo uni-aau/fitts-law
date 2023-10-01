@@ -299,7 +299,7 @@ class STRectsDrawing {
             this.startTimeTouchDownToTouchUpMs, this.targetTimeTouchDownToTouchUpMs]);
 
         console.log(this.dataRecorder.getDataArray());
-        this.dataRecorder.generateCSVDownloadLink(false);
+        this.dataRecorder.generateCsvDownloadLink(false);
     }
 
     getTouchDownTouchUpTimeDifference() {
