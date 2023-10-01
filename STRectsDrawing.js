@@ -18,6 +18,7 @@ class STRectsDrawing {
         this.intDevice = trial.intDevice;
         this.dataRecorder = dataRecorder;
         this.username = username;
+        this.trialCategory = trial.trialCategory;
 
         this.touchDownPositionX = 0;
         this.touchDownPositionY = 0;
@@ -289,7 +290,7 @@ class STRectsDrawing {
     saveTrialData() {
         this.takenTimeToClickFromStartToEndMs = this.endTimeClickStartToEnd - this.startTimeStartToEndClick; // TODO falsche methode
 
-        this.dataRecorder.addDataRow([this.trialNumber, this.trialId, this.username, this.shape, this.intDevice, this.startIndex, this.targetIndex,
+        this.dataRecorder.addDataRow([this.trialNumber, this.trialId, this.trialCategory, this.username, this.shape, this.intDevice, this.startIndex, this.targetIndex,
             this.amplitude, this.startSize, this.targetWidth, this.targetHeight, this.trialDirection,
             this.startCenterX, this.startCenterY, this.targetCenterX, this.targetCenterY, this.startClickedPostitionXTouchDown, this.startClickedPositionYTouchDown,
             this.startClickedPositionXTouchUp, this.startClickedPositionYTouchUp, this.targetClickedPostitionXTouchDown, this.targetClickedPositionYTouchDown,
@@ -319,6 +320,8 @@ class STRectsDrawing {
             this.trialNumber +
             " | Trial ID: " +
             this.trialId +
+            " | Trial Category: " +
+            this.trialCategory +
             " | Shape: " +
             this.shape +
             " | Interaction Device: " +
