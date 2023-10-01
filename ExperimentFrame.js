@@ -23,13 +23,17 @@ class ExperimentFrame {
     // Show only the target and start rectangles on the screen
     showTrial() {
         this.totalFinishedTrialsAmount++;
-        const trial = this.experiment.getBlock(this.blockNumber).getTrial(this.trialNumber);
+        const currentBlock = this.experiment.getBlock(this.blockNumber);
+        const currentTrial = currentBlock.getTrial(this.trialNumber);
+
+        currentBlock.reAddTrial(this.trialNumber);
+
         if (!this.printedFirstBlock) {
             this.printedFirstBlock = true;
             this.printAllTrials();
         }
 
-        const STRectDrawing = new STRectsDrawing(trial, this.trialNumber, this.experiment.rectSize, this.experiment.numRects, this.dataRecorder, this.username, () => {
+        const STRectDrawing = new STRectsDrawing(currentTrial, this.trialNumber, this.experiment.rectSize, this.experiment.numRects, this.dataRecorder, this.username, () => {
             this.trialCompleted();
         });
 
@@ -148,6 +152,7 @@ class ExperimentFrame {
     }
 
     getTotalTrialsPerBlock() {
+        // TODO mögliche ansätze - block von oben holen und einfach die allgemeine size auslesen, starttrials (von oben)/numBlocks - totalTrials
         return this.getTotalTrials() / Config.numBlocks;
     }
 

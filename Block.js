@@ -19,7 +19,8 @@ class Block {
         this.currentstartIndex = null;
         this.currentTargetIndex = null;
         // this.trialsNum = this.targetWidth.length * this.trialDirection.length * this.amplitude.length;
-        this.trialsNum = this.trialDataCategories.length;
+        this.trialsNum = this.trialDataCategories.length; // todo rename as below
+        this.startTrialsSize = this.trialsNum
         this.usedIndices = [];
         this.rectIndices = []; // TODO useless?
         for (let i = 0; i < this.numRects; i++) {
@@ -79,11 +80,24 @@ class Block {
         return this.trials[trialNumber - 1];
     }
 
+    // readds trial to block and shuffles array (e.g if trial was wrongly clicked)
+    reAddTrial(trialNumber) {
+        const trial = this.trials[trialNumber - 1];
+        this.trialsNum++;
+        this.trials.push(trial);
+        this.shuffleArray(this.trials)
+        console.log("Debug - Successfully readded " + trial);
+    }
+
+
     //check if the block has another trial
     hasNext(trialNumber) {
         return this.trialsNum - trialNumber > 0;
     }
 
+    getStartTrialSize() {
+        return this.startTrialsSize
+    }
 // Shuffling function using Fisher-Yates algorithm
     shuffleArray(array) {
         let currentIndex = array.length;
