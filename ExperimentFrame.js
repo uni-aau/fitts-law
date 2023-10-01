@@ -26,14 +26,12 @@ class ExperimentFrame {
         this.currentBlock = this.experiment.getBlock(this.blockNumber);
         const currentTrial = this.currentBlock.getTrial(this.trialNumber);
 
-        this.currentBlock.reAddTrial(this.trialNumber);
-
         if (!this.printedFirstBlock) {
             this.printedFirstBlock = true;
             this.printAllTrials();
         }
 
-        const STRectDrawing = new STRectsDrawing(currentTrial, this.trialNumber, this.experiment.rectSize, this.experiment.numRects, this.dataRecorder, this.username, () => {
+        const STRectDrawing = new STRectsDrawing(currentTrial, this.currentBlock, this.trialNumber, this.experiment.rectSize, this.experiment.numRects, this.dataRecorder, this.username, () => {
             this.trialCompleted();
         });
 
