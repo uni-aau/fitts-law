@@ -1,5 +1,5 @@
 class STRectsDrawing {
-    constructor(trial, trialNumber, rectSize, numRects, dataRecorder, username, onTargetClicked) {
+    constructor(trial, currentBlock, trialNumber, rectSize, numRects, dataRecorder, username, onTargetClicked) {
         this.shape = trial.shape;
         this.startClicked = false;
         this.isTargetClicked = false;
@@ -19,6 +19,7 @@ class STRectsDrawing {
         this.dataRecorder = dataRecorder;
         this.username = username;
         this.trialCategory = trial.trialCategory;
+        this.currentBlock = currentBlock;
 
         this.touchDownPositionX = 0;
         this.touchDownPositionY = 0;
@@ -246,6 +247,9 @@ class STRectsDrawing {
                     this.missInToleranceAmount++;
                     if (Config.isMissSkipped) {
                         this.finishTrial();
+                        if(Config.reAddMisses) {
+                            this.currentBlock.reAddTrial(this.trialNumber);
+                        }
                     } else {
                         // TODO message to do again?
                     }

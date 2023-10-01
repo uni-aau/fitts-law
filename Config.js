@@ -21,7 +21,8 @@ class Config {
     static clickTolerance(amplitude) {
         return mm2px(amplitude/2);
     }
-    static isMissSkipped = true;
+    static isMissSkipped = true; // True - Miss click will be skipped / False - Nothing will be skipped
+    static reAddMisses = true; // Readds misses within the same block in a random position
 
 
     static generalUsername = "none";
@@ -35,7 +36,7 @@ class Config {
     static trialsDataCategories = [
             ["C1", 10, 4, 30, 'Left'],
             ["C2", 10, 2, 20, 'Right'],
-            ["C3", 5, 10, 25, 'Up'],
-            ["C4", 10, 6, 22, 'Down']
+            // ["C3", 5, 10, 25, 'Up'],
+            // ["C4", 10, 6, 22, 'Down']
     ];
 }
