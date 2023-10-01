@@ -156,45 +156,48 @@ class STRectsDrawing {
         const targetWidthPx = mm2px(this.targetWidth); // Width of the target rectangle
         const targetHeightPx = mm2px(this.targetHeight); // Height of the target rectangle
         const halfWidthPx = this.startSizePx / 2;
-        const isRectangleClickInStartElement = this.pressedX >= this.startCenterX - halfWidthPx &&
-            this.pressedX <= this.startCenterX + halfWidthPx &&
-            this.pressedY >= this.startCenterY - halfWidthPx &&
-            this.pressedY <= this.startCenterY + halfWidthPx
 
 
-        // Checks whether the click was in the start circle
-        this.clickDistanceToStartCenter = Math.sqrt((this.pressedX - this.startCenterX) ** 2 + (this.pressedY - this.startCenterY) ** 2);
-        const isCircleClickInStartElement = this.clickDistanceToStartCenter < this.startSizePx / 2;
+        if (!this.startClicked) {
+            // Checks whether the click was in the start circle
+            this.clickDistanceToStartCenter = Math.sqrt((this.pressedX - this.startCenterX) ** 2 + (this.pressedY - this.startCenterY) ** 2);
+            const isCircleClickInStartElement = this.clickDistanceToStartCenter < this.startSizePx / 2;
+            const isRectangleClickInStartElement = this.pressedX >= this.startCenterX - halfWidthPx &&
+                this.pressedX <= this.startCenterX + halfWidthPx &&
+                this.pressedY >= this.startCenterY - halfWidthPx &&
+                this.pressedY <= this.startCenterY + halfWidthPx
 
-        // Determines if the click was in the specific start shape
-        let isInStartRange = false;
-        if (this.shape === "rectangle") isInStartRange = isRectangleClickInStartElement;
-        else if (this.shape === "circle") isInStartRange = isCircleClickInStartElement;
+            // Determines if the click was in the specific start shape
+            let isInStartRange = false;
+            if (this.shape === "rectangle") isInStartRange = isRectangleClickInStartElement;
+            else if (this.shape === "circle") isInStartRange = isCircleClickInStartElement;
 
-        if (!this.startClicked && isInStartRange) {
-            // Determines the start touchDown and touchUp position
-            this.startClickedPostitionXTouchDown = this.touchDownPositionX;
-            this.startClickedPositionYTouchDown = this.touchDownPositionY;
-            this.startClickedPositionXTouchUp = this.touchUpPositionX;
-            this.startClickedPositionYTouchUp = this.touchUpPositionY;
-            this.startTimeTouchDownToTouchUpMs = this.getTouchDownTouchUpTimeDifference();
+            // If click was in the start object
+            if (isInStartRange) {
+                // Determines the start touchDown and touchUp position
+                this.startClickedPostitionXTouchDown = this.touchDownPositionX;
+                this.startClickedPositionYTouchDown = this.touchDownPositionY;
+                this.startClickedPositionXTouchUp = this.touchUpPositionX;
+                this.startClickedPositionYTouchUp = this.touchUpPositionY;
+                this.startTimeTouchDownToTouchUpMs = this.getTouchDownTouchUpTimeDifference();
 
 
-            this.startTimeStartToEndClick = performance.now();
+                this.startTimeStartToEndClick = performance.now();
 
-            // Clicked on the start
-            context.fillStyle = Config.targetElementSelectionStyle;
-            context.beginPath(); // removes previous drawing operations
+                // Clicked on the start
+                context.fillStyle = Config.targetElementSelectionStyle;
+                context.beginPath(); // removes previous drawing operations
 
-            if (this.shape === "rectangle") {
-                context.fillRect(this.targetCenterX - targetWidthPx / 2, this.targetCenterY - targetHeightPx / 2, targetWidthPx, targetHeightPx);
-            } else if (this.shape === "circle") {
-                const startSizePx = mm2px(this.startSize) / 2;
-                context.arc(this.startCenterX, this.startCenterY, startSizePx, 0, 2 * Math.PI);
-                context.fill();
+                if (this.shape === "rectangle") {
+                    context.fillRect(this.targetCenterX - targetWidthPx / 2, this.targetCenterY - targetHeightPx / 2, targetWidthPx, targetHeightPx);
+                } else if (this.shape === "circle") {
+                    const startSizePx = mm2px(this.startSize) / 2;
+                    context.arc(this.startCenterX, this.startCenterY, startSizePx, 0, 2 * Math.PI);
+                    context.fill();
+                }
+                this.startClicked = true;
             }
-            this.startClicked = true;
-        } else { // Clicked outside the start
+        } else { // Start was already clicked
             // Determines click in target rectangle
             const targetSizeHalfWidthPx = targetWidthPx / 2;
             const targetSizeHalfHeightPx = targetHeightPx / 2;
