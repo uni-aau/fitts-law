@@ -1,5 +1,5 @@
 class STRectsDrawing {
-    constructor(trial, currentBlock, trialNumber, rectSize, numRects, dataRecorder, username, onTargetClicked) {
+    constructor(trial, currentBlock, blockNumber, trialNumber, rectSize, numRects, dataRecorder, username, onTargetClicked) {
         this.shape = trial.shape;
         this.startClicked = false;
         this.isTargetClicked = false;
@@ -20,6 +20,7 @@ class STRectsDrawing {
         this.username = username;
         this.trialCategory = trial.trialCategory;
         this.currentBlock = currentBlock;
+        this.blockNumber = blockNumber;
 
         this.touchDownPositionX = 0;
         this.touchDownPositionY = 0;
@@ -297,7 +298,7 @@ class STRectsDrawing {
     saveTrialData() {
         this.takenTimeToClickFromStartToEndMs = this.endTimeClickStartToEnd - this.startTimeStartToEndClick; // TODO falsche methode
 
-        this.dataRecorder.addDataRow([this.trialNumber, this.trialId, this.trialCategory, this.username, this.shape, this.intDevice, this.startIndex, this.targetIndex,
+        this.dataRecorder.addDataRow([this.trialNumber, this.trialId, this.trialCategory, this.blockNumber, this.username, this.shape, this.intDevice, this.startIndex, this.targetIndex,
             this.amplitude, this.startSize, this.targetWidth, this.targetHeight, this.trialDirection,
             this.startCenterX, this.startCenterY, this.targetCenterX, this.targetCenterY, this.startClickedPostitionXTouchDown, this.startClickedPositionYTouchDown,
             this.startClickedPositionXTouchUp, this.startClickedPositionYTouchUp, this.targetClickedPostitionXTouchDown, this.targetClickedPositionYTouchDown,
@@ -329,6 +330,8 @@ class STRectsDrawing {
             this.trialId +
             " | Trial Category: " +
             this.trialCategory +
+            " | Block Number: " +
+            this.blockNumber +
             " | Shape: " +
             this.shape +
             " | Interaction Device: " +
