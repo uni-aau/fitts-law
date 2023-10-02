@@ -1,11 +1,10 @@
 class STRectsDrawing {
-    constructor(trial, currentBlock, blockNumber, trialNumber, rectSize, numRects, dataRecorder, username, onTargetClicked) {
+    constructor(trial, currentBlock, blockNumber, trialNumber, rectSize, dataRecorder, username, onTargetClicked) {
         this.shape = trial.shape;
         this.startClicked = false;
         this.isTargetClicked = false;
         this.trialClockAngle = trial.trialClockAngle;
         this.trialDirection = trial.trialDirection;
-        this.numRects = numRects; // TODO marked for removal
         this.amplitude = trial.amplitude;
         this.startSize = trial.startSize;
         this.targetWidth = trial.targetWidth;

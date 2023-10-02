@@ -1,5 +1,5 @@
 class Block {
-    constructor(blockNumber, experimentType, shape, intDevice, rectSize, startSize, numRects) {
+    constructor(blockNumber, experimentType, shape, intDevice, rectSize, startSize) {
         this.shape = shape;
         // TODO marked for removal
         // this.targetHeight = Config.targetHeight;
@@ -13,18 +13,12 @@ class Block {
         this.blockNumber = blockNumber;
         this.experimentType = experimentType;
         this.startSize = startSize;
-        this.numRects = numRects;
         this.rectSize = rectSize;
         this.trialId = 1; // Initialize the trial ID
 
         // this.trialsNum = this.targetWidth.length * this.trialDirection.length * this.amplitude.length;
         this.trialsNum = this.trialDataCategories.length; // todo rename as below
         this.startTrialsSize = this.trialsNum
-        this.usedIndices = [];
-        this.rectIndices = []; // TODO useless?
-        for (let i = 0; i < this.numRects; i++) {
-            this.rectIndices.push(i);
-        }
 
         // Initialize an empty array to store the trials
         this.trials = [];

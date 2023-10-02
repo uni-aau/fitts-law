@@ -4,7 +4,6 @@ class Config {
     static intDevice = "Mouse"; // Mouse, Touch, Laser Pointer
     static startSize = 10; // Size of the start block (always AxA)
     static numBlocks = 3;
-    static numRects = 4; // TODO marked for removal
 
     static trialsPerBreak = NaN;
 

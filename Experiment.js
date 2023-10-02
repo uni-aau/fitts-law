@@ -7,11 +7,10 @@ class Experiment {
         this.rectSize = this.startSize // set the size of the other rectangles
         this.blocks = [];
         this.numBlocks = Config.numBlocks;
-        this.numRects = Config.numRects;
         let block = 1;
 
         for (let i = 0; i < this.numBlocks; i++) {
-            this.blocks.push(new Block(block, this.experimentType, this.shape, this.intDevice, this.rectSize, this.startSize, this.numRects));
+            this.blocks.push(new Block(block, this.experimentType, this.shape, this.intDevice, this.rectSize, this.startSize));
             block++;
         }
     }
@@ -38,7 +37,7 @@ class Experiment {
         this.targetWidth = targetWidth;
     }
 
-    getRandomNonRepeat() {
+/*    getRandomNonRepeat() {
         this.rectIndices = [];
         this.usedIndices = [];
         for (let i = 0; i < this.numRects; i++) {
@@ -48,6 +47,6 @@ class Experiment {
         const randomIndex = availableIndices[Math.floor(Math.random() * availableIndices.length)];
         this.usedIndices.push(randomIndex);
         return randomIndex;
-    }
+    }*/
 }
 
