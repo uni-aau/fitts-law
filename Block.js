@@ -1,6 +1,7 @@
 class Block {
     constructor(blockNumber, experimentType, shape, intDevice, rectSize, startSize, numRects) {
         this.shape = shape;
+        // TODO marked for removal
         // this.targetHeight = Config.targetHeight;
         // this.targetWidth = Config.targetWidth;
         // this.amplitude = Config.amplitude;
@@ -31,24 +32,25 @@ class Block {
         this.trials = [];
 
         for(let i = 0; i < this.trialDataCategories.length; i++) {
-            const trialDirection = this.trialDataCategories[i][4];
+            const trialDirection = this.trialDataCategories[i][4].toLowerCase();
+            // Clock: 12 (up), 1 (up-right), 2 (right-up), 3...
+            const clockDirections = { // TODO move to config?
+                'up': 90,
+                'up-right':120,
+                'right-up': 150,
+                'right': 180,
+                'right-down': 210,
+                'down-right': 240,
+                'down': 270,
+                'down-left': 300,
+                'left-down': 330,
+                'left': 360,
+                'left-up': 30,
+                'up-left': 60,
+            };
 
-            // check and assign startIndex, and TargetIndex for each direction
-            if (trialDirection === 'Up') {
-                this.startIndex = 1;
-                this.targetIndex = 3;
-            }
-            if (trialDirection === 'Down') {
-                this.startIndex = 3;
-                this.targetIndex = 1;
-            }
-            if (trialDirection === 'Right') {
-                this.startIndex = 2;
-                this.targetIndex = 0;
-            }
-            if (trialDirection === 'Left') {
-                this.startIndex = 0;
-                this.targetIndex = 2;
+            if(trialDirection in clockDirections) {
+                this.trialClockAngle = clockDirections[trialDirection];
             }
 
             // Create a trial object with the current combination of values
@@ -57,9 +59,10 @@ class Block {
                 this.trialDataCategories[i][0],
                 this.shape,
                 trialDirection,
+                this.trialClockAngle,
                 this.intDevice,
-                this.startIndex,
-                this.targetIndex,
+                this.startIndex, // TODO marked for removal
+                this.targetIndex,// TODO marked for removal
                 this.startSize,
                 this.trialDataCategories[i][1], // width
                 this.trialDataCategories[i][2], // height
