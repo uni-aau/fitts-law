@@ -3,15 +3,16 @@ class STRectsDrawing {
         this.shape = trial.shape;
         this.startClicked = false;
         this.isTargetClicked = false;
-        this.startIndex = trial.startIndex;
-        this.targetIndex = trial.targetIndex;
-        this.numRects = numRects;
+        this.trialClockAngle = trial.trialClockAngle;
+        this.trialDirection = trial.trialDirection;
+        this.startIndex = trial.startIndex; // TODO marked for removal
+        this.targetIndex = trial.targetIndex; // TODO marked for removal
+        this.numRects = numRects; // TODO marked for removal
         this.amplitude = trial.amplitude;
         this.startSize = trial.startSize;
         this.targetWidth = trial.targetWidth;
         this.targetHeight = trial.targetHeight;
         this.trialId = trial.trialId;
-        this.trialDirection = trial.trialDirection;
         this.onTargetClicked = onTargetClicked;
         this.handleCanvasClick = this.handleCanvasClick.bind(this);
         this.trialNumber = trialNumber;
@@ -39,17 +40,21 @@ class STRectsDrawing {
         const canvasCenterX = canvas.width / 2;
         const canvasCenterY = canvas.height / 2;
         const amplitudePx = mm2px(this.amplitude);
-        const angle = (2 * Math.PI) / this.numRects;
+
+        const startAngle = this.trialClockAngle; // TODO log
+        const targetAngle = (startAngle + 180) % 360; // opposite direction of angle
+        const startAngleRad = (startAngle * Math.PI)/180;
+        const targetAngleRad = (targetAngle * Math.PI)/180;
 
         // Coordinates of the start center point
-        this.startCenterX = canvasCenterX + amplitudePx * Math.cos(this.startIndex * angle);
-        this.startCenterY = canvasCenterY + amplitudePx * Math.sin(this.startIndex * angle);
+        this.startCenterX = canvasCenterX + amplitudePx * Math.cos(startAngleRad);
+        this.startCenterY = canvasCenterY + amplitudePx * Math.sin(startAngleRad);
 
         this.startSizePx = mm2px(this.startSize); // size of start element (it's currently always a*a)
 
         // Coordinates of the target center point
-        this.targetCenterX = canvasCenterX + amplitudePx * Math.cos(this.targetIndex * angle);
-        this.targetCenterY = canvasCenterY + amplitudePx * Math.sin(this.targetIndex * angle);
+        this.targetCenterX = canvasCenterX + amplitudePx * Math.cos(targetAngleRad);
+        this.targetCenterY = canvasCenterY + amplitudePx * Math.sin(targetAngleRad);
     }
 
     showRects() {
