@@ -6,9 +6,9 @@ class Trial {
         this.trialDirection = trialDirection;               // shows interaction direction e.g. "UP", "Down" , "Right" , "Left"
         this.trialClockAngle = trialClockAngle;             // Determines the angle of the target object
         this.intDevice = intDevice;                         // shows the device used during the experiment "Mouse" , "Touch"  , "Laser Pointer"
-        this.amplitude = amplitude;
+        this.startSize = startSize;
         this.targetWidth = targetWidth;
         this.targetHeight = targetHeight;
-        this.startSize = startSize;
+        this.amplitude = amplitude;
     }
 }
