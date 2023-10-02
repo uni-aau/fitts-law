@@ -104,7 +104,8 @@ class STRectsDrawing {
         }
 
         // Target Element creation
-        context.fillStyle = Config.targetElementFillStyle;
+        const randomIndex = Math.floor(Math.random() * Config.targetElementFillStyle.length);
+        context.fillStyle = Config.targetElementFillStyle[randomIndex];
 
         // Coordinates of top left corner of the rectangle (center - half of the width of rect)
         const targetWidthPx = mm2px(this.targetWidth);

@@ -29,7 +29,13 @@ class Config {
     static generalUsername = "none";
     static elementStrokeStyle = "black";
     static startElementFillStyle = "rgba(144, 238, 144, 0.8)";
-    static targetElementFillStyle = "rgba(255, 102, 102, 0.8)";
+    static targetElementFillStyle = [
+        "rgba(255, 102, 102, 0.8)",
+        "rgba(255, 171, 0, 0.8)",
+        "rgba(39, 235, 202, 0.8)",
+        "rgba(133, 68, 218, 0.8)",
+        "rgba(170, 218, 75, 0.8)",
+        "rgba(220, 110, 217, 0.8)"];
     static targetElementSelectionStyle = "rgba(0, 0, 139, 0.8)"; // Dark blue color
 
 
@@ -37,9 +43,9 @@ class Config {
     // up, up-right, right-up, right, right-down, down-right, down, down-left,
     // left-down, left, left-up, up-left
     static trialsDataCategories = [
-        ["C1", 10, 4, 30, 'Up'],
-        ["C2", 10, 2, 20, 'up-left'],
-        ["C3", 10, 2, 20, 'left-down'],
-        ["C4", 10, 2, 20, 'left'],
+        ["C1", 10, 10, 30, 'Up'],
+        ["C2", 10, 10, 20, 'up-left'],
+        ["C3", 10, 10, 20, 'left-down'],
+        ["C4", 10, 10, 20, 'left'],
     ];
 }
