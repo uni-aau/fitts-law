@@ -27,25 +27,5 @@ class Experiment {
     hasNext(blockNumber) {
         return this.numBlocks - blockNumber > 0;
     }
-
-    setTargetHeight(targetHeight) {
-        this.targetHeight = targetHeight;
-    }
-
-    setTargetWidth(targetWidth) {
-        this.targetWidth = targetWidth;
-    }
-
-/*    getRandomNonRepeat() {
-        this.rectIndices = [];
-        this.usedIndices = [];
-        for (let i = 0; i < this.numRects; i++) {
-            this.rectIndices.push(i);
-        }
-        const availableIndices = this.rectIndices.filter(index => !this.usedIndices.includes(index));
-        const randomIndex = availableIndices[Math.floor(Math.random() * availableIndices.length)];
-        this.usedIndices.push(randomIndex);
-        return randomIndex;
-    }*/
 }
 
