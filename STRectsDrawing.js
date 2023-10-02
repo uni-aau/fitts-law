@@ -1,5 +1,5 @@
 class STRectsDrawing {
-    constructor(trial, currentBlock, blockNumber, trialNumber, rectSize, dataRecorder, username, onTargetClicked) {
+    constructor(trial, currentBlock, blockNumber, trialNumber, dataRecorder, username, onTargetClicked) {
         this.shape = trial.shape;
         this.startClicked = false;
         this.isTargetClicked = false;

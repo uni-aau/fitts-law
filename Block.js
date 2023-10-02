@@ -1,19 +1,12 @@
 class Block {
-    constructor(blockNumber, experimentType, shape, intDevice, rectSize, startSize) {
+    constructor(blockNumber, experimentType, shape, intDevice, startSize) {
         this.shape = shape;
-        // TODO marked for removal
-        // this.targetHeight = Config.targetHeight;
-        // this.targetWidth = Config.targetWidth;
-        // this.amplitude = Config.amplitude;
-        // this.trialDirection = Config.trialDirection;
         this.trialDataCategories = Config.trialsDataCategories;
-
 
         this.intDevice = intDevice;
         this.blockNumber = blockNumber;
         this.experimentType = experimentType;
         this.startSize = startSize;
-        this.rectSize = rectSize;
         this.trialId = 1; // Initialize the trial ID
 
         // this.trialsNum = this.targetWidth.length * this.trialDirection.length * this.amplitude.length;

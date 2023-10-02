@@ -4,13 +4,12 @@ class Experiment {
         this.shape = Config.shape; // rectangle or circle
         this.intDevice = Config.intDevice
         this.startSize = Config.startSize;
-        this.rectSize = this.startSize // set the size of the other rectangles
         this.blocks = [];
         this.numBlocks = Config.numBlocks;
         let block = 1;
 
         for (let i = 0; i < this.numBlocks; i++) {
-            this.blocks.push(new Block(block, this.experimentType, this.shape, this.intDevice, this.rectSize, this.startSize));
+            this.blocks.push(new Block(block, this.experimentType, this.shape, this.intDevice, this.startSize));
             block++;
         }
     }

@@ -15,6 +15,7 @@ class Config {
     static targetHeight = [4]
     static targetWidth = [10]
     static amplitude = [20]
+    // TODO marked for replacement with new trial direction
     static trialDirection = ['Left', 'Up', 'Right', 'Down']; //  Direction of the required interaction
 
     static clickTolerance(amplitude) {
