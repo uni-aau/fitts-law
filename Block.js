@@ -9,9 +9,9 @@ class Block {
         this.startSize = startSize;
         this.trialId = 1; // Initialize the trial ID
 
-        // this.trialsNum = this.targetWidth.length * this.trialDirection.length * this.amplitude.length;
-        this.trialsNum = this.trialDataCategories.length; // todo rename as below
-        this.startTrialsSize = this.trialsNum
+        // this.totalTrialsAmount = this.targetWidth.length * this.trialDirection.length * this.amplitude.length;
+        this.totalTrialsAmount = this.trialDataCategories.length;
+        this.startTrialsAmount = this.totalTrialsAmount
 
         // Initialize an empty array to store the trials
         this.trials = [];
@@ -54,13 +54,13 @@ class Block {
     }
 
     getTrialsAmount() {
-        return this.trialsNum;
+        return this.totalTrialsAmount;
     }
 
     // readds trial to block and shuffles array (e.g if trial was wrongly clicked)
     reAddTrial(trialNumber) {
         const trial = this.trials[trialNumber - 1];
-        this.trialsNum++;
+        this.totalTrialsAmount++;
         this.trials.push(trial);
         this.shuffleArray(this.trials)
     }
@@ -68,11 +68,11 @@ class Block {
 
     //check if the block has another trial
     hasNext(trialNumber) {
-        return this.trialsNum - trialNumber > 0;
+        return this.totalTrialsAmount - trialNumber > 0;
     }
 
     getStartTrialSize() {
-        return this.startTrialsSize
+        return this.startTrialsAmount
     }
 // Shuffling function using Fisher-Yates algorithm
     shuffleArray(array) {

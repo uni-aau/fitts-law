@@ -143,7 +143,7 @@ class ExperimentFrame {
         let totalTrials = 0;
         for (let i = 0; i < this.experiment.getNumBlocks(); i++) {
             const block = this.experiment.getBlock(i + 1);
-            totalTrials += block.trialsNum;
+            totalTrials += block.totalTrialsAmount;
         }
         return totalTrials;
     }
@@ -161,7 +161,7 @@ class ExperimentFrame {
         for (let i = 0; i < this.experiment.getNumBlocks(); i++) {
             const block = this.experiment.getBlock(i + 1);
 
-            for (let j = 0; j < block.trialsNum; j++) {
+            for (let j = 0; j < block.totalTrialsAmount; j++) {
                 const trial = block.getTrial(j + 1);
                 console.log(trial);
             }
