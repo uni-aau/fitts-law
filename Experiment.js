@@ -1,7 +1,7 @@
 class Experiment {
     constructor() {
         this.experimentType = Config.experimentType;
-        this.shape = Config.shape; // rectangle or circle
+        this.shape = Config.shape.toLowerCase(); // rectangle or circle
         this.intDevice = Config.intDevice
         this.startSize = Config.startSize;
         this.blocks = [];
