@@ -18,24 +18,11 @@ class Block {
 
         for(let i = 0; i < this.trialDataCategories.length; i++) {
             const trialDirection = this.trialDataCategories[i][4].toLowerCase();
-            // Clock: 12 (up), 1 (up-right), 2 (right-up), 3...
-            const clockDirections = { // TODO move to config?
-                'up': 90,
-                'up-right':120,
-                'right-up': 150,
-                'right': 180,
-                'right-down': 210,
-                'down-right': 240,
-                'down': 270,
-                'down-left': 300,
-                'left-down': 330,
-                'left': 360,
-                'left-up': 30,
-                'up-left': 60,
-            };
 
-            if(trialDirection in clockDirections) {
-                this.trialClockAngle = clockDirections[trialDirection];
+            if(trialDirection in Config.clockDirections) {
+                this.trialClockAngle = Config.clockDirections[trialDirection];
+            } else {
+                console.error("No trialDirection in data array with name " + trialDirection)
             }
 
             // Create a trial object with the current combination of values
