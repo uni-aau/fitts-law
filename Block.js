@@ -17,8 +17,6 @@ class Block {
         this.rectSize = rectSize;
         this.trialId = 1; // Initialize the trial ID
 
-        this.currentstartIndex = null;
-        this.currentTargetIndex = null;
         // this.trialsNum = this.targetWidth.length * this.trialDirection.length * this.amplitude.length;
         this.trialsNum = this.trialDataCategories.length; // todo rename as below
         this.startTrialsSize = this.trialsNum
@@ -61,8 +59,6 @@ class Block {
                 trialDirection,
                 this.trialClockAngle,
                 this.intDevice,
-                this.startIndex, // TODO marked for removal
-                this.targetIndex,// TODO marked for removal
                 this.startSize,
                 this.trialDataCategories[i][1], // width
                 this.trialDataCategories[i][2], // height

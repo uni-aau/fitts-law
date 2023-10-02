@@ -5,8 +5,6 @@ class STRectsDrawing {
         this.isTargetClicked = false;
         this.trialClockAngle = trial.trialClockAngle;
         this.trialDirection = trial.trialDirection;
-        this.startIndex = trial.startIndex; // TODO marked for removal
-        this.targetIndex = trial.targetIndex; // TODO marked for removal
         this.numRects = numRects; // TODO marked for removal
         this.amplitude = trial.amplitude;
         this.startSize = trial.startSize;
@@ -41,7 +39,8 @@ class STRectsDrawing {
         const canvasCenterY = canvas.height / 2;
         const amplitudePx = mm2px(this.amplitude);
 
-        const startAngle = this.trialClockAngle; // TODO log
+        // TODO log angles?
+        const startAngle = this.trialClockAngle;
         const targetAngle = (startAngle + 180) % 360; // opposite direction of angle
         const startAngleRad = (startAngle * Math.PI)/180;
         const targetAngleRad = (targetAngle * Math.PI)/180;
@@ -303,7 +302,7 @@ class STRectsDrawing {
     saveTrialData() {
         this.takenTimeToClickFromStartToEndMs = this.endTimeClickStartToEnd - this.startTimeStartToEndClick; // TODO falsche methode
 
-        this.dataRecorder.addDataRow([this.trialNumber, this.trialId, this.trialCategory, this.blockNumber, this.username, this.shape, this.intDevice, this.startIndex, this.targetIndex,
+        this.dataRecorder.addDataRow([this.trialNumber, this.trialId, this.trialCategory, this.blockNumber, this.username, this.shape, this.intDevice,
             this.amplitude, this.startSize, this.targetWidth, this.targetHeight, this.trialDirection,
             this.startCenterX, this.startCenterY, this.targetCenterX, this.targetCenterY, this.startClickedPostitionXTouchDown, this.startClickedPositionYTouchDown,
             this.startClickedPositionXTouchUp, this.startClickedPositionYTouchUp, this.targetClickedPostitionXTouchDown, this.targetClickedPositionYTouchDown,
@@ -343,10 +342,6 @@ class STRectsDrawing {
             this.intDevice +
             " | Start Size: " +
             this.startSize +
-            " | Start Index: " +
-            this.startIndex +
-            " | Target Index: " +
-            this.targetIndex +
             " | Amplitude: " +
             this.amplitude +
             " | Target Width: " +
