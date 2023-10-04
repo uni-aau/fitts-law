@@ -121,9 +121,19 @@ button {
         font-weight: bold;
     }
 
-    #currentBlocksText {
+    #totalTrialsText {
         position: fixed;
         top: 28px;
+        left: 0;
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
+        font-weight: bold;
+        font-size: 0.95em;
+    }
+
+
+    #currentBlocksText {
+        position: fixed;
+        top: 46px;
         left:0;
         z-index: 999;
         font-family: Verdana, Geneva, Tahoma, sans-serif;
@@ -131,18 +141,9 @@ button {
         font-weight: bold;
     }
 
-    #totalTrialsText {
-        position: fixed;
-        top: 43px;
-        left: 0;
-        font-family: Verdana, Geneva, Tahoma, sans-serif;
-        font-weight: bold;
-        font-size: 0.95em;
-    }
-
     #totalBlocksText {
         position: fixed;
-        top: 58px;
+        top: 64px;
         left: 0;
         z-index: 999;
         font-family: Verdana, Geneva, Tahoma, sans-serif;
@@ -152,7 +153,7 @@ button {
 
     #trialsToBreakText {
         position: fixed;
-        top: 85px;
+        top: 90px;
         left: 0;
         z-index: 999;
         font-family: Verdana, Geneva, Tahoma, sans-serif;
