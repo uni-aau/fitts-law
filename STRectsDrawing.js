@@ -264,6 +264,12 @@ class STRectsDrawing {
                 }
             }
         }
+
+        /*
+        Hinweis zu Clickamount / Missamount
+        - 2 Clicks sind wenn von Start zu Ende geklickt wird
+        - Misses gibt es erst, wenn Start geklickt wurde, davor gibt es nur Clicks (keine Misses)
+         */
     }
 
     handleMouseDown(event) {
