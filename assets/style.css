@@ -21,60 +21,6 @@ input[type=text] {
     font-size: 24px;
 }
 
-#breakCount {
-    color: red;
-}
-
-#currentTrialText {
-    position: absolute;
-    top: 10px;
-    right: 295px;
-    z-index: 999;
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
-    font-size: 0.95em;
-    font-weight: bold;
-}
-
-#currentBlocksText {
-    position: absolute;
-    top: 10px;
-    right: 102px;
-    z-index: 999;
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
-    font-size: 0.95em;
-    font-weight: bold;
-}
-
-#totalTrialsText {
-    position: absolute;
-    top: 30px;
-    right: 270px;
-    z-index: 999;
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
-    font-weight: bold;
-    font-size: 0.95em;
-}
-
-#totalBlocksText {
-    position: absolute;
-    top: 30px;
-    right: 78px;
-    z-index: 999;
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
-    font-weight: bold;
-    font-size: 0.95em;
-}
-
-#trialsToBreakText {
-    position: absolute;
-    top: 20px;
-    left: 45px;
-    z-index: 999;
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
-    font-size: 0.95em;
-    font-weight: bold;
-}
-
 /* Styles for the modal */
 .modal {
     display: none;
@@ -106,12 +52,46 @@ button {
 
 }
 
-@media (max-width: 800px) {
-/*    body {
-        background-color: #85b3e6;
-    }*/
+#breakCount {
+    color: red;
+}
+
+@media (min-width: 801px) {
+    .info-box {
+        position: absolute;
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
+        font-size: 0.95em;
+        font-weight: bold;
+    }
 
     #currentTrialText {
+        top: 10px;
+        right: 295px;
+    }
+
+    #currentBlocksText {
+        top: 10px;
+        right: 102px;
+    }
+
+    #totalTrialsText {
+        top: 30px;
+        right: 270px;
+    }
+
+    #totalBlocksText {
+        top: 30px;
+        right: 78px;
+    }
+
+    #trialsToBreakText {
+        top: 10px;
+        left: 45px;
+    }
+}
+
+@media (max-device-width: 800px) {
+    .info-box {
         position: fixed;
         top: 10px;
         left: 0;
@@ -122,44 +102,29 @@ button {
     }
 
     #totalTrialsText {
-        position: fixed;
         top: 28px;
-        left: 0;
-        font-family: Verdana, Geneva, Tahoma, sans-serif;
-        font-weight: bold;
-        font-size: 0.95em;
     }
 
-
     #currentBlocksText {
-        position: fixed;
         top: 46px;
-        left:0;
-        z-index: 999;
-        font-family: Verdana, Geneva, Tahoma, sans-serif;
-        font-size: 0.95em;
-        font-weight: bold;
     }
 
     #totalBlocksText {
-        position: fixed;
         top: 64px;
-        left: 0;
-        z-index: 999;
-        font-family: Verdana, Geneva, Tahoma, sans-serif;
-        font-weight: bold;
-        font-size: 0.95em;
     }
 
     #trialsToBreakText {
-        position: fixed;
         top: 90px;
-        left: 0;
-        z-index: 999;
-        font-family: Verdana, Geneva, Tahoma, sans-serif;
-        font-size: 0.95em;
+    }
+
+    .info-value {
         font-weight: bold;
     }
+
 }
+
+/*
+TODO Schriftgröße, Startbildschirme, vereinfachen (zB gleiche sachen wie font zusammenlegen in klasse
+ */
 
     

@@ -12,15 +12,22 @@
 </head>
 <body>
 
-<div id="currentTrialText">Trial No.: <span id="currentTrialNumber">0</span> (per block) / <span
+<div class="info-box" id="currentTrialText">Trial No.: <span class="info-value" id="currentTrialNumber">0</span> (per block) / <span class="info-value" id="totalCurrentTrialNumber">0</span> (total)</div>
+<div class="info-box" id="currentBlocksText">Block No.: <span class="info-value" id="currentBlockNumber">0</span></div>
+<div class="info-box" id="totalTrialsText">Total Trials: <span class="info-value" id="totalTrialCountPerBlock">0</span> (per block) / <span class="info-value" id="totalTrialCount">0</span> (max)</div>
+<div class="info-box" id="totalBlocksText">Total Blocks: <span class="info-value" id="totalBlockCount">0</span></div>
+<div class="info-box" id="trialsToBreakText">Next Break in <span class="info-value" id="breakCount">0</span> trials</div>
+
+
+<!--<div class="info-box" id="currentTrialText">Trial No.: <span id="currentTrialNumber">0</span> (per block) / <span
         id="totalCurrentTrialNumber">0</span> (total)
 </div>
-<div id="currentBlocksText">Block No.: <span id="currentBlockNumber">0</span></div>
-<div id="totalTrialsText">Total Trials: <span id="totalTrialCountPerBlock">0</span> (per block) / <span
+<div class="info-box" id="currentBlocksText">Block No.: <span id="currentBlockNumber">0</span></div>
+<div class="info-box" id="totalTrialsText">Total Trials: <span id="totalTrialCountPerBlock">0</span> (per block) / <span
         id="totalTrialCount">0</span> (max)
 </div>
-<div id="totalBlocksText">Total Blocks: <span id="totalBlockCount">0</span></div>
-<div id="trialsToBreakText">Next Break in <span id="breakCount">0</span> trials</div>
+<div class="info-box" id="totalBlocksText">Total Blocks: <span id="totalBlockCount">0</span></div>
+<div class="info-box" id="trialsToBreakText">Next Break in <span id="breakCount">0</span> trials</div>-->
 
 
 <canvas height="600" id="trialCanvas" width="800"></canvas>
@@ -92,16 +99,16 @@
         document.body.style.pointerEvents = 'auto';
 
         // Request full-screen mode for the document body
-/*                const docBody = document.documentElement;
-                if (docBody.requestFullscreen) {
-                    docBody.requestFullscreen();
-                } else if (docBody.mozRequestFullScreen) {
-                    docBody.mozRequestFullScreen();
-                } else if (docBody.webkitRequestFullscreen) {
-                    docBody.webkitRequestFullscreen();
-                } else if (docBody.msRequestFullscreen) {
-                    docBody.msRequestFullscreen();
-                }*/
+        /*                const docBody = document.documentElement;
+                        if (docBody.requestFullscreen) {
+                            docBody.requestFullscreen();
+                        } else if (docBody.mozRequestFullScreen) {
+                            docBody.mozRequestFullScreen();
+                        } else if (docBody.webkitRequestFullscreen) {
+                            docBody.webkitRequestFullscreen();
+                        } else if (docBody.msRequestFullscreen) {
+                            docBody.msRequestFullscreen();
+                        }*/
 
         // Start the experiment
         experimentFrame.initializeExperiment();
