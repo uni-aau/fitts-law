@@ -39,7 +39,7 @@ input[type=text] {
     left: 50%;
     transform: translate(-50%, -50%);
     background-color: #1adf24;
-    padding: 50px;
+    padding: 55px;
     text-align: center;
 }
 
@@ -124,7 +124,7 @@ button {
 }
 
 /*
-TODO Schriftgröße, Startbildschirme
+ Startbildschirme
  */
 
     
