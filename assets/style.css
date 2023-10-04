@@ -97,7 +97,7 @@ button {
         left: 0;
         z-index: 999;
         font-family: Verdana, Geneva, Tahoma, sans-serif;
-        font-size: 0.95em;
+        font-size: 1.10em;
         font-weight: bold;
     }
 
@@ -124,7 +124,7 @@ button {
 }
 
 /*
-TODO Schriftgröße, Startbildschirme, vereinfachen (zB gleiche sachen wie font zusammenlegen in klasse
+TODO Schriftgröße, Startbildschirme
  */
 
     
