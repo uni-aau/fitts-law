@@ -1,14 +1,14 @@
 class Trial {
-    constructor(trialId, shape, trialDirection, intDevice, startIndex, targetIndex, startSize, targetWidth, targetHeight, amplitude) {
-        this.trialId = trialId;                             // give ID for each trial so that it can be tracked after shuffle
-        this.shape = shape;                                 // show which shape will be used in the experiment e.g. "Rectangle" , "Circle"
-        this.trialDirection = trialDirection;               // show interaction direction e.g. "UP", "Down" , "Right" , "Left"
-        this.intDevice = intDevice;                         // show the device used during the experiment "Mouse" , "Touch"  , "Laser Pointer"
-        this.startIndex = startIndex;
-        this.targetIndex = targetIndex;
-        this.amplitude = amplitude;
+    constructor(trialId, trialCategory, shape, trialDirection, trialClockAngle, intDevice, startSize, targetWidth, targetHeight, amplitude) {
+        this.trialId = trialId;                             // gives ID for each trial so that it can be tracked after shuffle
+        this.trialCategory = trialCategory                  // shows the trial category string
+        this.shape = shape;                                 // shows which shape will be used in the experiment e.g. "Rectangle" , "Circle"
+        this.trialDirection = trialDirection;               // shows interaction direction e.g. "UP", "Down" , "Right" , "Left"
+        this.trialClockAngle = trialClockAngle;             // Determines the angle of the target object
+        this.intDevice = intDevice;                         // shows the device used during the experiment "Mouse" , "Touch"  , "Laser Pointer"
+        this.startSize = startSize;
         this.targetWidth = targetWidth;
         this.targetHeight = targetHeight;
-        this.startSize = startSize;
+        this.amplitude = amplitude;
     }
 }
