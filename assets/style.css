@@ -106,4 +106,59 @@ button {
 
 }
 
+@media (max-width: 800px) {
+/*    body {
+        background-color: #85b3e6;
+    }*/
+
+    #currentTrialText {
+        position: fixed;
+        top: 10px;
+        left: 0;
+        z-index: 999;
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
+        font-size: 0.95em;
+        font-weight: bold;
+    }
+
+    #currentBlocksText {
+        position: fixed;
+        top: 28px;
+        left:0;
+        z-index: 999;
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
+        font-size: 0.95em;
+        font-weight: bold;
+    }
+
+    #totalTrialsText {
+        position: fixed;
+        top: 43px;
+        left: 0;
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
+        font-weight: bold;
+        font-size: 0.95em;
+    }
+
+    #totalBlocksText {
+        position: fixed;
+        top: 58px;
+        left: 0;
+        z-index: 999;
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
+        font-weight: bold;
+        font-size: 0.95em;
+    }
+
+    #trialsToBreakText {
+        position: fixed;
+        top: 85px;
+        left: 0;
+        z-index: 999;
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
+        font-size: 0.95em;
+        font-weight: bold;
+    }
+}
+
     
