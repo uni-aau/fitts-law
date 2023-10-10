@@ -1,5 +1,5 @@
 class STRectsDrawing {
-    constructor(trial, currentBlock, blockNumber, trialNumber, dataRecorder, username, onTargetClicked) {
+    constructor(trial, currentBlock, blockNumber, trialNumber, serialNumber, dataRecorder, username, onTargetClicked) {
         this.shape = trial.shape;
         this.startClicked = false;
         this.isTargetClicked = false;
@@ -19,6 +19,7 @@ class STRectsDrawing {
         this.trialCategory = trial.trialCategory;
         this.currentBlock = currentBlock;
         this.blockNumber = blockNumber;
+        this.serialNumber = serialNumber;
 
         this.touchDownPositionX = 0;
         this.touchDownPositionY = 0;
@@ -38,7 +39,6 @@ class STRectsDrawing {
         const canvasCenterY = canvas.height / 2;
         const amplitudePx = mm2px(this.amplitude);
 
-        // TODO log angles?
         const startAngle = this.trialClockAngle;
         const targetAngle = (startAngle + 180) % 360; // opposite direction of angle
         const startAngleRad = (startAngle * Math.PI)/180;
@@ -308,8 +308,8 @@ class STRectsDrawing {
     saveTrialData() {
         this.takenTimeToClickFromStartToEndMs = this.endTimeClickStartToEnd - this.startTimeStartToEndClick; // TODO falsche methode
 
-        this.dataRecorder.addDataRow([this.trialNumber, this.trialId, this.trialCategory, this.blockNumber, this.username, this.shape, this.intDevice,
-            this.amplitude, this.startSize, this.targetWidth, this.targetHeight, this.trialDirection,
+        this.dataRecorder.addDataRow([this.serialNumber, this.trialNumber, this.trialId, this.trialCategory, this.blockNumber, this.username, this.shape, this.intDevice,
+            this.amplitude, this.startSize, this.targetWidth, this.targetHeight, this.trialDirection, this.trialClockAngle,
             this.startCenterX, this.startCenterY, this.targetCenterX, this.targetCenterY, this.startClickedPostitionXTouchDown, this.startClickedPositionYTouchDown,
             this.startClickedPositionXTouchUp, this.startClickedPositionYTouchUp, this.targetClickedPostitionXTouchDown, this.targetClickedPositionYTouchDown,
             this.targetClickedPositionXTouchUp, this.targetClickedPositionYTouchUp, this.clickDistanceToStartCenter,

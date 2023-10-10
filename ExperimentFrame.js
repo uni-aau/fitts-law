@@ -3,6 +3,7 @@ class ExperimentFrame {
     constructor() {
         this.blockNumber = 1;
         this.trialNumber = 1;
+        this.serialNumber = 1;
         this.totalFinishedTrialsAmount = 0;
         this.experiment = new Experiment();
         this.totalBlocks = this.experiment.getNumBlocks(); // Track the total number of blocks
@@ -31,7 +32,7 @@ class ExperimentFrame {
             this.printAllTrials();
         }
 
-        const STRectDrawing = new STRectsDrawing(currentTrial, this.currentBlock, this.blockNumber, this.trialNumber, this.dataRecorder, this.username, () => {
+        const STRectDrawing = new STRectsDrawing(currentTrial, this.currentBlock, this.blockNumber, this.trialNumber, this.serialNumber, this.dataRecorder, this.username, () => {
             this.trialCompleted();
         });
 
@@ -80,6 +81,7 @@ class ExperimentFrame {
 
     trialCompleted() {
         const currentBlock = this.experiment.getBlock(this.blockNumber);
+        this.serialNumber++;
 
         if (currentBlock) {
             if (currentBlock.hasNext(this.trialNumber)) {
