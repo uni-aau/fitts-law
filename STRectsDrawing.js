@@ -1,8 +1,6 @@
 class STRectsDrawing {
     constructor(trial, currentBlock, blockNumber, trialNumber, serialNumber, dataRecorder, username, onTargetClicked) {
         this.shape = trial.shape;
-        this.startClicked = false;
-        this.isTargetClicked = false;
         this.trialClockAngle = trial.trialClockAngle;
         this.trialDirection = trial.trialDirection;
         this.amplitude = trial.amplitude;
@@ -10,31 +8,39 @@ class STRectsDrawing {
         this.targetWidth = trial.targetWidth;
         this.targetHeight = trial.targetHeight;
         this.trialId = trial.trialId;
-        this.onTargetClicked = onTargetClicked;
-        this.handleCanvasClick = this.handleCanvasClick.bind(this);
-        this.trialNumber = trialNumber;
         this.intDevice = trial.intDevice;
+        this.trialCategory = trial.trialCategory;
+
+        this.onTargetClicked = onTargetClicked;
+        this.trialNumber = trialNumber;
         this.dataRecorder = dataRecorder;
         this.username = username;
-        this.trialCategory = trial.trialCategory;
         this.currentBlock = currentBlock;
         this.blockNumber = blockNumber;
         this.serialNumber = serialNumber;
 
+        this.handleCanvasClick = this.handleCanvasClick.bind(this);
+        this.handleMouseDown = this.handleMouseDown.bind(this);
+        this.handleMouseUp = this.handleMouseUp.bind(this);
+
+        this.initializeVariables();
+    }
+
+    initializeVariables() {
         this.touchDownPositionX = 0;
         this.touchDownPositionY = 0;
         this.touchUpPositionX = 0;
         this.touchUpPositionY = 0;
-        this.handleMouseDown = this.handleMouseDown.bind(this);
-        this.handleMouseUp = this.handleMouseUp.bind(this);
 
-        this.isMiss = false;            // determines if the trial had a miss
         this.clicksAmount = 0;          // determines the amount of clicks until the trial was finished
         this.missAmount = 0;            // determines the overall miss amount until the target rectangle was clicked (also in tolerance incremented)
         this.missInToleranceAmount = 0; // determines the misses that are in the tolerance range (relevant if skip at miss is disabled)
+        this.isMiss = false;            // determines if the trial had a miss
+        this.startClicked = false;
+        this.isTargetClicked = false;
     }
 
-    initializeVariables(canvas) {
+    initializeCanvasVariables(canvas) {
         const canvasCenterX = canvas.width / 2;
         const canvasCenterY = canvas.height / 2;
         const amplitudePx = mm2px(this.amplitude);
@@ -66,7 +72,7 @@ class STRectsDrawing {
         canvas.height = window.innerHeight;
         canvas.addEventListener("click", this.handleCanvasClick);
 
-        this.initializeVariables(canvas)
+        this.initializeCanvasVariables(canvas)
 
         // Start element creation
         context.clearRect(0, 0, canvas.width, canvas.height);
@@ -155,7 +161,7 @@ class STRectsDrawing {
         this.pressedY = event.clientY - rect.top;
         console.log("PressX = " + this.pressedX + " PressY = " + this.pressedY);
 
-        this.initializeVariables(canvas);
+        this.initializeCanvasVariables(canvas);
         this.clicksAmount++;
 
         // Checks whether the click was in the start rectangle
