@@ -47,8 +47,8 @@ class STRectsDrawing {
 
         const startAngle = this.trialClockAngle;
         const targetAngle = (startAngle + 180) % 360; // opposite direction of angle
-        const startAngleRad = (startAngle * Math.PI)/180;
-        const targetAngleRad = (targetAngle * Math.PI)/180;
+        const startAngleRad = (startAngle * Math.PI) / 180;
+        const targetAngleRad = (targetAngle * Math.PI) / 180;
 
         // Coordinates of the start center point
         this.startCenterX = canvasCenterX + amplitudePx * Math.cos(startAngleRad);
@@ -62,10 +62,25 @@ class STRectsDrawing {
     }
 
     showRects() {
+        const canvas = this.setUpCanvas();
+        const context = canvas.getContext("2d");
+
+        // Start element creation
+        context.clearRect(0, 0, canvas.width, canvas.height);
+
+        this.drawStartElement(context);
+        this.drawTargetElement(context);
+
+        document.addEventListener("mousedown", this.handleMouseDown);
+        document.addEventListener("mouseup", this.handleMouseUp);
+
+        this.printToConsole();
+    }
+
+    setUpCanvas() {
         // Defines canvas
         let canvasOld = document.getElementById("trialCanvas");
-        const canvas = this.removeAllEventListeners(canvasOld) // otherwise multiple clicksAmount will be registered
-        const context = canvas.getContext("2d");
+        let canvas = this.removeAllEventListeners(canvasOld) // otherwise multiple clicksAmount will be registered
 
         // Calculates width/height of window and clears rect
         canvas.width = window.innerWidth;
@@ -74,75 +89,58 @@ class STRectsDrawing {
 
         this.initializeCanvasVariables(canvas)
 
-        // Start element creation
-        context.clearRect(0, 0, canvas.width, canvas.height);
+        return canvas;
+    }
+
+    drawStartElement(context) {
         context.strokeStyle = Config.elementStrokeStyle;
         context.fillStyle = Config.startElementFillStyle;
 
-
         // Coordinates of top left corner of the rectangle (center - half of the width of rect)
-        const rectX = this.startCenterX - this.startSizePx / 2;
-        const rectY = this.startCenterY - this.startSizePx / 2;
-
-        document.addEventListener("mousedown", this.handleMouseDown);
-        document.addEventListener("mouseup", this.handleMouseUp);
+        const topLeftStartRectCornerX = this.startCenterX - this.startSizePx / 2;
+        const topLeftStartRectCornerY = this.startCenterY - this.startSizePx / 2;
 
         if (this.shape === "rectangle") {
-            context.strokeRect(
-                rectX,
-                rectY,
-                this.startSizePx,
-                this.startSizePx
-            );
-            context.fillRect(
-                rectX,
-                rectY,
-                this.startSizePx,
-                this.startSizePx
-            );
+            context.strokeRect(topLeftStartRectCornerX, topLeftStartRectCornerY, this.startSizePx, this.startSizePx);
+            context.fillRect(topLeftStartRectCornerX, topLeftStartRectCornerY, this.startSizePx, this.startSizePx);
         } else if (this.shape === "circle") {
             context.beginPath();
             context.arc(this.startCenterX, this.startCenterY, this.startSizePx / 2, 0, 2 * Math.PI);
             context.stroke();
             context.fill();
         } else {
-            console.error("No shape with the name " + this.shape + " registered");
+            this.alertWronglyRegistered();
         }
+    }
 
-        // Target Element creation
-        const randomIndex = Math.floor(Math.random() * Config.targetElementFillStyle.length);
+    drawTargetElement(context) {
+        const randomIndex = Math.floor(Math.random() * Config.targetElementFillStyle.length); // determines a random target color
         context.fillStyle = Config.targetElementFillStyle[randomIndex];
+        context.strokeStyle = Config.elementStrokeStyle;
 
         // Coordinates of top left corner of the rectangle (center - half of the width of rect)
-        const targetWidthPx = mm2px(this.targetWidth);
-        const targetHeightPx = mm2px(this.targetHeight);
-        const targetRectX = this.targetCenterX - targetWidthPx / 2;
-        const targetRectY = this.targetCenterY - targetHeightPx / 2;
+        const targetWidthPx = mm2px(this.targetWidth);      // TODO auch in intitalizeVariables?
+        const targetHeightPx = mm2px(this.targetHeight);    // TODO auch in intitalizeVariables?
+        const topLeftTargetRectCornerX = this.targetCenterX - targetWidthPx / 2;
+        const topLeftTargetRectCornerY = this.targetCenterY - targetHeightPx / 2;
 
         if (this.shape === "rectangle") {
-            context.strokeRect(
-                targetRectX,
-                targetRectY,
-                targetWidthPx,
-                targetHeightPx
-            );
-            context.fillRect(
-                targetRectX,
-                targetRectY,
-                targetWidthPx,
-                targetHeightPx
-            );
+            context.strokeRect(topLeftTargetRectCornerX, topLeftTargetRectCornerY, targetWidthPx, targetHeightPx);
+            context.fillRect(topLeftTargetRectCornerX, topLeftTargetRectCornerY, targetWidthPx, targetHeightPx);
         } else if (this.shape === "circle") {
-            const targetSize = mm2px(this.targetWidth);
+            const targetSizePx = mm2px(this.targetWidth); // TODO size = height setzen
             context.beginPath();
-            context.arc(this.targetCenterX, this.targetCenterY, targetSize / 2, 0, 2 * Math.PI);
+            context.arc(this.targetCenterX, this.targetCenterY, targetSizePx / 2, 0, 2 * Math.PI);
             context.stroke();
             context.fill();
         } else {
-            alert("No shape as " + this.shape + " is registered!")
-            console.error("No shape with the name " + this.shape + " registered");
+            this.alertWronglyRegistered();
         }
-        this.printToConsole();
+    }
+
+    alertWronglyRegistered() {
+        alert(`No shape as ${this.shape} is registered!`)
+        console.error(`No shape with the name ${this.shape} registered!`);
     }
 
     removeAllEventListeners(element) {
@@ -165,7 +163,7 @@ class STRectsDrawing {
         this.clicksAmount++;
 
         // Checks whether the click was in the start rectangle
-        const targetWidthPx = mm2px(this.targetWidth); // Width of the target rectangle
+        const targetWidthPx = mm2px(this.targetWidth); // Width of the target rectangle // TODO mehrfach targetWidth
         const targetHeightPx = mm2px(this.targetHeight); // Height of the target rectangle
         const halfWidthPx = this.startSizePx / 2;
 
@@ -192,7 +190,6 @@ class STRectsDrawing {
                 this.startClickedPositionXTouchUp = this.touchUpPositionX;
                 this.startClickedPositionYTouchUp = this.touchUpPositionY;
                 this.startTimeTouchDownToTouchUpMs = this.getTouchDownTouchUpTimeDifference();
-
 
                 this.startTimeStartToEndClick = performance.now();
 
@@ -257,7 +254,7 @@ class STRectsDrawing {
                     this.missAmount++;
                     this.missInToleranceAmount++;
                     if (Config.isMissSkipped) {
-                        if(Config.reAddMisses) {
+                        if (Config.reAddMisses) {
                             this.currentBlock.reAddTrial(this.trialNumber);
                         }
                         this.finishTrial();
