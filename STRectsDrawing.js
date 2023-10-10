@@ -24,6 +24,7 @@ class STRectsDrawing {
         this.handleMouseUp = this.handleMouseUp.bind(this);
 
         this.initializeVariables();
+        this.initializeVariablesInPixel()
     }
 
     initializeVariables() {
@@ -54,11 +55,21 @@ class STRectsDrawing {
         this.startCenterX = canvasCenterX + amplitudePx * Math.cos(startAngleRad);
         this.startCenterY = canvasCenterY + amplitudePx * Math.sin(startAngleRad);
 
-        this.startSizePx = mm2px(this.startSize); // size of start element (it's currently always a*a)
-
         // Coordinates of the target center point
         this.targetCenterX = canvasCenterX + amplitudePx * Math.cos(targetAngleRad);
         this.targetCenterY = canvasCenterY + amplitudePx * Math.sin(targetAngleRad);
+    }
+
+    initializeVariablesInPixel() {
+        this.targetWidthPx = mm2px(this.targetWidth);
+        this.targetHeightPx = mm2px(this.targetHeight);
+        this.startSizePx = mm2px(this.startSize); // size of start element (it's currently always a*a)
+
+        // TargetHeight = TargetWidth at circle
+        if(this.shape === "circle") {
+            this.targetHeight = this.targetWidth
+            this.targetHeightPx = this.targetWidthPx;
+        }
     }
 
     showRects() {
@@ -119,18 +130,15 @@ class STRectsDrawing {
         context.strokeStyle = Config.elementStrokeStyle;
 
         // Coordinates of top left corner of the rectangle (center - half of the width of rect)
-        const targetWidthPx = mm2px(this.targetWidth);      // TODO auch in intitalizeVariables?
-        const targetHeightPx = mm2px(this.targetHeight);    // TODO auch in intitalizeVariables?
-        const topLeftTargetRectCornerX = this.targetCenterX - targetWidthPx / 2;
-        const topLeftTargetRectCornerY = this.targetCenterY - targetHeightPx / 2;
+        const topLeftTargetRectCornerX = this.targetCenterX - this.targetWidthPx / 2;
+        const topLeftTargetRectCornerY = this.targetCenterY - this.targetHeightPx / 2;
 
         if (this.shape === "rectangle") {
-            context.strokeRect(topLeftTargetRectCornerX, topLeftTargetRectCornerY, targetWidthPx, targetHeightPx);
-            context.fillRect(topLeftTargetRectCornerX, topLeftTargetRectCornerY, targetWidthPx, targetHeightPx);
+            context.strokeRect(topLeftTargetRectCornerX, topLeftTargetRectCornerY, this.targetWidthPx, this.targetHeightPx);
+            context.fillRect(topLeftTargetRectCornerX, topLeftTargetRectCornerY, this.targetWidthPx, this.targetHeightPx);
         } else if (this.shape === "circle") {
-            const targetSizePx = mm2px(this.targetWidth); // TODO size = height setzen
             context.beginPath();
-            context.arc(this.targetCenterX, this.targetCenterY, targetSizePx / 2, 0, 2 * Math.PI);
+            context.arc(this.targetCenterX, this.targetCenterY, this.targetWidthPx / 2, 0, 2 * Math.PI);
             context.stroke();
             context.fill();
         } else {
@@ -159,12 +167,10 @@ class STRectsDrawing {
         this.pressedY = event.clientY - rect.top;
         console.log("PressX = " + this.pressedX + " PressY = " + this.pressedY);
 
-        this.initializeCanvasVariables(canvas);
+        this.initializeCanvasVariables(canvas); // TODO notwendig?
         this.clicksAmount++;
 
         // Checks whether the click was in the start rectangle
-        const targetWidthPx = mm2px(this.targetWidth); // Width of the target rectangle // TODO mehrfach targetWidth
-        const targetHeightPx = mm2px(this.targetHeight); // Height of the target rectangle
         const halfWidthPx = this.startSizePx / 2;
 
 
@@ -198,7 +204,7 @@ class STRectsDrawing {
                 context.beginPath(); // removes previous drawing operations
 
                 if (this.shape === "rectangle") {
-                    context.fillRect(this.targetCenterX - targetWidthPx / 2, this.targetCenterY - targetHeightPx / 2, targetWidthPx, targetHeightPx);
+                    context.fillRect(this.targetCenterX - this.targetWidthPx / 2, this.targetCenterY - this.targetHeightPx / 2, this.targetWidthPx, this.targetHeightPx);
                 } else if (this.shape === "circle") {
                     const startSizePx = mm2px(this.startSize) / 2;
                     context.arc(this.startCenterX, this.startCenterY, startSizePx, 0, 2 * Math.PI);
@@ -208,8 +214,8 @@ class STRectsDrawing {
             }
         } else { // Start was already clicked
             // Determines click in target rectangle
-            const targetSizeHalfWidthPx = targetWidthPx / 2;
-            const targetSizeHalfHeightPx = targetHeightPx / 2;
+            const targetSizeHalfWidthPx = this.targetWidthPx / 2;
+            const targetSizeHalfHeightPx = this.targetHeightPx / 2;
             const isRectangleClickInTargetElement = this.pressedX >= this.targetCenterX - targetSizeHalfWidthPx &&
                 this.pressedX <= this.targetCenterX + targetSizeHalfWidthPx &&
                 this.pressedY >= this.targetCenterY - targetSizeHalfHeightPx &&
@@ -221,9 +227,8 @@ class STRectsDrawing {
 
             // Determines click in target circle
             this.distanceToTargetCenter = Math.sqrt((this.pressedX - this.targetCenterX) ** 2 + (this.pressedY - this.targetCenterY) ** 2);
-            const targetSizePx = mm2px(this.targetWidth); // todo vereinigen mit start
-            const isCircleClickInTargetElement = this.distanceToTargetCenter < targetSizePx / 2;
-            const isCircleClickInTargetElementWithTolerance = this.distanceToTargetCenter < (targetSizePx + Config.clickTolerance(this.amplitude)) / 2;
+            const isCircleClickInTargetElement = this.distanceToTargetCenter < this.targetWidthPx / 2;
+            const isCircleClickInTargetElementWithTolerance = this.distanceToTargetCenter < (this.targetWidthPx + Config.clickTolerance(this.amplitude)) / 2;
             console.log("Click in circle? " + isCircleClickInTargetElement + " / " + isCircleClickInTargetElementWithTolerance + " / " + isRectangleClickInTargetElement)
 
             if (this.startClicked && !this.isTargetClicked) {

@@ -11,6 +11,7 @@ class Config {
     // Category, targetWidth, targetHeight, Amplitude, trialDirection
     // up, up-right, right-up, right, right-down, down-right, down, down-left,
     // left-down, left, left-up, up-left
+    // Circle: width => height
     static trialsDataCategories = [
         ["C1", 10, 10, 30, 'Up'],
         ["C2", 10, 10, 20, 'up-left'],
