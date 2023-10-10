@@ -113,14 +113,14 @@ class ExperimentFrame {
         const totalCurrentTrialIndexEl = document.getElementById("totalCurrentTrialNumber");
         totalCurrentTrialIndexEl.textContent = this.totalFinishedTrialsAmount;
 
-        const currentBlockIndexEl = document.getElementById("currentBlockNumber");
-        currentBlockIndexEl.textContent = this.blockNumber;
+        const totalTrialIndexPerBlockEl = document.getElementById("totalTrialCountPerBlock");
+        totalTrialIndexPerBlockEl.textContent = this.getTotalTrialsPerBlock();
 
         const totalTrialIndexEl = document.getElementById("totalTrialCount");
         totalTrialIndexEl.textContent = this.getTotalTrials();
 
-        const totalTrialIndexPerBlockEl = document.getElementById("totalTrialCountPerBlock");
-        totalTrialIndexPerBlockEl.textContent = this.getTotalTrialsPerBlock();
+        const currentBlockIndexEl = document.getElementById("currentBlockNumber");
+        currentBlockIndexEl.textContent = this.blockNumber;
 
         const totalBlockIndexEl = document.getElementById("totalBlockCount");
         totalBlockIndexEl.textContent = Config.numBlocks;

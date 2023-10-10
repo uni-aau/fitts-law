@@ -251,10 +251,10 @@ class STRectsDrawing {
                     this.missAmount++;
                     this.missInToleranceAmount++;
                     if (Config.isMissSkipped) {
-                        this.finishTrial();
                         if(Config.reAddMisses) {
                             this.currentBlock.reAddTrial(this.trialNumber);
                         }
+                        this.finishTrial();
                     } else {
                         // TODO message to do again?
                     }
