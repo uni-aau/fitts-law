@@ -41,6 +41,7 @@ class STRectsDrawing {
         this.isTargetClicked = false;
     }
 
+    // Todo new canvas objekt?
     initializeCanvasVariables(canvas) {
         const canvasCenterX = canvas.width / 2;
         const canvasCenterY = canvas.height / 2;
@@ -161,12 +162,6 @@ class STRectsDrawing {
         const canvas = document.getElementById("trialCanvas");
         const context = canvas.getContext("2d");
 
-        // Handle click position
-        const rect = canvas.getBoundingClientRect();
-        this.pressedX = event.clientX - rect.left;
-        this.pressedY = event.clientY - rect.top;
-        console.log("PressX = " + this.pressedX + " PressY = " + this.pressedY);
-
         this.initializeCanvasVariables(canvas); // TODO notwendig?
         this.clicksAmount++;
 
@@ -176,12 +171,12 @@ class STRectsDrawing {
 
         if (!this.startClicked) {
             // Checks whether the click was in the start circle
-            this.clickDistanceToStartCenter = Math.sqrt((this.pressedX - this.startCenterX) ** 2 + (this.pressedY - this.startCenterY) ** 2);
+            this.clickDistanceToStartCenter = Math.sqrt((this.touchUpPositionX - this.startCenterX) ** 2 + (this.touchUpPositionY - this.startCenterY) ** 2);
             const isCircleClickInStartElement = this.clickDistanceToStartCenter < this.startSizePx / 2;
-            const isRectangleClickInStartElement = this.pressedX >= this.startCenterX - halfWidthPx &&
-                this.pressedX <= this.startCenterX + halfWidthPx &&
-                this.pressedY >= this.startCenterY - halfWidthPx &&
-                this.pressedY <= this.startCenterY + halfWidthPx
+            const isRectangleClickInStartElement = this.touchUpPositionX >= this.startCenterX - halfWidthPx &&
+                this.touchUpPositionX <= this.startCenterX + halfWidthPx &&
+                this.touchUpPositionY >= this.startCenterY - halfWidthPx &&
+                this.touchUpPositionY <= this.startCenterY + halfWidthPx
 
             // Determines if the click was in the specific start shape
             let isInStartRange = false;
@@ -216,17 +211,17 @@ class STRectsDrawing {
             // Determines click in target rectangle
             const targetSizeHalfWidthPx = this.targetWidthPx / 2;
             const targetSizeHalfHeightPx = this.targetHeightPx / 2;
-            const isRectangleClickInTargetElement = this.pressedX >= this.targetCenterX - targetSizeHalfWidthPx &&
-                this.pressedX <= this.targetCenterX + targetSizeHalfWidthPx &&
-                this.pressedY >= this.targetCenterY - targetSizeHalfHeightPx &&
-                this.pressedY <= this.targetCenterY + targetSizeHalfHeightPx
-            const isRectangleClickInTargetElementWithTolerance = this.pressedX >= this.targetCenterX - targetSizeHalfWidthPx - Config.clickTolerance(this.amplitude) &&
-                this.pressedX <= this.targetCenterX + targetSizeHalfWidthPx + Config.clickTolerance(this.amplitude) &&
-                this.pressedY >= this.targetCenterY - targetSizeHalfHeightPx - Config.clickTolerance(this.amplitude) &&
-                this.pressedY <= this.targetCenterY + targetSizeHalfHeightPx + Config.clickTolerance(this.amplitude)
+            const isRectangleClickInTargetElement = this.touchUpPositionX >= this.targetCenterX - targetSizeHalfWidthPx &&
+                this.touchUpPositionX <= this.targetCenterX + targetSizeHalfWidthPx &&
+                this.touchUpPositionY >= this.targetCenterY - targetSizeHalfHeightPx &&
+                this.touchUpPositionY <= this.targetCenterY + targetSizeHalfHeightPx
+            const isRectangleClickInTargetElementWithTolerance = this.touchUpPositionX >= this.targetCenterX - targetSizeHalfWidthPx - Config.clickTolerance(this.amplitude) &&
+                this.touchUpPositionX <= this.targetCenterX + targetSizeHalfWidthPx + Config.clickTolerance(this.amplitude) &&
+                this.touchUpPositionY >= this.targetCenterY - targetSizeHalfHeightPx - Config.clickTolerance(this.amplitude) &&
+                this.touchUpPositionY <= this.targetCenterY + targetSizeHalfHeightPx + Config.clickTolerance(this.amplitude)
 
             // Determines click in target circle
-            this.distanceToTargetCenter = Math.sqrt((this.pressedX - this.targetCenterX) ** 2 + (this.pressedY - this.targetCenterY) ** 2);
+            this.distanceToTargetCenter = Math.sqrt((this.touchUpPositionX - this.targetCenterX) ** 2 + (this.touchUpPositionY - this.targetCenterY) ** 2);
             const isCircleClickInTargetElement = this.distanceToTargetCenter < this.targetWidthPx / 2;
             const isCircleClickInTargetElementWithTolerance = this.distanceToTargetCenter < (this.targetWidthPx + Config.clickTolerance(this.amplitude)) / 2;
             console.log("Click in circle? " + isCircleClickInTargetElement + " / " + isCircleClickInTargetElementWithTolerance + " / " + isRectangleClickInTargetElement)
@@ -334,7 +329,7 @@ class STRectsDrawing {
 
     // TODO
     /*
-    - Fully remove pressedX and replace it witH touchDown method
+    - Drawing & Clickhandling in eigener Klasse
     */
 
     printToConsole() {
