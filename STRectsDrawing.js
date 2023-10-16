@@ -50,26 +50,6 @@ class STRectsDrawing {
         }
     }
 
-    // Todo new canvas objekt?
-    initializeCanvasVariables(canvas) {
-        const canvasCenterX = canvas.width / 2;
-        const canvasCenterY = canvas.height / 2;
-        const amplitudePx = mm2px(this.amplitude);
-
-        const startAngle = this.trialClockAngle;
-        const targetAngle = (startAngle + 180) % 360; // opposite direction of angle
-        const startAngleRad = (startAngle * Math.PI) / 180;
-        const targetAngleRad = (targetAngle * Math.PI) / 180;
-
-        // Coordinates of the start center point
-        this.startCenterX = canvasCenterX + amplitudePx * Math.cos(startAngleRad);
-        this.startCenterY = canvasCenterY + amplitudePx * Math.sin(startAngleRad);
-
-        // Coordinates of the target center point
-        this.targetCenterX = canvasCenterX + amplitudePx * Math.cos(targetAngleRad);
-        this.targetCenterY = canvasCenterY + amplitudePx * Math.sin(targetAngleRad);
-    }
-
     showRects() {
         const canvas = this.setUpCanvas();
         const context = canvas.getContext("2d");
@@ -99,6 +79,25 @@ class STRectsDrawing {
         this.initializeCanvasVariables(canvas)
 
         return canvas;
+    }
+
+    // Todo new canvas objekt?
+    initializeCanvasVariables(canvas) {
+        const canvasCenterX = canvas.width / 2;
+        const canvasCenterY = canvas.height / 2;
+        const amplitudePx = mm2px(this.amplitude);
+        const startAngle = this.trialClockAngle;
+        const targetAngle = (startAngle + 180) % 360; // opposite direction of angle
+        const startAngleRad = (startAngle * Math.PI) / 180;
+        const targetAngleRad = (targetAngle * Math.PI) / 180;
+
+        // Coordinates of the start center point
+        this.startCenterX = canvasCenterX + amplitudePx * Math.cos(startAngleRad);
+        this.startCenterY = canvasCenterY + amplitudePx * Math.sin(startAngleRad);
+
+        // Coordinates of the target center point
+        this.targetCenterX = canvasCenterX + amplitudePx * Math.cos(targetAngleRad);
+        this.targetCenterY = canvasCenterY + amplitudePx * Math.sin(targetAngleRad);
     }
 
     drawStartElement(context) {
