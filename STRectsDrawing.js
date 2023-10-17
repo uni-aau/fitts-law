@@ -303,6 +303,7 @@ class STRectsDrawing {
             this.startTimeTouchDownToTouchUpMs, this.targetTimeTouchDownToTouchUpMs]);
 
         console.log(this.dataRecorder.getDataArray());
+        this.dataRecorder.publishCsvToServer();
         this.dataRecorder.generateCsvDownloadLink(false);
     }
 

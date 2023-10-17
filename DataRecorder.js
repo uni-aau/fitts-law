@@ -44,4 +44,40 @@ class DataRecorder {
         document.body.appendChild(link);
         console.log(link);
     }
+
+    publishCsvToServer() {
+        // const number = 10;
+        const jsonData = this.dataArray.map(row => row.join(','));
+        // const string = "test";
+
+        fetch('http://david.jamnig.net/tests/test3/update.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'text/plain',
+            },
+            body: jsonData.join('\n'),
+            // body:string,
+        })
+            .then(response => response.text())
+            .then(data => {
+                console.log(data); // server response
+            });
+    }
+
+
+/*    publishCsvToServer() {
+        const jsonData = JSON.stringify(this.dataArray);
+
+        fetch('http://david.jamnig.net/tests/test3/update.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: jsonData,
+        })
+            .then(response => response.text())
+            .then(data => {
+                console.log(data); // server response
+            })
+    }*/
 }
