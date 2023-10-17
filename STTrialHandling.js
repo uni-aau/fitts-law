@@ -168,7 +168,8 @@ class STTrialHandling {
     }
 
     handleStartClick(context) {
-        this.clickDistanceToStartCenter = Math.sqrt((this.touchUpPositionX - this.startCenterX) ** 2 + (this.touchUpPositionY - this.startCenterY) ** 2);
+        this.clickDistanceToStartCenterTouchDown = Math.sqrt((this.touchDownPositionX - this.startCenterX) ** 2 + (this.touchDownPositionY - this.startCenterY) ** 2);
+        this.clickDistanceToStartCenterTouchUp = Math.sqrt((this.touchUpPositionX - this.startCenterX) ** 2 + (this.touchUpPositionY - this.startCenterY) ** 2);
 
         // If click was in the start object
         if (this.isClickInStartElement()) {
@@ -204,13 +205,14 @@ class STTrialHandling {
                 this.touchUpPositionY >= this.startCenterY - halfWidthPx &&
                 this.touchUpPositionY <= this.startCenterY + halfWidthPx
         } else if (this.shape === "circle") {
-            return this.clickDistanceToStartCenter < this.startSizePx / 2;
+            return this.clickDistanceToStartCenterTouchUp < this.startSizePx / 2;
         }
     }
 
     // Start was already clicked
     handleTargetClick() {
-        this.distanceToTargetCenter = Math.sqrt((this.touchUpPositionX - this.targetCenterX) ** 2 + (this.touchUpPositionY - this.targetCenterY) ** 2);
+        this.clickDistanceToTargetCenterTouchDown = Math.sqrt((this.touchDownPositionX - this.targetCenterX) ** 2 + (this.touchDownPositionY - this.targetCenterY) ** 2);
+        this.clickDistanceToTargetCenterTouchUp = Math.sqrt((this.touchUpPositionX - this.targetCenterX) ** 2 + (this.touchUpPositionY - this.targetCenterY) ** 2);
 
         if (this.startClicked && !this.isTargetClicked) {
             this.endTimeClickStartToEnd = performance.now(); // Determines the time between start and target click
@@ -259,8 +261,8 @@ class STTrialHandling {
                     this.touchUpPositionY <= this.targetCenterY + targetSizeHalfHeightPx + this.clickTolerance)
             }
         } else if (this.shape === "circle") {
-            if (!withTolerance) return this.distanceToTargetCenter < this.targetWidthPx / 2;
-            else return this.distanceToTargetCenter < (this.targetWidthPx + this.clickTolerance) / 2;
+            if (!withTolerance) return this.clickDistanceToTargetCenterTouchUp < this.targetWidthPx / 2;
+            else return this.clickDistanceToTargetCenterTouchUp < (this.targetWidthPx + this.clickTolerance) / 2;
         }
         return false;
     }
@@ -288,7 +290,7 @@ class STTrialHandling {
     printTrial() {
         console.log(`Information about finished trial: Amplitude: ${this.amplitude} (${mm2px(this.amplitude)}px) | Coordinates of Start center point: X=${this.startCenterX} Y=${this.startCenterY} | Coordinates of Target center point: X=${this.targetCenterX} Y=${this.targetCenterY}`);
         console.log(`Information about click position: StartTouchDown: X=${this.startClickedPostitionXTouchDown} Y=${this.startClickedPositionYTouchDown}, StartTouchUp: X=${this.startClickedPositionXTouchUp} Y=${this.startClickedPositionYTouchUp}, TargetTouchDown: X=${this.targetClickedPostitionXTouchDown} Y=${this.targetClickedPositionYTouchDown}, TargetTouchUp: X=${this.targetClickedPositionXTouchUp} Y=${this.targetClickedPositionYTouchUp}`);
-        console.log(`Information about click: Click distance to start center: ${this.clickDistanceToStartCenter} | Click distance to target center: ${this.distanceToTargetCenter} | isMiss? ${this.isMiss} | Miss Amount: ${this.missAmount} | Miss in tolerance: ${this.missInToleranceAmount} | Click tolerance: ${this.clickTolerance}`);
+        console.log(`Information about click: Click distance to start center: (down/up) ${this.clickDistanceToStartCenterTouchDown} / ${this.clickDistanceToStartCenterTouchUp}  | Click distance to target center: (down/up) ${this.clickDistanceToTargetCenterTouchDown} / ${this.clickDistanceToTargetCenterTouchUp} | isMiss? ${this.isMiss} | Miss Amount: ${this.missAmount} | Miss in tolerance: ${this.missInToleranceAmount} | Click tolerance: ${this.clickTolerance}`);
         console.log(`Information about times: StartTouchDownToTouchUpTime: ${this.startTimeTouchDownToTouchUpMs} | TargetTouchDownToTouchUpTime: ${this.targetTimeTouchDownToTouchUpMs}`)
     }
 
@@ -298,8 +300,8 @@ class STTrialHandling {
             this.amplitude, this.startSize, this.targetWidth, this.targetHeight, this.trialDirection, this.trialClockAngle,
             this.startCenterX, this.startCenterY, this.targetCenterX, this.targetCenterY, this.startClickedPostitionXTouchDown, this.startClickedPositionYTouchDown,
             this.startClickedPositionXTouchUp, this.startClickedPositionYTouchUp, this.targetClickedPostitionXTouchDown, this.targetClickedPositionYTouchDown,
-            this.targetClickedPositionXTouchUp, this.targetClickedPositionYTouchUp, this.clickDistanceToStartCenter,
-            this.distanceToTargetCenter, this.isMiss, this.missAmount, this.missInToleranceAmount, this.clicksAmount, this.getTimeToClickFromStartToEndMs(),
+            this.targetClickedPositionXTouchUp, this.targetClickedPositionYTouchUp, this.clickDistanceToStartCenterTouchDown, this.clickDistanceToStartCenterTouchUp,
+            this.clickDistanceToTargetCenterTouchDown, this.clickDistanceToTargetCenterTouchUp, this.isMiss, this.missAmount, this.missInToleranceAmount, this.clicksAmount, this.getTimeToClickFromStartToEndMs(),
             this.startTimeTouchDownToTouchUpMs, this.targetTimeTouchDownToTouchUpMs]);
 
         console.log(this.dataRecorder.getDataArray());
