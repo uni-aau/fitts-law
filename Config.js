@@ -1,4 +1,5 @@
 class Config {
+    static serverRequestLink = 'http://david.jamnig.net/tests/test3/update.php';
     static experimentType = "STS";
     static shape = "rectangle"; // rectangle or circle
     static intDevice = "Mouse"; // Mouse, Touch, Laser Pointer
