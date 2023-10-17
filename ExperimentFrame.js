@@ -32,12 +32,12 @@ class ExperimentFrame {
             this.printAllTrials();
         }
 
-        const STRectDrawing = new STRectsDrawing(currentTrial, this.currentBlock, this.blockNumber, this.trialNumber, this.serialNumber, this.dataRecorder, this.username, () => {
+        const STTrialsHandling = new STTrialHandling(currentTrial, this.currentBlock, this.blockNumber, this.trialNumber, this.serialNumber, this.dataRecorder, this.username, () => {
             this.trialCompleted();
         });
 
         this.showIndexes();
-        STRectDrawing.showRects();
+        STTrialsHandling.showRects();
 
         // Check if it's time for a break
         if (this.trialNumber % this.trialsPerBreak === 0) {
