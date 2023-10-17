@@ -1,5 +1,6 @@
 class Config {
     static serverRequestLink = 'http://david.jamnig.net/tests/fittslaw/server/update.php';
+    static sendDataToServer = false;
     static experimentType = "STS";
     static shape = "rectangle"; // rectangle or circle
     static intDevice = "Mouse"; // Mouse, Touch, Laser Pointer
