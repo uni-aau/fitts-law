@@ -1,5 +1,5 @@
 <?php
-header("Access-Control-Allow-Origin: http://david.jamnig.net/tests/fittslaw"); // Allows requests from any origin (not recommended for production)  TODO
+header("Access-Control-Allow-Origin: http://david.jamnig.net/tests/fittslaw"); // Allows requests from specific origin
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $postData = file_get_contents("php://input");
 
