@@ -29,7 +29,7 @@ class ExperimentFrame {
 
         if (!this.printedFirstBlock) {
             this.printedFirstBlock = true;
-            this.printAllTrials();
+            // this.printAllTrials();
         }
 
         const STTrialsHandling = new STTrialHandling(currentTrial, this.currentBlock, this.blockNumber, this.trialNumber, this.serialNumber, this.dataRecorder, this.username, () => {
