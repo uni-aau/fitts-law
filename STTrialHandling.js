@@ -65,7 +65,7 @@ class STTrialHandling {
         document.addEventListener("mousedown", this.handleMouseDown);
         document.addEventListener("mouseup", this.handleMouseUp);
         document.addEventListener("touchstart", this.handleTouchStart);
-        document.addEventListener("touchstop", this.handleTouchStop);
+        document.addEventListener("touchend", this.handleTouchStop);
 
         this.printToConsole();
     }
@@ -217,6 +217,7 @@ class STTrialHandling {
     handleTargetClick() {
         this.clickDistanceToTargetCenterTouchDown = Math.sqrt((this.touchDownPositionX - this.targetCenterX) ** 2 + (this.touchDownPositionY - this.targetCenterY) ** 2);
         this.clickDistanceToTargetCenterTouchUp = Math.sqrt((this.touchUpPositionX - this.targetCenterX) ** 2 + (this.touchUpPositionY - this.targetCenterY) ** 2);
+        console.log(`${this.touchdownX} | ${this.touchdownY} | ${this.touchupX} | ${this.touchupY}<br>${this.touchDownPositionX} | ${this.touchDownPositionY} | ${this.touchUpPositionX} | ${this.touchUpPositionY}`);
 
         if (this.startClicked && !this.isTargetClicked) {
             this.endTimeClickStartToEnd = performance.now(); // Determines the time between start and target click
@@ -285,15 +286,17 @@ class STTrialHandling {
     }
 
     handleTouchStart(event) {
-        const touchdownX = event.touches[0].clientX;
-        const touchdownY = event.touches[0].clientY;
-        console.log(`${touchdownX} / ${touchdownY}`);
+        console.log("Works1");
+        this.touchdownX = event.touches[0].clientX;
+        this.touchdownY = event.touches[0].clientY;
+        // console.log(`${touchdownX} / ${touchdownY}`);
     }
 
     handleTouchStop(event) {
-        const touchupX = event.changedTouches[0].clientX;
-        const touchupY = event.changedTouches[0].clientY;
-        console.log(`${touchupX} / ${touchupY}`);
+        console.log("Works2")
+        this.touchupX = event.changedTouches[0].clientX;
+        this.touchupY = event.changedTouches[0].clientY;
+        // console.log(`${touchupX} / ${touchupY}`);
     }
 
     finishTrial() {
