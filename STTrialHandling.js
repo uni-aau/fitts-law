@@ -64,8 +64,8 @@ class STTrialHandling {
 
         document.addEventListener("mousedown", this.handleMouseDown);
         document.addEventListener("mouseup", this.handleMouseUp);
-        document.addEventListener("touchstart", this.handleTouchStart);
-        document.addEventListener("touchend", this.handleTouchStop);
+        document.addEventListener("touchstart", this.handleTouchStart); // Used for mobile touch
+        document.addEventListener("touchend", this.handleTouchStop); // Used for mobile touch
 
         this.printToConsole();
     }
@@ -172,16 +172,16 @@ class STTrialHandling {
     }
 
     handleStartClick(context) {
-        this.clickDistanceToStartCenterTouchDown = Math.sqrt((this.touchDownPositionX - this.startCenterX) ** 2 + (this.touchDownPositionY - this.startCenterY) ** 2);
-        this.clickDistanceToStartCenterTouchUp = Math.sqrt((this.touchUpPositionX - this.startCenterX) ** 2 + (this.touchUpPositionY - this.startCenterY) ** 2);
+        this.clickDistanceToStartCenterTouchDown = Math.sqrt((this.touchDownClickPositionX - this.startCenterX) ** 2 + (this.touchDownClickPositionY - this.startCenterY) ** 2);
+        this.clickDistanceToStartCenterTouchUp = Math.sqrt((this.touchUpClickPositionX - this.startCenterX) ** 2 + (this.touchUpClickPositionY - this.startCenterY) ** 2);
 
         // If click was in the start object
         if (this.isClickInStartElement()) {
             // Determines the start touchDown and touchUp position
-            this.startClickedPostitionXTouchDown = this.touchDownPositionX;
-            this.startClickedPositionYTouchDown = this.touchDownPositionY;
-            this.startClickedPositionXTouchUp = this.touchUpPositionX;
-            this.startClickedPositionYTouchUp = this.touchUpPositionY;
+            this.startClickedPostitionXTouchDown = this.touchDownClickPositionX;
+            this.startClickedPositionYTouchDown = this.touchDownClickPositionY;
+            this.startClickedPositionXTouchUp = this.touchUpClickPositionX;
+            this.startClickedPositionYTouchUp = this.touchUpClickPositionY;
             this.startTimeTouchDownToTouchUpMs = this.getTouchDownTouchUpTimeDifference();
 
             this.startTimeStartToEndClick = performance.now();
@@ -204,10 +204,10 @@ class STTrialHandling {
         // Checks whether the click was in the start circle / rectangle (TODO ansehen)
         if (this.shape === "rectangle") {
             const halfWidthPx = this.startSizePx / 2; // TODO
-            return this.touchUpPositionX >= this.startCenterX - halfWidthPx &&
-                this.touchUpPositionX <= this.startCenterX + halfWidthPx &&
-                this.touchUpPositionY >= this.startCenterY - halfWidthPx &&
-                this.touchUpPositionY <= this.startCenterY + halfWidthPx
+            return this.touchUpClickPositionX >= this.startCenterX - halfWidthPx &&
+                this.touchUpClickPositionX <= this.startCenterX + halfWidthPx &&
+                this.touchUpClickPositionY >= this.startCenterY - halfWidthPx &&
+                this.touchUpClickPositionY <= this.startCenterY + halfWidthPx
         } else if (this.shape === "circle") {
             return this.clickDistanceToStartCenterTouchUp < this.startSizePx / 2;
         }
@@ -215,18 +215,18 @@ class STTrialHandling {
 
     // Start was already clicked
     handleTargetClick() {
-        this.clickDistanceToTargetCenterTouchDown = Math.sqrt((this.touchDownPositionX - this.targetCenterX) ** 2 + (this.touchDownPositionY - this.targetCenterY) ** 2);
-        this.clickDistanceToTargetCenterTouchUp = Math.sqrt((this.touchUpPositionX - this.targetCenterX) ** 2 + (this.touchUpPositionY - this.targetCenterY) ** 2);
-        console.log(`${this.touchdownX} | ${this.touchdownY} | ${this.touchupX} | ${this.touchupY}<br>${this.touchDownPositionX} | ${this.touchDownPositionY} | ${this.touchUpPositionX} | ${this.touchUpPositionY}`);
+        this.clickDistanceToTargetCenterTouchDown = Math.sqrt((this.touchDownClickPositionX - this.targetCenterX) ** 2 + (this.touchDownClickPositionY - this.targetCenterY) ** 2);
+        this.clickDistanceToTargetCenterTouchUp = Math.sqrt((this.touchUpClickPositionX - this.targetCenterX) ** 2 + (this.touchUpClickPositionY - this.targetCenterY) ** 2);
+        console.log(`${this.touchDownPhonePositionX} | ${this.touchDownPhonePositionY} | ${this.touchUpPhonePositionX} | ${this.touchUpPhonePositionY} \n${this.touchDownClickPositionX} | ${this.touchDownClickPositionY} | ${this.touchUpClickPositionX} | ${this.touchUpClickPositionY}`);
 
         if (this.startClicked && !this.isTargetClicked) {
             this.endTimeClickStartToEnd = performance.now(); // Determines the time between start and target click
 
             // Determines the target touchDown and touchUp position
-            this.targetClickedPostitionXTouchDown = this.touchDownPositionX;
-            this.targetClickedPositionYTouchDown = this.touchDownPositionY;
-            this.targetClickedPositionXTouchUp = this.touchUpPositionX;
-            this.targetClickedPositionYTouchUp = this.touchUpPositionY;
+            this.targetClickedPostitionXTouchDown = this.touchDownClickPositionX;
+            this.targetClickedPositionYTouchDown = this.touchDownClickPositionY;
+            this.targetClickedPositionXTouchUp = this.touchUpClickPositionX;
+            this.targetClickedPositionYTouchUp = this.touchUpClickPositionY;
             this.targetTimeTouchDownToTouchUpMs = this.getTouchDownTouchUpTimeDifference();
             this.clickDistanceBetweenTargetTouchDownTouchUp = Math.sqrt((this.targetClickedPostitionXTouchDown - this.targetClickedPositionXTouchUp) ** 2 + (this.targetClickedPositionYTouchDown - this.targetClickedPositionYTouchUp) ** 2);
 
@@ -256,15 +256,15 @@ class STTrialHandling {
             const targetSizeHalfWidthPx = this.targetWidthPx / 2;
             const targetSizeHalfHeightPx = this.targetHeightPx / 2;
             if (!withTolerance) {
-                return (this.touchUpPositionX >= this.targetCenterX - targetSizeHalfWidthPx &&
-                    this.touchUpPositionX <= this.targetCenterX + targetSizeHalfWidthPx &&
-                    this.touchUpPositionY >= this.targetCenterY - targetSizeHalfHeightPx &&
-                    this.touchUpPositionY <= this.targetCenterY + targetSizeHalfHeightPx)
+                return (this.touchUpClickPositionX >= this.targetCenterX - targetSizeHalfWidthPx &&
+                    this.touchUpClickPositionX <= this.targetCenterX + targetSizeHalfWidthPx &&
+                    this.touchUpClickPositionY >= this.targetCenterY - targetSizeHalfHeightPx &&
+                    this.touchUpClickPositionY <= this.targetCenterY + targetSizeHalfHeightPx)
             } else {
-                return (this.touchUpPositionX >= this.targetCenterX - targetSizeHalfWidthPx - this.clickTolerance &&
-                    this.touchUpPositionX <= this.targetCenterX + targetSizeHalfWidthPx + this.clickTolerance &&
-                    this.touchUpPositionY >= this.targetCenterY - targetSizeHalfHeightPx - this.clickTolerance &&
-                    this.touchUpPositionY <= this.targetCenterY + targetSizeHalfHeightPx + this.clickTolerance)
+                return (this.touchUpClickPositionX >= this.targetCenterX - targetSizeHalfWidthPx - this.clickTolerance &&
+                    this.touchUpClickPositionX <= this.targetCenterX + targetSizeHalfWidthPx + this.clickTolerance &&
+                    this.touchUpClickPositionY >= this.targetCenterY - targetSizeHalfHeightPx - this.clickTolerance &&
+                    this.touchUpClickPositionY <= this.targetCenterY + targetSizeHalfHeightPx + this.clickTolerance)
             }
         } else if (this.shape === "circle") {
             if (!withTolerance) return this.clickDistanceToTargetCenterTouchUp < this.targetWidthPx / 2;
@@ -274,33 +274,29 @@ class STTrialHandling {
     }
 
     handleMouseDown(event) {
-        this.touchDownPositionX = event.clientX;
-        this.touchDownPositionY = event.clientY;
+        this.touchDownClickPositionX = event.clientX;
+        this.touchDownClickPositionY = event.clientY;
         this.touchDownTime = performance.now();
     }
 
     handleMouseUp(event) {
-        this.touchUpPositionX = event.clientX;
-        this.touchUpPositionY = event.clientY;
+        this.touchUpClickPositionX = event.clientX;
+        this.touchUpClickPositionY = event.clientY;
         this.touchUpTime = performance.now();
     }
 
     handleTouchStart(event) {
-        console.log("Works1");
-        this.touchdownX = event.touches[0].clientX;
-        this.touchdownY = event.touches[0].clientY;
-        // console.log(`${touchdownX} / ${touchdownY}`);
+        this.touchDownPhonePositionX = event.touches[0].clientX;
+        this.touchDownPhonePositionY = event.touches[0].clientY;
     }
 
     handleTouchStop(event) {
-        console.log("Works2")
-        this.touchupX = event.changedTouches[0].clientX;
-        this.touchupY = event.changedTouches[0].clientY;
-        // console.log(`${touchupX} / ${touchupY}`);
+        this.touchUpPhonePositionX = event.changedTouches[0].clientX;
+        this.touchUpPhonePositionY = event.changedTouches[0].clientY;
     }
 
     finishTrial() {
-        console.log("Successfully clicked on target!");
+        // console.log("Successfully clicked on target!");
         this.onTargetClicked();
         this.printTrial();
         this.saveTrialData();
