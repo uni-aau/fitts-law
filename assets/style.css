@@ -88,6 +88,12 @@ button {
         top: 10px;
         left: 45px;
     }
+
+    #versionText {
+        top: 30px;
+        left: 120px;
+        font-size: 12px;
+    }
 }
 
 @media (max-device-width: 800px) {
@@ -115,6 +121,10 @@ button {
 
     #trialsToBreakText {
         top: 90px;
+    }
+
+    #versionText {
+        top:110px;
     }
 
     .info-value {

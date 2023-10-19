@@ -6,6 +6,7 @@ class Config {
     static intDevice = "Mouse"; // Mouse, Touch, Laser Pointer
     static trialsPerBreak = NaN;
     static generalUsername = "none"; // Will be displayed in dataset when no username was entered
+    static version = "3.0";
 
     // Block Config
     static startSize = 10; // Size of the start block (always AxA)

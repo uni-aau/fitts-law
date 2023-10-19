@@ -127,8 +127,11 @@ class ExperimentFrame {
         const totalBlockIndexEl = document.getElementById("totalBlockCount");
         totalBlockIndexEl.textContent = Config.numBlocks;
 
-        const trialsToBlockIndexEI = document.getElementById("breakCount");
-        trialsToBlockIndexEI.textContent = this.getRemainingTrials();
+        const trialsToBlockIndexEl = document.getElementById("breakCount");
+        trialsToBlockIndexEl.textContent = this.getRemainingTrials();
+
+        const versionElement = document.getElementById("versionNumber");
+        versionElement.textContent = Config.version;
     }
 
     experimentFinished() {
