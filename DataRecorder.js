@@ -10,7 +10,7 @@ class DataRecorder {
             "target_click_touchup_position_x", "target_click_touchup_position_y", "click_distance_between_target_touchdown_touchup", "click_distance_to_start_center_touchdown",
             "click_distance_to_start_center_touchup", "click_distance_to_target_center_touchdown", "click_distance_to_target_center_touchup",
             "isMiss", "miss_amount", "miss_in_tolerance_amount", "clicks_amount",
-            "click_time_from_start_to_target_ms", "start_click_time_touchdown_to_touchup_ms", "target_click_time_touchdown_to_touchup_ms"]);
+            "click_time_from_start_to_target_ms", "start_click_time_touchdown_to_touchup_ms", "target_click_time_touchdown_to_touchup_ms, testdpi"]);
     }
 
     addDataRow(data) {
