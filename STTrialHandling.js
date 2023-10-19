@@ -12,6 +12,8 @@ class STTrialHandling {
         this.handleCanvasClick = this.handleCanvasClick.bind(this);
         this.handleMouseDown = this.handleMouseDown.bind(this);
         this.handleMouseUp = this.handleMouseUp.bind(this);
+        this.handleTouchStart = this.handleTouchStart.bind(this);
+        this.handleTouchStop = this.handleTouchStop.bind(this);
 
         this.initializeVariables();
         this.initializeVariablesInPixel()
@@ -62,6 +64,8 @@ class STTrialHandling {
 
         document.addEventListener("mousedown", this.handleMouseDown);
         document.addEventListener("mouseup", this.handleMouseUp);
+        document.addEventListener("touchstart", this.handleTouchStart);
+        document.addEventListener("touchstop", this.handleTouchStop);
 
         this.printToConsole();
     }
@@ -280,6 +284,18 @@ class STTrialHandling {
         this.touchUpTime = performance.now();
     }
 
+    handleTouchStart(event) {
+        const touchdownX = event.touches[0].clientX;
+        const touchdownY = event.touches[0].clientY;
+        console.log(`${touchdownX} / ${touchdownY}`);
+    }
+
+    handleTouchStop(event) {
+        const touchupX = event.changedTouches[0].clientX;
+        const touchupY = event.changedTouches[0].clientY;
+        console.log(`${touchupX} / ${touchupY}`);
+    }
+
     finishTrial() {
         console.log("Successfully clicked on target!");
         this.onTargetClicked();
@@ -298,12 +314,12 @@ class STTrialHandling {
     // TODO check size bei circle
     saveTrialData() {
         this.dataRecorder.addDataRow([this.serialNumber, this.trialNumber, this.trialId, this.trialCategory, this.blockNumber, this.username, this.shape, this.intDevice,
-            this.amplitude, this.startSize, this.targetWidth, this.targetHeight, this.trialDirection, this.trialClockAngle,
-            this.startCenterX, this.startCenterY, this.targetCenterX, this.targetCenterY, this.startClickedPostitionXTouchDown, this.startClickedPositionYTouchDown,
-            this.startClickedPositionXTouchUp, this.startClickedPositionYTouchUp, this.targetClickedPostitionXTouchDown, this.targetClickedPositionYTouchDown,
-            this.targetClickedPositionXTouchUp, this.targetClickedPositionYTouchUp, this.clickDistanceBetweenTargetTouchDownTouchUp, this.clickDistanceToStartCenterTouchDown, this.clickDistanceToStartCenterTouchUp,
-            this.clickDistanceToTargetCenterTouchDown, this.clickDistanceToTargetCenterTouchUp, this.isMiss, this.missAmount, this.missInToleranceAmount, this.clicksAmount, this.getTimeToClickFromStartToEndMs(),
-            this.startTimeTouchDownToTouchUpMs, this.targetTimeTouchDownToTouchUpMs, calcScreenDPI()]);
+        this.amplitude, this.startSize, this.targetWidth, this.targetHeight, this.trialDirection, this.trialClockAngle,
+        this.startCenterX, this.startCenterY, this.targetCenterX, this.targetCenterY, this.startClickedPostitionXTouchDown, this.startClickedPositionYTouchDown,
+        this.startClickedPositionXTouchUp, this.startClickedPositionYTouchUp, this.targetClickedPostitionXTouchDown, this.targetClickedPositionYTouchDown,
+        this.targetClickedPositionXTouchUp, this.targetClickedPositionYTouchUp, this.clickDistanceBetweenTargetTouchDownTouchUp, this.clickDistanceToStartCenterTouchDown, this.clickDistanceToStartCenterTouchUp,
+        this.clickDistanceToTargetCenterTouchDown, this.clickDistanceToTargetCenterTouchUp, this.isMiss, this.missAmount, this.missInToleranceAmount, this.clicksAmount, this.getTimeToClickFromStartToEndMs(),
+        this.startTimeTouchDownToTouchUpMs, this.targetTimeTouchDownToTouchUpMs, calcScreenDPI()]);
 
         console.log(this.dataRecorder.getDataArray());
         if (Config.sendDataToServer) this.dataRecorder.publishCsvToServer();
