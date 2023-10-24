@@ -120,11 +120,13 @@ button {
     }
 
     #trialsToBreakText {
+        left: 0;
         top: 90px;
     }
 
     #versionText {
-        top:110px;
+        left: 0;
+        top: 110px;
     }
 
     .info-value {
