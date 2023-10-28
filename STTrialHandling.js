@@ -78,7 +78,7 @@ class STTrialHandling {
         // Calculates width/height of window and clears rect
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
-        canvas.addEventListener("click", this.handleCanvasClick);
+        canvas.addEventListener("click", this.handleCanvasClick); // todo touchend statt click am handy (oder touchstart?)
 
         this.initializeCanvasVariables(canvas)
 
@@ -217,7 +217,7 @@ class STTrialHandling {
     handleTargetClick() {
         this.clickDistanceToTargetCenterTouchDown = Math.sqrt((this.touchDownClickPositionX - this.targetCenterX) ** 2 + (this.touchDownClickPositionY - this.targetCenterY) ** 2);
         this.clickDistanceToTargetCenterTouchUp = Math.sqrt((this.touchUpClickPositionX - this.targetCenterX) ** 2 + (this.touchUpClickPositionY - this.targetCenterY) ** 2);
-        console.log(`${this.touchDownPhonePositionX} | ${this.touchDownPhonePositionY} | ${this.touchUpPhonePositionX} | ${this.touchUpPhonePositionY} \n${this.touchDownClickPositionX} | ${this.touchDownClickPositionY} | ${this.touchUpClickPositionX} | ${this.touchUpClickPositionY}`);
+        console.log(`1${this.touchDownPhonePositionX} | ${this.touchDownPhonePositionY} | ${this.touchUpPhonePositionX} | ${this.touchUpPhonePositionY} \n${this.touchDownClickPositionX} | ${this.touchDownClickPositionY} | ${this.touchUpClickPositionX} | ${this.touchUpClickPositionY}`);
 
         if (this.startClicked && !this.isTargetClicked) {
             this.endTimeClickStartToEnd = performance.now(); // Determines the time between start and target click
@@ -293,6 +293,7 @@ class STTrialHandling {
     handleTouchStop(event) {
         this.touchUpPhonePositionX = event.changedTouches[0].clientX;
         this.touchUpPhonePositionY = event.changedTouches[0].clientY;
+        console.log(`${this.touchDownPhonePositionX} | ${this.touchDownPhonePositionY} | ${this.touchUpPhonePositionX} | ${this.touchUpPhonePositionY} \n${this.touchDownClickPositionX} | ${this.touchDownClickPositionY} | ${this.touchUpClickPositionX} | ${this.touchUpClickPositionY}`);
     }
 
     finishTrial() {
@@ -318,7 +319,7 @@ class STTrialHandling {
         this.startClickedPositionXTouchUp, this.startClickedPositionYTouchUp, this.targetClickedPostitionXTouchDown, this.targetClickedPositionYTouchDown,
         this.targetClickedPositionXTouchUp, this.targetClickedPositionYTouchUp, this.clickDistanceBetweenTargetTouchDownTouchUp, this.clickDistanceToStartCenterTouchDown, this.clickDistanceToStartCenterTouchUp,
         this.clickDistanceToTargetCenterTouchDown, this.clickDistanceToTargetCenterTouchUp, this.isMiss, this.missAmount, this.missInToleranceAmount, this.clicksAmount, this.getTimeToClickFromStartToEndMs(),
-        this.startTimeTouchDownToTouchUpMs, this.targetTimeTouchDownToTouchUpMs, calcScreenDPI()]);
+        this.startTimeTouchDownToTouchUpMs, this.targetTimeTouchDownToTouchUpMs]);
 
         console.log(this.dataRecorder.getDataArray());
         if (Config.sendDataToServer) this.dataRecorder.publishCsvToServer();
