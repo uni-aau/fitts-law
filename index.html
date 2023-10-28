@@ -12,11 +12,16 @@
 </head>
 <body>
 
-<div class="info-box" id="currentTrialText">Trial No.: <span class="info-value" id="currentTrialNumber">0</span> (per block) / <span class="info-value" id="totalCurrentTrialNumber">0</span> (total)</div>
+<div class="info-box" id="currentTrialText">Trial No.: <span class="info-value" id="currentTrialNumber">0</span> (per
+    block) / <span class="info-value" id="totalCurrentTrialNumber">0</span> (total)
+</div>
 <div class="info-box" id="currentBlocksText">Block No.: <span class="info-value" id="currentBlockNumber">0</span></div>
-<div class="info-box" id="totalTrialsText">Total Trials: <span class="info-value" id="totalTrialCountPerBlock">0</span> (per block) / <span class="info-value" id="totalTrialCount">0</span> (max)</div>
+<div class="info-box" id="totalTrialsText">Total Trials: <span class="info-value" id="totalTrialCountPerBlock">0</span>
+    (per block) / <span class="info-value" id="totalTrialCount">0</span> (max)
+</div>
 <div class="info-box" id="totalBlocksText">Total Blocks: <span class="info-value" id="totalBlockCount">0</span></div>
-<div class="info-box" id="trialsToBreakText">Next Break in <span class="info-value" id="breakCount">0</span> trials</div>
+<div class="info-box" id="trialsToBreakText">Next Break in <span class="info-value" id="breakCount">0</span> trials
+</div>
 <div class="info-box" id="versionText">Version: <span class="info-value" id="versionNumber">-1</span></div>
 
 <canvas height="600" id="trialCanvas" width="800"></canvas>
@@ -49,8 +54,11 @@
             <label for="name_input">Your name:</label>
             <input id="name_input" placeholder="Enter your name..."
                    type="text"></p><br>
-        <button id="startButton" style="margin-right:80px; font-size: 20px; font-weight: bold; margin-top:10px; width:220px; height:50px; background-color:#1adf24; color: #000000; 
+        <button class="startingButtons" id="startButton" style="margin-right:80px; font-size: 20px; font-weight: bold; margin-top:10px; width:220px; height:50px; background-color:#1adf24; color: #000000;
         border-radius:10px; transition-duration: 0.4s;">Start
+        </button>
+        <button class="startingButtons" id="fullScreenButton" style="margin-right:80px; font-size: 20px; font-weight: bold; margin-top:10px; width:220px; height:50px; background-color:#1adf24; color: #000000;
+        border-radius:10px; transition-duration: 0.4s;">Fullscreen
         </button>
     </div>
 </div>
@@ -67,6 +75,7 @@
 <script>
     //experiment.printBlock();
     const experimentFrame = new ExperimentFrame();
+    let isFullScreen = false;
 
     // Function to show the start window
     function showStartWindow() {
@@ -76,6 +85,21 @@
         startWindow.style.display = 'block';
         // Disable the rest of the page interaction while the start window is visible
         document.body.style.pointerEvents = 'none';
+
+        const fullScreenButton = document.getElementById("fullScreenButton");
+        fullScreenButton.addEventListener("click", handleFullScreen);
+    }
+
+    function handleFullScreen() {
+        // const canvas = document.getElementById("trialCanvas");
+        const canvas = document.documentElement;
+        if (!isFullScreen) {
+            enableFullScreen(canvas)
+            isFullScreen = true;
+        } else {
+            disableFullScreen(canvas);
+            isFullScreen = false;
+        }
     }
 
     // Function to start the experiment in full-screen mode
@@ -87,18 +111,6 @@
         // Enable the page interaction again
         document.body.style.pointerEvents = 'auto';
 
-        // Request full-screen mode for the document body
-        /*                const docBody = document.documentElement;
-                        if (docBody.requestFullscreen) {
-                            docBody.requestFullscreen();
-                        } else if (docBody.mozRequestFullScreen) {
-                            docBody.mozRequestFullScreen();
-                        } else if (docBody.webkitRequestFullscreen) {
-                            docBody.webkitRequestFullscreen();
-                        } else if (docBody.msRequestFullscreen) {
-                            docBody.msRequestFullscreen();
-                        }*/
-
         // Start the experiment
         experimentFrame.initializeExperiment();
     }
@@ -109,7 +121,36 @@
 
     // Show the start window
     showStartWindow();
+
     // startExperiment(); // TODO
+
+    function enableFullScreen(canvas) {
+        if (canvas.requestFullscreen) {
+            canvas.requestFullscreen();
+        } else if (canvas.mozRequestFullScreen) { // Firefox
+            canvas.mozRequestFullScreen();
+        } else if (canvas.webkitRequestFullscreen) { // Chrome, Safari and Opera
+            canvas.webkitRequestFullscreen();
+        } else if (canvas.msRequestFullscreen) { // IE/Edge
+            canvas.msRequestFullscreen();
+        } else {
+            console.error("Error enabling fullscreen")
+        }
+    }
+
+    function disableFullScreen(canvas) {
+        if (document.exitFullscreen) {
+            document.exitFullscreen();
+        } else if (document.mozCancelFullScreen) {
+            document.mozCancelFullScreen();
+        } else if (document.webkitExitFullscreen) {
+            document.webkitExitFullscreen();
+        } else if (document.msExitFullscreen) {
+            document.msExitFullscreen();
+        } else {
+            console.error("Error disabling fullscreen")
+        }
+    }
 
 </script>
 

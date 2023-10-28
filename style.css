@@ -10,9 +10,21 @@ p {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    font-size: 1.8em;
+    font-size: 1.7em;
     font-weight: bold;
     color: black;
+}
+
+/*.startingButtons {*/
+/*    margin-bottom: 50px;*/
+/*}*/
+
+#fullScreenButton {
+    margin-bottom: 20px;
+}
+
+#startButton {
+    margin-bottom: -30px;
 }
 
 input[type=text] {
