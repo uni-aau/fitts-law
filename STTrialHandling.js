@@ -75,10 +75,10 @@ class STTrialHandling {
         let canvasOld = document.getElementById("trialCanvas");
         let canvas = this.removeAllEventListeners(canvasOld) // otherwise multiple clicksAmount will be registered
 
-        // Calculates width/height of window and clears rect
+        // Calculates width/height of window
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
-        canvas.addEventListener("click", this.handleCanvasClick); // todo touchend statt click am handy (oder touchstart?)
+        canvas.addEventListener("click", this.handleCanvasClick);
 
         this.initializeCanvasVariables(canvas)
 
