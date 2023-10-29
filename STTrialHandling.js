@@ -88,7 +88,7 @@ class STTrialHandling {
         // Calculates width/height of window
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
-        // canvas.addEventListener("touchend", this.handleCanvasClick); // TODO
+        // canvas.addEventListener("click", this.handleCanvasClick); // TODO
 
         this.initializeCanvasVariables(canvas)
 
