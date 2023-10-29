@@ -54,6 +54,46 @@ button {
     color: red;
 }
 
+#continueButton {
+    margin-right: 80px;
+    font-size: 20px;
+    font-weight: bold;
+    margin-top: 10px;
+    width: 220px;
+    height: 50px;
+    background-color: #1adf24;
+    color: #000000;
+    border-radius: 10px;
+    transition-duration: 0.4s;
+}
+
+/*TODO*/
+#downloadData {
+    margin-right: 80px;
+    font-size: 20px;
+    font-weight: bold;
+    margin-top: 10px;
+    width: 300px;
+    height: 80px;
+    background-color: #1adf24;
+    color: #000000;
+    border-radius: 10px;
+    transition-duration: 0.4s;
+}
+
+.startingButtons {
+    margin-right: 80px;
+    font-size: 20px;
+    font-weight: bold;
+    margin-top: 10px;
+    width: 220px;
+    height: 50px;
+    background-color: #1adf24;
+    color: #000000;
+    border-radius: 10px;
+    transition-duration: 0.4s;
+}
+
 @media (min-width: 851px) {
     p {
         position: absolute;
