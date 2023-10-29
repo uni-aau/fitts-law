@@ -68,7 +68,10 @@ button {
     color: red;
 }
 
-@media (min-width: 801px) {
+@media (min-width: 851px) {
+    #info-container {
+    }
+
     .info-box {
         position: absolute;
         font-family: Verdana, Geneva, Tahoma, sans-serif;
@@ -108,11 +111,11 @@ button {
     }
 }
 
-@media (max-device-width: 800px) {
+@media (max-device-width: 850px) {
     #info-container {
         position: absolute;
-        top: 10px;
-        left: 0;
+        top: 5px;
+        left: 5px;
     }
 
     .info-box {
@@ -125,7 +128,6 @@ button {
 
     #versionText {
         margin-top: 2px;
-        text-align: center;
     }
 
     .info-value {
