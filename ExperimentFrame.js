@@ -70,7 +70,7 @@ class ExperimentFrame {
         // Disable the rest of the page interaction while the break window is visible
         document.body.style.pointerEvents = 'none';
 
-        const downloadDataButton = document.getElementById('downloadData');
+        const downloadDataButton = document.getElementById('downloadDataButton');
 
         // Event listener for the finish button
         downloadDataButton.addEventListener('click', () => {
