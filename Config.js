@@ -1,12 +1,14 @@
 class Config {
     static serverRequestLink = 'http://david.jamnig.net/tests/fittslaw/server/update.php';
     static sendDataToServer = false;
+    // Calculation - Fullscreen -> Get windowInnerWidth/Height as resolution and inch of screen. Then calculate the ppi
+    static ppi = 96; // Cannot be determined by plain javascript
     static experimentType = "STS";
     static shape = "rectangle"; // rectangle or circle
     static intDevice = "Mouse"; // Mouse, Touch, Laser Pointer
     static trialsPerBreak = NaN;
     static generalUsername = "none"; // Will be displayed in dataset when no username was entered
-    static version = "3.0";
+    static version = "3.1";
 
     // Block Config
     static startSize = 10; // Size of the start block (always AxA)
