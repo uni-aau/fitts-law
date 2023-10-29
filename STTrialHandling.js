@@ -67,6 +67,9 @@ class STTrialHandling {
             document.addEventListener("mousedown", this.handleMouseDown);
             document.addEventListener("mouseup", this.handleMouseUp);
         } else if (Config.intDevice === "touch") {
+            console.log("Eventlistener")
+            document.removeEventListener("touchstart", this.handleTouchStart);
+            document.removeEventListener("touchend", this.handleTouchStop);
             document.addEventListener("touchstart", this.handleTouchStart); // Used for mobile touch
             document.addEventListener("touchend", this.handleTouchStop); // Used for mobile touch
         } else {
@@ -85,7 +88,7 @@ class STTrialHandling {
         // Calculates width/height of window
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
-        canvas.addEventListener("click", this.handleCanvasClick);
+        // canvas.addEventListener("touchend", this.handleCanvasClick);
 
         this.initializeCanvasVariables(canvas)
 
@@ -166,6 +169,7 @@ class STTrialHandling {
     }
 
     handleCanvasClick() {
+        console.log("Handle")
         const canvas = document.getElementById("trialCanvas");
         const context = canvas.getContext("2d");
 
@@ -224,7 +228,7 @@ class STTrialHandling {
     handleTargetClick() {
         this.clickDistanceToTargetCenterTouchDown = Math.sqrt((this.touchDownClickPositionX - this.targetCenterX) ** 2 + (this.touchDownClickPositionY - this.targetCenterY) ** 2);
         this.clickDistanceToTargetCenterTouchUp = Math.sqrt((this.touchUpClickPositionX - this.targetCenterX) ** 2 + (this.touchUpClickPositionY - this.targetCenterY) ** 2);
-        console.log(`1${this.touchDownPhonePositionX} | ${this.touchDownPhonePositionY} | ${this.touchUpPhonePositionX} | ${this.touchUpPhonePositionY} \n${this.touchDownClickPositionX} | ${this.touchDownClickPositionY} | ${this.touchUpClickPositionX} | ${this.touchUpClickPositionY}`);
+        console.debug(`${this.touchDownClickPositionX} | ${this.touchDownClickPositionY} | ${this.touchUpClickPositionX} | ${this.touchUpClickPositionY}`);
 
         if (this.startClicked && !this.isTargetClicked) {
             this.endTimeClickStartToEnd = performance.now(); // Determines the time between start and target click
@@ -281,34 +285,32 @@ class STTrialHandling {
     }
 
     handleMouseDown(event) {
-        console.error("Trigger1")
         this.touchDownClickPositionX = event.clientX;
         this.touchDownClickPositionY = event.clientY;
         this.touchDownTime = performance.now();
     }
 
     handleMouseUp(event) {
-        console.error("Trigger2")
         this.touchUpClickPositionX = event.clientX;
         this.touchUpClickPositionY = event.clientY;
         this.touchUpTime = performance.now();
+        this.handleCanvasClick();
     }
 
     handleTouchStart(event) {
-        console.error("Trigger3")
-        this.touchDownPhonePositionX = event.touches[0].clientX;
-        this.touchDownPhonePositionY = event.touches[0].clientY;
+        this.touchDownClickPositionX = event.touches[0].clientX;
+        this.touchDownClickPositionY = event.touches[0].clientY;
+        this.touchDownTime = performance.now();
     }
 
     handleTouchStop(event) {
-        console.error("Trigger4")
-        this.touchUpPhonePositionX = event.changedTouches[0].clientX;
-        this.touchUpPhonePositionY = event.changedTouches[0].clientY;
-        console.log(`${this.touchDownPhonePositionX} | ${this.touchDownPhonePositionY} | ${this.touchUpPhonePositionX} | ${this.touchUpPhonePositionY} \n${this.touchDownClickPositionX} | ${this.touchDownClickPositionY} | ${this.touchUpClickPositionX} | ${this.touchUpClickPositionY}`);
+        this.touchUpClickPositionX = event.changedTouches[0].clientX;
+        this.touchUpClickPositionY = event.changedTouches[0].clientY;
+        this.touchUpTime = performance.now();
+        this.handleCanvasClick()
     }
 
     finishTrial() {
-        // console.log("Successfully clicked on target!");
         this.onTargetClicked();
         this.printTrial();
         this.saveTrialData();
