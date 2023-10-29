@@ -34,6 +34,7 @@ class ExperimentFrame {
 
         const STTrialsHandling = new STTrialHandling(currentTrial, this.currentBlock, this.blockNumber, this.trialNumber, this.serialNumber, this.dataRecorder, this.username, () => {
             this.trialCompleted();
+            STTrialsHandling.removeEventListeners();
         });
 
         this.showIndexes();

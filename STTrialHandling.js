@@ -63,21 +63,21 @@ class STTrialHandling {
         this.drawTargetElement(context);
 
         // Determines which methods will be used to retrieve click position
+        this.addClickListener();
+        this.printToConsole();
+    }
+
+    addClickListener() {
         if (Config.intDevice === "mouse") {
             document.addEventListener("mousedown", this.handleMouseDown);
             document.addEventListener("mouseup", this.handleMouseUp);
         } else if (Config.intDevice === "touch") {
-            console.log("Eventlistener")
-            document.removeEventListener("touchstart", this.handleTouchStart);
-            document.removeEventListener("touchend", this.handleTouchStop);
             document.addEventListener("touchstart", this.handleTouchStart); // Used for mobile touch
             document.addEventListener("touchend", this.handleTouchStop); // Used for mobile touch
         } else {
             console.error(`No intDevice with the name ${this.intDevice} specified`);
             alert(`No intDevice (${this.intDevice}) specified!`)
         }
-
-        this.printToConsole();
     }
 
     setUpCanvas() {
@@ -88,7 +88,7 @@ class STTrialHandling {
         // Calculates width/height of window
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
-        // canvas.addEventListener("touchend", this.handleCanvasClick);
+        // canvas.addEventListener("touchend", this.handleCanvasClick); // TODO
 
         this.initializeCanvasVariables(canvas)
 
@@ -162,6 +162,7 @@ class STTrialHandling {
         console.error(`No shape with the name ${this.shape} registered!`);
     }
 
+    // Todo still necessary after change?
     removeAllEventListeners(element) {
         const clone = element.cloneNode(true);
         element.parentNode.replaceChild(clone, element);
@@ -169,7 +170,6 @@ class STTrialHandling {
     }
 
     handleCanvasClick() {
-        console.log("Handle")
         const canvas = document.getElementById("trialCanvas");
         const context = canvas.getContext("2d");
 
@@ -315,6 +315,16 @@ class STTrialHandling {
         this.printTrial();
         this.saveTrialData();
         this.isTargetClicked = true;
+    }
+
+    removeEventListeners() {
+        if (this.intDevice === "mouse") {
+            document.removeEventListener("mousedown", this.handleMouseDown);
+            document.removeEventListener("mouseup", this.handleMouseUp);
+        } else if (this.intDevice === "touch") {
+            document.removeEventListener("touchstart", this.handleTouchStart);
+            document.removeEventListener("touchend", this.handleTouchStop);
+        }
     }
 
     printTrial() {
