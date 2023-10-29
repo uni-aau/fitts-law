@@ -12,18 +12,22 @@
 </head>
 <body>
 
-<div id = "info-container">
-<div class="info-box" id="currentTrialText">Trial No.: <span class="info-value" id="currentTrialNumber">0</span> (per
-    block) / <span class="info-value" id="totalCurrentTrialNumber">0</span> (total)
-</div>
-<div class="info-box" id="currentBlocksText">Block No.: <span class="info-value" id="currentBlockNumber">0</span></div>
-<div class="info-box" id="totalTrialsText">Total Trials: <span class="info-value" id="totalTrialCountPerBlock">0</span>
-    (per block) / <span class="info-value" id="totalTrialCount">0</span> (max)
-</div>
-<div class="info-box" id="totalBlocksText">Total Blocks: <span class="info-value" id="totalBlockCount">0</span></div>
-<div class="info-box" id="trialsToBreakText">Next Break in <span class="info-value" id="breakCount">0</span> trials
-</div>
-<div class="info-box" id="versionText">Version: <span class="info-value" id="versionNumber">-1</span></div>
+<div id="info-container">
+    <div class="info-box" id="currentTrialText">Trial No.: <span class="info-value" id="currentTrialNumber">0</span>
+        (per
+        block) / <span class="info-value" id="totalCurrentTrialNumber">0</span> (total)
+    </div>
+    <div class="info-box" id="currentBlocksText">Block No.: <span class="info-value" id="currentBlockNumber">0</span>
+    </div>
+    <div class="info-box" id="totalTrialsText">Total Trials: <span class="info-value"
+                                                                   id="totalTrialCountPerBlock">0</span>
+        (per block) / <span class="info-value" id="totalTrialCount">0</span> (max)
+    </div>
+    <div class="info-box" id="totalBlocksText">Total Blocks: <span class="info-value" id="totalBlockCount">0</span>
+    </div>
+    <div class="info-box" id="trialsToBreakText">Next Break in <span class="info-value" id="breakCount">0</span> trials
+    </div>
+    <div class="info-box" id="versionText">Version: <span class="info-value" id="versionNumber">-1</span></div>
 </div>
 
 <canvas height="600" id="trialCanvas" width="800"></canvas>
@@ -33,7 +37,7 @@
 <div class="modal" id="breakWindow">
     <div class="modal-content">
         <p>Take a break! Press continue when you are ready</p>
-        <button autofocus id="continueButton">Continue</button>
+        <button autofocus class="button-general" id="continueButton">Continue</button>
     </div>
 </div>
 
@@ -41,7 +45,7 @@
 <div class="modal" id="finishWindow">
     <div class="modal-content">
         <p>Congratulations! You finished all trials :)</p>
-        <button autofocus id="downloadData">Download Trial Data and Restart
+        <button autofocus class="button-general" id="downloadDataButton">Download Trial Data and Restart
         </button>
     </div>
 </div>
@@ -53,9 +57,9 @@
             <label for="name_input">Your name:</label>
             <input id="name_input" placeholder="Enter your name..."
                    type="text"></p><br>
-        <button class="startingButtons" id="startButton">Start
+        <button class="button-general" id="startButton">Start
         </button>
-        <button class="startingButtons" id="fullScreenButton">Fullscreen
+        <button class="button-general" id="fullScreenButton">Fullscreen
         </button>
     </div>
 </div>
