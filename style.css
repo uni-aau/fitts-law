@@ -109,42 +109,28 @@ button {
 }
 
 @media (max-device-width: 800px) {
-    .info-box {
-        position: fixed;
+    #info-container {
+        position: absolute;
         top: 10px;
         left: 0;
+    }
+
+    .info-box {
         z-index: 999;
         font-family: Verdana, Geneva, Tahoma, sans-serif;
-        font-size: 1.10em;
+        font-size: 0.8em;
         font-weight: bold;
-    }
-
-    #totalTrialsText {
-        top: 28px;
-    }
-
-    #currentBlocksText {
-        top: 46px;
-    }
-
-    #totalBlocksText {
-        top: 64px;
-    }
-
-    #trialsToBreakText {
-        left: 0;
-        top: 90px;
+        margin-top: -5px;
     }
 
     #versionText {
-        left: 0;
-        top: 110px;
+        margin-top: 2px;
+        text-align: center;
     }
 
     .info-value {
         font-weight: bold;
     }
-
 }
 
 /*
