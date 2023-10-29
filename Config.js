@@ -5,7 +5,7 @@ class Config {
     static ppi = 96; // Cannot be determined by plain javascript
     static experimentType = "STS";
     static shape = "rectangle"; // rectangle or circle
-    static intDevice = "Mouse"; // Mouse, Touch, Laser Pointer
+    static intDevice = "touch".toLowerCase(); // Mouse, Touch
     static trialsPerBreak = NaN;
     static generalUsername = "none"; // Will be displayed in dataset when no username was entered
     static version = "3.1";

@@ -62,10 +62,17 @@ class STTrialHandling {
         this.drawStartElement(context);
         this.drawTargetElement(context);
 
-        document.addEventListener("mousedown", this.handleMouseDown);
-        document.addEventListener("mouseup", this.handleMouseUp);
-        document.addEventListener("touchstart", this.handleTouchStart); // Used for mobile touch
-        document.addEventListener("touchend", this.handleTouchStop); // Used for mobile touch
+        // Determines which methods will be used to retrieve click position
+        if (Config.intDevice === "mouse") {
+            document.addEventListener("mousedown", this.handleMouseDown);
+            document.addEventListener("mouseup", this.handleMouseUp);
+        } else if (Config.intDevice === "touch") {
+            document.addEventListener("touchstart", this.handleTouchStart); // Used for mobile touch
+            document.addEventListener("touchend", this.handleTouchStop); // Used for mobile touch
+        } else {
+            console.error(`No intDevice with the name ${this.intDevice} specified`);
+            alert(`No intDevice (${this.intDevice}) specified!`)
+        }
 
         this.printToConsole();
     }
@@ -274,23 +281,27 @@ class STTrialHandling {
     }
 
     handleMouseDown(event) {
+        console.error("Trigger1")
         this.touchDownClickPositionX = event.clientX;
         this.touchDownClickPositionY = event.clientY;
         this.touchDownTime = performance.now();
     }
 
     handleMouseUp(event) {
+        console.error("Trigger2")
         this.touchUpClickPositionX = event.clientX;
         this.touchUpClickPositionY = event.clientY;
         this.touchUpTime = performance.now();
     }
 
     handleTouchStart(event) {
+        console.error("Trigger3")
         this.touchDownPhonePositionX = event.touches[0].clientX;
         this.touchDownPhonePositionY = event.touches[0].clientY;
     }
 
     handleTouchStop(event) {
+        console.error("Trigger4")
         this.touchUpPhonePositionX = event.changedTouches[0].clientX;
         this.touchUpPhonePositionY = event.changedTouches[0].clientY;
         console.log(`${this.touchDownPhonePositionX} | ${this.touchDownPhonePositionY} | ${this.touchUpPhonePositionX} | ${this.touchUpPhonePositionY} \n${this.touchDownClickPositionX} | ${this.touchDownClickPositionY} | ${this.touchUpClickPositionX} | ${this.touchUpClickPositionY}`);
