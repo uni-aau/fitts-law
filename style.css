@@ -5,20 +5,6 @@ body {
     overflow: hidden;
 }
 
-p {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-size: 1.7em;
-    font-weight: bold;
-    color: black;
-}
-
-/*.startingButtons {*/
-/*    margin-bottom: 50px;*/
-/*}*/
-
 #fullScreenButton {
     margin-bottom: 20px;
 }
@@ -51,7 +37,7 @@ input[type=text] {
     left: 50%;
     transform: translate(-50%, -50%);
     background-color: #1adf24;
-    padding: 55px;
+    padding: 60px;
     text-align: center;
 }
 
@@ -69,6 +55,16 @@ button {
 }
 
 @media (min-width: 851px) {
+    p {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 1.7em;
+        font-weight: bold;
+        color: black;
+    }
+
     #info-container {
     }
 
@@ -112,6 +108,16 @@ button {
 }
 
 @media (max-device-width: 850px) {
+    p {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 1.4em;
+        font-weight: bold;
+        color: black;
+    }
+
     #info-container {
         position: absolute;
         top: 5px;
