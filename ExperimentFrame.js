@@ -37,7 +37,7 @@ class ExperimentFrame {
             STTrialsHandling.removeEventListeners();
         });
 
-        this.showIndexes();
+        this.displayTextValues();
         STTrialsHandling.showRects();
 
         // Check if it's time for a break
@@ -109,7 +109,7 @@ class ExperimentFrame {
         this.showTrial();
     }
 
-    showIndexes() {
+    displayTextValues() {
         const currentTrialIndexEl = document.getElementById("currentTrialNumber");
         currentTrialIndexEl.textContent = this.trialNumber;
 

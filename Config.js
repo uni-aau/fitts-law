@@ -5,7 +5,7 @@ class Config {
     static ppi = 96; // Cannot be determined by plain javascript
     static experimentType = "STS";
     static shape = "rectangle"; // rectangle or circle
-    static intDevice = "touch".toLowerCase(); // Mouse, Touch
+    static intDevice = "mouse".toLowerCase(); // Mouse, Touch
     static trialsPerBreak = NaN;
     static generalUsername = "none"; // Will be displayed in dataset when no username was entered
     static version = "3.1";
@@ -18,10 +18,12 @@ class Config {
     // left-down, left, left-up, up-left
     // Circle: width => height
     static trialsDataCategories = [
-        ["C1", 10, 10, 30, 'Up'],
-        ["C2", 10, 10, 20, 'up-left'],
-        ["C3", 10, 10, 20, 'left-down'],
-        ["C4", 10, 10, 20, 'left'],
+        ["C1", 50, 10, 30, 'Up'],
+        ["C1", 50, 10, 30, 'Up'],
+        ["C1", 50, 10, 30, 'Up'],
+        // ["C2", 10, 10, 20, 'up-left'],
+        // ["C3", 10, 10, 20, 'left-down'],
+        // ["C4", 10, 10, 20, 'left'],
     ];
 
     // Clock: 12 (up), 1 (up-right), 2 (right-up), 3...
