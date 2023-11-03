@@ -132,7 +132,11 @@ class ExperimentFrame {
         trialsToBlockIndexEl.textContent = this.getRemainingTrials();
 
         const versionElement = document.getElementById("versionNumber");
+        const widthText = document.getElementById("widthText");
+        const heightText = document.getElementById("heightText");
         versionElement.textContent = Config.version;
+        widthText.textContent = getWindowInnerWidth();
+        heightText.textContent = getWindowInnerHeight();
     }
 
     experimentFinished() {

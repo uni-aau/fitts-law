@@ -120,9 +120,9 @@ button {
         left: 45px;
     }
 
-    #versionText {
+    #debugText {
         top: 30px;
-        left: 120px;
+        left: 60px;
         font-size: 12px;
     }
 }
@@ -152,7 +152,7 @@ button {
         pointer-events: none;
     }
 
-    #versionText {
+    #debugText {
         margin-top: 2px;
     }
 
