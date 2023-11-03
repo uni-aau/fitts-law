@@ -105,13 +105,14 @@ class STTrialHandling {
         const startAngleRad = (startAngle * Math.PI) / 180;
         const targetAngleRad = (targetAngle * Math.PI) / 180;
 
+        const halfAmplitudePx = amplitudePx / 2;
         // Coordinates of the start center point
-        this.startCenterX = canvasCenterX + amplitudePx * Math.cos(startAngleRad);
-        this.startCenterY = canvasCenterY + amplitudePx * Math.sin(startAngleRad);
+        this.startCenterX = canvasCenterX + halfAmplitudePx * Math.cos(startAngleRad);
+        this.startCenterY = canvasCenterY + halfAmplitudePx * Math.sin(startAngleRad);
 
         // Coordinates of the target center point
-        this.targetCenterX = canvasCenterX + amplitudePx * Math.cos(targetAngleRad);
-        this.targetCenterY = canvasCenterY + amplitudePx * Math.sin(targetAngleRad);
+        this.targetCenterX = canvasCenterX + halfAmplitudePx * Math.cos(targetAngleRad);
+        this.targetCenterY = canvasCenterY + halfAmplitudePx * Math.sin(targetAngleRad);
     }
 
     drawStartElement(context) {
