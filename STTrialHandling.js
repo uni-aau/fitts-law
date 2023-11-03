@@ -126,14 +126,14 @@ class STTrialHandling {
         // console.log(randomXOffset + " / " + randomYOffset)
 
         // Coordinates of the start center point
-        this.startCenterX = canvasCenterX + halfAmplitudePx * Math.cos(startAngleRad);
+        this.startCenterX = canvasCenterX + amplitudePx * Math.cos(startAngleRad);
         // this.startCenterX += this.startCenterX - this.startSizePx / 2 - tolerancePx
-        this.startCenterY = canvasCenterY + halfAmplitudePx * Math.sin(startAngleRad);
+        this.startCenterY = canvasCenterY + amplitudePx * Math.sin(startAngleRad);
         console.log("Start " + this.startCenterX + " " + this.startCenterY)
 
         // Coordinates of the target center point
-        this.targetCenterX = canvasCenterX + halfAmplitudePx * Math.cos(targetAngleRad);
-        this.targetCenterY = canvasCenterY + halfAmplitudePx * Math.sin(targetAngleRad);
+        this.targetCenterX = canvasCenterX + 0 * Math.cos(targetAngleRad);
+        this.targetCenterY = canvasCenterY + 0 * Math.sin(targetAngleRad);
     }
 
     drawStartElement(context) {

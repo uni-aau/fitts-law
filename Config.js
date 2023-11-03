@@ -18,9 +18,10 @@ class Config {
     // left-down, left, left-up, up-left
     // Circle: width => height
     static trialsDataCategories = [
-        ["C1", 50, 10, 30, 'Up'],
-        ["C1", 50, 10, 30, 'Up'],
-        ["C1", 50, 10, 30, 'Up'],
+        ["C1", 50, 10, 30, 'up-left'],
+        //["C1", 50, 10, 30, 'left-down'],
+        // ["C1", 50, 10, 30, 'Up'],
+        // ["C1", 50, 10, 30, 'Up'],
         // ["C2", 10, 10, 20, 'up-left'],
         // ["C3", 10, 10, 20, 'left-down'],
         // ["C4", 10, 10, 20, 'left'],
