@@ -108,6 +108,8 @@ class STTrialHandling {
         const randomXOffset = Math.random() * (canvas.width - 200) + 100;
         const randomYOffset = Math.random() * (canvas.height - 200) + 100;
 
+        const halfAmplitudePx = amplitudePx / 2;
+
         const tolerance = 20;
         const minWidth = 0 + tolerance;
         const maxWidth = canvas.width - tolerance;
@@ -117,21 +119,21 @@ class STTrialHandling {
         const maxHeight = canvas.height - tolerance;
         const randomValueY = Math.random() * (maxHeight - minHeight) + minHeight;
         console.log("Bla " + randomValueY + " / " + amplitudePx)
-        randomValueY - amplitudePx
+        randomValueY - halfAmplitudePx;
 
         const tolerancePx = 20;
         // console.log(Math.random())
         // console.log(randomXOffset + " / " + randomYOffset)
 
         // Coordinates of the start center point
-        this.startCenterX = canvasCenterX + 1 * Math.cos(startAngleRad);
+        this.startCenterX = canvasCenterX + halfAmplitudePx * Math.cos(startAngleRad);
         // this.startCenterX += this.startCenterX - this.startSizePx / 2 - tolerancePx
-        this.startCenterY = canvasCenterY + 1* Math.sin(startAngleRad);
+        this.startCenterY = canvasCenterY + halfAmplitudePx * Math.sin(startAngleRad);
         console.log("Start " + this.startCenterX + " " + this.startCenterY)
 
         // Coordinates of the target center point
-        this.targetCenterX = canvasCenterX+ amplitudePx * Math.cos(targetAngleRad);
-        this.targetCenterY = canvasCenterY + amplitudePx * Math.sin(targetAngleRad);
+        this.targetCenterX = canvasCenterX + halfAmplitudePx * Math.cos(targetAngleRad);
+        this.targetCenterY = canvasCenterY + halfAmplitudePx * Math.sin(targetAngleRad);
     }
 
     drawStartElement(context) {
