@@ -159,6 +159,7 @@ button {
         font-weight: bold;
         margin-top: -5px;
         pointer-events: none;
+        z-index: -1;
     }
 
     #debugText {
