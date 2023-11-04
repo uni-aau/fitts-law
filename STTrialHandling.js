@@ -116,8 +116,8 @@ class STTrialHandling {
             this.targetCenterY = randomValueY;
 
             if (Config.isDebug) {
-                console.error(`mW ${this.minWidth} | mW ${this.maxWidth} | mH ${this.minHeight} | maxH ${this.maxHeight}`)
-                console.error(`CVW ${canvas.width} | CVH ${canvas.height} | ${canvasCenterX} | ${canvasCenterY} | RVX ${randomValueX} | RVY ${randomValueY} | A ${amplitudePx} | SCX ${this.startCenterX} | SCY ${this.startCenterY} | TCX ${this.targetCenterX} | TCY ${this.targetCenterY}`)
+                console.log(`mW ${this.minWidth} | mW ${this.maxWidth} | mH ${this.minHeight} | maxH ${this.maxHeight}`)
+                console.log(`CVW ${canvas.width} | CVH ${canvas.height} | ${canvasCenterX} | ${canvasCenterY} | RVX ${randomValueX} | RVY ${randomValueY} | A ${amplitudePx} | SCX ${this.startCenterX} | SCY ${this.startCenterY} | TCX ${this.targetCenterX} | TCY ${this.targetCenterY}`)
             }
         } else {
             this.startCenterX = canvasCenterX + (amplitudePx / 2) * Math.cos(startAngleRad);
@@ -153,6 +153,7 @@ class STTrialHandling {
         return Math.random() * (this.maxHeight - this.minHeight) + this.minHeight;
     }
 
+    // TODO marked for remval
     drawStartElement(context) {
         const startElement = new ElementDrawer(context, this.startCenterX, this.startCenterY, this.startSizePx, this.startSizePx, this.shape);
         startElement.drawStartElement();
@@ -179,6 +180,7 @@ class STTrialHandling {
         }*/
     }
 
+// TODO marked for removal
     drawTargetElement(context) {
         const targetElement = new ElementDrawer(context, this.targetCenterX, this.targetCenterY, this.targetWidthPx, this.targetHeightPx, this.shape);
         targetElement.drawTargetElement();
@@ -205,10 +207,10 @@ class STTrialHandling {
         }*/
     }
 
-    alertWronglyRegistered() {
+/*    alertWronglyRegistered() {
         alert(`No shape as ${this.shape} is registered!`)
         console.error(`No shape with the name ${this.shape} registered!`);
-    }
+    }*/
 
     // Todo still necessary after change?
     removeAllEventListeners(element) {
@@ -442,7 +444,8 @@ class STTrialHandling {
         );
     }
 
-    displayMiddlePointOfElement(context, isStartElement) {
+    // TODO marked for removal
+/*    displayMiddlePointOfElement(context, isStartElement) {
         context.fillStyle = "rgba(255,0,0,0.8)";
         if (isStartElement) {
             const size = get1MMInPx();
@@ -452,7 +455,7 @@ class STTrialHandling {
             context.fillRect(this.targetCenterX, this.targetCenterY, get1MMInPx(), get1MMInPx());
             context.strokeRect(this.targetCenterX, this.targetCenterY, get1MMInPx(), get1MMInPx());
         }
-    }
+    }*/
 
 
     /*
