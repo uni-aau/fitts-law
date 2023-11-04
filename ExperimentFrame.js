@@ -38,7 +38,7 @@ class ExperimentFrame {
         });
 
         this.displayTextValues();
-        STTrialsHandling.showRects();
+        STTrialsHandling.showTrial();
 
         // Check if it's time for a break
         if (this.trialNumber % this.trialsPerBreak === 0) {

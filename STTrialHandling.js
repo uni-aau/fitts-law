@@ -52,7 +52,7 @@ class STTrialHandling {
         }
     }
 
-    showRects() {
+    showTrial() {
         const canvas = this.setUpCanvas();
         const context = canvas.getContext("2d");
 
