@@ -1,4 +1,4 @@
-class STTrialHandling {
+class STRectsDrawing {
     constructor(trial, currentBlock, blockNumber, trialNumber, serialNumber, dataRecorder, username, onTargetClicked) {
         this.trial = trial;
         this.currentBlock = currentBlock;
