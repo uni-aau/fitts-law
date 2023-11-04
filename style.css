@@ -85,6 +85,10 @@ button {
     }
 
     #info-container {
+        user-select: none;
+        -moz-user-select:none;
+        -ms-user-select:none;
+        -webkit-user-select:none;
     }
 
     .info-box {
@@ -139,6 +143,11 @@ button {
     }
 
     #info-container {
+        user-select: none;
+        -moz-user-select:none;
+        -ms-user-select:none;
+        -webkit-user-select:none;
+
         position: absolute;
         top: 5px;
         left: 5px;
@@ -150,6 +159,7 @@ button {
         font-weight: bold;
         margin-top: -5px;
         pointer-events: none;
+        z-index: -1;
     }
 
     #debugText {

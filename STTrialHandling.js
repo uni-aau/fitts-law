@@ -105,14 +105,52 @@ class STTrialHandling {
         const startAngleRad = (startAngle * Math.PI) / 180;
         const targetAngleRad = (targetAngle * Math.PI) / 180;
 
-        const halfAmplitudePx = amplitudePx / 2;
-        // Coordinates of the start center point
-        this.startCenterX = canvasCenterX + halfAmplitudePx * Math.cos(startAngleRad);
-        this.startCenterY = canvasCenterY + halfAmplitudePx * Math.sin(startAngleRad);
+        if (Config.randomTrialPlacement) {
+            // Determines the minWidth & maxWidth | minHeight & maxHeight
+            const randomValueX = this.getRandomValueX(startAngle, amplitudePx, canvas);
+            const randomValueY = this.getRandomValueY(startAngle, amplitudePx, canvas); // Determines min/max random height
 
-        // Coordinates of the target center point
-        this.targetCenterX = canvasCenterX + halfAmplitudePx * Math.cos(targetAngleRad);
-        this.targetCenterY = canvasCenterY + halfAmplitudePx * Math.sin(targetAngleRad);
+            this.startCenterX = randomValueX + amplitudePx * Math.cos(startAngleRad);
+            this.startCenterY = randomValueY + amplitudePx * Math.sin(startAngleRad);
+            this.targetCenterX = randomValueX;
+            this.targetCenterY = randomValueY;
+
+            if (Config.isDebug) {
+                console.error(`mW ${this.minWidth} | mW ${this.maxWidth} | mH ${this.minHeight} | maxH ${this.maxHeight}`)
+                console.error(`CVW ${canvas.width} | CVH ${canvas.height} | ${canvasCenterX} | ${canvasCenterY} | RVX ${randomValueX} | RVY ${randomValueY} | A ${amplitudePx} | SCX ${this.startCenterX} | SCY ${this.startCenterY} | TCX ${this.targetCenterX} | TCY ${this.targetCenterY}`)
+            }
+        } else {
+            this.startCenterX = canvasCenterX + (amplitudePx / 2) * Math.cos(startAngleRad);
+            this.startCenterY = canvasCenterY + (amplitudePx / 2) * Math.sin(startAngleRad);
+            this.targetCenterX = canvasCenterX + (amplitudePx / 2) * Math.cos(targetAngleRad);
+            this.targetCenterY = canvasCenterY + (amplitudePx / 2) * Math.sin(targetAngleRad);
+        }
+    }
+
+    getRandomValueX(startAngle, amplitudePx, canvas) {
+        // Determines min/max random width
+        if (startAngle < 90 || startAngle > 270) { // If target is left -> > amplitude at end distance
+            this.minWidth = Config.randomTrialPlacementTolerance + this.targetWidthPx / 2;
+            this.maxWidth = canvas.width - Config.randomTrialPlacementTolerance - amplitudePx - this.startSizePx / 2;
+        } else if (startAngle > 90 && startAngle < 270) { // if target is right -> > amplitude at start distance
+            this.minWidth = Config.randomTrialPlacementTolerance + amplitudePx + this.startSizePx / 2;
+            this.maxWidth = canvas.width - Config.randomTrialPlacementTolerance - this.targetWidthPx / 2;
+        } else { // if target is up (90) or down (270)
+            this.minWidth = Config.randomTrialPlacementTolerance + this.targetWidthPx / 2
+            this.maxWidth = canvas.width - Config.randomTrialPlacementTolerance - this.targetWidthPx / 2;
+        }
+        return Math.random() * (this.maxWidth - this.minWidth) + this.minWidth; // Calculates random value
+    }
+
+    getRandomValueY(startAngle, amplitudePx, canvas) {
+        if (startAngle > 0 && startAngle < 180) { // If target is up
+            this.minHeight = Config.randomTrialPlacementTolerance + this.targetHeightPx / 2;
+            this.maxHeight = canvas.height - Config.randomTrialPlacementTolerance - this.targetHeightPx / 2 - amplitudePx;
+        } else { // If target is down
+            this.minHeight = Config.randomTrialPlacement + this.targetHeightPx / 2 + amplitudePx;
+            this.maxHeight = canvas.height - Config.randomTrialPlacementTolerance - this.targetHeightPx / 2;
+        }
+        return Math.random() * (this.maxHeight - this.minHeight) + this.minHeight;
     }
 
     drawStartElement(context) {
@@ -126,6 +164,8 @@ class STTrialHandling {
         if (this.shape === "rectangle") {
             context.strokeRect(topLeftStartRectCornerX, topLeftStartRectCornerY, this.startSizePx, this.startSizePx);
             context.fillRect(topLeftStartRectCornerX, topLeftStartRectCornerY, this.startSizePx, this.startSizePx);
+
+            if (Config.isDebug) this.displayMiddlePointOfElement(context, true);
         } else if (this.shape === "circle") {
             context.beginPath();
             context.arc(this.startCenterX, this.startCenterY, this.startSizePx / 2, 0, 2 * Math.PI);
@@ -148,6 +188,8 @@ class STTrialHandling {
         if (this.shape === "rectangle") {
             context.strokeRect(topLeftTargetRectCornerX, topLeftTargetRectCornerY, this.targetWidthPx, this.targetHeightPx);
             context.fillRect(topLeftTargetRectCornerX, topLeftTargetRectCornerY, this.targetWidthPx, this.targetHeightPx);
+
+            if (Config.isDebug) this.displayMiddlePointOfElement(context, false);
         } else if (this.shape === "circle") {
             context.beginPath();
             context.arc(this.targetCenterX, this.targetCenterY, this.targetWidthPx / 2, 0, 2 * Math.PI);
@@ -393,6 +435,18 @@ class STTrialHandling {
             " | Trail Direction: " +
             this.trialDirection
         );
+    }
+
+    displayMiddlePointOfElement(context, isStartElement) {
+        context.fillStyle = "rgba(255,0,0,0.8)";
+        if (isStartElement) {
+            const size = get1MMInPx();
+            context.fillRect(this.startCenterX - size / 2, this.startCenterY - size / 2, size, size);
+            context.strokeRect(this.startCenterX - size / 2, this.startCenterY - size / 2, size, size);
+        } else {
+            context.fillRect(this.targetCenterX, this.targetCenterY, get1MMInPx(), get1MMInPx());
+            context.strokeRect(this.targetCenterX, this.targetCenterY, get1MMInPx(), get1MMInPx());
+        }
     }
 
 
