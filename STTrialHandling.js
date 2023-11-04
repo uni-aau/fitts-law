@@ -56,11 +56,13 @@ class STTrialHandling {
         const canvas = this.setUpCanvas();
         const context = canvas.getContext("2d");
 
-        // Start element creation
         context.clearRect(0, 0, canvas.width, canvas.height);
 
-        this.drawStartElement(context);
-        this.drawTargetElement(context);
+        // Element drawing
+        const startElement = new ElementDrawer(context, this.startCenterX, this.startCenterY, this.startSizePx, this.startSizePx, this.shape);
+        startElement.drawStartElement();
+        const targetElement = new ElementDrawer(context, this.targetCenterX, this.targetCenterY, this.targetWidthPx, this.targetHeightPx, this.shape);
+        targetElement.drawTargetElement();
 
         // Determines which methods will be used to retrieve click position
         this.addClickListener();
@@ -155,8 +157,8 @@ class STTrialHandling {
 
     // TODO marked for remval
     drawStartElement(context) {
-        const startElement = new ElementDrawer(context, this.startCenterX, this.startCenterY, this.startSizePx, this.startSizePx, this.shape);
-        startElement.drawStartElement();
+/*        const startElement = new ElementDrawer(context, this.startCenterX, this.startCenterY, this.startSizePx, this.startSizePx, this.shape);
+        startElement.drawStartElement();*/
 
 /*        context.strokeStyle = Config.elementStrokeStyle;
         context.fillStyle = Config.startElementFillStyle;
@@ -182,8 +184,8 @@ class STTrialHandling {
 
 // TODO marked for removal
     drawTargetElement(context) {
-        const targetElement = new ElementDrawer(context, this.targetCenterX, this.targetCenterY, this.targetWidthPx, this.targetHeightPx, this.shape);
-        targetElement.drawTargetElement();
+/*        const targetElement = new ElementDrawer(context, this.targetCenterX, this.targetCenterY, this.targetWidthPx, this.targetHeightPx, this.shape);
+        targetElement.drawTargetElement();*/
 /*        const randomIndex = Math.floor(Math.random() * Config.targetElementFillStyle.length); // determines a random target color
         context.fillStyle = Config.targetElementFillStyle[randomIndex];
         context.strokeStyle = Config.elementStrokeStyle;
