@@ -8,10 +8,20 @@ class ElementDrawer {
         this.shape = shape;
     }
 
-    draw() {
+    drawStartElement() {
         this.context.strokeStyle = Config.elementStrokeStyle;
         this.context.fillStyle = Config.startElementFillStyle;
+        this.draw();
+    }
 
+    drawTargetElement() {
+        const randomIndex = Math.floor(Math.random() * Config.targetElementFillStyle.length); // determines a random target color
+        this.context.fillStyle = Config.targetElementFillStyle[randomIndex];
+        this.context.strokeStyle = Config.elementStrokeStyle;
+        this.draw();
+    }
+
+    draw() {
         const topLeftStartRectCornerX = this.centerX - this.width / 2;
         const topLeftStartRectCornerY = this.centerY - this.height / 2;
 

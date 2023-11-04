@@ -155,7 +155,7 @@ class STTrialHandling {
 
     drawStartElement(context) {
         const startElement = new ElementDrawer(context, this.startCenterX, this.startCenterY, this.startSizePx, this.startSizePx, this.shape);
-        startElement.draw();
+        startElement.drawStartElement();
 
 /*        context.strokeStyle = Config.elementStrokeStyle;
         context.fillStyle = Config.startElementFillStyle;
@@ -180,7 +180,9 @@ class STTrialHandling {
     }
 
     drawTargetElement(context) {
-        const randomIndex = Math.floor(Math.random() * Config.targetElementFillStyle.length); // determines a random target color
+        const targetElement = new ElementDrawer(context, this.targetCenterX, this.targetCenterY, this.targetWidthPx, this.targetHeightPx, this.shape);
+        targetElement.drawTargetElement();
+/*        const randomIndex = Math.floor(Math.random() * Config.targetElementFillStyle.length); // determines a random target color
         context.fillStyle = Config.targetElementFillStyle[randomIndex];
         context.strokeStyle = Config.elementStrokeStyle;
 
@@ -200,7 +202,7 @@ class STTrialHandling {
             context.fill();
         } else {
             this.alertWronglyRegistered();
-        }
+        }*/
     }
 
     alertWronglyRegistered() {
