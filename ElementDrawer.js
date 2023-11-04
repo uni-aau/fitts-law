@@ -12,6 +12,7 @@ class ElementDrawer {
         this.context.strokeStyle = Config.elementStrokeStyle;
         this.context.fillStyle = Config.startElementFillStyle;
         this.draw();
+        if(Config.isDebug) this.displayMiddlePointOfElement(true);
     }
 
     drawTargetElement() {
@@ -19,6 +20,7 @@ class ElementDrawer {
         this.context.fillStyle = Config.targetElementFillStyle[randomIndex];
         this.context.strokeStyle = Config.elementStrokeStyle;
         this.draw();
+        if(Config.isDebug) this.displayMiddlePointOfElement(false);
     }
 
     draw() {
@@ -34,7 +36,25 @@ class ElementDrawer {
             this.context.stroke();
             this.context.fill();
         } else {
-            //TODO
+            this.alertWronglyRegistered();
+        }
+    }
+
+    alertWronglyRegistered() {
+        alert(`No shape as ${this.shape} is registered!`)
+        console.error(`No shape with the name ${this.shape} registered!`);
+    }
+
+    displayMiddlePointOfElement(isStartElement) {
+        this.context.fillStyle = "rgba(255,0,0,0.8)";
+        if (isStartElement) {
+            const elementSize = get1MMInPx();
+            this.context.fillRect(this.centerX - elementSize / 2, this.centerY - elementSize / 2, elementSize, elementSize);
+            this.context.strokeRect(this.centerX - elementSize / 2, this.centerY - elementSize / 2, elementSize, elementSize);
+        } else {
+            // TODO
+            this.context.fillRect(this.centerX, this.centerY, get1MMInPx(), get1MMInPx());
+            this.context.strokeRect(this.centerX, this.centerY, get1MMInPx(), get1MMInPx());
         }
     }
 
