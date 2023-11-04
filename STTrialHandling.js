@@ -108,18 +108,39 @@ class STTrialHandling {
         if (Config.randomTrialPlacement) {
             // Determines the minWidth & maxWidth | minHeight & maxHeight
             // Starts at least at amplitudePx to ensure that the target element can also be displayed
-            const minWidth = Config.randomTrialPlacementTolerance + amplitudePx;
-            const maxWidth = canvas.width - Config.randomTrialPlacementTolerance - amplitudePx;
-            const randomValueX = Math.random() * (maxWidth - minWidth) + minWidth;
+            if (startAngle < 90 || startAngle > 270) {
+                console.log("Start links")
+                this.minWidth = Config.randomTrialPlacementTolerance + this.targetWidthPx / 2;
+                this.maxWidth = canvas.width - Config.randomTrialPlacementTolerance - amplitudePx - this.startSizePx / 2;
+                this.randomValueX = Math.random() * (this.maxWidth - this.minWidth) + this.minWidth;
+            } else if (startAngle < 90 || startAngle > 270) {
+                console.log("Start rechts")
+                this.minWidth = Config.randomTrialPlacementTolerance + amplitudePx + this.startSizePx / 2;
+                this.maxWidth = canvas.width - Config.randomTrialPlacementTolerance - this.targetWidthPx / 2;
+                this.randomValueX = Math.random() * (this.maxWidth - this.minWidth) + this.minWidth;
+            } else {
+                this.minWidth = Config.randomTrialPlacementTolerance + this.targetWidthPx / 2
+                this.maxWidth = canvas.width - Config.randomTrialPlacementTolerance - this.targetWidthPx / 2;
+                this.randomValueX = Math.random() * (this.maxWidth - this.minWidth) + this.minWidth;
+                this.randomValueX = -1;
+            }
+
+            // TODO ändern -> wenn start links, dann maxWidth + amplitude, wenn start rechts, dann minWidth + amplitude
+            // const minWidth = Config.randomTrialPlacementTolerance + amplitudePx;
+            // const maxWidth = canvas.width - Config.randomTrialPlacementTolerance - amplitudePx;
+            // const randomValueX = Math.random() * (maxWidth - minWidth) + minWidth;
 
             const minHeight = Config.randomTrialPlacementTolerance + amplitudePx;
             const maxHeight = canvas.height - Config.randomTrialPlacementTolerance - amplitudePx;
             const randomValueY = Math.random() * (maxHeight - minHeight) + minHeight;
+            console.error(`mW ${this.minWidth} | mW ${this.maxWidth} | mH ${minHeight} | maxH ${maxHeight}`)
 
-            this.startCenterX = randomValueX + amplitudePx * Math.cos(startAngleRad);
+            this.startCenterX = this.randomValueX + amplitudePx * Math.cos(startAngleRad);
             this.startCenterY = randomValueY + amplitudePx * Math.sin(startAngleRad);
-            this.targetCenterX = randomValueX;
+            this.targetCenterX = this.randomValueX;
             this.targetCenterY = randomValueY;
+
+            console.error(`${canvas.width} | ${canvas.height} | ${canvasCenterX} | ${canvasCenterY} | RVX ${this.randomValueX} | RVY ${randomValueY} | A ${amplitudePx} | SCX ${this.startCenterX} | SCY ${this.startCenterY} | TCX ${this.targetCenterX} | TCY ${this.targetCenterY}`)
         } else {
             this.startCenterX = canvasCenterX + (amplitudePx / 2) * Math.cos(startAngleRad);
             this.startCenterY = canvasCenterY + (amplitudePx / 2) * Math.sin(startAngleRad);

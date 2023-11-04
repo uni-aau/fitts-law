@@ -3,10 +3,10 @@ class Config {
     static serverRequestLink = 'http://david.jamnig.net/tests/fittslaw/server/update.php';
     static sendDataToServer = false;
     // Calculation - Fullscreen -> Get windowInnerWidth/Height as resolution and inch of screen. Then calculate the ppi
-    static ppi = 96; // Cannot be determined by plain javascript
+    static ppi = 137.61; // Cannot be determined by plain javascript
     static experimentType = "STS";
     static shape = "rectangle"; // rectangle or circle
-    static intDevice = "mouse".toLowerCase(); // Mouse, Touch
+    static intDevice = "touch".toLowerCase(); // Mouse, Touch
     static trialsPerBreak = NaN;
     static generalUsername = "none"; // Will be displayed in dataset when no username was entered
     static version = "3.1";
@@ -22,9 +22,12 @@ class Config {
     // Circle: width => height
     static trialsDataCategories = [
         // ["C1", 50, 10, 50, 'left-down'],
-        ["C1", 50, 10, 40, 'up'],
-        ["C1", 50, 10, 40, 'up-left'],
-        ["C1", 50, 10, 40, 'left-down'],
+        ["C1", 50, 10, 40, 'left'],
+        ["C1", 50, 10, 40, 'left'],
+        ["C1", 50, 10, 40, 'left'],
+        ["C1", 50, 10, 40, 'left'],
+        // ["C1", 50, 10, 40, 'up-left'],
+        // ["C1", 50, 10, 40, 'left-down'],
         // ["C1", 50, 10, 30, 'Up'],
         // ["C2", 10, 10, 20, 'up-left'],
         // ["C3", 10, 10, 20, 'left-down'],
