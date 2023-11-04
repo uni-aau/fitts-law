@@ -3,6 +3,7 @@ class ExperimentFrame {
     constructor() {
         this.blockNumber = 1;
         this.trialNumber = 1;
+        this.serialNumber = 1;
         this.totalFinishedTrialsAmount = 0;
         this.experiment = new Experiment();
         this.totalBlocks = this.experiment.getNumBlocks(); // Track the total number of blocks
@@ -28,15 +29,16 @@ class ExperimentFrame {
 
         if (!this.printedFirstBlock) {
             this.printedFirstBlock = true;
-            this.printAllTrials();
+            // this.printAllTrials();
         }
 
-        const STRectDrawing = new STRectsDrawing(currentTrial, this.currentBlock, this.blockNumber, this.trialNumber, this.dataRecorder, this.username, () => {
+        const STTrialsHandling = new STRectsDrawing(currentTrial, this.currentBlock, this.blockNumber, this.trialNumber, this.serialNumber, this.dataRecorder, this.username, () => {
             this.trialCompleted();
+            STTrialsHandling.removeEventListeners();
         });
 
-        this.showIndexes();
-        STRectDrawing.showRects();
+        this.displayTextValues();
+        STTrialsHandling.showTrial();
 
         // Check if it's time for a break
         if (this.trialNumber % this.trialsPerBreak === 0) {
@@ -69,7 +71,7 @@ class ExperimentFrame {
         // Disable the rest of the page interaction while the break window is visible
         document.body.style.pointerEvents = 'none';
 
-        const downloadDataButton = document.getElementById('downloadData');
+        const downloadDataButton = document.getElementById('downloadDataButton');
 
         // Event listener for the finish button
         downloadDataButton.addEventListener('click', () => {
@@ -80,6 +82,7 @@ class ExperimentFrame {
 
     trialCompleted() {
         const currentBlock = this.experiment.getBlock(this.blockNumber);
+        this.serialNumber++;
 
         if (currentBlock) {
             if (currentBlock.hasNext(this.trialNumber)) {
@@ -106,27 +109,34 @@ class ExperimentFrame {
         this.showTrial();
     }
 
-    showIndexes() {
+    displayTextValues() {
         const currentTrialIndexEl = document.getElementById("currentTrialNumber");
         currentTrialIndexEl.textContent = this.trialNumber;
 
         const totalCurrentTrialIndexEl = document.getElementById("totalCurrentTrialNumber");
         totalCurrentTrialIndexEl.textContent = this.totalFinishedTrialsAmount;
 
-        const currentBlockIndexEl = document.getElementById("currentBlockNumber");
-        currentBlockIndexEl.textContent = this.blockNumber;
+        const totalTrialIndexPerBlockEl = document.getElementById("totalTrialCountPerBlock");
+        totalTrialIndexPerBlockEl.textContent = this.getTotalTrialsPerBlock();
 
         const totalTrialIndexEl = document.getElementById("totalTrialCount");
         totalTrialIndexEl.textContent = this.getTotalTrials();
 
-        const totalTrialIndexPerBlockEl = document.getElementById("totalTrialCountPerBlock");
-        totalTrialIndexPerBlockEl.textContent = this.getTotalTrialsPerBlock();
+        const currentBlockIndexEl = document.getElementById("currentBlockNumber");
+        currentBlockIndexEl.textContent = this.blockNumber;
 
         const totalBlockIndexEl = document.getElementById("totalBlockCount");
         totalBlockIndexEl.textContent = Config.numBlocks;
 
-        const trialsToBlockIndexEI = document.getElementById("breakCount");
-        trialsToBlockIndexEI.textContent = this.getRemainingTrials();
+        const trialsToBlockIndexEl = document.getElementById("breakCount");
+        trialsToBlockIndexEl.textContent = this.getRemainingTrials();
+
+        const versionElement = document.getElementById("versionNumber");
+        const widthText = document.getElementById("widthText");
+        const heightText = document.getElementById("heightText");
+        versionElement.textContent = Config.version;
+        widthText.textContent = getWindowInnerWidth();
+        heightText.textContent = getWindowInnerHeight();
     }
 
     experimentFinished() {

@@ -6,17 +6,31 @@
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <link crossorigin="anonymous" href="./assets/bootstrap.min.css"
           rel="stylesheet">
-    <title>Fitts Law - Two Dimensional Touch</title>
-    <link href="./assets/style.css" rel="stylesheet">
+    <title>Fitts's Law - Two Dimensional Touch</title>
+    <link href="style.css" rel="stylesheet">
 
 </head>
 <body>
 
-<div class="info-box" id="currentTrialText">Trial No.: <span class="info-value" id="currentTrialNumber">0</span> (per block) / <span class="info-value" id="totalCurrentTrialNumber">0</span> (total)</div>
-<div class="info-box" id="currentBlocksText">Block No.: <span class="info-value" id="currentBlockNumber">0</span></div>
-<div class="info-box" id="totalTrialsText">Total Trials: <span class="info-value" id="totalTrialCountPerBlock">0</span> (per block) / <span class="info-value" id="totalTrialCount">0</span> (max)</div>
-<div class="info-box" id="totalBlocksText">Total Blocks: <span class="info-value" id="totalBlockCount">0</span></div>
-<div class="info-box" id="trialsToBreakText">Next Break in <span class="info-value" id="breakCount">0</span> trials</div>
+<div id="info-container">
+    <div class="info-box" id="currentTrialText">Trial No.: <span class="info-value" id="currentTrialNumber">0</span>
+        (per
+        block) / <span class="info-value" id="totalCurrentTrialNumber">0</span> (total)
+    </div>
+    <div class="info-box" id="currentBlocksText">Block No.: <span class="info-value" id="currentBlockNumber">0</span>
+    </div>
+    <div class="info-box" id="totalTrialsText">Total Trials: <span class="info-value"
+                                                                   id="totalTrialCountPerBlock">0</span>
+        (per block) / <span class="info-value" id="totalTrialCount">0</span> (max)
+    </div>
+    <div class="info-box" id="totalBlocksText">Total Blocks: <span class="info-value" id="totalBlockCount">0</span>
+    </div>
+    <div class="info-box" id="trialsToBreakText">Next Break in <span class="info-value" id="breakCount">0</span> trials
+    </div>
+    <div class="info-box" id="debugText">Version: <span class="info-value" id="versionNumber">-1</span> | <span
+            class="info-value" id="widthText">0</span> / <span class="info-value" id="heightText">0</span>
+    </div>
+</div>
 
 <canvas height="600" id="trialCanvas" width="800"></canvas>
 
@@ -25,9 +39,7 @@
 <div class="modal" id="breakWindow">
     <div class="modal-content">
         <p>Take a break! Press continue when you are ready</p>
-        <button autofocus id="continueButton" style="margin-right:80px; font-size: 20px; font-weight: bold; margin-top:10px; width:220px; height:50px; background-color:#1adf24; color: #000000;
-        border-radius:10px; transition-duration: 0.4s;">Continue
-        </button>
+        <button autofocus class="button-general" id="continueButton">Continue</button>
     </div>
 </div>
 
@@ -35,8 +47,7 @@
 <div class="modal" id="finishWindow">
     <div class="modal-content">
         <p>Congratulations! You finished all trials :)</p>
-        <button autofocus id="downloadData" style="margin-right:80px; font-size: 20px; font-weight: bold; margin-top:10px; width:300px; height:80px; background-color:#1adf24; color: #000000;
-        border-radius:10px; transition-duration: 0.4s;">Download Trial Data and Restart
+        <button autofocus class="button-general" id="downloadDataButton">Download Trial Data and Restart
         </button>
     </div>
 </div>
@@ -48,24 +59,27 @@
             <label for="name_input">Your name:</label>
             <input id="name_input" placeholder="Enter your name..."
                    type="text"></p><br>
-        <button id="startButton" style="margin-right:80px; font-size: 20px; font-weight: bold; margin-top:10px; width:220px; height:50px; background-color:#1adf24; color: #000000; 
-        border-radius:10px; transition-duration: 0.4s;">Start
+        <button class="button-general" id="startButton">Start
+        </button>
+        <button class="button-general" id="fullScreenButton">Fullscreen
         </button>
     </div>
 </div>
 
 <!-- Calling Javascript sources -->
-<script src="Config.js"></script>
-<script src="Trial.js"></script>
-<script src="Block.js"></script>
-<script src="Experiment.js"></script>
-<script src="STRectsDrawing.js"></script>
-<script src="ExperimentFrame.js"></script>
-<script src="Support.js"></script>
-<script src="DataRecorder.js"></script>
+<script src="Config.js?version=20231029"></script>
+<script src="Trial.js?version=20231019"></script>
+<script src="Block.js?version=20231019"></script>
+<script src="Experiment.js?version=20231019"></script>
+<script src="STRectsDrawing.js?version=20231029"></script>
+<script src="ExperimentFrame.js?version=20231029"></script>
+<script src="Support.js?version=20231029"></script>
+<script src="DataRecorder.js?version=20231029"></script>
+<script src="ElementDrawer.js?version=20231104"></script>
 <script>
     //experiment.printBlock();
     const experimentFrame = new ExperimentFrame();
+    let isFullScreen = false;
 
     // Function to show the start window
     function showStartWindow() {
@@ -75,6 +89,21 @@
         startWindow.style.display = 'block';
         // Disable the rest of the page interaction while the start window is visible
         document.body.style.pointerEvents = 'none';
+
+        const fullScreenButton = document.getElementById("fullScreenButton");
+        fullScreenButton.addEventListener("click", handleFullScreen);
+    }
+
+    function handleFullScreen() {
+        // const canvas = document.getElementById("trialCanvas");
+        const canvas = document.documentElement;
+        if (!isFullScreen) {
+            enableFullScreen(canvas)
+            isFullScreen = true;
+        } else {
+            disableFullScreen(canvas);
+            isFullScreen = false;
+        }
     }
 
     // Function to start the experiment in full-screen mode
@@ -86,18 +115,6 @@
         // Enable the page interaction again
         document.body.style.pointerEvents = 'auto';
 
-        // Request full-screen mode for the document body
-        /*                const docBody = document.documentElement;
-                        if (docBody.requestFullscreen) {
-                            docBody.requestFullscreen();
-                        } else if (docBody.mozRequestFullScreen) {
-                            docBody.mozRequestFullScreen();
-                        } else if (docBody.webkitRequestFullscreen) {
-                            docBody.webkitRequestFullscreen();
-                        } else if (docBody.msRequestFullscreen) {
-                            docBody.msRequestFullscreen();
-                        }*/
-
         // Start the experiment
         experimentFrame.initializeExperiment();
     }
@@ -107,8 +124,37 @@
     startButton.addEventListener('click', startExperiment);
 
     // Show the start window
-    showStartWindow();
-    // startExperiment(); // TODO
+    // showStartWindow();
+
+    startExperiment(); // TODO
+
+    function enableFullScreen(canvas) {
+        if (canvas.requestFullscreen) {
+            canvas.requestFullscreen();
+        } else if (canvas.mozRequestFullScreen) { // Firefox
+            canvas.mozRequestFullScreen();
+        } else if (canvas.webkitRequestFullscreen) { // Chrome, Safari and Opera
+            canvas.webkitRequestFullscreen();
+        } else if (canvas.msRequestFullscreen) { // IE/Edge
+            canvas.msRequestFullscreen();
+        } else {
+            console.error("Error enabling fullscreen")
+        }
+    }
+
+    function disableFullScreen(canvas) {
+        if (document.exitFullscreen) {
+            document.exitFullscreen();
+        } else if (document.mozCancelFullScreen) {
+            document.mozCancelFullScreen();
+        } else if (document.webkitExitFullscreen) {
+            document.webkitExitFullscreen();
+        } else if (document.msExitFullscreen) {
+            document.msExitFullscreen();
+        } else {
+            console.error("Error disabling fullscreen")
+        }
+    }
 
 </script>
 

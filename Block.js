@@ -9,17 +9,16 @@ class Block {
         this.startSize = startSize;
         this.trialId = 1; // Initialize the trial ID
 
-        // this.totalTrialsAmount = this.targetWidth.length * this.trialDirection.length * this.amplitude.length;
         this.totalTrialsAmount = this.trialDataCategories.length;
         this.startTrialsAmount = this.totalTrialsAmount
 
         // Initialize an empty array to store the trials
         this.trials = [];
 
-        for(let i = 0; i < this.trialDataCategories.length; i++) {
-            const trialDirection = this.trialDataCategories[i][4].toLowerCase();
+        for (const trialDataCategory of this.trialDataCategories) {
+            const trialDirection = trialDataCategory[4].toLowerCase();
 
-            if(trialDirection in Config.clockDirections) {
+            if (trialDirection in Config.clockDirections) {
                 this.trialClockAngle = Config.clockDirections[trialDirection];
             } else {
                 console.error("No trialDirection in data array with name " + trialDirection)
@@ -28,15 +27,15 @@ class Block {
             // Create a trial object with the current combination of values
             const trial = new Trial(
                 this.trialId,
-                this.trialDataCategories[i][0],
+                trialDataCategory[0],
                 this.shape,
                 trialDirection,
                 this.trialClockAngle,
                 this.intDevice,
                 this.startSize,
-                this.trialDataCategories[i][1], // width
-                this.trialDataCategories[i][2], // height
-                this.trialDataCategories[i][3] // amplitude
+                trialDataCategory[1], // width
+                trialDataCategory[2], // height
+                trialDataCategory[3] // amplitude
             );
 
             // Add the trial object to the trials array
@@ -74,6 +73,7 @@ class Block {
     getStartTrialSize() {
         return this.startTrialsAmount
     }
+
 // Shuffling function using Fisher-Yates algorithm
     shuffleArray(array) {
         let currentIndex = array.length;
@@ -95,60 +95,6 @@ class Block {
     }
 
 }
-
-// Todo bei jedem block anders anordnen? Testen!
-
-
-
-/* Old (random creation)
- // Nested loops to generate the trials
-        for (let i = 0; i < this.targetWidth.length; i++) { // loop to go through target width
-            for (let k = 0; k < this.amplitude.length; k++) { // loop to go through Amplitude
-                for (let j = 0; j < this.trialDirection.length; j++) { // loop to go through interaction direction
-
-                    // check and assign startIndex, and TargetIndex for each direction
-                    if (this.trialDirection[j] === 'Up') {
-                        this.startIndex = 1;
-                        this.targetIndex = 3;
-                    }
-                    if (this.trialDirection[j] === 'Down') {
-                        this.startIndex = 3;
-                        this.targetIndex = 1;
-                    }
-                    if (this.trialDirection[j] === 'Right') {
-                        this.startIndex = 2;
-                        this.targetIndex = 0;
-                    }
-                    if (this.trialDirection[j] === 'Left') {
-                        this.startIndex = 0;
-                        this.targetIndex = 2;
-                    }
-
-                    // Create a trial object with the current combination of values
-                    const trial = new Trial(
-                        this.trialId,
-                        this.shape,
-                        this.trialDirection[j],
-                        this.intDevice,
-                        this.startIndex,
-                        this.targetIndex,
-                        this.startSize,
-                        this.targetWidth[i],
-                        this.targetHeight[i],
-                        this.amplitude[k]
-                    );
-
-                    // Add the trial object to the trials array
-                    this.trials.push(trial);
-                    this.trialId++; // Increment the trial number
-                }
-            }
-        }
-        // Shuffle the trials array randomly
-        this.shuffleArray(this.trials);
- */
-
-
 
 
 
