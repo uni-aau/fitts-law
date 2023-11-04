@@ -9,7 +9,7 @@ class Config {
     static intDevice = "touch".toLowerCase(); // Mouse, Touch
     static trialsPerBreak = NaN;
     static generalUsername = "none"; // Will be displayed in dataset when no username was entered
-    static version = "3.1";
+    static version = "4.0";
 
     // Block Config
     static randomTrialPlacement = true; // Determines if the trials will be placed random on the canvas or in the middle
