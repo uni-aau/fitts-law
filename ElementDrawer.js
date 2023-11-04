@@ -25,6 +25,7 @@ class ElementDrawer {
 
     draw() {
         if (this.shape === "rectangle") {
+            // Coordinates of top left corner of the rectangle (center - half of the width of rect)
             const topLeftRectCornerX = this.centerX - this.width / 2;
             const topLeftRectCornerY = this.centerY - this.height / 2;
 
