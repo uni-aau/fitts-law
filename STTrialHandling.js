@@ -155,64 +155,6 @@ class STTrialHandling {
         return Math.random() * (this.maxHeight - this.minHeight) + this.minHeight;
     }
 
-    // TODO marked for remval
-    drawStartElement(context) {
-/*        const startElement = new ElementDrawer(context, this.startCenterX, this.startCenterY, this.startSizePx, this.startSizePx, this.shape);
-        startElement.drawStartElement();*/
-
-/*        context.strokeStyle = Config.elementStrokeStyle;
-        context.fillStyle = Config.startElementFillStyle;
-
-        // Coordinates of top left corner of the rectangle (center - half of the width of rect)
-        const topLeftStartRectCornerX = this.startCenterX - this.startSizePx / 2;
-        const topLeftStartRectCornerY = this.startCenterY - this.startSizePx / 2;
-
-        if (this.shape === "rectangle") {
-            context.strokeRect(topLeftStartRectCornerX, topLeftStartRectCornerY, this.startSizePx, this.startSizePx);
-            context.fillRect(topLeftStartRectCornerX, topLeftStartRectCornerY, this.startSizePx, this.startSizePx);
-
-            if (Config.isDebug) this.displayMiddlePointOfElement(context, true);
-        } else if (this.shape === "circle") {
-            context.beginPath();
-            context.arc(this.startCenterX, this.startCenterY, this.startSizePx / 2, 0, 2 * Math.PI);
-            context.stroke();
-            context.fill();
-        } else {
-            this.alertWronglyRegistered();
-        }*/
-    }
-
-// TODO marked for removal
-    drawTargetElement(context) {
-/*        const targetElement = new ElementDrawer(context, this.targetCenterX, this.targetCenterY, this.targetWidthPx, this.targetHeightPx, this.shape);
-        targetElement.drawTargetElement();*/
-/*        const randomIndex = Math.floor(Math.random() * Config.targetElementFillStyle.length); // determines a random target color
-        context.fillStyle = Config.targetElementFillStyle[randomIndex];
-        context.strokeStyle = Config.elementStrokeStyle;
-
-        // Coordinates of top left corner of the rectangle (center - half of the width of rect)
-        const topLeftTargetRectCornerX = this.targetCenterX - this.targetWidthPx / 2;
-        const topLeftTargetRectCornerY = this.targetCenterY - this.targetHeightPx / 2;
-
-        if (this.shape === "rectangle") {
-            context.strokeRect(topLeftTargetRectCornerX, topLeftTargetRectCornerY, this.targetWidthPx, this.targetHeightPx);
-            context.fillRect(topLeftTargetRectCornerX, topLeftTargetRectCornerY, this.targetWidthPx, this.targetHeightPx);
-
-            if (Config.isDebug) this.displayMiddlePointOfElement(context, false);
-        } else if (this.shape === "circle") {
-            context.beginPath();
-            context.arc(this.targetCenterX, this.targetCenterY, this.targetWidthPx / 2, 0, 2 * Math.PI);
-            context.stroke();
-            context.fill();
-        } else {
-            this.alertWronglyRegistered();
-        }*/
-    }
-
-/*    alertWronglyRegistered() {
-        alert(`No shape as ${this.shape} is registered!`)
-        console.error(`No shape with the name ${this.shape} registered!`);
-    }*/
 
     // Todo still necessary after change?
     removeAllEventListeners(element) {
@@ -412,7 +354,7 @@ class STTrialHandling {
 
     // TODO
     /*
-    - Drawing & Clickhandling in eigener Klasse
+    - Clickhandling in eigener Klasse
     - Misses -> TargetMisses
     */
 
@@ -445,19 +387,6 @@ class STTrialHandling {
             this.trialDirection
         );
     }
-
-    // TODO marked for removal
-/*    displayMiddlePointOfElement(context, isStartElement) {
-        context.fillStyle = "rgba(255,0,0,0.8)";
-        if (isStartElement) {
-            const size = get1MMInPx();
-            context.fillRect(this.startCenterX - size / 2, this.startCenterY - size / 2, size, size);
-            context.strokeRect(this.startCenterX - size / 2, this.startCenterY - size / 2, size, size);
-        } else {
-            context.fillRect(this.targetCenterX, this.targetCenterY, get1MMInPx(), get1MMInPx());
-            context.strokeRect(this.targetCenterX, this.targetCenterY, get1MMInPx(), get1MMInPx());
-        }
-    }*/
 
 
     /*
