@@ -24,13 +24,12 @@ class ElementDrawer {
     }
 
     draw() {
-        // TODO
-        const topLeftStartRectCornerX = this.centerX - this.width / 2;
-        const topLeftStartRectCornerY = this.centerY - this.height / 2;
-
         if (this.shape === "rectangle") {
-            this.context.strokeRect(topLeftStartRectCornerX, topLeftStartRectCornerY, this.width, this.height);
-            this.context.fillRect(topLeftStartRectCornerX, topLeftStartRectCornerY, this.width, this.height);
+            const topLeftRectCornerX = this.centerX - this.width / 2;
+            const topLeftRectCornerY = this.centerY - this.height / 2;
+
+            this.context.strokeRect(topLeftRectCornerX, topLeftRectCornerY, this.width, this.height);
+            this.context.fillRect(topLeftRectCornerX, topLeftRectCornerY, this.width, this.height);
         } else if (this.shape === "circle") {
             this.context.beginPath();
             this.context.arc(this.centerX, this.centerY, this.width / 2, 0, 2 * Math.PI);
