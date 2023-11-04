@@ -21,7 +21,6 @@ class Config {
     // left-down, left, left-up, up-left
     // Circle: width => height
     static trialsDataCategories = [
-        // ["C1", 50, 10, 50, 'left-down'],
         ["C1", 10, 10, 40, 'up'],
         ["C2", 20, 10, 30, 'up-right'],
         ["C3", 20, 15, 25, 'right-up'],
@@ -35,12 +34,6 @@ class Config {
         ["C11", 10, 20, 35, 'left'],
         ["C12", 20, 10, 25, 'left-up'],
         ["C13", 10, 20, 40, 'up-left'],
-        // ["C1", 50, 10, 40, 'up-left'],
-        // ["C1", 50, 10, 40, 'left-down'],
-        // ["C1", 50, 10, 30, 'Up'],
-        // ["C2", 10, 10, 20, 'up-left'],
-        // ["C3", 10, 10, 20, 'left-down'],
-        // ["C4", 10, 10, 20, 'left'],
     ];
 
     // Clock: 12 (up), 1 (up-right), 2 (right-up), 3...
@@ -58,15 +51,8 @@ class Config {
         'left-up': 30,
         'up-left': 60,
     };
-
-    // Determines clickTolerance (in px) where click is counted as miss
-    static clickTolerance(amplitude) {
-        return mm2px(amplitude / 2);
-    }
-
     static isMissSkipped = true; // True - Miss click will be skipped / False - Nothing will be skipped
     static reAddMisses = true; // Readds misses within the same block in a random position
-
     static elementStrokeStyle = "black"; // object border color
     static startElementFillStyle = "rgba(144, 238, 144, 0.8)";
     static targetElementFillStyle = [
@@ -77,4 +63,9 @@ class Config {
         "rgba(170, 218, 75, 0.8)",
         "rgba(220, 110, 217, 0.8)"];
     static targetElementSelectionStyle = "rgba(0, 0, 139, 0.8)"; // Dark blue color
+
+    // Determines clickTolerance (in px) where click is counted as miss
+    static clickTolerance(amplitude) {
+        return mm2px(amplitude / 2);
+    }
 }
