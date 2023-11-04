@@ -139,6 +139,8 @@ class STTrialHandling {
         if (this.shape === "rectangle") {
             context.strokeRect(topLeftStartRectCornerX, topLeftStartRectCornerY, this.startSizePx, this.startSizePx);
             context.fillRect(topLeftStartRectCornerX, topLeftStartRectCornerY, this.startSizePx, this.startSizePx);
+
+            if (Config.isDebug) this.displayMiddlePointOfElement(context, true);
         } else if (this.shape === "circle") {
             context.beginPath();
             context.arc(this.startCenterX, this.startCenterY, this.startSizePx / 2, 0, 2 * Math.PI);
@@ -161,6 +163,8 @@ class STTrialHandling {
         if (this.shape === "rectangle") {
             context.strokeRect(topLeftTargetRectCornerX, topLeftTargetRectCornerY, this.targetWidthPx, this.targetHeightPx);
             context.fillRect(topLeftTargetRectCornerX, topLeftTargetRectCornerY, this.targetWidthPx, this.targetHeightPx);
+
+            if (Config.isDebug) this.displayMiddlePointOfElement(context, false);
         } else if (this.shape === "circle") {
             context.beginPath();
             context.arc(this.targetCenterX, this.targetCenterY, this.targetWidthPx / 2, 0, 2 * Math.PI);
@@ -406,6 +410,18 @@ class STTrialHandling {
             " | Trail Direction: " +
             this.trialDirection
         );
+    }
+
+    displayMiddlePointOfElement(context, isStartElement) {
+        context.fillStyle = "rgba(255,0,0,0.8)";
+        if (isStartElement) {
+            const size = get1MMInPx();
+            context.fillRect(this.startCenterX - size / 2, this.startCenterY - size / 2, size, size);
+            context.strokeRect(this.startCenterX - size / 2, this.startCenterY - size / 2, size, size);
+        } else {
+            context.fillRect(this.targetCenterX, this.targetCenterY, get1MMInPx(), get1MMInPx());
+            context.strokeRect(this.targetCenterX, this.targetCenterY, get1MMInPx(), get1MMInPx());
+        }
     }
 
 

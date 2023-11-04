@@ -1,4 +1,5 @@
 class Config {
+    static isDebug = false;
     static serverRequestLink = 'http://david.jamnig.net/tests/fittslaw/server/update.php';
     static sendDataToServer = false;
     // Calculation - Fullscreen -> Get windowInnerWidth/Height as resolution and inch of screen. Then calculate the ppi
@@ -20,8 +21,10 @@ class Config {
     // left-down, left, left-up, up-left
     // Circle: width => height
     static trialsDataCategories = [
-        // ["C1", 15, 15, 50, 'up'],
-        ["C1", 50, 10, 30, 'left-down'],
+        // ["C1", 50, 10, 50, 'left-down'],
+        ["C1", 50, 10, 40, 'up'],
+        ["C1", 50, 10, 40, 'up-left'],
+        ["C1", 50, 10, 40, 'left-down'],
         // ["C1", 50, 10, 30, 'Up'],
         // ["C2", 10, 10, 20, 'up-left'],
         // ["C3", 10, 10, 20, 'left-down'],
