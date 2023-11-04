@@ -12,7 +12,7 @@ class ElementDrawer {
         this.context.strokeStyle = Config.elementStrokeStyle;
         this.context.fillStyle = Config.startElementFillStyle;
         this.draw();
-        if(Config.isDebug) this.displayMiddlePointOfElement(true);
+        if (Config.isDebug) this.displayMiddlePointOfElement(true);
     }
 
     drawTargetElement() {
@@ -20,17 +20,18 @@ class ElementDrawer {
         this.context.fillStyle = Config.targetElementFillStyle[randomIndex];
         this.context.strokeStyle = Config.elementStrokeStyle;
         this.draw();
-        if(Config.isDebug) this.displayMiddlePointOfElement(false);
+        if (Config.isDebug) this.displayMiddlePointOfElement(false);
     }
 
     draw() {
+        // TODO
         const topLeftStartRectCornerX = this.centerX - this.width / 2;
         const topLeftStartRectCornerY = this.centerY - this.height / 2;
 
-        if(this.shape === "rectangle") {
+        if (this.shape === "rectangle") {
             this.context.strokeRect(topLeftStartRectCornerX, topLeftStartRectCornerY, this.width, this.height);
             this.context.fillRect(topLeftStartRectCornerX, topLeftStartRectCornerY, this.width, this.height);
-        } else if(this.shape === "circle") {
+        } else if (this.shape === "circle") {
             this.context.beginPath();
             this.context.arc(this.centerX, this.centerY, this.width / 2, 0, 2 * Math.PI);
             this.context.stroke();
@@ -47,14 +48,14 @@ class ElementDrawer {
 
     displayMiddlePointOfElement(isStartElement) {
         this.context.fillStyle = "rgba(255,0,0,0.8)";
+        const elementSize = get1MMInPx();
+
         if (isStartElement) {
-            const elementSize = get1MMInPx();
             this.context.fillRect(this.centerX - elementSize / 2, this.centerY - elementSize / 2, elementSize, elementSize);
             this.context.strokeRect(this.centerX - elementSize / 2, this.centerY - elementSize / 2, elementSize, elementSize);
         } else {
-            // TODO
-            this.context.fillRect(this.centerX, this.centerY, get1MMInPx(), get1MMInPx());
-            this.context.strokeRect(this.centerX, this.centerY, get1MMInPx(), get1MMInPx());
+            this.context.fillRect(this.centerX - elementSize / 2, this.centerY - elementSize / 2, elementSize, elementSize);
+            this.context.strokeRect(this.centerX - elementSize / 2, this.centerY - elementSize / 2, elementSize, elementSize);
         }
     }
 
