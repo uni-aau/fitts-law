@@ -32,7 +32,7 @@ class ExperimentFrame {
             // this.printAllTrials();
         }
 
-        const STTrialsHandling = new STRectsDrawing(currentTrial, this.currentBlock, this.blockNumber, this.trialNumber, this.serialNumber, this.dataRecorder, this.username, () => {
+        const STTrialsHandling = new STTrialHandling(currentTrial, this.currentBlock, this.blockNumber, this.trialNumber, this.serialNumber, this.dataRecorder, this.username, () => {
             this.trialCompleted();
             STTrialsHandling.removeEventListeners();
         });
