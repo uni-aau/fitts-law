@@ -154,7 +154,10 @@ class STTrialHandling {
     }
 
     drawStartElement(context) {
-        context.strokeStyle = Config.elementStrokeStyle;
+        const startElement = new ElementDrawer(context, this.startCenterX, this.startCenterY, this.startSizePx, this.startSizePx, this.shape);
+        startElement.draw();
+
+/*        context.strokeStyle = Config.elementStrokeStyle;
         context.fillStyle = Config.startElementFillStyle;
 
         // Coordinates of top left corner of the rectangle (center - half of the width of rect)
@@ -173,7 +176,7 @@ class STTrialHandling {
             context.fill();
         } else {
             this.alertWronglyRegistered();
-        }
+        }*/
     }
 
     drawTargetElement(context) {
