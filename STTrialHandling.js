@@ -105,26 +105,27 @@ class STTrialHandling {
         const startAngleRad = (startAngle * Math.PI) / 180;
         const targetAngleRad = (targetAngle * Math.PI) / 180;
 
+        if (Config.randomTrialPlacement) {
+            // Determines the minWidth & maxWidth | minHeight & maxHeight
+            // Starts at least at amplitudePx to ensure that the target element can also be displayed
+            const minWidth = Config.randomTrialPlacementTolerance + amplitudePx;
+            const maxWidth = canvas.width - Config.randomTrialPlacementTolerance - amplitudePx;
+            const randomValueX = Math.random() * (maxWidth - minWidth) + minWidth;
 
-        const tolerance = 20;
+            const minHeight = Config.randomTrialPlacementTolerance + amplitudePx;
+            const maxHeight = canvas.height - Config.randomTrialPlacementTolerance - amplitudePx;
+            const randomValueY = Math.random() * (maxHeight - minHeight) + minHeight;
 
-        const minWidth = tolerance + amplitudePx;
-        const maxWidth = canvas.width - tolerance - amplitudePx;
-        const randomValueX = Math.random() * (maxWidth - minWidth) + minWidth;
-
-        const minHeight = tolerance + amplitudePx;
-        const maxHeight = canvas.height - tolerance - amplitudePx;
-        const randomValueY = Math.random() * (maxHeight - minHeight) + minHeight;
-        console.log("Bla " + randomValueY + " / " + amplitudePx)
-
-        // Coordinates of the start center point
-        this.startCenterX = randomValueX + amplitudePx * Math.cos(startAngleRad);
-        this.startCenterY = randomValueY + amplitudePx * Math.sin(startAngleRad);
-        console.log("Start " + this.startCenterX + " " + this.startCenterY)
-
-        // Coordinates of the target center point
-        this.targetCenterX = randomValueX + 0 * Math.cos(targetAngleRad);
-        this.targetCenterY = randomValueY + 0 * Math.sin(targetAngleRad);
+            this.startCenterX = randomValueX + amplitudePx * Math.cos(startAngleRad);
+            this.startCenterY = randomValueY + amplitudePx * Math.sin(startAngleRad);
+            this.targetCenterX = randomValueX;
+            this.targetCenterY = randomValueY;
+        } else {
+            this.startCenterX = canvasCenterX + (amplitudePx / 2) * Math.cos(startAngleRad);
+            this.startCenterY = canvasCenterY + (amplitudePx / 2) * Math.sin(startAngleRad);
+            this.targetCenterX = canvasCenterX + (amplitudePx / 2) * Math.cos(targetAngleRad);
+            this.targetCenterY = canvasCenterY + (amplitudePx / 2) * Math.sin(targetAngleRad);
+        }
     }
 
     drawStartElement(context) {

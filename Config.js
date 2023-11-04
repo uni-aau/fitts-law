@@ -11,6 +11,8 @@ class Config {
     static version = "3.1";
 
     // Block Config
+    static randomTrialPlacement = true; // Determines if the trials will be placed random on the canvas or in the middle
+    static randomTrialPlacementTolerance = 20 // Determines how much the element has to be away from the borders
     static startSize = 10; // Size of the start block (always AxA)
     static numBlocks = 3;
     // Category, targetWidth, targetHeight, Amplitude, trialDirection
@@ -18,9 +20,8 @@ class Config {
     // left-down, left, left-up, up-left
     // Circle: width => height
     static trialsDataCategories = [
-        ["C1", 50, 10, 30, 'up-left'],
-        //["C1", 50, 10, 30, 'left-down'],
-        // ["C1", 50, 10, 30, 'Up'],
+        // ["C1", 15, 15, 50, 'up'],
+        ["C1", 50, 10, 30, 'left-down'],
         // ["C1", 50, 10, 30, 'Up'],
         // ["C2", 10, 10, 20, 'up-left'],
         // ["C3", 10, 10, 20, 'left-down'],
