@@ -100,7 +100,7 @@
             enableFullScreen(canvas)
             isFullScreen = true;
         } else {
-            disableFullScreen(canvas);
+            disableFullScreen();
             isFullScreen = false;
         }
     }
@@ -140,7 +140,7 @@
         }
     }
 
-    function disableFullScreen(canvas) {
+    function disableFullScreen() {
         if (document.exitFullscreen) {
             document.exitFullscreen();
         } else if (document.mozCancelFullScreen) {
