@@ -9,7 +9,7 @@ class Config {
     static intDevice = "mouse".toLowerCase(); // Mouse, Touch
     static trialsPerBreak = NaN;
     static generalUsername = "none"; // Will be displayed in dataset when no username was entered
-    static version = "4.0";
+    static version = "4.1";
 
     // Block Config
     static allowSwipe = false; // Determines if it is allowed to swipe e.g. from down outside to up in target
