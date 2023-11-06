@@ -84,8 +84,8 @@ class STTrialHandling {
 
     setUpCanvas() {
         // Defines canvas
-        let canvasOld = document.getElementById("trialCanvas");
-        let canvas = this.removeAllEventListeners(canvasOld) // otherwise multiple clicksAmount will be registered
+        let canvas = document.getElementById("trialCanvas");
+        // let canvas = this.removeAllEventListeners(canvasOld) // otherwise multiple clicksAmount will be registered
 
         // Calculates width/height of window
         canvas.width = window.innerWidth;
@@ -157,11 +157,13 @@ class STTrialHandling {
 
 
     // Todo still necessary after change?
+/*
     removeAllEventListeners(element) {
         const clone = element.cloneNode(true);
         element.parentNode.replaceChild(clone, element);
         return clone;
     }
+*/
 
     handleCanvasClick() {
         const canvas = document.getElementById("trialCanvas");
