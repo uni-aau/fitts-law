@@ -1,12 +1,5 @@
 // Calculate the mm value in pixels to ensure that it is everywhere the same size
 function mm2px(valueMM) {
-    const width = window.screen.width * window.devicePixelRatio;
-    const height = window.screen.height * window.devicePixelRatio;
-    const winWidth = getWindowInnerWidth();
-    const winHeight = getWindowInnerHeight();
-
-    console.log(`Width ${width} / ${winWidth} | Height ${height} / ${winHeight})`);
-
     return (valueMM * Config.ppi) / 25.4;
 }
 
