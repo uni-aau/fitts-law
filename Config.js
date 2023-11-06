@@ -6,12 +6,13 @@ class Config {
     static ppi = 137.61; // Cannot be determined by plain javascript
     static experimentType = "STS";
     static shape = "rectangle"; // rectangle or circle
-    static intDevice = "touch".toLowerCase(); // Mouse, Touch
+    static intDevice = "mouse".toLowerCase(); // Mouse, Touch
     static trialsPerBreak = NaN;
     static generalUsername = "none"; // Will be displayed in dataset when no username was entered
     static version = "4.0";
 
     // Block Config
+    static allowSwipe = false; // Determines if it is allowed to swipe e.g. from down outside to up in target
     static randomTrialPlacement = true; // Determines if the trials will be placed random on the canvas or in the middle
     static randomTrialPlacementTolerance = 20 // Determines how much the element has to be away from the borders
     static startSize = 10; // Size of the start block (always AxA)

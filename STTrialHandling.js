@@ -244,23 +244,23 @@ class STTrialHandling {
         if (this.isClickInTargetElement(false, true) && this.isClickInTargetElement(false, false)) { // up and down are in target
             this.category = "C1 - Down & Up Target";
             this.finishTrial()
-        } else if (!this.isClickInTargetElement(true, true) && this.isClickInTargetElement(false, false)) { // down is outside of target, up is inside of target
+        } else if (!this.isClickInTargetElement(true, true) && this.isClickInTargetElement(false, false) && Config.allowSwipe) { // down is outside of target, up is inside of target
             this.category = "C2 - Down Outside & Up Target";
             this.finishTrial()
-        } else if (!this.isClickInTargetElement(true, true) && this.isClickInTargetElement(true, false)) { // down outside, up in tolerance
+        } else if (!this.isClickInTargetElement(true, true) && this.isClickInTargetElement(true, false) && Config.allowSwipe) { // down outside, up in tolerance
             this.category = "C4 - Down Outside & Up Tolerance";
             this.handleClickInTolerance();
-        } else if (this.isClickInTargetElement(true, true) && this.isClickInTargetElement(false, false)) { //down tolerance, up target
+        } else if (this.isClickInTargetElement(true, true) && this.isClickInTargetElement(false, false) && Config.allowSwipe) { //down tolerance, up target
             this.category = "C5 - Down Tolerance & Up Target";
             this.finishTrial();
-        } else if (this.isClickInTargetElement(false, true) && this.isClickInTargetElement(true, false)) { // down target, up tolerance
+        } else if (this.isClickInTargetElement(false, true) && this.isClickInTargetElement(true, false) && Config.allowSwipe) { // down target, up tolerance
             this.category = "C6 - Down Target & Up Tolerance"
             this.handleClickInTolerance();
-        } else if (this.isClickInTargetElement(true, true) && this.isClickInTargetElement(true, false)) { // tolerance & tolerance
+        } else if (this.isClickInTargetElement(true, true) && this.isClickInTargetElement(true, false) && !this.isClickInTargetElement(false, true) && !this.isClickInTargetElement(false, false) ) { // tolerance & tolerance
             this.category = "C3 - Down Tolerance & Up Tolerance";
             this.handleClickInTolerance();
         } else { // down & up outside
-            this.category = "C7 - Down & Up Outside";
+            this.category = "C7 - Down & Up Outside or swipe not allowed";
             this.missAmount++;
         }
     }
