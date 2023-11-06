@@ -235,43 +235,65 @@ class STTrialHandling {
             this.targetTimeTouchDownToTouchUpMs = this.getTouchDownTouchUpTimeDifference();
             this.clickDistanceBetweenTargetTouchDownTouchUp = Math.sqrt((this.targetClickedPostitionXTouchDown - this.targetClickedPositionXTouchUp) ** 2 + (this.targetClickedPositionYTouchDown - this.targetClickedPositionYTouchUp) ** 2);
 
-            if (this.isClickInTargetElement(false)) {
-                console.log("Click was inside the element. Misses in tolerance = " + this.missInToleranceAmount + " / Overall misses = " + this.missAmount);
-                this.finishTrial()
-            } else if (this.isClickInTargetElement(true)) {
-                console.log("Click was in " + this.clickTolerance + "click tolerance")
-                this.isMiss = true;
-                this.missAmount++;
-                this.missInToleranceAmount++;
-                if (Config.isMissSkipped) {
-                    if (Config.reAddMisses) {
-                        this.currentBlock.reAddTrial(this.trialNumber);
-                    }
-                    this.finishTrial();
-                }
-            } else {
-                this.missAmount++;
-                console.log("Click was not in tolerance")
-            }
+            this.handleClickPossibilities();
+            console.log("Click Category: " + this.category);
         }
     }
 
-    isClickInTargetElement(withTolerance) {
+    handleClickPossibilities() {
+        if (this.isClickInTargetElement(false, true) && this.isClickInTargetElement(false, false)) { // up and down are in target
+            this.category = "C1 - Down & Up Target";
+            this.finishTrial()
+        } else if (!this.isClickInTargetElement(true, true) && this.isClickInTargetElement(false, false)) { // down is outside of target, up is inside of target
+            this.category = "C2 - Down Outside & Up Target";
+            this.finishTrial()
+        } else if (!this.isClickInTargetElement(true, true) && this.isClickInTargetElement(true, false)) { // down outside, up in tolerance
+            this.category = "C4 - Down Outside & Up Tolerance";
+            this.handleClickInTolerance();
+        } else if (this.isClickInTargetElement(true, true) && this.isClickInTargetElement(false, false)) { //down tolerance, up target
+            this.category = "C5 - Down Tolerance & Up Target";
+            this.finishTrial();
+        } else if (this.isClickInTargetElement(false, true) && this.isClickInTargetElement(true, false)) { // down target, up tolerance
+            this.category = "C6 - Down Target & Up Tolerance"
+            this.handleClickInTolerance();
+        } else if (this.isClickInTargetElement(true, true) && this.isClickInTargetElement(true, false)) { // tolerance & tolerance
+            this.category = "C3 - Down Tolerance & Up Tolerance";
+            this.handleClickInTolerance();
+        } else { // down & up outside
+            this.category = "C7 - Down & Up Outside";
+            this.missAmount++;
+        }
+    }
+
+    // Determines if up or down click is in target or in tolerance
+    isClickInTargetElement(withTolerance, isDown) {
+        let clickPositionX;
+        let clickPositionY;
+
+        if (isDown) {
+            clickPositionX = this.touchDownClickPositionX;
+            clickPositionY = this.touchDownClickPositionY;
+        } else { // isDown
+            clickPositionX = this.touchUpClickPositionX;
+            clickPositionY = this.touchUpClickPositionY;
+        }
+
         if (this.shape === "rectangle") {
             const targetSizeHalfWidthPx = this.targetWidthPx / 2;
             const targetSizeHalfHeightPx = this.targetHeightPx / 2;
             if (!withTolerance) {
-                return (this.touchUpClickPositionX >= this.targetCenterX - targetSizeHalfWidthPx &&
-                    this.touchUpClickPositionX <= this.targetCenterX + targetSizeHalfWidthPx &&
-                    this.touchUpClickPositionY >= this.targetCenterY - targetSizeHalfHeightPx &&
-                    this.touchUpClickPositionY <= this.targetCenterY + targetSizeHalfHeightPx)
+                return (clickPositionX >= this.targetCenterX - targetSizeHalfWidthPx &&
+                    clickPositionX <= this.targetCenterX + targetSizeHalfWidthPx &&
+                    clickPositionY >= this.targetCenterY - targetSizeHalfHeightPx &&
+                    clickPositionY <= this.targetCenterY + targetSizeHalfHeightPx)
             } else {
-                return (this.touchUpClickPositionX >= this.targetCenterX - targetSizeHalfWidthPx - this.clickTolerance &&
-                    this.touchUpClickPositionX <= this.targetCenterX + targetSizeHalfWidthPx + this.clickTolerance &&
-                    this.touchUpClickPositionY >= this.targetCenterY - targetSizeHalfHeightPx - this.clickTolerance &&
-                    this.touchUpClickPositionY <= this.targetCenterY + targetSizeHalfHeightPx + this.clickTolerance)
+                return (clickPositionX >= this.targetCenterX - targetSizeHalfWidthPx - this.clickTolerance &&
+                    clickPositionX <= this.targetCenterX + targetSizeHalfWidthPx + this.clickTolerance &&
+                    clickPositionY >= this.targetCenterY - targetSizeHalfHeightPx - this.clickTolerance &&
+                    clickPositionY <= this.targetCenterY + targetSizeHalfHeightPx + this.clickTolerance)
             }
         } else if (this.shape === "circle") {
+            // TODO not adjusted
             if (!withTolerance) return this.clickDistanceToTargetCenterTouchUp < this.targetWidthPx / 2;
             else return this.clickDistanceToTargetCenterTouchUp < (this.targetWidthPx + this.clickTolerance) / 2;
         }
@@ -302,6 +324,18 @@ class STTrialHandling {
         this.touchUpClickPositionY = event.changedTouches[0].clientY;
         this.touchUpTime = performance.now();
         this.handleCanvasClick()
+    }
+
+    handleClickInTolerance() {
+        this.isMiss = true;
+        this.missAmount++;
+        this.missInToleranceAmount++;
+        if (Config.isMissSkipped) {
+            if (Config.reAddMisses) {
+                this.currentBlock.reAddTrial(this.trialNumber);
+            }
+            this.finishTrial();
+        }
     }
 
     finishTrial() {
