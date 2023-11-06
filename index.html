@@ -95,7 +95,6 @@
     }
 
     function handleFullScreen() {
-        // const canvas = document.getElementById("trialCanvas");
         const canvas = document.documentElement;
         if (!isFullScreen) {
             enableFullScreen(canvas)
@@ -124,9 +123,8 @@
     startButton.addEventListener('click', startExperiment);
 
     // Show the start window
-    // showStartWindow();
-
-    startExperiment(); // TODO
+    showStartWindow();
+    // startExperiment(); // T ODO
 
     function enableFullScreen(canvas) {
         if (canvas.requestFullscreen) {
