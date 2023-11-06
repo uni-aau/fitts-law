@@ -238,31 +238,31 @@ class STTrialHandling {
             this.clickDistanceBetweenTargetTouchDownTouchUp = Math.sqrt((this.targetClickedPostitionXTouchDown - this.targetClickedPositionXTouchUp) ** 2 + (this.targetClickedPositionYTouchDown - this.targetClickedPositionYTouchUp) ** 2);
 
             this.handleClickPossibilities();
-            console.log("Click Category: " + this.category);
+            console.log("Click Category: " + this.clickCategory);
         }
     }
 
     handleClickPossibilities() {
         if (this.isClickInTargetElement(false, true) && this.isClickInTargetElement(false, false)) { // up and down are in target
-            this.category = "C1 - Down & Up Target";
+            this.clickCategory = "C1 - Down & Up Target";
             this.finishTrial()
         } else if (!this.isClickInTargetElement(true, true) && this.isClickInTargetElement(false, false) && Config.allowSwipe) { // down is outside of target, up is inside of target
-            this.category = "C2 - Down Outside & Up Target";
+            this.clickCategory = "C2 - Down Outside & Up Target";
             this.finishTrial()
         } else if (!this.isClickInTargetElement(true, true) && this.isClickInTargetElement(true, false) && Config.allowSwipe) { // down outside, up in tolerance
-            this.category = "C4 - Down Outside & Up Tolerance";
+            this.clickCategory = "C4 - Down Outside & Up Tolerance";
             this.handleClickInTolerance();
         } else if (this.isClickInTargetElement(true, true) && this.isClickInTargetElement(false, false) && Config.allowSwipe) { //down tolerance, up target
-            this.category = "C5 - Down Tolerance & Up Target";
+            this.clickCategory = "C5 - Down Tolerance & Up Target";
             this.finishTrial();
         } else if (this.isClickInTargetElement(false, true) && this.isClickInTargetElement(true, false) && Config.allowSwipe) { // down target, up tolerance
-            this.category = "C6 - Down Target & Up Tolerance"
+            this.clickCategory = "C6 - Down Target & Up Tolerance"
             this.handleClickInTolerance();
         } else if (this.isClickInTargetElement(true, true) && this.isClickInTargetElement(true, false) && !this.isClickInTargetElement(false, true) && !this.isClickInTargetElement(false, false) ) { // tolerance & tolerance
-            this.category = "C3 - Down Tolerance & Up Tolerance";
+            this.clickCategory = "C3 - Down Tolerance & Up Tolerance";
             this.handleClickInTolerance();
         } else { // down & up outside
-            this.category = "C7 - Down & Up Outside or swipe not allowed";
+            this.clickCategory = "C7 - Down & Up Outside or swipe not allowed";
             this.missAmount++;
         }
     }
@@ -359,7 +359,7 @@ class STTrialHandling {
 
     printTrial() {
         console.log(`Information about finished trial: Amplitude: ${this.amplitude} (${mm2px(this.amplitude)}px) | Coordinates of Start center point: X=${this.startCenterX} Y=${this.startCenterY} | Coordinates of Target center point: X=${this.targetCenterX} Y=${this.targetCenterY}`);
-        console.log(`Information about click position: StartTouchDown: X=${this.startClickedPostitionXTouchDown} Y=${this.startClickedPositionYTouchDown}, StartTouchUp: X=${this.startClickedPositionXTouchUp} Y=${this.startClickedPositionYTouchUp}, TargetTouchDown: X=${this.targetClickedPostitionXTouchDown} Y=${this.targetClickedPositionYTouchDown}, TargetTouchUp: X=${this.targetClickedPositionXTouchUp} Y=${this.targetClickedPositionYTouchUp} | Distance between TargetTouchUp/Down: ${this.clickDistanceBetweenTargetTouchDownTouchUp}`);
+        console.log(`Information about click position: StartTouchDown: X=${this.startClickedPostitionXTouchDown} Y=${this.startClickedPositionYTouchDown}, StartTouchUp: X=${this.startClickedPositionXTouchUp} Y=${this.startClickedPositionYTouchUp}, TargetTouchDown: X=${this.targetClickedPostitionXTouchDown} Y=${this.targetClickedPositionYTouchDown}, TargetTouchUp: X=${this.targetClickedPositionXTouchUp} Y=${this.targetClickedPositionYTouchUp} | Distance between TargetTouchUp/Down: ${this.clickDistanceBetweenTargetTouchDownTouchUp} | Click Category: ${this.clickCategory}`);
         console.log(`Information about click: Click distance to start center: (down/up) ${this.clickDistanceToStartCenterTouchDown} / ${this.clickDistanceToStartCenterTouchUp}  | Click distance to target center: (down/up) ${this.clickDistanceToTargetCenterTouchDown} / ${this.clickDistanceToTargetCenterTouchUp} | isMiss? ${this.isMiss} | Miss Amount: ${this.missAmount} | Miss in tolerance: ${this.missInToleranceAmount} | Click tolerance: ${this.clickTolerance}`);
         console.log(`Information about times: StartTouchDownToTouchUpTime: ${this.startTimeTouchDownToTouchUpMs} | TargetTouchDownToTouchUpTime: ${this.targetTimeTouchDownToTouchUpMs}`)
     }
@@ -369,7 +369,7 @@ class STTrialHandling {
         this.dataRecorder.addDataRow([this.serialNumber, this.trialNumber, this.trialId, this.trialCategory, this.blockNumber, this.username, this.shape, this.intDevice,
             getPPI(), get1MMInPx(), getWindowInnerWidth(), getWindowInnerHeight(),
             this.amplitude, this.startSize, this.targetWidth, this.targetHeight, this.trialDirection, this.trialClockAngle,
-            this.startCenterX, this.startCenterY, this.targetCenterX, this.targetCenterY, this.startClickedPostitionXTouchDown, this.startClickedPositionYTouchDown,
+            this.startCenterX, this.startCenterY, this.targetCenterX, this.targetCenterY, this.clickCategory, this.startClickedPostitionXTouchDown, this.startClickedPositionYTouchDown,
             this.startClickedPositionXTouchUp, this.startClickedPositionYTouchUp, this.targetClickedPostitionXTouchDown, this.targetClickedPositionYTouchDown,
             this.targetClickedPositionXTouchUp, this.targetClickedPositionYTouchUp, this.clickDistanceBetweenTargetTouchDownTouchUp, this.clickDistanceToStartCenterTouchDown, this.clickDistanceToStartCenterTouchUp,
             this.clickDistanceToTargetCenterTouchDown, this.clickDistanceToTargetCenterTouchUp, this.isMiss, this.missAmount, this.missInToleranceAmount, this.clicksAmount, this.getTimeToClickFromStartToEndMs(),
