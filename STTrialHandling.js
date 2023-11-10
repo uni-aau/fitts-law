@@ -85,12 +85,10 @@ class STTrialHandling {
     setUpCanvas() {
         // Defines canvas
         let canvas = document.getElementById("trialCanvas");
-        // let canvas = this.removeAllEventListeners(canvasOld) // otherwise multiple clicksAmount will be registered
 
         // Calculates width/height of window
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
-        // canvas.addEventListener("click", this.handleCanvasClick); // TODO
 
         this.initializeCanvasVariables(canvas)
 
@@ -154,16 +152,6 @@ class STTrialHandling {
         }
         return Math.random() * (this.maxHeight - this.minHeight) + this.minHeight;
     }
-
-
-    // Todo still necessary after change?
-    /*
-        removeAllEventListeners(element) {
-            const clone = element.cloneNode(true);
-            element.parentNode.replaceChild(clone, element);
-            return clone;
-        }
-    */
 
     handleCanvasClick() {
         const canvas = document.getElementById("trialCanvas");
