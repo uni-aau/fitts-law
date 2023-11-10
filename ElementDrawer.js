@@ -17,8 +17,8 @@ class ElementDrawer {
 
     drawTargetElement() {
         const randomIndex = Math.floor(Math.random() * Config.targetElementFillStyle.length); // determines a random target color
-        this.context.fillStyle = Config.targetElementFillStyle[randomIndex];
         this.context.strokeStyle = Config.elementStrokeStyle;
+        this.context.fillStyle = Config.targetElementFillStyle[randomIndex];
         this.draw();
         if (Config.isDebug) this.displayMiddlePointOfElement();
     }
@@ -38,6 +38,20 @@ class ElementDrawer {
             this.context.fill();
         } else {
             this.alertWronglyRegistered();
+        }
+    }
+
+    highlight() {
+        this.context.fillStyle = Config.targetElementSelectionStyle;
+        this.context.beginPath(); // removes previous drawing operations
+
+        if (this.shape === "rectangle") {
+            const topLeftRectCornerX = this.centerX - this.width / 2;
+            const topLeftRectCornerY = this.centerY - this.height / 2;
+            this.context.fillRect(topLeftRectCornerX, topLeftRectCornerY, this.width, this.height);
+        } else if (this.shape === "circle") {
+            this.context.arc(this.centerX, this.centerY, this.width / 2, 0, 2 * Math.PI);
+            this.context.fill();
         }
     }
 

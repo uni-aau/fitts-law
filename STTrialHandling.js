@@ -61,8 +61,8 @@ class STTrialHandling {
         // Element drawing
         const startElement = new ElementDrawer(context, this.startCenterX, this.startCenterY, this.startSizePx, this.startSizePx, this.shape);
         startElement.drawStartElement();
-        const targetElement = new ElementDrawer(context, this.targetCenterX, this.targetCenterY, this.targetWidthPx, this.targetHeightPx, this.shape);
-        targetElement.drawTargetElement();
+        this.targetElement = new ElementDrawer(context, this.targetCenterX, this.targetCenterY, this.targetWidthPx, this.targetHeightPx, this.shape);
+        this.targetElement.drawTargetElement();
 
         // Determines which methods will be used to retrieve click position
         this.addClickListener();
@@ -182,15 +182,16 @@ class STTrialHandling {
             this.startTimeStartToEndClick = performance.now();
 
             // Clicked on the start
-            context.fillStyle = Config.targetElementSelectionStyle;
-            context.beginPath(); // removes previous drawing operations
+            this.targetElement.highlight();
+            // context.fillStyle = Config.targetElementSelectionStyle;
+            // context.beginPath(); // removes previous drawing operations
 
-            if (this.shape === "rectangle") {
-                context.fillRect(this.targetCenterX - this.targetWidthPx / 2, this.targetCenterY - this.targetHeightPx / 2, this.targetWidthPx, this.targetHeightPx);
-            } else if (this.shape === "circle") {
-                context.arc(this.startCenterX, this.startCenterY, this.startSizePx / 2, 0, 2 * Math.PI);
-                context.fill();
-            }
+            // if (this.shape === "rectangle") {
+            //     context.fillRect(this.targetCenterX - this.targetWidthPx / 2, this.targetCenterY - this.targetHeightPx / 2, this.targetWidthPx, this.targetHeightPx);
+            // } else if (this.shape === "circle") {
+            //     context.arc(this.startCenterX, this.startCenterY, this.startSizePx / 2, 0, 2 * Math.PI);
+            //     context.fill();
+            // }
             this.startClicked = true;
         }
     }
