@@ -223,7 +223,7 @@ class STTrialHandling {
     handleTargetClick() {
         this.clickDistanceToTargetCenterTouchDown = Math.sqrt((this.touchDownClickPositionX - this.targetCenterX) ** 2 + (this.touchDownClickPositionY - this.targetCenterY) ** 2);
         this.clickDistanceToTargetCenterTouchUp = Math.sqrt((this.touchUpClickPositionX - this.targetCenterX) ** 2 + (this.touchUpClickPositionY - this.targetCenterY) ** 2);
-        console.debug(`${this.touchDownClickPositionX} | ${this.touchDownClickPositionY} | ${this.touchUpClickPositionX} | ${this.touchUpClickPositionY}`);
+        if(Config.isDebug) console.log(`tD_X ${this.touchDownClickPositionX} | tD_Y ${this.touchDownClickPositionY} | tU_X ${this.touchUpClickPositionX} | tU_Y ${this.touchUpClickPositionY}`);
 
         if (this.startClicked && !this.isTargetClicked) {
             this.endTimeClickStartToEnd = performance.now(); // Determines the time between start and target click
@@ -237,7 +237,7 @@ class STTrialHandling {
             this.clickDistanceBetweenTargetTouchDownTouchUp = Math.sqrt((this.targetClickedPostitionXTouchDown - this.targetClickedPositionXTouchUp) ** 2 + (this.targetClickedPositionYTouchDown - this.targetClickedPositionYTouchUp) ** 2);
 
             this.handleClickPossibilities();
-            console.log("Click Category: " + this.clickCategory);
+            if(Config.isDebug) console.log("Click Category: " + this.clickCategory);
         }
     }
 
@@ -377,7 +377,7 @@ class STTrialHandling {
             this.clickDistanceToTargetCenterTouchDown, this.clickDistanceToTargetCenterTouchUp, this.isMiss, this.missAmountAfterStartClick, this.missInToleranceAmount, this.clicksAmount, this.getTimeToClickFromStartToEndMs(),
             this.startTimeTouchDownToTouchUpMs, this.targetTimeTouchDownToTouchUpMs]);
 
-        console.log(this.dataRecorder.getDataArray());
+        if(Config.isDebug) console.log(this.dataRecorder.getDataArray());
         if (Config.sendDataToServer) this.dataRecorder.publishCsvToServer();
         this.dataRecorder.generateCsvDownloadLink(false);
     }
