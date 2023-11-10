@@ -391,12 +391,6 @@ class STTrialHandling {
         return this.endTimeClickStartToEnd - this.startTimeStartToEndClick;
     }
 
-    // TODO
-    /*
-    - Clickhandling in eigener Klasse
-    - Misses -> TargetMisses
-    */
-
     printToConsole() {
         console.log(`Information from Drawing: Username: ${this.username} | Trial Number: ${this.trialNumber} | Trial ID: ${this.trialId} | Trial Category: ${this.trialCategory} | Block Number: ${this.blockNumber} | Shape: ${this.shape} | Interaction Device: ${this.intDevice} | Start Size: ${this.startSize} | Amplitude: ${this.amplitude} | Target Width: ${this.targetWidth} | Target Height: ${this.targetHeight} | Trail Direction: ${this.trialDirection}`);
     }
