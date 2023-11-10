@@ -4,7 +4,7 @@ class DataRecorder {
 
         this.dataArray.push(["serial_number", "block_number", "trial_number", "trial_id", "trial_category", "username", "shape", "int_device",
             "ppi", "mm_in_pixel", "window_inner_width", "window_inner_height",
-            "amplitude_mm", "start_size_mm", "target_width_mm", "target_height_mm",
+            "amplitude_mm", "amplitude_px", "start_size_mm", "start_size_px", "target_width_mm", "target_width_px", "target_height_mm", "target_height_px",
             "trial_direction", "trial_angle_degree", "start_center_x_px", "start_center_y_px", "target_center_x_px", "target_center_y_px", "click_category",
             "start_click_touchdown_position_x_px", "start_click_touchdown_position_y_px", "start_click_touchup_position_x_px",
             "start_click_touchup_position_y_px", "target_click_touchdown_position_x_px", "target_click_touchdown_position_y_px",
