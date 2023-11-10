@@ -12,7 +12,7 @@ class ElementDrawer {
         this.context.strokeStyle = Config.elementStrokeStyle;
         this.context.fillStyle = Config.startElementFillStyle;
         this.draw();
-        if (Config.isDebug) this.displayMiddlePointOfElement(true);
+        if (Config.isDebug) this.displayMiddlePointOfElement();
     }
 
     drawTargetElement() {
@@ -20,7 +20,7 @@ class ElementDrawer {
         this.context.fillStyle = Config.targetElementFillStyle[randomIndex];
         this.context.strokeStyle = Config.elementStrokeStyle;
         this.draw();
-        if (Config.isDebug) this.displayMiddlePointOfElement(false);
+        if (Config.isDebug) this.displayMiddlePointOfElement();
     }
 
     draw() {
@@ -46,17 +46,12 @@ class ElementDrawer {
         console.error(`No shape with the name ${this.shape} registered!`);
     }
 
-    displayMiddlePointOfElement(isStartElement) {
+    displayMiddlePointOfElement() {
         this.context.fillStyle = "rgba(255,0,0,0.8)";
         const elementSize = get1MMInPx();
 
-        if (isStartElement) {
-            this.context.fillRect(this.centerX - elementSize / 2, this.centerY - elementSize / 2, elementSize, elementSize);
-            this.context.strokeRect(this.centerX - elementSize / 2, this.centerY - elementSize / 2, elementSize, elementSize);
-        } else {
-            this.context.fillRect(this.centerX - elementSize / 2, this.centerY - elementSize / 2, elementSize, elementSize);
-            this.context.strokeRect(this.centerX - elementSize / 2, this.centerY - elementSize / 2, elementSize, elementSize);
-        }
+        this.context.fillRect(this.centerX - elementSize / 2, this.centerY - elementSize / 2, elementSize, elementSize);
+        this.context.strokeRect(this.centerX - elementSize / 2, this.centerY - elementSize / 2, elementSize, elementSize);
     }
 
 }
