@@ -157,13 +157,13 @@ class STTrialHandling {
 
 
     // Todo still necessary after change?
-/*
-    removeAllEventListeners(element) {
-        const clone = element.cloneNode(true);
-        element.parentNode.replaceChild(clone, element);
-        return clone;
-    }
-*/
+    /*
+        removeAllEventListeners(element) {
+            const clone = element.cloneNode(true);
+            element.parentNode.replaceChild(clone, element);
+            return clone;
+        }
+    */
 
     handleCanvasClick() {
         const canvas = document.getElementById("trialCanvas");
@@ -183,7 +183,7 @@ class STTrialHandling {
         this.clickDistanceToStartCenterTouchUp = Math.sqrt((this.touchUpClickPositionX - this.startCenterX) ** 2 + (this.touchUpClickPositionY - this.startCenterY) ** 2);
 
         // If click was in the start object
-        if (this.isClickInStartElement()) {
+        if (this.isClickInStartElement(true) && this.isClickInStartElement(false)) {
             // Determines the start touchDown and touchUp position
             this.startClickedPostitionXTouchDown = this.touchDownClickPositionX;
             this.startClickedPositionYTouchDown = this.touchDownClickPositionY;
@@ -207,15 +207,26 @@ class STTrialHandling {
         }
     }
 
-    isClickInStartElement() {
-        // Checks whether the click was in the start circle / rectangle (TODO ansehen)
+    isClickInStartElement(isDown) {
+        let clickPositionX;
+        let clickPositionY;
+        if (isDown) {
+            clickPositionX = this.touchDownClickPositionX;
+            clickPositionY = this.touchDownClickPositionY;
+        } else {
+            clickPositionX = this.touchUpClickPositionX;
+            clickPositionY = this.touchUpClickPositionY
+        }
+
+        // Checks whether the click was in the start circle / rectangle
         if (this.shape === "rectangle") {
-            const halfWidthPx = this.startSizePx / 2; // TODO
-            return this.touchUpClickPositionX >= this.startCenterX - halfWidthPx &&
-                this.touchUpClickPositionX <= this.startCenterX + halfWidthPx &&
-                this.touchUpClickPositionY >= this.startCenterY - halfWidthPx &&
-                this.touchUpClickPositionY <= this.startCenterY + halfWidthPx
+            const halfStartSize = this.startSizePx / 2;
+            return clickPositionX >= this.startCenterX - halfStartSize &&
+                clickPositionX <= this.startCenterX + halfStartSize &&
+                clickPositionY >= this.startCenterY - halfStartSize &&
+                clickPositionY <= this.startCenterY + halfStartSize
         } else if (this.shape === "circle") {
+            // Todo not adjusted
             return this.clickDistanceToStartCenterTouchUp < this.startSizePx / 2;
         }
     }
@@ -258,7 +269,7 @@ class STTrialHandling {
         } else if (this.isClickInTargetElement(false, true) && this.isClickInTargetElement(true, false) && Config.allowSwipe) { // down target, up tolerance
             this.clickCategory = "C6 - Down Target & Up Tolerance"
             this.handleClickInTolerance();
-        } else if (this.isClickInTargetElement(true, true) && this.isClickInTargetElement(true, false) && !this.isClickInTargetElement(false, true) && !this.isClickInTargetElement(false, false) ) { // tolerance & tolerance
+        } else if (this.isClickInTargetElement(true, true) && this.isClickInTargetElement(true, false) && !this.isClickInTargetElement(false, true) && !this.isClickInTargetElement(false, false)) { // tolerance & tolerance
             this.clickCategory = "C3 - Down Tolerance & Up Tolerance";
             this.handleClickInTolerance();
         } else { // down & up outside
