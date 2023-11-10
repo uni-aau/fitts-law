@@ -9,33 +9,25 @@ class ElementDrawer {
     }
 
     drawStartElement() {
-        this.context.strokeStyle = Config.elementStrokeStyle;
-        this.context.fillStyle = Config.startElementFillStyle;
+        this.setElementStyles(Config.startElementFillStyle);
         this.draw();
+
         if (Config.isDebug) this.displayMiddlePointOfElement();
     }
 
     drawTargetElement() {
         const randomIndex = Math.floor(Math.random() * Config.targetElementFillStyle.length); // determines a random target color
-        this.context.strokeStyle = Config.elementStrokeStyle;
-        this.context.fillStyle = Config.targetElementFillStyle[randomIndex];
+        this.setElementStyles(Config.targetElementFillStyle[randomIndex]);
         this.draw();
+
         if (Config.isDebug) this.displayMiddlePointOfElement();
     }
 
     draw() {
         if (this.shape === "rectangle") {
-            // Coordinates of top left corner of the rectangle (center - half of the width of rect)
-            const topLeftRectCornerX = this.centerX - this.width / 2;
-            const topLeftRectCornerY = this.centerY - this.height / 2;
-
-            this.context.strokeRect(topLeftRectCornerX, topLeftRectCornerY, this.width, this.height);
-            this.context.fillRect(topLeftRectCornerX, topLeftRectCornerY, this.width, this.height);
+            this.drawRectangle();
         } else if (this.shape === "circle") {
-            this.context.beginPath();
-            this.context.arc(this.centerX, this.centerY, this.width / 2, 0, 2 * Math.PI);
-            this.context.stroke();
-            this.context.fill();
+            this.drawCircle();
         } else {
             this.alertWronglyRegistered();
         }
@@ -46,13 +38,26 @@ class ElementDrawer {
         this.context.beginPath(); // removes previous drawing operations
 
         if (this.shape === "rectangle") {
-            const topLeftRectCornerX = this.centerX - this.width / 2;
-            const topLeftRectCornerY = this.centerY - this.height / 2;
-            this.context.fillRect(topLeftRectCornerX, topLeftRectCornerY, this.width, this.height);
+            this.drawRectangle();
         } else if (this.shape === "circle") {
-            this.context.arc(this.centerX, this.centerY, this.width / 2, 0, 2 * Math.PI);
-            this.context.fill();
+            this.drawCircle();
         }
+    }
+
+    drawRectangle() {
+        // Coordinates of top left corner of the rectangle (center - half of the width of rect)
+        const topLeftRectCornerX = this.centerX - this.width / 2;
+        const topLeftRectCornerY = this.centerY - this.height / 2;
+
+        this.context.strokeRect(topLeftRectCornerX, topLeftRectCornerY, this.width, this.height);
+        this.context.fillRect(topLeftRectCornerX, topLeftRectCornerY, this.width, this.height);
+    }
+
+    drawCircle() {
+        this.context.beginPath();
+        this.context.arc(this.centerX, this.centerY, this.width / 2, 0, 2 * Math.PI);
+        this.context.stroke();
+        this.context.fill();
     }
 
     alertWronglyRegistered() {
@@ -66,6 +71,11 @@ class ElementDrawer {
 
         this.context.fillRect(this.centerX - elementSize / 2, this.centerY - elementSize / 2, elementSize, elementSize);
         this.context.strokeRect(this.centerX - elementSize / 2, this.centerY - elementSize / 2, elementSize, elementSize);
+    }
+
+    setElementStyles(fillStyle) {
+        this.context.strokeStyle = Config.elementStrokeStyle;
+        this.context.fillStyle = fillStyle;
     }
 
 }
