@@ -53,7 +53,8 @@ class Config {
         'up-left': 60,
     };
     static isMissSkipped = true; // True - Miss click will be skipped / False - Nothing will be skipped
-    static reAddMisses = true; // Readds misses within the same block in a random position
+    static reAddClicksInTolerance = true; // Readds misses that were in tolerance within the same block in a random position
+    static reAddClicksDownOutsideUpTarget = true; // Readds clicks where touch down was outside the tolerance and touchup was in target
     static elementStrokeStyle = "black"; // object border color
     static startElementFillStyle = "rgba(144, 238, 144, 0.8)";
     static targetElementFillStyle = [

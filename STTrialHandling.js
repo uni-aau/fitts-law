@@ -247,7 +247,10 @@ class STTrialHandling {
             this.finishTrial()
         } else if (!this.isClickInTargetElement(true, true) && this.isClickInTargetElement(false, false) && Config.allowSwipe) { // down is outside of target, up is inside of target
             this.clickCategory = "C2 - Down Outside & Up Target";
-            this.finishTrial()
+            if(Config.reAddClicksDownOutsideUpTarget) {
+                this.currentBlock.reAddTrial(this.trialNumber);
+            }
+            this.finishTrial();
         } else if (!this.isClickInTargetElement(true, true) && this.isClickInTargetElement(true, false) && Config.allowSwipe) { // down outside, up in tolerance
             this.clickCategory = "C4 - Down Outside & Up Tolerance";
             this.handleClickInTolerance();
@@ -332,7 +335,7 @@ class STTrialHandling {
         this.missAmount++;
         this.missInToleranceAmount++;
         if (Config.isMissSkipped) {
-            if (Config.reAddMisses) {
+            if (Config.reAddClicksInTolerance) {
                 this.currentBlock.reAddTrial(this.trialNumber);
             }
             this.finishTrial();
