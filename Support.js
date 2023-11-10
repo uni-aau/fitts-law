@@ -20,6 +20,4 @@ function getWindowInnerHeight() {
 }
 
 // https://www.calculatorsoup.com/calculators/technology/ppi-calculator.php
-// Berechnung - Fullscreen -> winWidth, winHeight, dann Diagonale aus Internet und das dann in PPI eingeben
-// const totalCurrentTrialIndexEl = document.getElementById("totalCurrentTrialNumber");
-// totalCurrentTrialIndexEl.textContent = `${winWidth} / ${winHeight}`;
+// Calculation - Fullscreen -> winWidth, winHeight, then fetch diagonal from internet and then insert into Config.PPI

@@ -27,9 +27,9 @@ class ExperimentFrame {
         this.currentBlock = this.experiment.getBlock(this.blockNumber);
         const currentTrial = this.currentBlock.getTrial(this.trialNumber);
 
-        if (!this.printedFirstBlock) {
+        if (!this.printedFirstBlock && Config.isDebug) {
             this.printedFirstBlock = true;
-            // this.printAllTrials();
+            this.printAllTrials();
         }
 
         const STTrialsHandling = new STTrialHandling(currentTrial, this.currentBlock, this.blockNumber, this.trialNumber, this.serialNumber, this.dataRecorder, this.username, () => {
@@ -120,13 +120,13 @@ class ExperimentFrame {
         totalTrialIndexPerBlockEl.textContent = this.getTotalTrialsPerBlock();
 
         const totalTrialIndexEl = document.getElementById("totalTrialCount");
-        totalTrialIndexEl.textContent = this.getTotalTrials();
+        totalTrialIndexEl.textContent = this.getTotalTrials().toString();
 
         const currentBlockIndexEl = document.getElementById("currentBlockNumber");
         currentBlockIndexEl.textContent = this.blockNumber;
 
         const totalBlockIndexEl = document.getElementById("totalBlockCount");
-        totalBlockIndexEl.textContent = Config.numBlocks;
+        totalBlockIndexEl.textContent = Config.numBlocks.toString();
 
         const trialsToBlockIndexEl = document.getElementById("breakCount");
         trialsToBlockIndexEl.textContent = this.getRemainingTrials();
@@ -135,8 +135,8 @@ class ExperimentFrame {
         const widthText = document.getElementById("widthText");
         const heightText = document.getElementById("heightText");
         versionElement.textContent = Config.version;
-        widthText.textContent = getWindowInnerWidth();
-        heightText.textContent = getWindowInnerHeight();
+        widthText.textContent = getWindowInnerWidth().toString();
+        heightText.textContent = getWindowInnerHeight().toString();
     }
 
     experimentFinished() {

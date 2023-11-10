@@ -1,11 +1,10 @@
 class Block {
-    constructor(blockNumber, experimentType, shape, intDevice, startSize) {
+    constructor(blockNumber, shape, intDevice, startSize) {
         this.shape = shape;
         this.trialDataCategories = Config.trialsDataCategories;
 
         this.intDevice = intDevice;
         this.blockNumber = blockNumber;
-        this.experimentType = experimentType;
         this.startSize = startSize;
         this.trialId = 1; // Initialize the trial ID
 
