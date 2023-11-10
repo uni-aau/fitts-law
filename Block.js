@@ -1,9 +1,7 @@
 class Block {
-    constructor(blockNumber, shape, intDevice, startSize) {
+    constructor(blockNumber, shape, startSize) {
         this.shape = shape;
         this.trialDataCategories = Config.trialsDataCategories;
-
-        this.intDevice = intDevice;
         this.blockNumber = blockNumber;
         this.startSize = startSize;
         this.trialId = 1; // Initialize the trial ID
@@ -30,7 +28,6 @@ class Block {
                 this.shape,
                 trialDirection,
                 this.trialClockAngle,
-                this.intDevice,
                 this.startSize,
                 trialDataCategory[1], // width
                 trialDataCategory[2], // height

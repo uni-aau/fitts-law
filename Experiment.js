@@ -1,14 +1,13 @@
 class Experiment {
     constructor() {
         this.shape = Config.shape.toLowerCase(); // rectangle or circle
-        this.intDevice = Config.intDevice
         this.startSize = Config.startSize;
         this.blocks = [];
         this.numBlocks = Config.numBlocks;
         let block = 1;
 
         for (let i = 0; i < this.numBlocks; i++) {
-            this.blocks.push(new Block(block, this.shape, this.intDevice, this.startSize));
+            this.blocks.push(new Block(block, this.shape, this.startSize));
             block++;
         }
     }

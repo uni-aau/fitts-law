@@ -28,7 +28,7 @@ class STTrialHandling {
         this.targetWidth = this.trial.targetWidth;
         this.targetHeight = this.trial.targetHeight;
         this.trialId = this.trial.trialId;
-        this.intDevice = this.trial.intDevice;
+        this.intDevice = Config.intDevice;
         this.trialCategory = this.trial.trialCategory;
 
         this.clicksAmount = 0;          // determines the amount of clicks until the trial was finished
@@ -70,10 +70,10 @@ class STTrialHandling {
     }
 
     addClickListener() {
-        if (Config.intDevice === "mouse") {
+        if (this.intDevice === "mouse") {
             document.addEventListener("mousedown", this.handleMouseDown);
             document.addEventListener("mouseup", this.handleMouseUp);
-        } else if (Config.intDevice === "touch") {
+        } else if (this.intDevice === "touch") {
             document.addEventListener("touchstart", this.handleTouchStart); // Used for mobile touch
             document.addEventListener("touchend", this.handleTouchStop); // Used for mobile touch
         } else {
