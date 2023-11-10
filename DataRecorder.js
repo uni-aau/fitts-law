@@ -2,15 +2,15 @@ class DataRecorder {
     constructor() {
         this.dataArray = [];
 
-        this.dataArray.push(["serial_number", "trial_number", "trial_id", "trial_category", "block_number", "username", "shape", "int_device",
+        this.dataArray.push(["serial_number", "block_number", "trial_number", "trial_id", "trial_category", "username", "shape", "int_device",
             "ppi", "mm_in_pixel", "window_inner_width", "window_inner_height",
-            "amplitude", "start_size", "target_width", "target_height",
-            "trial_direction", "trial_angle", "start_center_x", "start_center_y", "target_center_x", "target_center_y", "click_category",
-            "start_click_touchdown_position_x", "start_click_touchdown_position_y", "start_click_touchup_position_x",
-            "start_click_touchup_position_y", "target_click_touchdown_position_x", "target_click_touchdown_position_y",
-            "target_click_touchup_position_x", "target_click_touchup_position_y", "click_distance_between_target_touchdown_touchup", "click_distance_to_start_center_touchdown",
-            "click_distance_to_start_center_touchup", "click_distance_to_target_center_touchdown", "click_distance_to_target_center_touchup",
-            "isMiss", "miss_amount", "miss_in_tolerance_amount", "clicks_amount",
+            "amplitude_mm", "start_size_mm", "target_width_mm", "target_height_mm",
+            "trial_direction", "trial_angle_degree", "start_center_x_px", "start_center_y_px", "target_center_x_px", "target_center_y_px", "click_category",
+            "start_click_touchdown_position_x_px", "start_click_touchdown_position_y_px", "start_click_touchup_position_x_px",
+            "start_click_touchup_position_y_px", "target_click_touchdown_position_x_px", "target_click_touchdown_position_y_px",
+            "target_click_touchup_position_x_px", "target_click_touchup_position_y_px", "click_distance_between_target_touchdown_touchup_px", "click_distance_to_start_center_touchdown_px",
+            "click_distance_to_start_center_touchup_px", "click_distance_to_target_center_touchdown_px", "click_distance_to_target_center_touchup_px",
+            "isMiss", "miss_amount_after_start_click", "miss_amount_in_tolerance", "clicks_amount",
             "click_time_from_start_to_target_ms", "start_click_time_touchdown_to_touchup_ms", "target_click_time_touchdown_to_touchup_ms"]);
     }
 

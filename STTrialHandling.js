@@ -32,7 +32,7 @@ class STTrialHandling {
         this.trialCategory = this.trial.trialCategory;
 
         this.clicksAmount = 0;          // determines the amount of clicks until the trial was finished
-        this.missAmount = 0;            // determines the overall miss amount until the target rectangle was clicked (also in tolerance incremented)
+        this.missAmountAfterStartClick = 0;            // determines the overall miss amount until the target rectangle was clicked (also in tolerance incremented)
         this.missInToleranceAmount = 0; // determines the misses that are in the tolerance range (relevant if skip at miss is disabled)
         this.isMiss = false;            // determines if the trial had a miss
         this.startClicked = false;
@@ -247,7 +247,7 @@ class STTrialHandling {
             this.finishTrial()
         } else if (!this.isClickInTargetElement(true, true) && this.isClickInTargetElement(false, false) && Config.allowSwipe) { // down is outside of target, up is inside of target
             this.clickCategory = "C2 - Down Outside & Up Target";
-            if(Config.reAddClicksDownOutsideUpTarget) {
+            if (Config.reAddClicksDownOutsideUpTarget) {
                 this.currentBlock.reAddTrial(this.trialNumber);
             }
             this.finishTrial();
@@ -265,7 +265,7 @@ class STTrialHandling {
             this.handleClickInTolerance();
         } else { // down & up outside
             this.clickCategory = "C7 - Down & Up Outside or swipe not allowed";
-            this.missAmount++;
+            this.missAmountAfterStartClick++;
         }
     }
 
@@ -332,7 +332,7 @@ class STTrialHandling {
 
     handleClickInTolerance() {
         this.isMiss = true;
-        this.missAmount++;
+        this.missAmountAfterStartClick++;
         this.missInToleranceAmount++;
         if (Config.isMissSkipped) {
             if (Config.reAddClicksInTolerance) {
@@ -362,19 +362,19 @@ class STTrialHandling {
     printTrial() {
         console.log(`Information about finished trial: Amplitude: ${this.amplitude} (${mm2px(this.amplitude)}px) | Coordinates of Start center point: X=${this.startCenterX} Y=${this.startCenterY} | Coordinates of Target center point: X=${this.targetCenterX} Y=${this.targetCenterY}`);
         console.log(`Information about click position: StartTouchDown: X=${this.startClickedPostitionXTouchDown} Y=${this.startClickedPositionYTouchDown}, StartTouchUp: X=${this.startClickedPositionXTouchUp} Y=${this.startClickedPositionYTouchUp}, TargetTouchDown: X=${this.targetClickedPostitionXTouchDown} Y=${this.targetClickedPositionYTouchDown}, TargetTouchUp: X=${this.targetClickedPositionXTouchUp} Y=${this.targetClickedPositionYTouchUp} | Distance between TargetTouchUp/Down: ${this.clickDistanceBetweenTargetTouchDownTouchUp} | Click Category: ${this.clickCategory}`);
-        console.log(`Information about click: Click distance to start center: (down/up) ${this.clickDistanceToStartCenterTouchDown} / ${this.clickDistanceToStartCenterTouchUp}  | Click distance to target center: (down/up) ${this.clickDistanceToTargetCenterTouchDown} / ${this.clickDistanceToTargetCenterTouchUp} | isMiss? ${this.isMiss} | Miss Amount: ${this.missAmount} | Miss in tolerance: ${this.missInToleranceAmount} | Click tolerance: ${this.clickTolerance}`);
+        console.log(`Information about click: Click distance to start center: (down/up) ${this.clickDistanceToStartCenterTouchDown} / ${this.clickDistanceToStartCenterTouchUp}  | Click distance to target center: (down/up) ${this.clickDistanceToTargetCenterTouchDown} / ${this.clickDistanceToTargetCenterTouchUp} | isMiss? ${this.isMiss} | Miss Amount: ${this.missAmountAfterStartClick} | Miss in tolerance: ${this.missInToleranceAmount} | Click tolerance: ${this.clickTolerance}`);
         console.log(`Information about times: StartTouchDownToTouchUpTime: ${this.startTimeTouchDownToTouchUpMs} | TargetTouchDownToTouchUpTime: ${this.targetTimeTouchDownToTouchUpMs}`)
     }
 
     // TODO check size bei circle
     saveTrialData() {
-        this.dataRecorder.addDataRow([this.serialNumber, this.trialNumber, this.trialId, this.trialCategory, this.blockNumber, this.username, this.shape, this.intDevice,
+        this.dataRecorder.addDataRow([this.serialNumber, this.blockNumber, this.trialNumber, this.trialId, this.trialCategory, this.username, this.shape, this.intDevice,
             getPPI(), get1MMInPx(), getWindowInnerWidth(), getWindowInnerHeight(),
             this.amplitude, this.startSize, this.targetWidth, this.targetHeight, this.trialDirection, this.trialClockAngle,
             this.startCenterX, this.startCenterY, this.targetCenterX, this.targetCenterY, this.clickCategory, this.startClickedPostitionXTouchDown, this.startClickedPositionYTouchDown,
             this.startClickedPositionXTouchUp, this.startClickedPositionYTouchUp, this.targetClickedPostitionXTouchDown, this.targetClickedPositionYTouchDown,
             this.targetClickedPositionXTouchUp, this.targetClickedPositionYTouchUp, this.clickDistanceBetweenTargetTouchDownTouchUp, this.clickDistanceToStartCenterTouchDown, this.clickDistanceToStartCenterTouchUp,
-            this.clickDistanceToTargetCenterTouchDown, this.clickDistanceToTargetCenterTouchUp, this.isMiss, this.missAmount, this.missInToleranceAmount, this.clicksAmount, this.getTimeToClickFromStartToEndMs(),
+            this.clickDistanceToTargetCenterTouchDown, this.clickDistanceToTargetCenterTouchUp, this.isMiss, this.missAmountAfterStartClick, this.missInToleranceAmount, this.clicksAmount, this.getTimeToClickFromStartToEndMs(),
             this.startTimeTouchDownToTouchUpMs, this.targetTimeTouchDownToTouchUpMs]);
 
         console.log(this.dataRecorder.getDataArray());
@@ -397,38 +397,12 @@ class STTrialHandling {
     */
 
     printToConsole() {
-        console.log(
-            "Information from Drawing: " +
-            "Username: " +
-            this.username +
-            " | Trial Number: " +
-            this.trialNumber +
-            " | Trial ID: " +
-            this.trialId +
-            " | Trial Category: " +
-            this.trialCategory +
-            " | Block Number: " +
-            this.blockNumber +
-            " | Shape: " +
-            this.shape +
-            " | Interaction Device: " +
-            this.intDevice +
-            " | Start Size: " +
-            this.startSize +
-            " | Amplitude: " +
-            this.amplitude +
-            " | Target Width: " +
-            this.targetWidth +
-            " | Target Height: " +
-            this.targetHeight +
-            " | Trail Direction: " +
-            this.trialDirection
-        );
+        console.log(`Information from Drawing: Username: ${this.username} | Trial Number: ${this.trialNumber} | Trial ID: ${this.trialId} | Trial Category: ${this.trialCategory} | Block Number: ${this.blockNumber} | Shape: ${this.shape} | Interaction Device: ${this.intDevice} | Start Size: ${this.startSize} | Amplitude: ${this.amplitude} | Target Width: ${this.targetWidth} | Target Height: ${this.targetHeight} | Trail Direction: ${this.trialDirection}`);
     }
 
 
     /*
-    Hinweis zu Clickamount / Missamount
+    Hinweis zu Clickamount / missAmountAfterStartClick
     - 2 Clicks sind wenn von Start zu Ende geklickt wird
     - Misses gibt es erst, wenn Start geklickt wurde, davor gibt es nur Clicks (keine Misses)
      */
