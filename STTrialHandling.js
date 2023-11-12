@@ -154,19 +154,16 @@ class STTrialHandling {
     }
 
     handleCanvasClick() {
-        const canvas = document.getElementById("trialCanvas");
-        const context = canvas.getContext("2d");
-
         this.clicksAmount++;
 
         if (!this.startClicked) {
-            this.handleStartClick(context);
+            this.handleStartClick();
         } else {
-            this.handleTargetClick(context);
+            this.handleTargetClick();
         }
     }
 
-    handleStartClick(context) {
+    handleStartClick() {
         this.clickDistanceToStartCenterTouchDown = Math.sqrt((this.touchDownClickPositionX - this.startCenterX) ** 2 + (this.touchDownClickPositionY - this.startCenterY) ** 2);
         this.clickDistanceToStartCenterTouchUp = Math.sqrt((this.touchUpClickPositionX - this.startCenterX) ** 2 + (this.touchUpClickPositionY - this.startCenterY) ** 2);
 
@@ -183,15 +180,6 @@ class STTrialHandling {
 
             // Clicked on the start
             this.targetElement.highlight();
-            // context.fillStyle = Config.targetElementSelectionStyle;
-            // context.beginPath(); // removes previous drawing operations
-
-            // if (this.shape === "rectangle") {
-            //     context.fillRect(this.targetCenterX - this.targetWidthPx / 2, this.targetCenterY - this.targetHeightPx / 2, this.targetWidthPx, this.targetHeightPx);
-            // } else if (this.shape === "circle") {
-            //     context.arc(this.startCenterX, this.startCenterY, this.startSizePx / 2, 0, 2 * Math.PI);
-            //     context.fill();
-            // }
             this.startClicked = true;
         }
     }
