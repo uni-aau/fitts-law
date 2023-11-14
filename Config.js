@@ -12,7 +12,7 @@ class Config {
     static version = "4.1";
 
     // Block Config
-    static allowSwipe = false; // Determines if it is allowed to swipe e.g. from down outside to up in target
+    static allowSwipe = true; // Determines if it is allowed to swipe e.g. from down outside to up in target
     static randomTrialPlacement = true; // Determines if the trials will be placed random on the canvas or in the middle
     static randomTrialPlacementTolerance = 20 // Determines how much the element has to be away from the borders
     static startSize = 10; // Size of the start block (always AxA)
@@ -22,19 +22,19 @@ class Config {
     // left-down, left, left-up, up-left
     // Circle: width => height
     static trialsDataCategories = [
-        ["C1", 10, 10, 40, 'up'],
-        ["C2", 20, 10, 30, 'up-right'],
-        ["C3", 20, 15, 25, 'right-up'],
-        ["C4", 25, 10, 30, 'right'],
-        ["C5", 10, 20, 25, 'right-down'],
-        ["C6", 20, 10, 30, 'down-right'],
-        ["C7", 30, 15, 30, 'down'],
-        ["C8", 15, 20, 25, 'down-left'],
-        ["C9", 20, 15, 30, 'up-right'],
-        ["C10", 20, 10, 30, 'left-down'],
-        ["C11", 10, 20, 35, 'left'],
-        ["C12", 20, 10, 25, 'left-up'],
-        ["C13", 10, 20, 40, 'up-left'],
+        ["C1", 10, 5, 20, 'up-left'],
+        // ["C2", 20, 10, 30, 'up-right'],
+        // ["C3", 20, 15, 25, 'right-up'],
+        // ["C4", 25, 10, 30, 'right'],
+        // ["C5", 10, 20, 25, 'right-down'],
+        // ["C6", 20, 10, 30, 'down-right'],
+        // ["C7", 30, 15, 30, 'down'],
+        // ["C8", 15, 20, 25, 'down-left'],
+        // ["C9", 20, 15, 30, 'up-right'],
+        // ["C10", 20, 10, 30, 'left-down'],
+        // ["C11", 10, 20, 35, 'left'],
+        // ["C12", 20, 10, 25, 'left-up'],
+        // ["C13", 10, 20, 40, 'up-left'],
     ];
 
     // Clock: 12 (up), 1 (up-right), 2 (right-up), 3...
@@ -49,8 +49,8 @@ class Config {
         'down-left': 300,
         'left-down': 330,
         'left': 360,
-        'left-up': 30,
-        'up-left': 60,
+        'left-up': 30, // TODO
+        'up-left': 60, // TODO
     };
     static isMissSkipped = true; // True - Miss click will be skipped / False - Nothing will be skipped
     static reAddClicksInTolerance = true; // Readds misses that were in tolerance within the same block in a random position
