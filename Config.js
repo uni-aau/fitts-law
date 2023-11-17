@@ -18,8 +18,7 @@ class Config {
     static startSize = 10; // Size of the start block (always AxA)
     static numBlocks = 3;
     // Category, targetWidth, targetHeight, Amplitude, trialDirection
-    // up, up-right, right-up, right, right-down, down-right, down, down-left,
-    // left-down, left, left-up, up-left
+    // e.g. up -> target is above start element
     // Circle: width => height
     static trialsDataCategories = [
         ["C1", 10, 5, 20, 'up-left'],
@@ -49,8 +48,8 @@ class Config {
         'down-left': 300,
         'left-down': 330,
         'left': 360,
-        'left-up': 30, // TODO
-        'up-left': 60, // TODO
+        'left-up': 30,
+        'up-left': 60,
     };
     static isMissSkipped = true; // True - Miss click will be skipped / False - Nothing will be skipped
     static reAddClicksInTolerance = true; // Readds misses that were in tolerance within the same block in a random position

@@ -329,12 +329,14 @@ class STTrialHandling {
         this.isMiss = true;
         this.missAmountAfterStartClick++;
         this.missInToleranceAmount++;
-        if (Config.isMissSkipped) {
+        // TODO
+/*        if (Config.isMissSkipped) {
             if (Config.reAddClicksInTolerance) {
                 this.currentBlock.reAddTrial(this.trialNumber);
             }
             this.finishTrial();
-        }
+        }*/
+        this.finishTrial();
     }
 
     finishTrial() {
