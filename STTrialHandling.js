@@ -212,7 +212,7 @@ class STTrialHandling {
     handleTargetClick() {
         this.clickDistanceToTargetCenterTouchDown = Math.sqrt((this.touchDownClickPositionX - this.targetCenterX) ** 2 + (this.touchDownClickPositionY - this.targetCenterY) ** 2);
         this.clickDistanceToTargetCenterTouchUp = Math.sqrt((this.touchUpClickPositionX - this.targetCenterX) ** 2 + (this.touchUpClickPositionY - this.targetCenterY) ** 2);
-        if(Config.isDebug) console.log(`tD_X ${this.touchDownClickPositionX} | tD_Y ${this.touchDownClickPositionY} | tU_X ${this.touchUpClickPositionX} | tU_Y ${this.touchUpClickPositionY}`);
+        if (Config.isDebug) console.log(`tD_X ${this.touchDownClickPositionX} | tD_Y ${this.touchDownClickPositionY} | tU_X ${this.touchUpClickPositionX} | tU_Y ${this.touchUpClickPositionY}`);
 
         if (this.startClicked && !this.isTargetClicked) {
             this.endTimeClickStartToEnd = performance.now(); // Determines the time between start and target click
@@ -226,35 +226,41 @@ class STTrialHandling {
             this.clickDistanceBetweenTargetTouchDownTouchUp = Math.sqrt((this.targetClickedPostitionXTouchDown - this.targetClickedPositionXTouchUp) ** 2 + (this.targetClickedPositionYTouchDown - this.targetClickedPositionYTouchUp) ** 2);
 
             this.handleClickPossibilities();
-            if(Config.isDebug) console.log("Click Category: " + this.clickCategory);
+            if (Config.isDebug) console.log("Click Category: " + this.clickCategory);
         }
     }
 
     handleClickPossibilities() {
         if (this.isClickInTargetElement(false, true) && this.isClickInTargetElement(false, false)) { // up and down are in target
             this.clickCategory = "C1 - Down & Up Target";
-            this.finishTrial()
-        } else if (!this.isClickInTargetElement(true, true) && this.isClickInTargetElement(false, false) && Config.allowSwipe) { // down is outside of target, up is inside of target
-            this.clickCategory = "C2 - Down Outside & Up Target";
-            if (Config.reAddClicksDownOutsideUpTarget) {
-                this.currentBlock.reAddTrial(this.trialNumber);
-            }
             this.finishTrial();
-        } else if (!this.isClickInTargetElement(true, true) && this.isClickInTargetElement(true, false) && Config.allowSwipe) { // down outside, up in tolerance
-            this.clickCategory = "C4 - Down Outside & Up Tolerance";
+        } else if (this.isClickInTargetElement(false, true) && this.isClickInTargetElement(true, false) && !this.isClickInTargetElement(false, false)) { // down target, up tolerance
+            this.clickCategory = "C2 - Down Target & Up Tolerance";
             this.handleClickInTolerance();
-        } else if (this.isClickInTargetElement(true, true) && this.isClickInTargetElement(false, false) && Config.allowSwipe) { //down tolerance, up target
-            this.clickCategory = "C5 - Down Tolerance & Up Target";
+        } else if (this.isClickInTargetElement(false, true) && !this.isClickInTargetElement(true, false)) { // down target, up outside
+            this.clickCategory = "C3 - Down Target, Up Outside Tolerance";
             this.finishTrial();
-        } else if (this.isClickInTargetElement(false, true) && this.isClickInTargetElement(true, false) && Config.allowSwipe) { // down target, up tolerance
-            this.clickCategory = "C6 - Down Target & Up Tolerance"
+        } else if (this.isClickInTargetElement(true, true) && !this.isClickInTargetElement(false, true) && this.isClickInTargetElement(false, false)) { // down tolernace, up target
+            this.clickCategory = "C4 - Down Tolerance, Up Target";
+            this.finishTrial();
+        } else if (this.isClickInTargetElement(true, true) && !this.isClickInTargetElement(false, true) && this.isClickInTargetElement(true, false) && !this.isClickInTargetElement(false, false)) {
+            this.clickCategory = "C5 - Down Tolerance, Up Tolerance";
             this.handleClickInTolerance();
-        } else if (this.isClickInTargetElement(true, true) && this.isClickInTargetElement(true, false) && !this.isClickInTargetElement(false, true) && !this.isClickInTargetElement(false, false)) { // tolerance & tolerance
-            this.clickCategory = "C3 - Down Tolerance & Up Tolerance";
+        } else if (this.isClickInTargetElement(true, true) && !this.isClickInTargetElement(false, true) && !this.isClickInTargetElement(true, false)) {
+            this.clickCategory = "C6 - Down Tolerance, Up Outside";
+            this.finishTrial();
+        } else if (!this.isClickInTargetElement(true, true) && this.isClickInTargetElement(false, false)) {
+            this.clickCategory = "C7 - Down Outside, Up Target";
+            this.currentBlock.reAddTrial(this.trialNumber);
+            this.finishTrial();
+        } else if (!this.isClickInTargetElement(true, true) && this.isClickInTargetElement(true, false) && !this.isClickInTargetElement(false, false)) {
+            this.clickCategory = "C8 - Down Outside, Up Tolerance";
+            this.currentBlock.reAddTrial(this.trialNumber);
             this.handleClickInTolerance();
-        } else { // down & up outside
-            this.clickCategory = "C7 - Down & Up Outside or swipe not allowed";
-            this.missAmountAfterStartClick++;
+        } else if (!this.isClickInTargetElement(true, true) && !this.isClickInTargetElement(true, false)) {
+            this.clickCategory = "C9 - Down Outside, Up Outside";
+            this.currentBlock.reAddTrial(this.trialNumber);
+            this.finishTrial();
         }
     }
 
@@ -333,7 +339,7 @@ class STTrialHandling {
 
     finishTrial() {
         this.onTargetClicked();
-        this.printTrial();
+        // this.printTrial();
         this.saveTrialData();
         this.isTargetClicked = true;
     }
@@ -366,7 +372,7 @@ class STTrialHandling {
             this.clickDistanceToTargetCenterTouchDown, this.clickDistanceToTargetCenterTouchUp, this.isMiss, this.missAmountAfterStartClick, this.missInToleranceAmount, this.clicksAmount, this.getTimeToClickFromStartToEndMs(),
             this.startTimeTouchDownToTouchUpMs, this.targetTimeTouchDownToTouchUpMs]);
 
-        if(Config.isDebug) console.log(this.dataRecorder.getDataArray());
+        if (Config.isDebug) console.log(this.dataRecorder.getDataArray());
         if (Config.sendDataToServer) this.dataRecorder.publishCsvToServer();
         this.dataRecorder.generateCsvDownloadLink(false);
     }
