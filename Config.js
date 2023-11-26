@@ -21,22 +21,22 @@ class Config {
     // e.g. up -> target is above start element
     // Circle: width => height
     static trialsDataCategories = [
-        ["C1", 10, 5, 20, 'up-left'],
-        // ["C2", 20, 10, 30, 'up-right'],
-        // ["C3", 20, 15, 25, 'right-up'],
-        // ["C4", 25, 10, 30, 'right'],
-        // ["C5", 10, 20, 25, 'right-down'],
-        // ["C6", 20, 10, 30, 'down-right'],
-        // ["C7", 30, 15, 30, 'down'],
-        // ["C8", 15, 20, 25, 'down-left'],
-        // ["C9", 20, 15, 30, 'up-right'],
-        // ["C10", 20, 10, 30, 'left-down'],
-        // ["C11", 10, 20, 35, 'left'],
-        // ["C12", 20, 10, 25, 'left-up'],
-        // ["C13", 10, 20, 40, 'up-left'],
+        ["C1", 20, 10, 50, 'up'], // 90
+        ["C2", 20, 10, 50, 'down'], // 270
+        ["C3", 10, 5, 30, 'right'], // 180
+        ["C4", 10, 5, 30, 'left'], // 360
+        ["C5", 5, 5, 20, 'up-right-135'],
+        ["C6", 5, 5, 20, 'down-left-315'],
+        ["C1", 20, 10, 50, 'up'], // 90
+        ["C2", 20, 10, 50, 'down'], // 270
+        ["C3", 10, 5, 30, 'right'], // 180
+        ["C4", 10, 5, 30, 'left'], // 360
+        ["C5", 5, 5, 20, 'up-right-135'],
+        ["C6", 5, 5, 20, 'down-left-315'],
     ];
 
-    // Clock: 12 (up), 1 (up-right), 2 (right-up), 3...
+    // Predefined Clock: 12 (up), 1 (up-right), 2 (right-up), 3...
+    // Can be extended
     static clockDirections = { // Possible directions with specified angle
         'up': 90,
         'up-right': 120,
@@ -50,6 +50,8 @@ class Config {
         'left': 360,
         'left-up': 30,
         'up-left': 60,
+        'up-right-135': 135,
+        'down-left-315': 315,
     };
     static isMissSkipped = true; // True - Miss click will be skipped / False - Nothing will be skipped
     static reAddClicksInTolerance = true; // Readds misses that were in tolerance within the same block in a random position
