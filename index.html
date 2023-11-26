@@ -17,13 +17,11 @@
         (per
         block) / <span class="info-value" id="totalCurrentTrialNumber">0</span> (total)
     </div>
-    <div class="info-box" id="currentBlocksText">Block No.: <span class="info-value" id="currentBlockNumber">0</span>
+    <div class="info-box" id="currentBlocksText">Block No.: <span class="info-value" id="currentBlockNumber">0</span> / <span class="info-value" id="totalBlockNumber">0</span>
     </div>
     <div class="info-box" id="totalTrialsText">Total Trials: <span class="info-value"
                                                                    id="totalTrialCountPerBlock">0</span>
         (per block) / <span class="info-value" id="totalTrialCount">0</span> (max)
-    </div>
-    <div class="info-box" id="totalBlocksText">Total Blocks: <span class="info-value" id="totalBlockCount">0</span>
     </div>
     <div class="info-box" id="trialsToBreakText">Next Break in <span class="info-value" id="breakCount">0</span> trials
     </div>
@@ -123,8 +121,8 @@
     startButton.addEventListener('click', startExperiment);
 
     // Show the start window
-    showStartWindow();
-    // startExperiment(); // T ODO
+    // showStartWindow();
+    startExperiment(); // T ODO
 
     function enableFullScreen(canvas) {
         if (canvas.requestFullscreen) {

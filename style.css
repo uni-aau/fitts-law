@@ -111,12 +111,7 @@ button {
 
     #totalTrialsText {
         top: 30px;
-        right: 270px;
-    }
-
-    #totalBlocksText {
-        top: 30px;
-        right: 78px;
+        right: 170px;
     }
 
     #trialsToBreakText {

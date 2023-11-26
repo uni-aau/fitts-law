@@ -126,7 +126,7 @@ class ExperimentFrame {
         const currentBlockIndexEl = document.getElementById("currentBlockNumber");
         currentBlockIndexEl.textContent = this.blockNumber;
 
-        const totalBlockIndexEl = document.getElementById("totalBlockCount");
+        const totalBlockIndexEl = document.getElementById("totalBlockNumber");
         totalBlockIndexEl.textContent = Config.numBlocks.toString();
 
         const trialsToBlockIndexEl = document.getElementById("breakCount");
