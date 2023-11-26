@@ -93,6 +93,7 @@ button {
         -moz-user-select: none;
         -ms-user-select: none;
         -webkit-user-select: none;
+        z-index: -999;
     }
 
     .info-box {
@@ -101,6 +102,7 @@ button {
         font-size: 0.95em;
         font-weight: bold;
         pointer-events: none;
+        z-index: -999;
     }
 
     #finishedTrialsLabel {
@@ -160,6 +162,7 @@ button {
         font-weight: bold;
         margin-top: -5px;
         pointer-events: none;
+        z-index: -999;
     }
 
     #debugLabel {
