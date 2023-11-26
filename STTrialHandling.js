@@ -233,34 +233,32 @@ class STTrialHandling {
     handleClickPossibilities() {
         if (this.isClickInTargetElement(false, true) && this.isClickInTargetElement(false, false)) { // up and down are in target
             this.clickCategory = "C1 - Down Target | Up Target";
-            this.finishTrial();
+            this.finishTrial(false);
         } else if (this.isClickInTargetElement(false, true) && this.isClickInTargetElement(true, false) && !this.isClickInTargetElement(false, false)) { // down target, up tolerance
             this.clickCategory = "C2 - Down Target | Up Inside Tolerance";
-            this.handleClickInTolerance();
+            this.handleClickInTolerance(false);
         } else if (this.isClickInTargetElement(false, true) && !this.isClickInTargetElement(true, false)) { // down target, up outside
             this.clickCategory = "C3 - Down Target | Up Outside Tolerance";
-            this.finishTrial();
+            this.finishTrial(false);
         } else if (this.isClickInTargetElement(true, true) && !this.isClickInTargetElement(false, true) && this.isClickInTargetElement(false, false)) { // down tolernace, up target
             this.clickCategory = "C4 - Down Inside Tolerance | Up Target";
-            this.finishTrial();
+            this.finishTrial(false);
         } else if (this.isClickInTargetElement(true, true) && !this.isClickInTargetElement(false, true) && this.isClickInTargetElement(true, false) && !this.isClickInTargetElement(false, false)) {
             this.clickCategory = "C5 - Down Inside Tolerance | Up Inside Tolerance";
             this.handleClickInTolerance();
         } else if (this.isClickInTargetElement(true, true) && !this.isClickInTargetElement(false, true) && !this.isClickInTargetElement(true, false)) {
             this.clickCategory = "C6 - Down Inside Tolerance | Up Outside Tolerance";
-            this.finishTrial();
+            this.finishTrial(false);
         } else if (!this.isClickInTargetElement(true, true) && this.isClickInTargetElement(false, false)) {
             this.clickCategory = "C7 - Down Outside Tolerance | Up Target";
-            this.currentBlock.reAddTrial(this.trialNumber);
-            this.finishTrial();
+            this.finishTrial(true);
         } else if (!this.isClickInTargetElement(true, true) && this.isClickInTargetElement(true, false) && !this.isClickInTargetElement(false, false)) {
             this.clickCategory = "C8 - Down Outside Tolerance | Up Inside Tolerance";
-            this.currentBlock.reAddTrial(this.trialNumber);
-            this.handleClickInTolerance();
+            this.handleClickInTolerance(true);
         } else if (!this.isClickInTargetElement(true, true) && !this.isClickInTargetElement(true, false)) {
             this.clickCategory = "C9 - Down Outside Tolerance | Up Outside";
-            this.currentBlock.reAddTrial(this.trialNumber);
-            this.finishTrial();
+            console.log("1 " + this.trialNumber)
+            this.finishTrial(true);
         } else {
             this.trialCategory = "C10 - Unhandled";
         }
@@ -327,7 +325,8 @@ class STTrialHandling {
         this.handleCanvasClick()
     }
 
-    handleClickInTolerance() {
+    // TODO rework
+    handleClickInTolerance(needsToBeRepeated) {
         this.isMiss = true;
         this.missAmountAfterStartClick++;
         this.missInToleranceAmount++;
@@ -338,11 +337,11 @@ class STTrialHandling {
             }
             this.finishTrial();
         }*/
-        this.finishTrial();
+        this.finishTrial(needsToBeRepeated);
     }
 
-    finishTrial() {
-        this.onTargetClicked();
+    finishTrial(needsToBeRepeated) {
+        this.onTargetClicked(needsToBeRepeated);
         // this.printTrial();
         this.saveTrialData();
         this.isTargetClicked = true;
