@@ -45,7 +45,7 @@ class ExperimentFrame {
         STTrialsHandling.showTrial();
 
         // Check if it's time for a break
-        if (this.trialNumber % this.trialsPerBreak === 0) {
+        if ((this.totalFinishedTrialsAmountWithoutReAddition + 1) % this.trialsPerBreak === 0) { // only determine break of correct trials
             // Display the break window
             this.displayBreakWindow();
         }
@@ -88,7 +88,7 @@ class ExperimentFrame {
         const currentBlock = this.experiment.getBlock(this.blockNumber);
         this.serialNumber++;
 
-        if(getsReAdded) {
+        if (getsReAdded) {
             this.currentBlock.reAddTrial(this.trialNumber);
         } else {
             this.trialNumberWithoutReAddtion++;
@@ -189,7 +189,8 @@ class ExperimentFrame {
     }
 
     getRemainingTrials() {
-        return this.trialsPerBreak - (this.trialNumber % this.trialsPerBreak);
+        // return this.trialsPerBreak - (this.trialNumber % this.trialsPerBreak); TODO
+        return this.trialsPerBreak - (this.totalFinishedTrialsAmountWithoutReAddition + 1 % this.trialsPerBreak);
     }
 
     // print all the trials on the console

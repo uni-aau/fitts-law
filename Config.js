@@ -7,7 +7,7 @@ class Config {
     static experimentType = "STS";
     static shape = "rectangle"; // rectangle or circle
     static intDevice = "mouse".toLowerCase(); // Mouse, Touch
-    static trialsPerBreak = NaN;
+    static trialsPerBreak = 20;
     static generalUsername = "none"; // Will be displayed in dataset when no username was entered
     static version = "4.1";
 
