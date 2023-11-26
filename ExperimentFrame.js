@@ -15,10 +15,11 @@ class ExperimentFrame {
     initializeExperiment() {
         this.username = document.getElementById("name_input").value;
         if (this.username === "") {
-            if(Config.isDebug) console.log("No username inserted - Using general username");
+            if (Config.isDebug) console.log("No username inserted - Using general username");
             this.username = Config.generalUsername;
         }
-        this.showTrial();
+        if (Config.trialsDataCategories.length > 0) this.showTrial();
+        else console.error("No Trial Data Categories defined in Config!");
     }
 
     // Show only the target and start rectangles on the screen
