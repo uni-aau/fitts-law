@@ -151,7 +151,7 @@ button {
 
     .info-box {
         font-family: Verdana, Geneva, Tahoma, sans-serif;
-        font-size: 0.8em;
+        font-size: 0.7em;
         font-weight: bold;
         margin-top: -5px;
         pointer-events: none;
@@ -159,7 +159,7 @@ button {
     }
 
     #debugLabel {
-        margin-top: 2px;
+        margin-top: 1px;
         color: rgb(128, 128, 128);
     }
 
