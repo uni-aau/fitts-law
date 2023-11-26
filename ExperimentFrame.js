@@ -2,9 +2,11 @@ class ExperimentFrame {
 
     constructor() {
         this.blockNumber = 1;
-        this.trialNumber = 1;
+        this.trialNumber = 0;
+        this.trialNumberWithoutReAddtion = 0;
         this.serialNumber = 1;
         this.totalFinishedTrialsAmount = 0;
+        this.totalFinishedTrialsAmountWithoutReAddition = 0;
         this.experiment = new Experiment();
         this.totalBlocks = this.experiment.getNumBlocks(); // Track the total number of blocks
         // Set the number of trials per break
@@ -25,6 +27,7 @@ class ExperimentFrame {
     // Show only the target and start rectangles on the screen
     showTrial() {
         this.totalFinishedTrialsAmount++;
+        this.trialNumber++;
         this.currentBlock = this.experiment.getBlock(this.blockNumber);
         const currentTrial = this.currentBlock.getTrial(this.trialNumber);
 
@@ -33,8 +36,8 @@ class ExperimentFrame {
             this.printAllTrials();
         }
 
-        const STTrialsHandling = new STTrialHandling(currentTrial, this.currentBlock, this.blockNumber, this.trialNumber, this.serialNumber, this.dataRecorder, this.username, () => {
-            this.trialCompleted();
+        const STTrialsHandling = new STTrialHandling(currentTrial, this.currentBlock, this.blockNumber, this.trialNumber, this.serialNumber, this.dataRecorder, this.username, (getsReAdded) => {
+            this.trialCompleted(getsReAdded);
             STTrialsHandling.removeEventListeners();
         });
 
@@ -81,9 +84,16 @@ class ExperimentFrame {
         });
     }
 
-    trialCompleted() {
+    trialCompleted(getsReAdded) {
         const currentBlock = this.experiment.getBlock(this.blockNumber);
         this.serialNumber++;
+
+        if(getsReAdded) {
+            this.currentBlock.reAddTrial(this.trialNumber);
+        } else {
+            this.trialNumberWithoutReAddtion++;
+            this.totalFinishedTrialsAmountWithoutReAddition++;
+        }
 
         if (currentBlock) {
             if (currentBlock.hasNext(this.trialNumber)) {
@@ -95,33 +105,35 @@ class ExperimentFrame {
                 this.experimentFinished();
             }
         } else {
-            console.error("Invalid block number:", this.blockNumber);
+            console.error("Invalid block number: " + this.blockNumber);
         }
     }
 
     getNextTrial() {
-        this.trialNumber++;
         this.showTrial();
     }
 
     getNextBlock() {
         this.blockNumber++;
-        this.trialNumber = 1;
+        this.trialNumber = 0;
+        this.trialNumberWithoutReAddtion = 0;
         this.showTrial();
     }
 
     displayTextValues() {
         const currentTrialIndexEl = document.getElementById("finishedTrialsInBlock");
-        currentTrialIndexEl.textContent = this.trialNumber;
+        // currentTrialIndexEl.textContent = this.trialNumber;
+        currentTrialIndexEl.textContent = this.trialNumberWithoutReAddtion;
 
         const totalCurrentTrialIndexEl = document.getElementById("totalFinishedTrials");
-        totalCurrentTrialIndexEl.textContent = this.totalFinishedTrialsAmount;
+        // totalCurrentTrialIndexEl.textContent = this.totalFinishedTrialsAmount;
+        totalCurrentTrialIndexEl.textContent = this.totalFinishedTrialsAmountWithoutReAddition;
 
         const totalTrialIndexPerBlockEl = document.getElementById("totalTrialsInBlock");
-        totalTrialIndexPerBlockEl.textContent = this.getTotalTrialsPerBlock();
+        totalTrialIndexPerBlockEl.textContent = this.getTotalTrialsStartAmountPerBlock();
 
         const totalTrialIndexEl = document.getElementById("totalTrialsAmount");
-        totalTrialIndexEl.textContent = this.getTotalTrials().toString();
+        totalTrialIndexEl.textContent = this.getTotalTrialsStartAmount().toString()
 
         const currentBlockIndexEl = document.getElementById("currentBlockNumber");
         currentBlockIndexEl.textContent = this.blockNumber;
@@ -159,8 +171,21 @@ class ExperimentFrame {
         return totalTrials;
     }
 
+    getTotalTrialsStartAmount() {
+        let totalTrials = 0;
+        for (let i = 0; i < this.experiment.getNumBlocks(); i++) {
+            const block = this.experiment.getBlock(i + 1);
+            totalTrials += block.startTrialsAmount;
+        }
+        return totalTrials;
+    }
+
     getTotalTrialsPerBlock() {
         return this.currentBlock.getTrialsAmount();
+    }
+
+    getTotalTrialsStartAmountPerBlock() {
+        return this.currentBlock.getStartTrialsAmount();
     }
 
     getRemainingTrials() {
