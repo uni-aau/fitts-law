@@ -12,6 +12,10 @@ class Block {
         // Initialize an empty array to store the trials
         this.trials = [];
 
+        this.createTrials();
+    }
+
+    createTrials() {
         for (const trialDataCategory of this.trialDataCategories) {
             const trialDirection = trialDataCategory[4].toLowerCase();
 
@@ -43,7 +47,7 @@ class Block {
         this.shuffleArray(this.trials);
     }
 
-// return trial
+    // return trial
     getTrial(trialNumber) {
         return this.trials[trialNumber - 1];
     }
