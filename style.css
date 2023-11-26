@@ -123,6 +123,7 @@ button {
         top: 30px;
         left: 60px;
         font-size: 12px;
+        color: rgb(128, 128, 128);
     }
 }
 
@@ -159,6 +160,7 @@ button {
 
     #debugLabel {
         margin-top: 2px;
+        color: rgb(128, 128, 128);
     }
 
     .info-value {
