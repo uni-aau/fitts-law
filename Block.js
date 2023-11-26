@@ -70,7 +70,7 @@ class Block {
         return this.totalTrialsAmount - trialNumber > 0;
     }
 
-    getStartTrialSize() {
+    getStartTrialsAmount() {
         return this.startTrialsAmount
     }
 
