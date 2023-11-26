@@ -56,7 +56,7 @@ class Block {
         return this.totalTrialsAmount;
     }
 
-    // readds trial to block and shuffles array (e.g if trial was wrongly clicked)
+    // Readds trial to block and shuffles array (e.g if trial was wrongly clicked)
     reAddTrial(trialNumber) {
         const trial = this.trials[trialNumber - 1];
         this.totalTrialsAmount++;
@@ -65,7 +65,7 @@ class Block {
     }
 
 
-    //check if the block has another trial
+    // Check if the block has another trial
     hasNext(trialNumber) {
         return this.totalTrialsAmount - trialNumber > 0;
     }
@@ -74,22 +74,20 @@ class Block {
         return this.startTrialsAmount
     }
 
-// Shuffling function using Fisher-Yates algorithm
+    // Shuffling function using Fisher-Yates algorithm
     shuffleArray(array) {
         let currentIndex = array.length;
-        let temporaryValue, randomIndex;
+        let randomIndex;
 
         // While there remain elements to shuffle
-        while (currentIndex !== 0) {
-
-            // Pick a remaining element
+        while (currentIndex > 0) {
+            // Picks a remaining element
             randomIndex = Math.floor(Math.random() * currentIndex);
-            currentIndex -= 1;
+            currentIndex--;
 
             // Swap it with the current element
-            temporaryValue = array[currentIndex];
-            array[currentIndex] = array[randomIndex];
-            array[randomIndex] = temporaryValue;
+            [array[currentIndex], array[randomIndex]] = [
+                array[randomIndex], array[currentIndex]];
         }
         return array;
     }
