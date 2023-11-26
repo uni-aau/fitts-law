@@ -21,8 +21,8 @@ class Config {
     // e.g. up -> target is above start element
     // Circle: width => height
     static trialsDataCategories = [
-        ["C1", 20, 10, 50, 'up']
-/*        ["C1", 20, 10, 50, 'up'], // 90
+        // ["C1", 20, 10, 50, 'up']
+        ["C1", 20, 10, 50, 'up'], // 90
         ["C2", 20, 10, 50, 'down'], // 270
         ["C3", 10, 5, 30, 'right'], // 180
         ["C4", 10, 5, 30, 'left'], // 360
@@ -33,7 +33,7 @@ class Config {
         ["C3", 10, 5, 30, 'right'], // 180
         ["C4", 10, 5, 30, 'left'], // 360
         ["C5", 5, 5, 20, 'up-right-135'],
-        ["C6", 5, 5, 20, 'down-left-315'],*/
+        ["C6", 5, 5, 20, 'down-left-315'],
     ];
 
     // Predefined Clock: 12 (up), 1 (up-right), 2 (right-up), 3...
@@ -58,9 +58,9 @@ class Config {
     static reAddClicksInTolerance = true; // Readds misses that were in tolerance within the same block in a random position
     static reAddClicksDownOutsideUpTarget = true; // Readds clicks where touch down was outside the tolerance and touchup was in target
     static elementStrokeStyle = "black"; // object border color
-    static startElementFillStyle = "rgba(144, 238, 144, 0.8)";
-    static targetElementFillStyle = ["rgba(120,120,120,0.8)"] // Allows also selection of random colors by providing more than one rgba color
-    static targetElementSelectionStyle = "rgba(0, 0, 139, 0.8)"; // Dark blue color
+    static startElementFillStyle = "rgba(144, 238, 144, 1.0)";
+    static targetElementFillStyle = ["rgba(120,120,120,1.0)"] // Allows also selection of random colors by providing more than one rgba color
+    static targetElementSelectionStyle = "rgba(0, 0, 139, 1.0)"; // Dark blue color
 
     // Determines clickTolerance (in px) where click is counted as miss
     static clickTolerance(amplitude) {
