@@ -99,27 +99,27 @@ button {
         pointer-events: none;
     }
 
-    #currentTrialText {
+    #finishedTrialsLabel {
         top: 10px;
         right: 295px;
     }
 
-    #currentBlocksText {
+    #blocksLabel {
         top: 10px;
         right: 102px;
     }
 
-    #totalTrialsText {
+    #totalTrialsLabel {
         top: 30px;
         right: 170px;
     }
 
-    #trialsToBreakText {
+    #trialsToBreakLabel {
         top: 10px;
         left: 45px;
     }
 
-    #debugText {
+    #debugLabel {
         top: 30px;
         left: 60px;
         font-size: 12px;
@@ -157,7 +157,7 @@ button {
         z-index: -1;
     }
 
-    #debugText {
+    #debugLabel {
         margin-top: 2px;
     }
 

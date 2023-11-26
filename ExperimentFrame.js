@@ -111,22 +111,22 @@ class ExperimentFrame {
     }
 
     displayTextValues() {
-        const currentTrialIndexEl = document.getElementById("currentTrialNumber");
+        const currentTrialIndexEl = document.getElementById("finishedTrialsInBlock");
         currentTrialIndexEl.textContent = this.trialNumber;
 
-        const totalCurrentTrialIndexEl = document.getElementById("totalCurrentTrialNumber");
+        const totalCurrentTrialIndexEl = document.getElementById("totalFinishedTrials");
         totalCurrentTrialIndexEl.textContent = this.totalFinishedTrialsAmount;
 
-        const totalTrialIndexPerBlockEl = document.getElementById("totalTrialCountPerBlock");
+        const totalTrialIndexPerBlockEl = document.getElementById("totalTrialsInBlock");
         totalTrialIndexPerBlockEl.textContent = this.getTotalTrialsPerBlock();
 
-        const totalTrialIndexEl = document.getElementById("totalTrialCount");
+        const totalTrialIndexEl = document.getElementById("totalTrialsAmount");
         totalTrialIndexEl.textContent = this.getTotalTrials().toString();
 
         const currentBlockIndexEl = document.getElementById("currentBlockNumber");
         currentBlockIndexEl.textContent = this.blockNumber;
 
-        const totalBlockIndexEl = document.getElementById("totalBlockNumber");
+        const totalBlockIndexEl = document.getElementById("totalBlocksAmount");
         totalBlockIndexEl.textContent = Config.numBlocks.toString();
 
         const trialsToBlockIndexEl = document.getElementById("breakCount");
