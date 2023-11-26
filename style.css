@@ -19,6 +19,10 @@ input[type=text] {
     font-size: 24px;
 }
 
+canvas {
+    display: block;
+}
+
 /* Styles for the modal */
 .modal {
     display: none;
@@ -147,6 +151,7 @@ button {
         position: absolute;
         top: 5px;
         left: 5px;
+        z-index: -999;
     }
 
     .info-box {
@@ -155,7 +160,6 @@ button {
         font-weight: bold;
         margin-top: -5px;
         pointer-events: none;
-        z-index: -1;
     }
 
     #debugLabel {
