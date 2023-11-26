@@ -59,7 +59,7 @@ class Config {
     static reAddClicksDownOutsideUpTarget = true; // Readds clicks where touch down was outside the tolerance and touchup was in target
     static elementStrokeStyle = "black"; // object border color
     static startElementFillStyle = "rgba(144, 238, 144, 0.8)";
-    static targetElementFillStyle = ["rgba(120,120,120,0.8)"]
+    static targetElementFillStyle = ["rgba(120,120,120,0.8)"] // Allows also selection of random colors by providing more than one rgba color
     static targetElementSelectionStyle = "rgba(0, 0, 139, 0.8)"; // Dark blue color
 
     // Determines clickTolerance (in px) where click is counted as miss
