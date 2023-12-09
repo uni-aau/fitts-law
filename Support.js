@@ -3,6 +3,10 @@ function mm2px(valueMM) {
     return (valueMM * Config.ppi) / 25.4;
 }
 
+function px2mm(valuePx) {
+    return(valuePx / Config.ppi) * 25.4;
+}
+
 function getPPI() {
     return Config.ppi;
 }
