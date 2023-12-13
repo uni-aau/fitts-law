@@ -249,7 +249,7 @@ class STTrialHandling {
             this.finishTrial(false);
         } else if (this.isClickInTargetElement(true, true) && !this.isClickInTargetElement(false, true) && this.isClickInTargetElement(true, false) && !this.isClickInTargetElement(false, false)) {
             this.clickCategory = "C5 - Down Inside Tolerance | Up Inside Tolerance";
-            this.handleClickInTolerance();
+            this.handleClickInTolerance(false);
         } else if (this.isClickInTargetElement(true, true) && !this.isClickInTargetElement(false, true) && !this.isClickInTargetElement(true, false)) {
             this.clickCategory = "C6 - Down Inside Tolerance | Up Outside Tolerance";
             this.finishTrial(false);
@@ -345,6 +345,7 @@ class STTrialHandling {
     }
 
     finishTrial(needsToBeRepeated) {
+        console.log("Handle click tolerance - " + needsToBeRepeated)
         this.trialGetsRepeated = needsToBeRepeated;         // Flag if trial will be repeated due to fail
         this.onTargetClicked(needsToBeRepeated);
         if (Config.isDebug) this.printTrial();
