@@ -190,7 +190,7 @@ class ExperimentFrame {
 
     getRemainingTrials() {
         // return this.trialsPerBreak - (this.trialNumber % this.trialsPerBreak); TODO
-        return this.trialsPerBreak - (this.totalFinishedTrialsAmountWithoutReAddition + 1 % this.trialsPerBreak);
+        return this.trialsPerBreak - ((this.totalFinishedTrialsAmountWithoutReAddition + 1) % this.trialsPerBreak);
     }
 
     // print all the trials on the console
