@@ -1,9 +1,9 @@
 class STTrialHandling {
     constructor(trial, currentBlock, blockNumber, trialNumber, serialNumber, dataRecorder, username, onTargetClicked) {
         this.trial = trial;
-        // this.currentBlock = currentBlock; // TODO
-        // this.blockNumber2 = currentBlock.getBlockNumber()
-        this.blockNumber = blockNumber;
+        this.currentBlock = currentBlock; // TODO
+        this.blockNumber = currentBlock.getBlockNumber()
+        // this.blockNumber = blockNumber;
         // console.log(this.blockNumber + " / " + this.blockNumber2)
         this.trialNumber = trialNumber;
         this.serialNumber = serialNumber;
@@ -369,10 +369,10 @@ class STTrialHandling {
 
     // TODO check size bei circle
     saveTrialData() {
-        this.dataRecorder.addDataRow([this.serialNumber, this.blockNumber, this.trialNumber, this.trialId, this.trialCategory, this.repetitions, this.username, this.shape, this.intDevice,
+        this.dataRecorder.addDataRow([this.serialNumber, this.blockNumber, this.trialNumber, this.trialId, this.trialCategory, this.clickCategory, this.repetitions, this.username, this.shape, this.intDevice,
             getPPI(), get1MMInPx(), getWindowInnerWidth(), getWindowInnerHeight(),
             this.amplitude, mm2px(this.amplitude), this.startSize, mm2px(this.startSize), this.targetWidth, mm2px(this.targetWidthPx), this.targetHeight, mm2px(this.targetHeight), this.trialDirection, this.trialClockAngle,
-            this.startCenterX, this.startCenterY, this.targetCenterX, this.targetCenterY, this.clickCategory, this.startClickedPostitionXTouchDown, this.startClickedPositionYTouchDown,
+            this.startCenterX, this.startCenterY, this.targetCenterX, this.targetCenterY, this.startClickedPostitionXTouchDown, this.startClickedPositionYTouchDown,
             this.startClickedPositionXTouchUp, this.startClickedPositionYTouchUp, this.targetClickedPostitionXTouchDown, this.targetClickedPositionYTouchDown,
             this.targetClickedPositionXTouchUp, this.targetClickedPositionYTouchUp, this.clickDistanceBetweenTargetTouchDownTouchUp, this.clickDistanceToStartCenterTouchDown, this.clickDistanceToStartCenterTouchUp,
             this.clickDistanceToTargetCenterTouchDown, this.clickDistanceToTargetCenterTouchUp, this.isMiss, this.missAmountAfterStartClick, this.missInToleranceAmount, this.clicksAmount, this.getTimeToClickFromStartToEndMs(),
