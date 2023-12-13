@@ -63,10 +63,19 @@ class Block {
 
     // Readds trial to block and shuffles array (e.g if trial was wrongly clicked)
     reAddTrial(trialNumber) {
-        const trial = this.trials[trialNumber - 1];
-        trial.repetitions++;
+        const reAddedTrial = this.trials[trialNumber - 1];
+
+        // Increment repetition amount of all trials that have the same ID
+        for (let i = trialNumber; i < this.trials.length; i++) {
+            if (this.trials[i].trialCategory === reAddedTrial.trialCategory) {
+                if (Config.isDebug) console.log("Incrementing trial with id " + this.trials[i].trialId);
+                this.trials[i].repetitions++;
+            }
+        }
+
+        reAddedTrial.repetitions++;
         this.totalTrialsAmount++;
-        this.trials.push(trial);
+        this.trials.push(reAddedTrial);
         this.shuffleArray(this.trials, trialNumber)     // Shuffles only array entries after the last wrongly clicked trial
     }
 
