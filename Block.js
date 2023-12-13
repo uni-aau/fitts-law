@@ -35,7 +35,8 @@ class Block {
                 this.startSize,
                 trialDataCategory[1], // width
                 trialDataCategory[2], // height
-                trialDataCategory[3] // amplitude
+                trialDataCategory[3], // amplitude
+                0
             );
 
             // Add the trial object to the trials array
@@ -59,6 +60,7 @@ class Block {
     // Readds trial to block and shuffles array (e.g if trial was wrongly clicked)
     reAddTrial(trialNumber) {
         const trial = this.trials[trialNumber - 1];
+        trial.repetitions++;
         this.totalTrialsAmount++;
         this.trials.push(trial);
         this.shuffleArray(this.trials)
@@ -90,6 +92,10 @@ class Block {
                 array[randomIndex], array[currentIndex]];
         }
         return array;
+    }
+
+    getBlockNumber() {
+        return this.blockNumber;
     }
 
 }

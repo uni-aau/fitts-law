@@ -1,8 +1,10 @@
 class STTrialHandling {
     constructor(trial, currentBlock, blockNumber, trialNumber, serialNumber, dataRecorder, username, onTargetClicked) {
         this.trial = trial;
-        this.currentBlock = currentBlock;
+        // this.currentBlock = currentBlock; // TODO
+        // this.blockNumber2 = currentBlock.getBlockNumber()
         this.blockNumber = blockNumber;
+        // console.log(this.blockNumber + " / " + this.blockNumber2)
         this.trialNumber = trialNumber;
         this.serialNumber = serialNumber;
         this.dataRecorder = dataRecorder;
@@ -21,6 +23,7 @@ class STTrialHandling {
 
     initializeVariables() {
         this.shape = this.trial.shape;
+        this.repetitions = this.trial.repetitions;
         this.trialClockAngle = this.trial.trialClockAngle;
         this.trialDirection = this.trial.trialDirection;
         this.amplitude = this.trial.amplitude;
@@ -342,7 +345,7 @@ class STTrialHandling {
 
     finishTrial(needsToBeRepeated) {
         this.onTargetClicked(needsToBeRepeated);
-        // this.printTrial();
+        if(Config.isDebug) this.printTrial();
         this.saveTrialData();
         this.isTargetClicked = true;
     }
@@ -366,7 +369,7 @@ class STTrialHandling {
 
     // TODO check size bei circle
     saveTrialData() {
-        this.dataRecorder.addDataRow([this.serialNumber, this.blockNumber, this.trialNumber, this.trialId, this.trialCategory, this.username, this.shape, this.intDevice,
+        this.dataRecorder.addDataRow([this.serialNumber, this.blockNumber, this.trialNumber, this.trialId, this.trialCategory, this.repetitions, this.username, this.shape, this.intDevice,
             getPPI(), get1MMInPx(), getWindowInnerWidth(), getWindowInnerHeight(),
             this.amplitude, mm2px(this.amplitude), this.startSize, mm2px(this.startSize), this.targetWidth, mm2px(this.targetWidthPx), this.targetHeight, mm2px(this.targetHeight), this.trialDirection, this.trialClockAngle,
             this.startCenterX, this.startCenterY, this.targetCenterX, this.targetCenterY, this.clickCategory, this.startClickedPostitionXTouchDown, this.startClickedPositionYTouchDown,
