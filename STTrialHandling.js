@@ -261,7 +261,6 @@ class STTrialHandling {
             this.handleClickInTolerance(true);
         } else if (!this.isClickInTargetElement(true, true) && !this.isClickInTargetElement(true, false)) {
             this.clickCategory = "C9 - Down Outside Tolerance | Up Outside";
-            console.log("1 " + this.trialNumber)
             this.finishTrial(true);
         } else {
             this.trialCategory = "C10 - Unhandled";
@@ -345,7 +344,6 @@ class STTrialHandling {
     }
 
     finishTrial(needsToBeRepeated) {
-        console.log("Handle click tolerance - " + needsToBeRepeated)
         this.trialGetsRepeated = needsToBeRepeated;         // Flag if trial will be repeated due to fail
         this.onTargetClicked(needsToBeRepeated);
         if (Config.isDebug) this.printTrial();
