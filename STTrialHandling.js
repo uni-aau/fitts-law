@@ -32,7 +32,8 @@ class STTrialHandling {
         this.trialCategory = this.trial.trialCategory;
         this.trialGetsRepeated = false;
 
-        this.clicksAmount = 0;          // determines the amount of clicks until the trial was finished
+        this.totalClicksAmount = 0;          // determines the amount of clicks until the trial was finished
+        this.clicksAmountAfterStartClick = 0;   // determines the amount of clicks which will be fetched after start element was clicked
         this.startClicked = false;
         this.isTargetClicked = false;
         this.clickTolerance = Config.clickTolerance(this.amplitude);
@@ -152,11 +153,12 @@ class STTrialHandling {
     }
 
     handleCanvasClick() {
-        this.clicksAmount++;
+        this.totalClicksAmount++;
 
         if (!this.startClicked) {
             this.handleStartClick();
         } else {
+            this.clicksAmountAfterStartClick++;
             this.handleTargetClick();
         }
     }
@@ -355,7 +357,7 @@ class STTrialHandling {
             this.startCenterX, this.startCenterY, this.targetCenterX, this.targetCenterY, this.startClickedPostitionXTouchDown, this.startClickedPositionYTouchDown,
             this.startClickedPositionXTouchUp, this.startClickedPositionYTouchUp, this.targetClickedPostitionXTouchDown, this.targetClickedPositionYTouchDown,
             this.targetClickedPositionXTouchUp, this.targetClickedPositionYTouchUp, this.clickDistanceBetweenTargetTouchDownTouchUp, this.clickDistanceToStartCenterTouchDown, this.clickDistanceToStartCenterTouchUp,
-            this.clickDistanceToTargetCenterTouchDown, this.clickDistanceToTargetCenterTouchUp, this.clicksAmount, this.getTimeToClickFromStartToEndMs(),
+            this.clickDistanceToTargetCenterTouchDown, this.clickDistanceToTargetCenterTouchUp, this.totalClicksAmount, this.clicksAmountAfterStartClick, this.getTimeToClickFromStartToEndMs(),
             this.startTimeTouchDownToTouchUpMs, this.targetTimeTouchDownToTouchUpMs]);
 
         if (Config.isDebug) console.log(this.dataRecorder.getDataArray());

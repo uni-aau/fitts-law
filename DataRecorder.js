@@ -9,7 +9,7 @@ class DataRecorder {
             "start_click_touchdown_position_x_px", "start_click_touchdown_position_y_px", "start_click_touchup_position_x_px",
             "start_click_touchup_position_y_px", "target_click_touchdown_position_x_px", "target_click_touchdown_position_y_px",
             "target_click_touchup_position_x_px", "target_click_touchup_position_y_px", "click_distance_between_target_touchdown_touchup_px", "click_distance_to_start_center_touchdown_px",
-            "click_distance_to_start_center_touchup_px", "click_distance_to_target_center_touchdown_px", "click_distance_to_target_center_touchup_px", "clicks_amount",
+            "click_distance_to_start_center_touchup_px", "click_distance_to_target_center_touchdown_px", "click_distance_to_target_center_touchup_px", "total_clicks_amount", "clicks_amount_after_start_click",
             "click_time_from_start_to_target_ms", "start_click_time_touchdown_to_touchup_ms", "target_click_time_touchdown_to_touchup_ms"]);
     }
 
