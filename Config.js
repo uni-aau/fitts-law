@@ -4,15 +4,13 @@ class Config {
     static sendDataToServer = false;
     // Calculation - Fullscreen -> Get windowInnerWidth/Height as resolution and inch of screen. Then calculate the ppi
     static ppi = 137.61; // Cannot be determined by plain javascript
-    static experimentType = "STS";
     static shape = "rectangle"; // rectangle or circle
     static intDevice = "mouse".toLowerCase(); // Mouse, Touch
     static trialsPerBreak = 20;
     static generalUsername = "none"; // Will be displayed in dataset when no username was entered
-    static version = "4.1";
+    static version = "5.0";
 
     // Block Config
-    static allowSwipe = true; // Determines if it is allowed to swipe e.g. from down outside to up in target
     static randomTrialPlacement = true; // Determines if the trials will be placed random on the canvas or in the middle
     static randomTrialPlacementTolerance = 20 // Determines how much the element has to be away from the borders
     static startSize = 10; // Size of the start block (always AxA)
@@ -54,9 +52,8 @@ class Config {
         'up-right-135': 135,
         'down-left-315': 315,
     };
-    static isMissSkipped = true; // True - Miss click will be skipped / False - Nothing will be skipped
-    static reAddClicksInTolerance = true; // Readds misses that were in tolerance within the same block in a random position
-    static reAddClicksDownOutsideUpTarget = true; // Readds clicks where touch down was outside the tolerance and touchup was in target
+
+    static repeatTrial = true; // Determine, if Trial gets repeated due to fail
     static elementStrokeStyle = "black"; // object border color
     static startElementFillStyle = "rgba(144, 238, 144, 1.0)";
     static targetElementFillStyle = ["rgba(120,120,120,1.0)"] // Allows also selection of random colors by providing more than one rgba color
