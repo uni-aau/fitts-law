@@ -33,6 +33,7 @@ class STTrialHandling {
         this.trialId = this.trial.trialId;
         this.intDevice = Config.intDevice;
         this.trialCategory = this.trial.trialCategory;
+        this.trialGetsRepeated = false;
 
         this.clicksAmount = 0;          // determines the amount of clicks until the trial was finished
         this.missAmountAfterStartClick = 0;            // determines the overall miss amount until the target rectangle was clicked (also in tolerance incremented)
@@ -334,18 +335,19 @@ class STTrialHandling {
         this.missAmountAfterStartClick++;
         this.missInToleranceAmount++;
         // TODO
-/*        if (Config.isMissSkipped) {
-            if (Config.reAddClicksInTolerance) {
-                this.currentBlock.reAddTrial(this.trialNumber);
-            }
-            this.finishTrial();
-        }*/
+        /*        if (Config.isMissSkipped) {
+                    if (Config.reAddClicksInTolerance) {
+                        this.currentBlock.reAddTrial(this.trialNumber);
+                    }
+                    this.finishTrial();
+                }*/
         this.finishTrial(needsToBeRepeated);
     }
 
     finishTrial(needsToBeRepeated) {
+        this.trialGetsRepeated = needsToBeRepeated;         // Flag if trial will be repeated due to fail
         this.onTargetClicked(needsToBeRepeated);
-        if(Config.isDebug) this.printTrial();
+        if (Config.isDebug) this.printTrial();
         this.saveTrialData();
         this.isTargetClicked = true;
     }
@@ -369,7 +371,7 @@ class STTrialHandling {
 
     // TODO check size bei circle
     saveTrialData() {
-        this.dataRecorder.addDataRow([this.serialNumber, this.blockNumber, this.trialNumber, this.trialId, this.trialCategory, this.clickCategory, this.repetitions, this.username, this.shape, this.intDevice,
+        this.dataRecorder.addDataRow([this.serialNumber, this.blockNumber, this.trialNumber, this.trialId, this.trialCategory, this.trialGetsRepeated, this.clickCategory, this.repetitions, this.username, this.shape, this.intDevice,
             getPPI(), get1MMInPx(), getWindowInnerWidth(), getWindowInnerHeight(),
             this.amplitude, mm2px(this.amplitude), this.startSize, mm2px(this.startSize), this.targetWidth, mm2px(this.targetWidthPx), this.targetHeight, mm2px(this.targetHeight), this.trialDirection, this.trialClockAngle,
             this.startCenterX, this.startCenterY, this.targetCenterX, this.targetCenterY, this.startClickedPostitionXTouchDown, this.startClickedPositionYTouchDown,
