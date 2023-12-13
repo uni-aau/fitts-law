@@ -32,7 +32,7 @@ class ExperimentFrame {
         if(Config.isDebug) this.currentBlock.printTrials();
         const currentTrial = this.currentBlock.getTrial(this.trialNumber);
 
-        const STTrialsHandling = new STTrialHandling(currentTrial, this.currentBlock, this.blockNumber, this.trialNumber, this.serialNumber, this.dataRecorder, this.username, (getsReAdded) => {
+        const STTrialsHandling = new STTrialHandling(currentTrial, this.currentBlock, this.trialNumber, this.serialNumber, this.dataRecorder, this.username, (getsReAdded) => {
             this.trialCompleted(getsReAdded);
             STTrialsHandling.removeEventListeners();
         });

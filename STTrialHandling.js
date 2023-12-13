@@ -1,10 +1,7 @@
 class STTrialHandling {
-    constructor(trial, currentBlock, blockNumber, trialNumber, serialNumber, dataRecorder, username, onTargetClicked) {
+    constructor(trial, currentBlock, trialNumber, serialNumber, dataRecorder, username, onTargetClicked) {
         this.trial = trial;
-        this.currentBlock = currentBlock; // TODO
-        this.blockNumber = currentBlock.getBlockNumber()
-        // this.blockNumber = blockNumber;
-        // console.log(this.blockNumber + " / " + this.blockNumber2)
+        this.blockNumber = currentBlock.getBlockNumber();
         this.trialNumber = trialNumber;
         this.serialNumber = serialNumber;
         this.dataRecorder = dataRecorder;
