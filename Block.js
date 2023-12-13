@@ -45,12 +45,16 @@ class Block {
 
         }
         // Shuffle the trials array randomly
-        this.shuffleArray(this.trials);
+        this.shuffleArray(this.trials, 0);
     }
 
     // return trial
     getTrial(trialNumber) {
         return this.trials[trialNumber - 1];
+    }
+
+    printTrials() {
+        console.log(this.trials);
     }
 
     getTrialsAmount() {
@@ -63,7 +67,7 @@ class Block {
         trial.repetitions++;
         this.totalTrialsAmount++;
         this.trials.push(trial);
-        this.shuffleArray(this.trials)
+        this.shuffleArray(this.trials, trialNumber)     // Shuffles only array entries after the last wrongly clicked trial
     }
 
 
@@ -76,20 +80,14 @@ class Block {
         return this.startTrialsAmount
     }
 
-    // Shuffling function using Fisher-Yates algorithm
-    shuffleArray(array) {
-        let currentIndex = array.length;
-        let randomIndex;
-
-        // While there remain elements to shuffle
-        while (currentIndex > 0) {
-            // Picks a remaining element
-            randomIndex = Math.floor(Math.random() * currentIndex);
-            currentIndex--;
-
-            // Swap it with the current element
-            [array[currentIndex], array[randomIndex]] = [
-                array[randomIndex], array[currentIndex]];
+    // Shuffling array using Fisher-Yates algorithm
+    // Starting at a specific position
+    shuffleArray(array, startIndex = 0) {
+        for (let currentIndex = startIndex; currentIndex < array.length; currentIndex++) {
+            let randomIndex = startIndex + (Math.floor(Math.random() * (array.length - startIndex)));
+            let tempValue = array[currentIndex];
+            array[currentIndex] = array[randomIndex];
+            array[randomIndex] = tempValue;
         }
         return array;
     }
