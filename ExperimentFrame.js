@@ -29,12 +29,8 @@ class ExperimentFrame {
         this.totalFinishedTrialsAmount++;
         this.trialNumber++;
         this.currentBlock = this.experiment.getBlock(this.blockNumber);
+        if(Config.isDebug) this.currentBlock.printTrials();
         const currentTrial = this.currentBlock.getTrial(this.trialNumber);
-
-        if (!this.printedFirstBlock && Config.isDebug) {
-            this.printedFirstBlock = true;
-            this.printAllTrials();
-        }
 
         const STTrialsHandling = new STTrialHandling(currentTrial, this.currentBlock, this.blockNumber, this.trialNumber, this.serialNumber, this.dataRecorder, this.username, (getsReAdded) => {
             this.trialCompleted(getsReAdded);
@@ -89,6 +85,7 @@ class ExperimentFrame {
         this.serialNumber++;
 
         if (getsReAdded) {
+            if (Config.isDebug) console.log("Readding trial: " + this.trialNumber + " | " + this.currentBlock.getTrial(this.trialNumber).trialCategory)
             this.currentBlock.reAddTrial(this.trialNumber);
         } else {
             this.trialNumberWithoutReAddtion++;
@@ -191,17 +188,5 @@ class ExperimentFrame {
     getRemainingTrials() {
         // return this.trialsPerBreak - (this.trialNumber % this.trialsPerBreak); TODO
         return this.trialsPerBreak - ((this.totalFinishedTrialsAmountWithoutReAddition + 1) % this.trialsPerBreak);
-    }
-
-    // print all the trials on the console
-    printAllTrials() {
-        for (let i = 0; i < this.experiment.getNumBlocks(); i++) {
-            const block = this.experiment.getBlock(i + 1);
-
-            for (let j = 0; j < block.totalTrialsAmount; j++) {
-                const trial = block.getTrial(j + 1);
-                console.log(trial);
-            }
-        }
     }
 }
