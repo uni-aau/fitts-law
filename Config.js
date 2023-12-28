@@ -3,10 +3,10 @@ class Config {
     static serverRequestLink = 'http://david.jamnig.net/tests/fittslaw/server/update.php';
     static sendDataToServer = false;
     // Calculation - Fullscreen -> Get windowInnerWidth/Height as resolution and inch of screen. Then calculate the ppi
-    static ppi = 137.61; // Cannot be determined by plain javascript
+    static ppi = 155.61; // Cannot be determined by plain javascript
     static shape = "rectangle"; // rectangle or circle
     static intDevice = "mouse".toLowerCase(); // Mouse, Touch
-    static trialsPerBreak = 20;
+    static trialsPerBreak = NaN;
     static generalUsername = "none"; // Will be displayed in dataset when no username was entered
     static version = "5.0";
 
@@ -19,19 +19,89 @@ class Config {
     // e.g. up -> target is above start element
     // Circle: width => height
     static trialsDataCategories = [
-        // ["C1", 20, 10, 50, 'up']
-        ["C1", 20, 10, 50, 'up'], // 90
-        ["C2", 20, 10, 50, 'down'], // 270
-        ["C3", 10, 5, 30, 'right'], // 180
-        ["C4", 10, 5, 30, 'left'], // 360
-        ["C5", 5, 5, 20, 'up-right-135'],
-        ["C6", 5, 5, 20, 'down-left-315'],
-        ["C1", 20, 10, 50, 'up'], // 90
-        ["C2", 20, 10, 50, 'down'], // 270
-        ["C3", 10, 5, 30, 'right'], // 180
-        ["C4", 10, 5, 30, 'left'], // 360
-        ["C5", 5, 5, 20, 'up-right-135'],
-        ["C6", 5, 5, 20, 'down-left-315'],
+        ["C1", 5, 8, 20, 'left'],
+        ["C2", 10, 6, 20, 'left'],
+        ["C3", 4, 8, 20, 'left'],
+        ["C4", 9, 10, 20, 'left'],
+        ["C5", 10, 5, 20, 'left'],
+        ["C6", 8, 16, 20, 'left'],
+        ["C7", 12, 4, 20, 'left'],
+        ["C8", 5, 3, 20, 'left'],
+        ["C9", 10, 3, 35, 'left'],
+        ["C10", 3, 11, 35, 'left'],
+        ["C11", 7, 17, 35, 'left'],
+        ["C12", 2, 6, 35, 'left'],
+        ["C13", 15, 5, 35, 'left'],
+        ["C14", 2, 9, 35, 'left'],
+        ["C15", 18, 4, 35, 'left'],
+        ["C16", 14, 3, 35, 'left'],
+
+        ["C1", 5, 8, 20, 'right'],
+        ["C2", 10, 6, 20, 'right'],
+        ["C3", 4, 8, 20, 'right'],
+        ["C4", 9, 10, 20, 'right'],
+        ["C5", 10, 5, 20, 'right'],
+        ["C6", 8, 16, 20, 'right'],
+        ["C7", 12, 4, 20, 'right'],
+        ["C8", 5, 3, 20, 'right'],
+        ["C9", 10, 3, 35, 'right'],
+        ["C10", 3, 11, 35, 'right'],
+        ["C11", 7, 17, 35, 'right'],
+        ["C12", 2, 6, 35, 'right'],
+        ["C13", 15, 5, 35, 'right'],
+        ["C14", 2, 9, 35, 'right'],
+        ["C15", 18, 4, 35, 'right'],
+        ["C16", 14, 3, 35, 'right'],
+
+
+        ["C1", 5, 8, 20, 'up'],
+        ["C2", 10, 6, 20, 'up'],
+        ["C3", 4, 8, 20, 'up'],
+        ["C4", 9, 10, 20, 'up'],
+        ["C5", 10, 5, 20, 'up'],
+        ["C6", 8, 16, 20, 'up'],
+        ["C7", 12, 4, 20, 'up'],
+        ["C8", 5, 3, 20, 'up'],
+        ["C9", 10, 3, 35, 'up'],
+        ["C10", 3, 11, 35, 'up'],
+        ["C11", 7, 17, 35, 'up'],
+        ["C12", 2, 6, 35, 'up'],
+        ["C13", 15, 5, 35, 'up'],
+        ["C14", 2, 9, 35, 'up'],
+        ["C15", 18, 4, 35, 'up'],
+        ["C16", 14, 3, 35, 'up'],
+
+
+        ["C1", 5, 8, 20, 'down'],
+        ["C2", 10, 6, 20, 'down'],
+        ["C3", 4, 8, 20, 'down'],
+        ["C4", 9, 10, 20, 'down'],
+        ["C5", 10, 5, 20, 'down'],
+        ["C6", 8, 16, 20, 'down'],
+        ["C7", 12, 4, 20, 'down'],
+        ["C8", 5, 3, 20, 'down'],
+        ["C9", 10, 3, 35, 'down'],
+        ["C10", 3, 11, 35, 'down'],
+        ["C11", 7, 17, 35, 'down'],
+        ["C12", 2, 6, 35, 'down'],
+        ["C13", 15, 5, 35, 'down'],
+        ["C14", 2, 9, 35, 'down'],
+        ["C15", 18, 4, 35, 'down'],
+        ["C16", 14, 3, 35, 'down'],
+
+
+        // ["C1", 20, 10, 50, 'up'], // 90
+        // ["C2", 20, 10, 50, 'down'], // 270
+        // ["C3", 10, 5, 30, 'right'], // 180
+        // ["C4", 10, 5, 30, 'left'], // 360
+        // ["C5", 5, 5, 20, 'up-right-135'],
+        // ["C6", 5, 5, 20, 'down-left-315'],
+        // ["C1", 20, 10, 50, 'up'], // 90
+        // ["C2", 20, 10, 50, 'down'], // 270
+        // ["C3", 10, 5, 30, 'right'], // 180
+        // ["C4", 10, 5, 30, 'left'], // 360
+        // ["C5", 5, 5, 20, 'up-right-135'],
+        // ["C6", 5, 5, 20, 'down-left-315'],
     ];
 
     // Predefined Clock: 12 (up), 1 (up-right), 2 (right-up), 3...
@@ -58,6 +128,7 @@ class Config {
     static startElementFillStyle = "rgba(144, 238, 144, 1.0)";
     static targetElementFillStyle = ["rgba(120,120,120,1.0)"] // Allows also selection of random colors by providing more than one rgba color
     static targetElementSelectionStyle = "rgba(0, 0, 139, 1.0)"; // Dark blue color
+    static displayMiddlePointOfElement = false;
 
     // Determines clickTolerance (in px) where click is counted as miss
     static clickTolerance(amplitude) {
