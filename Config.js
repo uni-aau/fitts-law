@@ -12,7 +12,7 @@ class Config {
     static intDevice = "mouse".toLowerCase(); // Mouse, Touch (when touch enabled, mouseclick will not work)
     static trialsPerBreak = NaN;
     static generalUsername = "none"; // Will be displayed in dataset when no username was entered
-    static version = "5.0";
+    static version = "6.0";
 
     // Block Config
     static randomTrialPlacement = true;         // Determines if the trials will be placed random on the canvas or in the middle
