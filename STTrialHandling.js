@@ -32,7 +32,7 @@ class STTrialHandling {
         this.trialCategory = this.trial.trialCategory;
         this.trialGetsRepeated = false;
 
-        this.totalClicksAmount = 0;          // determines the amount of clicks until the trial was finished
+        this.totalClicksAmount = 0;             // determines the amount of clicks until the trial was finished
         this.clicksAmountAfterStartClick = 0;   // determines the amount of clicks which will be fetched after start element was clicked
         this.startClicked = false;
         this.isTargetClicked = false;
@@ -96,7 +96,6 @@ class STTrialHandling {
         return canvas;
     }
 
-    // Todo new canvas objekt?
     initializeCanvasVariables(canvas) {
         const canvasCenterX = canvas.width / 2;
         const canvasCenterY = canvas.height / 2;
@@ -378,12 +377,5 @@ class STTrialHandling {
     printToConsole() {
         console.log(`Information from Drawing: Username: ${this.username} | Trial Number: ${this.trialNumber} | Trial ID: ${this.trialId} | Trial Category: ${this.trialCategory} | Block Number: ${this.blockNumber} | Shape: ${this.shape} | Interaction Device: ${this.intDevice} | Start Size: ${this.startSize} | Amplitude: ${this.amplitude} | Target Width: ${this.targetWidth} | Target Height: ${this.targetHeight} | Trail Direction: ${this.trialDirection}`);
     }
-
-
-    /*
-    Hinweis zu Clickamount / missAmountAfterStartClick
-    - 2 Clicks sind wenn von Start zu Ende geklickt wird
-    - Misses gibt es erst, wenn Start geklickt wurde, davor gibt es nur Clicks (keine Misses)
-     */
 }
 
