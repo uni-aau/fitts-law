@@ -1,20 +1,25 @@
 class Config {
-    static isDebug = false;
+    static isDebug = false;                         // Enables more detailed logging
+    static displayMiddlePointOfElement = false;     // Enables debug displaying of middle point of the elements
+    // Determines location where the update script is stored on server (only needed when sendDataToServer is true)
     static serverRequestLink = 'http://david.jamnig.net/tests/fittslaw/server/update.php';
     static sendDataToServer = false;
+
     // Calculation - Fullscreen -> Get windowInnerWidth/Height as resolution and inch of screen. Then calculate the ppi
-    static ppi = 155.61; // Cannot be determined by plain javascript
-    static shape = "rectangle"; // rectangle or circle
-    static intDevice = "mouse".toLowerCase(); // Mouse, Touch
+    // PPI cannot be determined by plain javascript
+    static ppi = 155.61;       // Determines proper size of elements (so that 1cm equals 1cm on every phone
+    static shape = "rectangle"; // rectangle or circle (circle not adjusted)
+    static intDevice = "mouse".toLowerCase(); // Mouse, Touch (when touch enabled, mouseclick will not work)
     static trialsPerBreak = NaN;
     static generalUsername = "none"; // Will be displayed in dataset when no username was entered
     static version = "5.0";
 
     // Block Config
-    static randomTrialPlacement = true; // Determines if the trials will be placed random on the canvas or in the middle
-    static randomTrialPlacementTolerance = 20 // Determines how much the element has to be away from the borders
-    static startSize = 10; // Size of the start block (always AxA)
-    static numBlocks = 3;
+    static randomTrialPlacement = true;         // Determines if the trials will be placed random on the canvas or in the middle
+    static randomTrialPlacementTolerance = 20   // Determines how much the element has to be away from the borders
+    static startSize = 10;                      // Size of the start block (always AxA)
+    static numBlocks = 3
+
     // Category, targetWidth, targetHeight, Amplitude, trialDirection
     // e.g. up -> target is above start element
     // Circle: width => height
@@ -105,18 +110,15 @@ class Config {
         'left': 360,
         'left-up': 30,
         'up-left': 60,
-        'up-right-135': 135,
-        'down-left-315': 315,
     };
 
-    static repeatTrial = true; // Determine, if Trial gets repeated due to fail
-    static elementStrokeStyle = "black"; // object border color
+    static repeatTrial = true;            // Determines, if Trial needs to be repeated in block due to fail
+    static elementStrokeStyle = "black";    // Element border color
     static startElementFillStyle = "rgba(144, 238, 144, 1.0)";
-    static targetElementFillStyle = ["rgba(120,120,120,1.0)"] // Allows also selection of random colors by providing more than one rgba color
+    static targetElementFillStyle = ["rgba(120,120,120,1.0)"] // Also allows selection of random colors by providing more than one rgba color
     static targetElementSelectionStyle = "rgba(0, 0, 139, 1.0)"; // Dark blue color
-    static displayMiddlePointOfElement = false;
 
-    // Determines clickTolerance (in px) where click is counted as miss
+    // Determines clickTolerance (in px) where click is not in target and not outside (marked as Tolerance Click)
     static clickTolerance(amplitude) {
         return mm2px(amplitude / 2);
     }
