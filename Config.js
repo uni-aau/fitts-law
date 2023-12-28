@@ -19,6 +19,7 @@ class Config {
     static randomTrialPlacementTolerance = 20   // Determines how much the element has to be away from the borders
     static startSize = 10;                      // Size of the start block (always AxA)
     static numBlocks = 3
+    static shuffleTrialsInBlock = true          // Determines, if trials should be shuffled (random position) in the block
 
     // Category, targetWidth, targetHeight, Amplitude, trialDirection
     // e.g. up -> target is above start element

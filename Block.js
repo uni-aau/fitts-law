@@ -45,7 +45,7 @@ class Block {
 
         }
         // Shuffle the trials array randomly
-        this.shuffleArray(this.trials, 0);
+        if(Config.shuffleTrialsInBlock) this.shuffleArray(this.trials, 0);
     }
 
     // return trial
@@ -76,7 +76,7 @@ class Block {
         reAddedTrial.repetitions++;
         this.totalTrialsAmount++;
         this.trials.push(reAddedTrial);
-        this.shuffleArray(this.trials, trialNumber)     // Shuffles only array entries after the last wrongly clicked trial
+        if(Config.shuffleTrialsInBlock) this.shuffleArray(this.trials, trialNumber)     // Shuffles only array entries after the last wrongly clicked trial
     }
 
 
