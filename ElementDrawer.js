@@ -12,7 +12,7 @@ class ElementDrawer {
         this.setElementStyles(Config.startElementFillStyle);
         this.draw();
 
-        if (Config.isDebug) this.displayMiddlePointOfElement();
+        if (Config.displayMiddlePointOfElement) this.displayMiddlePointOfElement();
     }
 
     drawTargetElement() {
@@ -20,7 +20,7 @@ class ElementDrawer {
         this.setElementStyles(Config.targetElementFillStyle[randomIndex]);
         this.draw();
 
-        if (Config.isDebug) this.displayMiddlePointOfElement();
+        if (Config.displayMiddlePointOfElement) this.displayMiddlePointOfElement();
     }
 
     draw() {
