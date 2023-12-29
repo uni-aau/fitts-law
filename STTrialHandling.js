@@ -268,13 +268,16 @@ class STTrialHandling {
     isClickInTargetElement(withTolerance, isDown) {
         let clickPositionX;
         let clickPositionY;
+        let clickDistanceToTargetCenter;
 
         if (isDown) {
             clickPositionX = this.touchDownClickPositionX;
             clickPositionY = this.touchDownClickPositionY;
-        } else { // isDown
+            clickDistanceToTargetCenter = this.clickDistanceToTargetCenterTouchDown;
+        } else { // touchUp
             clickPositionX = this.touchUpClickPositionX;
             clickPositionY = this.touchUpClickPositionY;
+            clickDistanceToTargetCenter = this.clickDistanceToTargetCenterTouchUp;
         }
 
         if (this.shape === "rectangle") {
@@ -286,10 +289,7 @@ class STTrialHandling {
                     clickPositionY >= this.targetCenterY - targetSizeHalfHeightPx &&
                     clickPositionY <= this.targetCenterY + targetSizeHalfHeightPx)
             } else {
-                return (clickPositionX >= this.targetCenterX - targetSizeHalfWidthPx - this.clickTolerance &&
-                    clickPositionX <= this.targetCenterX + targetSizeHalfWidthPx + this.clickTolerance &&
-                    clickPositionY >= this.targetCenterY - targetSizeHalfHeightPx - this.clickTolerance &&
-                    clickPositionY <= this.targetCenterY + targetSizeHalfHeightPx + this.clickTolerance)
+                return clickDistanceToTargetCenter < this.clickTolerance;
             }
         } else if (this.shape === "circle") {
             // TODO not adjusted
