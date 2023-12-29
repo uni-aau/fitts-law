@@ -327,7 +327,7 @@ class STTrialHandling {
 
     finishTrial(needsToBeRepeated) {
         this.trialGetsRepeated = Config.repeatTrial ? needsToBeRepeated : false;         // Flag if trial will be repeated due to fail -> If repeatTrial in config is false, no trials get repeated
-        this.onTargetClicked(needsToBeRepeated);
+        this.onTargetClicked(this.trialGetsRepeated);
         if (Config.isDebug) this.printTrial();
         this.saveTrialData();
         this.isTargetClicked = true;
