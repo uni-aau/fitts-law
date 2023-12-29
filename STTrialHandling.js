@@ -63,7 +63,8 @@ class STTrialHandling {
         this.targetElement = new ElementDrawer(context, this.targetCenterX, this.targetCenterY, this.targetWidthPx, this.targetHeightPx, this.shape);
         this.targetElement.drawTargetElement();
 
-        // ElementDrawer.drawGrid(canvas.width, canvas.height, context);
+        if(Config.drawCanvasGrid) ElementDrawer.drawGrid(canvas.width, canvas.height, context);
+        if(Config.drawToleranceElement) new ElementDrawer(context, this.targetCenterX, this.targetCenterY, this.clickTolerance, this.clickTolerance).drawCircle();
 
         // Determines which methods will be used to retrieve click position
         this.addClickListener();
@@ -353,13 +354,13 @@ class STTrialHandling {
     // TODO check size bei circle
     saveTrialData() {
         this.dataRecorder.addDataRow([this.serialNumber, this.blockNumber, this.trialNumber, this.trialId, this.trialCategory, this.trialGetsRepeated, this.clickCategory, this.repetitions, this.username, this.shape, this.intDevice,
-        getPPI(), get1MMInPx(), getWindowInnerWidth(), getWindowInnerHeight(),
-        this.amplitude, mm2px(this.amplitude), this.startSize, mm2px(this.startSize), this.targetWidth, mm2px(this.targetWidthPx), this.targetHeight, mm2px(this.targetHeight), this.trialDirection, this.trialClockAngle,
-        this.startCenterX, this.startCenterY, this.targetCenterX, this.targetCenterY, this.startClickedPostitionXTouchDown, this.startClickedPositionYTouchDown,
-        this.startClickedPositionXTouchUp, this.startClickedPositionYTouchUp, this.targetClickedPostitionXTouchDown, this.targetClickedPositionYTouchDown,
-        this.targetClickedPositionXTouchUp, this.targetClickedPositionYTouchUp, this.clickDistanceBetweenTargetTouchDownTouchUp, this.clickDistanceToStartCenterTouchDown, this.clickDistanceToStartCenterTouchUp,
-        this.clickDistanceToTargetCenterTouchDown, this.clickDistanceToTargetCenterTouchUp, this.totalClicksAmount, this.clicksAmountAfterStartClick, this.getTimeToClickFromStartToEndMs(),
-        this.startTimeTouchDownToTouchUpMs, this.targetTimeTouchDownToTouchUpMs]);
+            getPPI(), get1MMInPx(), getWindowInnerWidth(), getWindowInnerHeight(),
+            this.amplitude, mm2px(this.amplitude), this.startSize, mm2px(this.startSize), this.targetWidth, mm2px(this.targetWidthPx), this.targetHeight, mm2px(this.targetHeight), this.trialDirection, this.trialClockAngle,
+            this.startCenterX, this.startCenterY, this.targetCenterX, this.targetCenterY, this.startClickedPostitionXTouchDown, this.startClickedPositionYTouchDown,
+            this.startClickedPositionXTouchUp, this.startClickedPositionYTouchUp, this.targetClickedPostitionXTouchDown, this.targetClickedPositionYTouchDown,
+            this.targetClickedPositionXTouchUp, this.targetClickedPositionYTouchUp, this.clickDistanceBetweenTargetTouchDownTouchUp, this.clickDistanceToStartCenterTouchDown, this.clickDistanceToStartCenterTouchUp,
+            this.clickDistanceToTargetCenterTouchDown, this.clickDistanceToTargetCenterTouchUp, this.totalClicksAmount, this.clicksAmountAfterStartClick, this.getTimeToClickFromStartToEndMs(),
+            this.startTimeTouchDownToTouchUpMs, this.targetTimeTouchDownToTouchUpMs]);
 
         if (Config.isDebug) console.log(this.dataRecorder.getDataArray());
         if (Config.sendDataToServer) this.dataRecorder.publishCsvToServer();
