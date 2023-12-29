@@ -55,7 +55,7 @@ class ElementDrawer {
 
     drawCircle() {
         this.context.beginPath();
-        this.context.arc(this.centerX, this.centerY, this.width / 2, 0, 2 * Math.PI);
+        this.context.arc(this.centerX, this.centerY, this.width, 0, 2 * Math.PI);
         this.context.stroke();
         this.context.fill();
     }
