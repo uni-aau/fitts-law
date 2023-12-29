@@ -123,8 +123,9 @@
     startButton.addEventListener('click', startExperiment);
 
     // Show the start window
-    showStartWindow();
-    // startExperiment(); // TODO
+
+    if(Config.showStartWindow) showStartWindow();
+    else startExperiment();
 
     function enableFullScreen(canvas) {
         if (canvas.requestFullscreen) {
