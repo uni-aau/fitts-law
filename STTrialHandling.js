@@ -63,8 +63,8 @@ class STTrialHandling {
         this.targetElement = new ElementDrawer(context, this.targetCenterX, this.targetCenterY, this.targetWidthPx, this.targetHeightPx, this.shape);
         this.targetElement.drawTargetElement();
 
-        if(Config.drawCanvasGrid) ElementDrawer.drawGrid(canvas.width, canvas.height, context);
-        if(Config.drawToleranceElement) new ElementDrawer(context, this.targetCenterX, this.targetCenterY, this.clickTolerance, this.clickTolerance).drawCircle();
+        if (Config.drawCanvasGrid) ElementDrawer.drawGrid(canvas.width, canvas.height, context);
+        if (Config.drawToleranceElement) new ElementDrawer(context, this.targetCenterX, this.targetCenterY, this.clickTolerance, this.clickTolerance).drawCircle();
 
         // Determines which methods will be used to retrieve click position
         this.addClickListener();

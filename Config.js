@@ -35,14 +35,6 @@ class Config {
     static drawCanvasGrid = false;                  // Draws a grid all over the canvas for accurate debugging
     static drawToleranceElement = false;            // Draws the Tolerance element
     static showStartWindow = false;                 // Toggles display of start window
-
-    // Determines clickTolerance (in px) where click is not in target and not outside (marked as Tolerance Click)
-    static clickTolerance(amplitude) {
-        return mm2px((amplitude / 2));
-    }
-
-    // Category, targetWidth, targetHeight, Amplitude, trialDirection
-    // e.g. up -> target is above start element
     // Circle: width => height
     static trialsDataCategories = [
         ["C1", 5, 8, 20, 'left'],
@@ -117,6 +109,8 @@ class Config {
     ];
 
     // Predefined Clock: 12 (up), 1 (up-right), 2 (right-up), 3...
+    // Category, targetWidth, targetHeight, Amplitude, trialDirection
+    // e.g. up -> target is above start element
     // Can be extended
     static clockDirections = { // Possible directions with specified angle
         'up': 90,
@@ -132,5 +126,10 @@ class Config {
         'left-up': 30,
         'up-left': 60,
     };
+
+    // Determines clickTolerance (in px) where click is not in target and not outside (marked as Tolerance Click)
+    static clickTolerance(amplitude) {
+        return mm2px((amplitude / 2));
+    }
 
 }

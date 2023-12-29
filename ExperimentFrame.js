@@ -29,7 +29,7 @@ class ExperimentFrame {
         this.totalFinishedTrialsAmount++;
         this.trialNumber++;
         this.currentBlock = this.experiment.getBlock(this.blockNumber);
-        if(Config.isDebug) this.currentBlock.printTrials();
+        if (Config.isDebug) this.currentBlock.printTrials();
         const currentTrial = this.currentBlock.getTrial(this.trialNumber);
 
         const STTrialsHandling = new STTrialHandling(currentTrial, this.currentBlock, this.trialNumber, this.serialNumber, this.dataRecorder, this.username, (getsReAdded) => {
