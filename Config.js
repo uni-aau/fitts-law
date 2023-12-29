@@ -18,8 +18,18 @@ class Config {
     static randomTrialPlacement = true;         // Determines if the trials will be placed random on the canvas or in the middle
     static randomTrialPlacementTolerance = 20   // Determines how much the element has to be away from the borders
     static startSize = 10;                      // Size of the start block (always AxA)
-    static numBlocks = 3
-    static shuffleTrialsInBlock = true          // Determines, if trials should be shuffled (random position) in the block
+    static numBlocks = 3;
+    static shuffleTrialsInBlock = true;          // Determines, if trials should be shuffled (random position) in the block
+    static repeatTrial = true;            // Determines, if Trial needs to be repeated in block due to fail
+    static elementStrokeStyle = "black";    // Element border color
+    static startElementFillStyle = "rgba(144, 238, 144, 1.0)";
+    static targetElementFillStyle = ["rgba(120,120,120,1.0)"] // Also allows selection of random colors by providing more than one rgba color
+    static targetElementSelectionStyle = "rgba(0, 0, 139, 1.0)"; // Dark blue color
+
+    // Determines clickTolerance (in px) where click is not in target and not outside (marked as Tolerance Click)
+    static clickTolerance(amplitude) {
+        return mm2px(amplitude / 2);
+    }
 
     // Category, targetWidth, targetHeight, Amplitude, trialDirection
     // e.g. up -> target is above start element
@@ -113,14 +123,4 @@ class Config {
         'up-left': 60,
     };
 
-    static repeatTrial = true;            // Determines, if Trial needs to be repeated in block due to fail
-    static elementStrokeStyle = "black";    // Element border color
-    static startElementFillStyle = "rgba(144, 238, 144, 1.0)";
-    static targetElementFillStyle = ["rgba(120,120,120,1.0)"] // Also allows selection of random colors by providing more than one rgba color
-    static targetElementSelectionStyle = "rgba(0, 0, 139, 1.0)"; // Dark blue color
-
-    // Determines clickTolerance (in px) where click is not in target and not outside (marked as Tolerance Click)
-    static clickTolerance(amplitude) {
-        return mm2px(amplitude / 2);
-    }
 }
