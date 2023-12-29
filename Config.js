@@ -1,6 +1,9 @@
 class Config {
     static isDebug = false;                         // Enables more detailed logging
     static displayMiddlePointOfElement = false;     // Enables debug displaying of middle point of the elements
+    static drawCanvasGrid = false;
+    static drawToleranceElement = true;
+    static showStartWindow = true;
     // Determines location where the update script is stored on server (only needed when sendDataToServer is true)
     static serverRequestLink = 'http://david.jamnig.net/tests/fittslaw/server/update.php';
     static sendDataToServer = false;
@@ -28,7 +31,7 @@ class Config {
 
     // Determines clickTolerance (in px) where click is not in target and not outside (marked as Tolerance Click)
     static clickTolerance(amplitude) {
-        return mm2px(amplitude / 2);
+        return mm2px((amplitude / 2));
     }
 
     // Category, targetWidth, targetHeight, Amplitude, trialDirection
