@@ -13,13 +13,18 @@ class Config {
     static version = "6.0";
 
     // Block Config
-    static randomTrialPlacement = true;             // Determines if the trials will be placed random on the canvas or in the middle
-    static randomTrialPlacementTolerance = 20       // Determines how much the element has to be away from the borders
-    static startSize = 10;                          // Size of the start block (always AxA)
+    static randomTrialPlacement = false;                // Determines if the trials will be placed on random positions of the canvas or in the middle
+    // Hint - Always both sides (min & max have the same tolerance)
+    static randomTrialPlacementToleranceXLeft = 20;     // Determines how much the element has to be away from the left canvas width (X) border
+    static randomTrialPlacementToleranceXRight = 20;    // Determines how much the element has to be away from the right canvas width (X) border
+    static randomTrialPlacementToleranceYUp = 20;       // Determines how much the element has to be away from the up canvas height (Y) border
+    static randomTrialPlacementToleranceYDown = 20;     // Determines how much the element has to be away from the down canvas height (Y) border
+
+    static startSize = 10;                              // Size of the start block (always AxA)
     static numBlocks = 3;
-    static shuffleTrialsInBlock = true;             // Determines, if trials should be shuffled (random position) in the block
-    static repeatTrial = true;                      // Determines, if Trial needs to be repeated in block due to fail
-    static elementStrokeStyle = "black";              // Element border color
+    static shuffleTrialsInBlock = true;                 // Determines, if trials should be shuffled (random position) in the block
+    static repeatTrial = true;                          // Determines, if Trial needs to be repeated in block due to fail
+    static elementStrokeStyle = "black";                  // Element border color
     static startElementFillStyle = "rgba(144, 238, 144, 1.0)";
     static targetElementFillStyle = ["rgba(120,120,120,1.0)"]       // Also allows selection of random colors by providing more than one rgba color
     static targetElementSelectionStyle = "rgba(0, 0, 139, 1.0)";     // Dark blue color
