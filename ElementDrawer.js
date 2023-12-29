@@ -8,6 +8,25 @@ class ElementDrawer {
         this.shape = shape;
     }
 
+    // Draws grid for debugging purposes
+    static drawGrid(canvasWidth, canvasHeight, context) {
+        const padding = 10; // Padding
+        const boxSizeX = 10;
+        const boxSizeY = 10;
+
+        for (let i = 0; i <= canvasWidth; i += boxSizeX) {
+            context.moveTo(0.5 + i + padding, padding);
+            context.lineTo(0.5 + i + padding, canvasHeight + padding);
+        }
+
+        for (let i = 0; i <= canvasHeight; i += boxSizeY) {
+            context.moveTo(padding, 0.5 + i + padding);
+            context.lineTo(canvasWidth + padding, 0.5 + i + padding);
+        }
+        context.strokeStyle = "black";
+        context.stroke();
+    }
+
     drawStartElement() {
         this.setElementStyles(Config.startElementFillStyle);
         this.draw();
@@ -76,25 +95,6 @@ class ElementDrawer {
     setElementStyles(fillStyle) {
         this.context.strokeStyle = Config.elementStrokeStyle;
         this.context.fillStyle = fillStyle;
-    }
-
-    // Draws grid for debugging purposes
-    static drawGrid(canvasWidth, canvasHeight, context) {
-        const padding = 10; // Padding
-        const boxSizeX = 10;
-        const  boxSizeY = 10;
-
-        for (let i = 0; i <= canvasWidth; i += boxSizeX) {
-            context.moveTo(0.5 + i + padding, padding);
-            context.lineTo(0.5 + i + padding, canvasHeight + padding);
-        }
-
-        for (let i = 0; i <= canvasHeight; i += boxSizeY) {
-            context.moveTo(padding, 0.5 + i + padding);
-            context.lineTo(canvasWidth + padding, 0.5 + i + padding);
-        }
-        context.strokeStyle = "black";
-        context.stroke();
     }
 
 }

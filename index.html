@@ -67,17 +67,16 @@
 </div>
 
 <!-- Calling Javascript sources -->
-<script src="Config.js?version=20231213"></script>
+<script src="Config.js?version=20231229"></script>
 <script src="Trial.js?version=20231213"></script>
-<script src="Block.js?version=20231213"></script>
+<script src="Block.js?version=20231229"></script>
 <script src="Experiment.js?version=20231213"></script>
-<script src="STTrialHandling.js?version=20231213"></script>
+<script src="STTrialHandling.js?version=20231229"></script>
 <script src="ExperimentFrame.js?version=20231213"></script>
 <script src="Support.js?version=20231106"></script>
 <script src="DataRecorder.js?version=20231213"></script>
-<script src="ElementDrawer.js?version=20231104"></script>
+<script src="ElementDrawer.js?version=20231229"></script>
 <script>
-    //experiment.printBlock();
     const experimentFrame = new ExperimentFrame();
     let isFullScreen = false;
 
@@ -123,8 +122,7 @@
     startButton.addEventListener('click', startExperiment);
 
     // Show the start window
-
-    if(Config.showStartWindow) showStartWindow();
+    if (Config.showStartWindow) showStartWindow();
     else startExperiment();
 
     function enableFullScreen(canvas) {
@@ -156,10 +154,8 @@
     }
 
 </script>
-
 <script crossorigin="anonymous"
         src="./assets/bootstrap.bundle.min.js"></script>
-
 
 </body>
 </html>

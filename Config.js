@@ -1,9 +1,4 @@
 class Config {
-    static isDebug = false;                         // Enables more detailed logging
-    static displayMiddlePointOfElement = false;     // Enables debug displaying of middle point of the elements
-    static drawCanvasGrid = false;
-    static drawToleranceElement = true;
-    static showStartWindow = true;
     // Determines location where the update script is stored on server (only needed when sendDataToServer is true)
     static serverRequestLink = 'http://david.jamnig.net/tests/fittslaw/server/update.php';
     static sendDataToServer = false;
@@ -18,24 +13,28 @@ class Config {
     static version = "6.0";
 
     // Block Config
-    static randomTrialPlacement = true;         // Determines if the trials will be placed random on the canvas or in the middle
-    static randomTrialPlacementTolerance = 20   // Determines how much the element has to be away from the borders
-    static startSize = 10;                      // Size of the start block (always AxA)
+    static randomTrialPlacement = true;                // Determines if the trials will be placed on random positions of the canvas or in the middle
+    // Hint - Always both sides (min & max have the same tolerance)
+    static randomTrialPlacementToleranceXLeft = 20;     // Determines how much the element has to be away from the left canvas width (X) border
+    static randomTrialPlacementToleranceXRight = 20;    // Determines how much the element has to be away from the right canvas width (X) border
+    static randomTrialPlacementToleranceYUp = 20;       // Determines how much the element has to be away from the up canvas height (Y) border
+    static randomTrialPlacementToleranceYDown = 20;     // Determines how much the element has to be away from the down canvas height (Y) border
+
+    static startSize = 10;                              // Size of the start block (always AxA)
     static numBlocks = 3;
-    static shuffleTrialsInBlock = true;          // Determines, if trials should be shuffled (random position) in the block
-    static repeatTrial = true;            // Determines, if Trial needs to be repeated in block due to fail
-    static elementStrokeStyle = "black";    // Element border color
+    static shuffleTrialsInBlock = true;                 // Determines, if trials should be shuffled (random position) in the block
+    static repeatTrial = true;                          // Determines, if Trial needs to be repeated in block due to fail
+    static elementStrokeStyle = "black";                  // Element border color
     static startElementFillStyle = "rgba(144, 238, 144, 1.0)";
-    static targetElementFillStyle = ["rgba(120,120,120,1.0)"] // Also allows selection of random colors by providing more than one rgba color
-    static targetElementSelectionStyle = "rgba(0, 0, 139, 1.0)"; // Dark blue color
+    static targetElementFillStyle = ["rgba(120,120,120,1.0)"]       // Also allows selection of random colors by providing more than one rgba color
+    static targetElementSelectionStyle = "rgba(0, 0, 139, 1.0)";     // Dark blue color
 
-    // Determines clickTolerance (in px) where click is not in target and not outside (marked as Tolerance Click)
-    static clickTolerance(amplitude) {
-        return mm2px((amplitude / 2));
-    }
-
-    // Category, targetWidth, targetHeight, Amplitude, trialDirection
-    // e.g. up -> target is above start element
+    // Debug Flags
+    static isDebug = false;                         // Enables more detailed logging
+    static displayMiddlePointOfElement = false;     // Enables debug displaying of middle point of the elements
+    static drawCanvasGrid = false;                  // Draws a grid all over the canvas for accurate debugging
+    static drawToleranceElement = false;            // Draws the Tolerance element
+    static showStartWindow = false;                 // Toggles display of start window
     // Circle: width => height
     static trialsDataCategories = [
         ["C1", 5, 8, 20, 'left'],
@@ -110,6 +109,8 @@ class Config {
     ];
 
     // Predefined Clock: 12 (up), 1 (up-right), 2 (right-up), 3...
+    // Category, targetWidth, targetHeight, Amplitude, trialDirection
+    // e.g. up -> target is above start element
     // Can be extended
     static clockDirections = { // Possible directions with specified angle
         'up': 90,
@@ -125,5 +126,10 @@ class Config {
         'left-up': 30,
         'up-left': 60,
     };
+
+    // Determines clickTolerance (in px) where click is not in target and not outside (marked as Tolerance Click)
+    static clickTolerance(amplitude) {
+        return mm2px((amplitude / 2));
+    }
 
 }
