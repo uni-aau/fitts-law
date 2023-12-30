@@ -22,7 +22,7 @@ class Config {
 
     static startSize = 10;                              // Size of the start block (always AxA)
     static numBlocks = 3;
-    static shuffleTrialsInBlock = true;                 // Determines, if trials should be shuffled (random position) in the block
+    static shuffleTrialsInBlock = true;                 // Determines, if Trials should be shuffled (random position) in the block
     static repeatTrial = true;                          // Determines, if Trial needs to be repeated in block due to fail
     static elementStrokeStyle = "black";                  // Element border color
     static startElementFillStyle = "rgba(144, 238, 144, 1.0)";
@@ -34,7 +34,8 @@ class Config {
     static displayMiddlePointOfElement = false;     // Enables debug displaying of middle point of the elements
     static drawCanvasGrid = false;                  // Draws a grid all over the canvas for accurate debugging
     static drawToleranceElement = false;            // Draws the Tolerance element
-    static showStartWindow = false;                 // Toggles display of start window
+    static showStartWindow = true;                 // Toggles display of start window
+
     // Circle: width => height
     static trialsDataCategories = [
         ["C1", 5, 8, 20, 'left'],
