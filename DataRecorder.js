@@ -57,8 +57,7 @@ class DataRecorder {
             body: jsonData,
         })
             .then(response => response.text())
-            .then(data => {
-                console.log(data); // server response
-            });
+            .then(data => console.log(data)) // server response
+            .catch(error => console.error("Error fetching request: " + error));
     }
 }
