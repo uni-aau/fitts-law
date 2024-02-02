@@ -5,14 +5,6 @@ body {
     overflow: hidden;
 }
 
-#fullScreenButton {
-    margin-bottom: 20px;
-}
-
-#startButton {
-    margin-bottom: -30px;
-}
-
 input[type=text] {
     border: none;
     border-radius: 8px;
@@ -21,6 +13,27 @@ input[type=text] {
 
 canvas {
     display: block;
+}
+
+p {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-weight: bold;
+    color: black;
+}
+
+button {
+    margin-top: 10px;
+    position: absolute;
+    bottom: -100px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.info-value {
+    font-weight: bold;
 }
 
 /* Styles for the modal */
@@ -45,17 +58,11 @@ canvas {
     text-align: center;
 }
 
-button {
-    margin-top: 10px;
-    position: absolute;
-    bottom: -100px;
-    left: 50%;
-    transform: translateX(-50%);
-
-}
-
-#breakCount {
-    color: red;
+.info-box {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-weight: bold;
+    pointer-events: none;
+    z-index: -999;
 }
 
 .button-general {
@@ -72,37 +79,39 @@ button {
     height: 50px;
 }
 
+#fullScreenButton {
+    margin-bottom: 20px;
+}
+
+#startButton {
+    margin-bottom: -30px;
+}
+
+#breakCount {
+    color: red;
+}
+
 #downloadDataButton {
     width: 300px;
     height: 80px;
 }
 
+#info-container {
+    user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -webkit-user-select: none;
+    z-index: -999;
+}
+
 @media (min-width: 851px) {
     p {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
         font-size: 1.7em;
-        font-weight: bold;
-        color: black;
-    }
-
-    #info-container {
-        user-select: none;
-        -moz-user-select: none;
-        -ms-user-select: none;
-        -webkit-user-select: none;
-        z-index: -999;
     }
 
     .info-box {
         position: absolute;
-        font-family: Verdana, Geneva, Tahoma, sans-serif;
         font-size: 0.95em;
-        font-weight: bold;
-        pointer-events: none;
-        z-index: -999;
     }
 
     #finishedTrialsLabel {
@@ -133,36 +142,20 @@ button {
     }
 }
 
-@media (max-device-width: 850px) {
+@media (min-width: 400px) and (max-width: 750px) {
     p {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
         font-size: 1.4em;
-        font-weight: bold;
-        color: black;
     }
 
     #info-container {
-        user-select: none;
-        -moz-user-select: none;
-        -ms-user-select: none;
-        -webkit-user-select: none;
-
         position: absolute;
         top: 5px;
         left: 5px;
-        z-index: -999;
     }
 
     .info-box {
-        font-family: Verdana, Geneva, Tahoma, sans-serif;
+        position: static;
         font-size: 0.7em;
-        font-weight: bold;
-        margin-top: -5px;
-        pointer-events: none;
-        z-index: -999;
     }
 
     #debugLabel {
@@ -170,13 +163,36 @@ button {
         color: rgb(128, 128, 128);
     }
 
-    .info-value {
-        font-weight: bold;
+    #name_input {
+        max-width: 80%;
+        font-size: 23px;
     }
 }
 
-/*
- Startbildschirme
- */
+@media (max-width: 399px) {
+    p {
+        font-size: 1.2em;
+    }
 
+    #info-container {
+        position: absolute;
+        top: 5px;
+        left: 5px;
+    }
+
+    .info-box {
+        font-size: 0.7em;
+        position: static;
+    }
+
+    #debugLabel {
+        margin-top: 1px;
+        color: rgb(128, 128, 128);
+    }
+
+    #name_input {
+        max-width: 80%;
+        font-size: 20px;
+    }
+}
     
