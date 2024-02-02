@@ -133,7 +133,7 @@ button {
     }
 }
 
-@media (max-device-width: 850px) {
+@media (min-width: 400px) and (max-width: 750px) {
     p {
         position: absolute;
         top: 50%;
@@ -173,10 +173,57 @@ button {
     .info-value {
         font-weight: bold;
     }
+
+    #name_input {
+        max-width: 80%;
+        font-size: 23px;
+    }
 }
 
-/*
- Startbildschirme
- */
+@media (max-width: 350px) {
+    p {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 1.3em;
+        font-weight: bold;
+        color: black;
+    }
 
+    #info-container {
+        user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        -webkit-user-select: none;
+
+        position: absolute;
+        top: 5px;
+        left: 5px;
+        z-index: -999;
+    }
+
+    .info-box {
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
+        font-size: 0.7em;
+        font-weight: bold;
+        margin-top: -5px;
+        pointer-events: none;
+        z-index: -999;
+    }
+
+    #debugLabel {
+        margin-top: 1px;
+        color: rgb(128, 128, 128);
+    }
+
+    .info-value {
+        font-weight: bold;
+    }
+
+    #name_input {
+        max-width: 80%;
+        font-size: 20px;
+    }
+}
     
