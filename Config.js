@@ -16,7 +16,7 @@ class Config {
     static randomTrialPlacement = true;                // Determines if the trials will be placed on random positions of the canvas or in the middle
     // Hint - Always both sides (min & max have the same tolerance)
     static randomTrialPlacementToleranceXLeft = 20;     // Determines how much the element has to be away from the left canvas width (X) border
-    static randomTrialPlacementToleranceXRight = 20;    // Determines how much the element has to be away from the right canvas width (X) border
+    static randomTrialPlacementToleranceXRight = 50;    // Determines how much the element has to be away from the right canvas width (X) border
     static randomTrialPlacementToleranceYUp = 20;       // Determines how much the element has to be away from the up canvas height (Y) border
     static randomTrialPlacementToleranceYDown = 20;     // Determines how much the element has to be away from the down canvas height (Y) border
 
@@ -37,8 +37,10 @@ class Config {
     static showStartWindow = true;                 // Toggles display of start window
 
     // Circle: width => height
+    // TODO comment
     static trialsDataCategories = [
-        ["C1", 5, 8, 20, 'left'],
+        ["C1", 30, 15, 50, 'up-right']
+/*        ["C1", 5, 8, 20, 'left'],
         ["C2", 10, 6, 20, 'left'],
         ["C3", 4, 8, 20, 'left'],
         ["C4", 9, 10, 20, 'left'],
@@ -106,7 +108,7 @@ class Config {
         ["C13", 15, 5, 35, 'down'],
         ["C14", 2, 9, 35, 'down'],
         ["C15", 18, 4, 35, 'down'],
-        ["C16", 14, 3, 35, 'down'],
+        ["C16", 14, 3, 35, 'down'],*/
     ];
 
     // Predefined Clock: 12 (up), 1 (up-right), 2 (right-up), 3...
