@@ -3,7 +3,7 @@ class Experiment {
         this.shape = Config.shape.toLowerCase(); // rectangle or circle
         this.startSize = Config.startSize;
         this.blocks = [];
-        this.numBlocks = Config.numBlocks;
+        this.numBlocks = Config.isTestSet ? Config.numBlocksTestSet : Config.numBlocksTrainingsSet;
         let block = 1;
 
         for (let i = 0; i < this.numBlocks; i++) {
