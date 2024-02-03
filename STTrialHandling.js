@@ -109,7 +109,7 @@ class STTrialHandling {
         if (Config.randomTrialPlacement) {
             // Determines the minWidth & maxWidth | minHeight & maxHeight
             const randomValueX = this.getRandomValueX(startAngle, amplitudePx, canvas, startAngleRad);
-            const randomValueY = this.getRandomValueY(startAngle, amplitudePx, canvas); // Determines min/max random height
+            const randomValueY = this.getRandomValueY(startAngle, amplitudePx, canvas, startAngleRad); // Determines min/max random height
 
             this.startCenterX = randomValueX + amplitudePx * Math.cos(startAngleRad);
             this.startCenterY = randomValueY + amplitudePx * Math.sin(startAngleRad);
@@ -154,17 +154,25 @@ class STTrialHandling {
         return randomValueX;
     }
 
-    getRandomValueY(startAngle, amplitudePx, canvas) {
+    getRandomValueY(startAngle, amplitudePx, canvas, startAngleRad) {
+        let distanceY = Math.abs(Math.sin(startAngleRad) * amplitudePx);
+
         // Start has random value + amplitude | Target only has random value
         if (startAngle > 0 && startAngle < 180) { // If target is up
             this.minHeight = Config.randomTrialPlacementToleranceYUp + this.targetHeightPx / 2; // minHeight starts at y = 0
             // Start must be away from canvas max height at least startHeight/2 + amplitude + tolerance
-            this.maxHeight = canvas.height - Config.randomTrialPlacementToleranceYDown - this.startSizePx / 2 - amplitudePx;
+            this.maxHeight = canvas.height - Config.randomTrialPlacementToleranceYDown - this.startSizePx / 2 - distanceY;
         } else { // If target is down
-            this.minHeight = Config.randomTrialPlacementToleranceYUp + this.startSizePx / 2 + amplitudePx;
+            this.minHeight = Config.randomTrialPlacementToleranceYUp + this.startSizePx / 2 + distanceY;
             this.maxHeight = canvas.height - Config.randomTrialPlacementToleranceYDown - this.targetHeightPx / 2;
         }
-        return Math.random() * (this.maxHeight - this.minHeight) + this.minHeight;
+
+        if (this.minHeight > this.maxHeight) console.error(`Minimum Height (${this.minHeight}) > Maximum Height (${this.maxHeight}) for RandomY - Trial ID: ${this.trialId} | Trial Category: ${this.trialCategory}`);
+
+        let randomValueY = Math.random() * (this.maxHeight - this.minHeight) + this.minHeight;
+        if (true) console.log("Minimum Height for RandomY: " + this.minHeight + " | Maximum Height for RandomY: " + this.maxHeight + " | Random Value Y: " + randomValueY);
+
+        return randomValueY;
     }
 
     handleCanvasClick() {
