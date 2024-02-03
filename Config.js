@@ -26,7 +26,6 @@ class Config {
 
     // Trial Config - Random Placement
     static randomTrialPlacement = true;                // Determines if the trials will be placed on random positions of the canvas or in the middle
-    // Hint - Always both sides (min & max have the same tolerance)
     static randomTrialPlacementToleranceXLeft = 20;     // Determines how much the element has to be away from the left canvas width (X) border
     static randomTrialPlacementToleranceXRight = 20;    // Determines how much the element has to be away from the right canvas width (X) border
     static randomTrialPlacementToleranceYUp = 20;       // Determines how much the element has to be away from the up canvas height (Y) border
