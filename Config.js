@@ -22,6 +22,7 @@ class Config {
 
     static startSize = 10;                              // Size of the start block (always AxA)
     static numBlocks = 3;
+    static isTestSet = false;                           // Determines, if test or trainings set will be used for trials
     static shuffleTrialsInBlock = true;                 // Determines, if Trials should be shuffled (random position) in the block
     static repeatTrial = true;                          // Determines, if Trial needs to be repeated in block due to fail
     static elementStrokeStyle = "black";                  // Element border color
@@ -40,7 +41,7 @@ class Config {
     // Category, targetWidth, targetHeight, Amplitude, trialDirection (e.g. up -> target is above start element)
     // Note: When adding the same Trial Category, the Trials will be treated as the same
     // (e.g. when the first trial got a miss, the counter will be also incremented for the other trial)
-    static trialsDataCategories = [
+    static trialsDataCategoriesTestSet = [
         ["C1", 5, 8, 20, 'left'],
         ["C2", 10, 6, 20, 'left'],
         ["C3", 4, 8, 20, 'left'],
@@ -110,6 +111,11 @@ class Config {
         ["C14", 2, 9, 35, 'down'],
         ["C15", 18, 4, 35, 'down'],
         ["C16", 14, 3, 35, 'down'],
+    ];
+
+
+    static trialsDataCategoriesTrainingsSet = [
+
     ];
 
     // Predefined Clock: 12 (up), 1 (up-right), 2 (right-up), 3 (right), 4 ...
