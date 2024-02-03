@@ -118,7 +118,7 @@ class Config {
         ["C9", 10, 30, 43, 'down-right'],
         ["C10", 28, 4, 39, 'down-left'],
         ["C11", 6, 6, 47, 'left-down'],
-        ["C12", 10, 4, 58, 'right-down']
+        // ["C12", 10, 4, 58, 'right-down']
     ];
 
     // Predefined Clock: 12 (up), 1 (up-right), 2 (right-up), 3 (right), 4 ...
