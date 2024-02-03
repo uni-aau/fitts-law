@@ -105,18 +105,18 @@ class Config {
     ];
 
     static trialsDataCategoriesTrainingsSet = [
-            ["C1", 8, 8, 40, 'left'],
-            ["C2", 9, 18, 31, 'up'],
-            ["C3", 20, 12, 43, 'up-left'],
-            ["C4", 6, 18, 34, 'right-up'],
-            ["C5", 30, 15, 50, 'up-right'],
-            ["C6", 10, 4, 58, 'left-up'],
-            ["C7", 6, 12, 40, 'right'],
-            ["C8", 18, 9, 31, 'down'],
-            ["C9", 10, 30, 43, 'down-right'],
-            ["C10", 28, 4, 39, 'down-left'],
-            ["C11", 6, 6, 47, 'left-down'],
-            ["C12", 10, 4, 58, 'right-down']
+        ["C1", 8, 8, 40, 'left'],
+        ["C2", 9, 18, 31, 'up'],
+        ["C3", 20, 12, 43, 'up-left'],
+        ["C4", 6, 18, 34, 'right-up'],
+        ["C5", 30, 15, 50, 'up-right'],
+        ["C6", 10, 4, 58, 'left-up'],
+        ["C7", 6, 12, 40, 'right'],
+        ["C8", 18, 9, 31, 'down'],
+        ["C9", 10, 30, 43, 'down-right'],
+        ["C10", 28, 4, 39, 'down-left'],
+        ["C11", 6, 6, 47, 'left-down'],
+        ["C12", 10, 4, 58, 'right-down']
     ];
 
     // Predefined Clock: 12 (up), 1 (up-right), 2 (right-up), 3 (right), 4 ...
