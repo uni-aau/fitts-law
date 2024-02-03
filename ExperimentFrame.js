@@ -21,7 +21,7 @@ class ExperimentFrame {
             this.username = Config.generalUsername;
         }
 
-        let dataCategoriesLength = Config.isTestSet ? Config.trialsDataCategoriesTestSet.length : Config.trialsDataCategoriesTrainingsSet
+        let dataCategoriesLength = Config.isTestSet ? Config.trialsDataCategoriesTestSet.length : Config.trialsDataCategoriesTrainingsSet.length
 
         if (dataCategoriesLength > 0) this.showTrial();
         else {
