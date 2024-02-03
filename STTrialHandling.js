@@ -108,8 +108,8 @@ class STTrialHandling {
 
         if (Config.randomTrialPlacement) {
             // Determines the minWidth & maxWidth | minHeight & maxHeight
-            const randomValueX = this.getRandomValueX(startAngle, amplitudePx, canvas, startAngleRad);
-            const randomValueY = this.getRandomValueY(startAngle, amplitudePx, canvas, startAngleRad); // Determines min/max random height
+            const randomValueX = this.getRandomValueX(startAngle, amplitudePx, canvas);  // Determines random width within canvas
+            const randomValueY = this.getRandomValueY(startAngle, amplitudePx, canvas); // Determines random height within canvas
 
             this.startCenterX = randomValueX + amplitudePx * Math.cos(startAngleRad);
             this.startCenterY = randomValueY + amplitudePx * Math.sin(startAngleRad);
@@ -128,7 +128,8 @@ class STTrialHandling {
         }
     }
 
-    getRandomValueX(startAngle, amplitudePx, canvas, startAngleRad) {
+    getRandomValueX(startAngle, amplitudePx, canvas) {
+        const startAngleRad = (startAngle * Math.PI) / 180;
         let distanceX = Math.abs(Math.cos(startAngleRad) * amplitudePx);
 
         // Determines min/max random width
@@ -154,7 +155,8 @@ class STTrialHandling {
         return randomValueX;
     }
 
-    getRandomValueY(startAngle, amplitudePx, canvas, startAngleRad) {
+    getRandomValueY(startAngle, amplitudePx, canvas) {
+        const startAngleRad = (startAngle * Math.PI) / 180;
         let distanceY = Math.abs(Math.sin(startAngleRad) * amplitudePx);
 
         // Start has random value + amplitude | Target only has random value
@@ -170,7 +172,7 @@ class STTrialHandling {
         if (this.minHeight > this.maxHeight) console.error(`Minimum Height (${this.minHeight}) > Maximum Height (${this.maxHeight}) for RandomY - Trial ID: ${this.trialId} | Trial Category: ${this.trialCategory}`);
 
         let randomValueY = Math.random() * (this.maxHeight - this.minHeight) + this.minHeight;
-        if (true) console.log("Minimum Height for RandomY: " + this.minHeight + " | Maximum Height for RandomY: " + this.maxHeight + " | Random Value Y: " + randomValueY);
+        if (Config.isDebug) console.log("Minimum Height for RandomY: " + this.minHeight + " | Maximum Height for RandomY: " + this.maxHeight + " | Random Value Y: " + randomValueY);
 
         return randomValueY;
     }
