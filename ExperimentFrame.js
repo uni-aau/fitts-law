@@ -20,8 +20,14 @@ class ExperimentFrame {
             if (Config.isDebug) console.log("No username inserted - Using general username");
             this.username = Config.generalUsername;
         }
-        if (Config.trialsDataCategories.length > 0) this.showTrial();
-        else console.error("No Trial Data Categories defined in Config!");
+
+        let dataCategoriesLength = Config.isTestSet ? Config.trialsDataCategoriesTestSet.length : Config.trialsDataCategoriesTrainingsSet
+
+        if (dataCategoriesLength > 0) this.showTrial();
+        else {
+            alert(`No Trial Data Categories defined in Config for ${Config.isTestSet ? "Test Set" : "Trainings Set"}`)
+            console.error(`No Trial Data Categories defined in Config for ${Config.isTestSet ? "Test Set" : "Trainings Set"}!`);
+        }
     }
 
     // Show only the target and start rectangles on the screen

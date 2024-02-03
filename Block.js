@@ -1,7 +1,7 @@
 class Block {
     constructor(blockNumber, shape, startSize) {
         this.shape = shape;
-        this.trialDataCategories = Config.trialsDataCategories;
+        this.trialDataCategories = Config.isTestSet ? Config.trialsDataCategoriesTestSet : Config.trialsDataCategoriesTrainingsSet;
         this.blockNumber = blockNumber;
         this.startSize = startSize;
         this.trialId = 1; // Initialize the trial ID
