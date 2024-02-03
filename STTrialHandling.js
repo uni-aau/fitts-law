@@ -135,17 +135,15 @@ class STTrialHandling {
     }
 
     getRandomValueX(startAngle, amplitudePx, canvas, startAngleRad) {
-        // TODO überprüfen wie es mit mini distanzen ist
-        let distance = amplitudePx - Math.abs(Math.cos(startAngleRad)*amplitudePx);
-        distance = Math.max(distance, amplitudePx);
-        console.log(distance) // TODO checken ob distance oder 0 genommen werden muss und wie sich das ändert
+        let distance = Math.abs(Math.cos(startAngleRad) * amplitudePx);
+
         // Determines min/max random width
-        // Start has random value + amplitude | Target only has random value
+        // Start has random value +/- x amplitude distance | Target only has random value
         if (startAngle < 90 || startAngle > 270) { // If target is left
             // min - 0 + Tolerance + targetWidth/2 (until middlepoint)
-            // max - At canvas without tolerance, amplitude and startWidth/2 since start gets added amplitude
+            // max - At canvas without tolerance, x distance of amplitude and startWidth/2 since start gets added amplitude
             this.minWidth = Config.randomTrialPlacementToleranceXLeft + this.targetWidthPx / 2;
-            this.maxWidth = canvas.width - Config.randomTrialPlacementToleranceXRight - distance - this.startSizePx / 2;
+            this.maxWidth = canvas.width - Config.randomTrialPlacementToleranceXRight - distance - (this.startSizePx / 2);
         } else if (startAngle > 90 && startAngle < 270) { // if target is right
             this.minWidth = Config.randomTrialPlacementToleranceXLeft + distance + this.startSizePx / 2; // startWidth/2
             this.maxWidth = canvas.width - Config.randomTrialPlacementToleranceXRight - this.targetWidthPx / 2;
@@ -153,13 +151,11 @@ class STTrialHandling {
             this.minWidth = Config.randomTrialPlacementToleranceXLeft + this.targetWidthPx / 2
             this.maxWidth = canvas.width - Config.randomTrialPlacementToleranceXRight - this.targetWidthPx / 2;
         }
-        let test = Math.random() * (this.maxWidth - this.minWidth) + this.minWidth; // Calculates random value
-        console.log("Test: " + test + " CW " + canvas.width + " CH " + canvas.height + " TWpx " + this.targetWidthPx + " Apx " + amplitudePx)
 
-        console.log(this.minWidth + " | " + this.maxWidth)
+        if (Config.isDebug) console.log("Minimum Width for RandomX: " + this.minWidth + " | Maximum Width for RandomX: " + this.maxWidth);
+        if (this.minWidth > this.maxWidth) console.error(`Minimum Width (${this.minWidth}) > Maximum Width (${this.maxWidth}) for RandomX - Trial ID: ${this.trialId} | Trial Category: ${this.trialCategory}`);
 
-        if(this.minWidth > this.maxWidth) console.error("Error, minwidth > maxwidht") // todo
-        return test;
+        return Math.random() * (this.maxWidth - this.minWidth) + this.minWidth; // Calculates random value;
     }
 
     getRandomValueY(startAngle, amplitudePx, canvas) {
