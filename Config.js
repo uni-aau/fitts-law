@@ -36,7 +36,10 @@ class Config {
     static drawToleranceElement = false;            // Draws the Tolerance element
     static showStartWindow = true;                 // Toggles display of start window
 
-    // Circle: width => height
+    // Circle: height gets automatically replaced with width
+    // Category, targetWidth, targetHeight, Amplitude, trialDirection (e.g. up -> target is above start element)
+    // Note: When adding the same Trial Category, the Trials will be treated as the same
+    // (e.g. when the first trial got a miss, the counter will be also incremented for the other trial)
     static trialsDataCategories = [
         ["C1", 5, 8, 20, 'left'],
         ["C2", 10, 6, 20, 'left'],
@@ -109,9 +112,7 @@ class Config {
         ["C16", 14, 3, 35, 'down'],
     ];
 
-    // Predefined Clock: 12 (up), 1 (up-right), 2 (right-up), 3...
-    // Category, targetWidth, targetHeight, Amplitude, trialDirection
-    // e.g. up -> target is above start element
+    // Predefined Clock: 12 (up), 1 (up-right), 2 (right-up), 3 (right), 4 ...
     // Can be extended
     static clockDirections = { // Possible directions with specified angle
         'up': 90,
