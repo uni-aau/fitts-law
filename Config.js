@@ -10,25 +10,27 @@ class Config {
     static intDevice = "mouse".toLowerCase(); // Mouse, Touch (when touch enabled, mouseclick will not work)
     static trialsPerBreak = NaN;
     static generalUsername = "none"; // Will be displayed in dataset when no username was entered
-    static version = "7.0";
+    static version = "8.0";
 
-    // Block Config
+    // Trial Config
+    static isTestSet = false;                           // Determines, if test or trainings set will be used for trials
+    static numBlocksTestSet = 3;                        // Amount of blocks for test set
+    static numBlocksTrainingsSet = 1;                   // Amount of blocks for trainings set
+    static shuffleTrialsInBlock = true;                 // Determines, if Trials should be shuffled (random position) in the current block
+    static startSize = 10;                              // Size of the start element (always AxA)
+    static repeatTrial = true;                          // Determines, if Trial needs to be repeated in current block due to fail
+    static elementStrokeStyle = "black";                  // Element border color
+    static startElementFillStyle = "rgba(144, 238, 144, 1.0)";
+    static targetElementFillStyle = ["rgba(120,120,120,1.0)"]       // Also allows selection of random colors by providing more than one rgba color
+    static targetElementSelectionStyle = "rgba(0, 0, 139, 1.0)";     // Dark blue color
+
+    // Trial Config - Random Placement
     static randomTrialPlacement = true;                // Determines if the trials will be placed on random positions of the canvas or in the middle
     // Hint - Always both sides (min & max have the same tolerance)
     static randomTrialPlacementToleranceXLeft = 20;     // Determines how much the element has to be away from the left canvas width (X) border
     static randomTrialPlacementToleranceXRight = 20;    // Determines how much the element has to be away from the right canvas width (X) border
     static randomTrialPlacementToleranceYUp = 20;       // Determines how much the element has to be away from the up canvas height (Y) border
     static randomTrialPlacementToleranceYDown = 20;     // Determines how much the element has to be away from the down canvas height (Y) border
-
-    static startSize = 10;                              // Size of the start block (always AxA)
-    static numBlocks = 3;
-    static isTestSet = false;                           // Determines, if test or trainings set will be used for trials
-    static shuffleTrialsInBlock = true;                 // Determines, if Trials should be shuffled (random position) in the block
-    static repeatTrial = true;                          // Determines, if Trial needs to be repeated in block due to fail
-    static elementStrokeStyle = "black";                  // Element border color
-    static startElementFillStyle = "rgba(144, 238, 144, 1.0)";
-    static targetElementFillStyle = ["rgba(120,120,120,1.0)"]       // Also allows selection of random colors by providing more than one rgba color
-    static targetElementSelectionStyle = "rgba(0, 0, 139, 1.0)";     // Dark blue color
 
     // Debug Flags
     static isDebug = false;                         // Enables more detailed logging
