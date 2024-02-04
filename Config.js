@@ -24,12 +24,12 @@ class Config {
     static targetElementFillStyle = ["rgba(120,120,120,1.0)"]       // Also allows selection of random colors by providing more than one rgba color
     static targetElementSelectionStyle = "rgba(0, 0, 139, 1.0)";     // Dark blue color
 
-    // Trial Config - Random Placement
+    // Trial Config - Random Placement (in mm)
     static randomTrialPlacement = true;                // Determines if the trials will be placed on random positions of the canvas or in the middle
-    static randomTrialPlacementToleranceXLeft = 20;     // Determines how much the element has to be away from the left canvas width (X) border
-    static randomTrialPlacementToleranceXRight = 20;    // Determines how much the element has to be away from the right canvas width (X) border
-    static randomTrialPlacementToleranceYUp = 20;       // Determines how much the element has to be away from the up canvas height (Y) border
-    static randomTrialPlacementToleranceYDown = 20;     // Determines how much the element has to be away from the down canvas height (Y) border
+    static randomTrialPlacementToleranceXLeft = 3;     // Determines how much the element has to be away from the left canvas width (X) border
+    static randomTrialPlacementToleranceXRight = 3;    // Determines how much the element has to be away from the right canvas width (X) border
+    static randomTrialPlacementToleranceYUp = 3;       // Determines how much the element has to be away from the up canvas height (Y) border
+    static randomTrialPlacementToleranceYDown = 3;     // Determines how much the element has to be away from the down canvas height (Y) border
 
     // Debug Flags
     static isDebug = false;                         // Enables more detailed logging
