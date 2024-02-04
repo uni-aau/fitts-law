@@ -8,14 +8,15 @@ class Config {
     static ppi = 155.61;       // Determines proper size of elements (so that 1cm equals 1cm on every phone
     static shape = "rectangle"; // rectangle or circle (circle not adjusted)
     static intDevice = "mouse".toLowerCase(); // Mouse, Touch (when touch enabled, mouseclick will not work)
-    static trialsPerBreak = NaN;
+    static trialsPerBreakTestSet = NaN;
+    static trialsPerBreakPracticeSet = NaN;
     static generalUsername = "none"; // Will be displayed in dataset when no username was entered
     static version = "8.0";
 
     // Trial Config
     static isTestSet = false;                           // Determines, if test or trainings set will be used for trials
-    static numBlocksTestSet = 3;                        // Amount of blocks for test set
-    static numBlocksTrainingsSet = 1;                   // Amount of blocks for trainings set
+    static numBlocksTestSet = 4;                        // Amount of blocks for test set
+    static numBlocksTrainingsSet = 3;                   // Amount of blocks for trainings set
     static shuffleTrialsInBlock = true;                 // Determines, if Trials should be shuffled (random position) in the current block
     static startSize = 10;                              // Size of the start element (always AxA)
     static repeatTrial = true;                          // Determines, if Trial needs to be repeated in current block due to fail
