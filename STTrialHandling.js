@@ -200,10 +200,10 @@ class STTrialHandling {
         // If click was in the start object
         if (this.isClickInStartElement(true) && this.isClickInStartElement(false)) {
             // Determines the start touchDown and touchUp position
-            this.startClickedPostitionXTouchDown = this.touchDownClickPositionX;
-            this.startClickedPositionYTouchDown = this.touchDownClickPositionY;
-            this.startClickedPositionXTouchUp = this.touchUpClickPositionX;
-            this.startClickedPositionYTouchUp = this.touchUpClickPositionY;
+            this.startClickedPostitionTouchDownX = this.touchDownClickPositionX;
+            this.startClickedPositionTouchDownY = this.touchDownClickPositionY;
+            this.startClickedPositionTouchUpX = this.touchUpClickPositionX;
+            this.startClickedPositionTouchUpY = this.touchUpClickPositionY;
             this.startTimeTouchDownToTouchUpMs = this.getTouchDownTouchUpTimeDifference();
 
             this.startTimeStartToEndClick = performance.now();
@@ -256,12 +256,12 @@ class STTrialHandling {
             this.endTimeClickStartToEnd = performance.now(); // Determines the time between start and target click
 
             // Determines the target touchDown and touchUp position
-            this.targetClickedPostitionXTouchDown = this.touchDownClickPositionX;
-            this.targetClickedPositionYTouchDown = this.touchDownClickPositionY;
-            this.targetClickedPositionXTouchUp = this.touchUpClickPositionX;
-            this.targetClickedPositionYTouchUp = this.touchUpClickPositionY;
+            this.targetClickedPostitionTouchDownX = this.touchDownClickPositionX;
+            this.targetClickedPositionTouchDownY = this.touchDownClickPositionY;
+            this.targetClickedPositionTouchUpX = this.touchUpClickPositionX;
+            this.targetClickedPositionTouchUpY = this.touchUpClickPositionY;
             this.targetTimeTouchDownToTouchUpMs = this.getTouchDownTouchUpTimeDifference();
-            this.clickDistanceBetweenTargetTouchDownTouchUp = Math.sqrt((this.targetClickedPostitionXTouchDown - this.targetClickedPositionXTouchUp) ** 2 + (this.targetClickedPositionYTouchDown - this.targetClickedPositionYTouchUp) ** 2);
+            this.clickDistanceBetweenTargetTouchDownTouchUp = Math.sqrt((this.targetClickedPostitionTouchDownX - this.targetClickedPositionTouchUpX) ** 2 + (this.targetClickedPositionTouchDownY - this.targetClickedPositionTouchUpY) ** 2);
 
             this.handleClickPossibilities();
             if (Config.isDebug) console.log("Click Category: " + this.clickCategory);
@@ -394,7 +394,7 @@ class STTrialHandling {
 
     printTrial() {
         console.log(`Information about finished trial: Amplitude: ${this.amplitude} (${mm2px(this.amplitude)}px) | Coordinates of Start center point: X=${this.startCenterX} Y=${this.startCenterY} | Coordinates of Target center point: X=${this.targetCenterX} Y=${this.targetCenterY}`);
-        console.log(`Information about click position: StartTouchDown: X=${this.startClickedPostitionXTouchDown} Y=${this.startClickedPositionYTouchDown}, StartTouchUp: X=${this.startClickedPositionXTouchUp} Y=${this.startClickedPositionYTouchUp}, TargetTouchDown: X=${this.targetClickedPostitionXTouchDown} Y=${this.targetClickedPositionYTouchDown}, TargetTouchUp: X=${this.targetClickedPositionXTouchUp} Y=${this.targetClickedPositionYTouchUp} | Distance between TargetTouchUp/Down: ${this.clickDistanceBetweenTargetTouchDownTouchUp} | Click Category: ${this.clickCategory}`);
+        console.log(`Information about click position: StartTouchDown: X=${this.startClickedPostitionTouchDownX} Y=${this.startClickedPositionTouchDownY}, StartTouchUp: X=${this.startClickedPositionTouchUpX} Y=${this.startClickedPositionTouchUpY}, TargetTouchDown: X=${this.targetClickedPostitionTouchDownX} Y=${this.targetClickedPositionTouchDownY}, TargetTouchUp: X=${this.targetClickedPositionTouchUpX} Y=${this.targetClickedPositionTouchUpY} | Distance between TargetTouchUp/Down: ${this.clickDistanceBetweenTargetTouchDownTouchUp} | Click Category: ${this.clickCategory}`);
         console.log(`Information about click: Click distance to start center: (down/up) ${this.clickDistanceToStartCenterTouchDownXY} / ${this.clickDistanceToStartCenterTouchUpXY}  | Click distance to target center: (down/up) ${this.clickDistanceToTargetCenterTouchDownXY} / ${this.clickDistanceToTargetCenterTouchUpXY}| Click tolerance: ${this.clickTolerance}`);
         console.log(`Information about times: StartTouchDownToTouchUpTime: ${this.startTimeTouchDownToTouchUpMs} | TargetTouchDownToTouchUpTime: ${this.targetTimeTouchDownToTouchUpMs}`)
     }
@@ -404,9 +404,9 @@ class STTrialHandling {
         this.dataRecorder.addDataRow([this.serialNumber, this.blockNumber, this.trialNumber, this.trialId, this.trialCategory, this.trialGetsRepeated, this.clickCategory, this.repetitions, this.username, this.shape, this.intDevice,
             getPPI(), get1MMInPx(), getWindowInnerWidth(), getWindowInnerHeight(),
             this.amplitude, mm2px(this.amplitude), this.startSize, mm2px(this.startSize), this.targetWidth, mm2px(this.targetWidthPx), this.targetHeight, mm2px(this.targetHeight), this.trialDirection, this.trialClockAngle,
-            this.startCenterX, this.startCenterY, this.targetCenterX, this.targetCenterY, this.startClickedPostitionXTouchDown, this.startClickedPositionYTouchDown,
-            this.startClickedPositionXTouchUp, this.startClickedPositionYTouchUp, this.targetClickedPostitionXTouchDown, this.targetClickedPositionYTouchDown,
-            this.targetClickedPositionXTouchUp, this.targetClickedPositionYTouchUp, this.clickDistanceBetweenTargetTouchDownTouchUp,
+            this.startCenterX, this.startCenterY, this.targetCenterX, this.targetCenterY, this.startClickedPostitionTouchDownX, this.startClickedPositionTouchDownY,
+            this.startClickedPositionTouchUpX, this.startClickedPositionTouchUpY, this.targetClickedPostitionTouchDownX, this.targetClickedPositionTouchDownY,
+            this.targetClickedPositionTouchUpX, this.targetClickedPositionTouchUpY, this.clickDistanceBetweenTargetTouchDownTouchUp,
             this.clickDistanceToStartCenterTouchDownXY, this.clickDistanceToStartCenterTouchDownX, this.clickDistanceToStartCenterTouchDownY,
             this.clickDistanceToStartCenterTouchUpXY, this.clickDistanceToStartCenterTouchUpX, this.clickDistanceToStartCenterTouchUpY,
             this.clickDistanceToTargetCenterTouchDownXY, this.clickDistanceToTargetCenterTouchDownX, this.clickDistanceToTargetCenterTouchDownY,
