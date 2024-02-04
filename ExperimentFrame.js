@@ -150,7 +150,10 @@ class ExperimentFrame {
         const versionElement = document.getElementById("versionNumber");
         const widthText = document.getElementById("widthText");
         const heightText = document.getElementById("heightText");
+        const isTestSetText = document.getElementById("isTestSet");
+
         versionElement.textContent = Config.version;
+        isTestSetText.textContent = Config.isTestSet.toString();
         widthText.textContent = getWindowInnerWidth().toString();
         heightText.textContent = getWindowInnerHeight().toString();
     }

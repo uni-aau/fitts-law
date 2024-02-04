@@ -136,8 +136,8 @@ button {
 
     #debugLabel {
         top: 30px;
-        left: 60px;
-        font-size: 12px;
+        left: 25px;
+        font-size: 11px;
         color: rgb(128, 128, 128);
     }
 }
