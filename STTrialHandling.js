@@ -195,8 +195,7 @@ class STTrialHandling {
     }
 
     handleStartClick() {
-        this.clickDistanceToStartCenterTouchDown = Math.sqrt((this.touchDownClickPositionX - this.startCenterX) ** 2 + (this.touchDownClickPositionY - this.startCenterY) ** 2);
-        this.clickDistanceToStartCenterTouchUp = Math.sqrt((this.touchUpClickPositionX - this.startCenterX) ** 2 + (this.touchUpClickPositionY - this.startCenterY) ** 2);
+        this.determineClickDistancesToStartCenter();
 
         // If click was in the start object
         if (this.isClickInStartElement(true) && this.isClickInStartElement(false)) {
@@ -213,6 +212,16 @@ class STTrialHandling {
             this.targetElement.highlight();
             this.startClicked = true;
         }
+    }
+
+    determineClickDistancesToStartCenter() {
+        this.clickDistanceToStartCenterTouchUpX = Math.abs(this.touchUpClickPositionX - this.startCenterX);
+        this.clickDistanceToStartCenterTouchUpY = Math.abs(this.touchUpClickPositionY - this.startCenterY);
+        this.clickDistanceToStartCenterTouchUp = Math.sqrt((this.touchUpClickPositionX - this.startCenterX) ** 2 + (this.touchUpClickPositionY - this.startCenterY) ** 2);
+
+        this.clickDistanceToStartCenterTouchDownX = Math.abs(this.touchDownClickPositionX - this.startCenterX);
+        this.clickDistanceToStartCenterTouchDownY = Math.abs(this.touchDownClickPositionY - this.startCenterY);
+        this.clickDistanceToStartCenterTouchDown = Math.sqrt((this.touchDownClickPositionX - this.startCenterX) ** 2 + (this.touchDownClickPositionY - this.startCenterY) ** 2);
     }
 
     isClickInStartElement(isDown) {
@@ -241,9 +250,7 @@ class STTrialHandling {
 
     // Start was already clicked
     handleTargetClick() {
-        this.clickDistanceToTargetCenterTouchDown = Math.sqrt((this.touchDownClickPositionX - this.targetCenterX) ** 2 + (this.touchDownClickPositionY - this.targetCenterY) ** 2);
-        this.clickDistanceToTargetCenterTouchUp = Math.sqrt((this.touchUpClickPositionX - this.targetCenterX) ** 2 + (this.touchUpClickPositionY - this.targetCenterY) ** 2);
-        if (Config.isDebug) console.log(`tD_X ${this.touchDownClickPositionX} | tD_Y ${this.touchDownClickPositionY} | tU_X ${this.touchUpClickPositionX} | tU_Y ${this.touchUpClickPositionY}`);
+        this.determineClickDistancesToTargetCenter();
 
         if (this.startClicked && !this.isTargetClicked) {
             this.endTimeClickStartToEnd = performance.now(); // Determines the time between start and target click
@@ -259,6 +266,18 @@ class STTrialHandling {
             this.handleClickPossibilities();
             if (Config.isDebug) console.log("Click Category: " + this.clickCategory);
         }
+    }
+
+    determineClickDistancesToTargetCenter() {
+        this.clickDistanceToTargetCenterTouchDownX = Math.abs(this.touchDownClickPositionX - this.targetCenterX);
+        this.clickDistanceToTargetCenterTouchDownY = Math.abs(this.touchDownClickPositionY - this.targetCenterY);
+        this.clickDistanceToTargetCenterTouchDown = Math.sqrt((this.touchDownClickPositionX - this.targetCenterX) ** 2 + (this.touchDownClickPositionY - this.targetCenterY) ** 2);
+
+        this.clickDistanceToTargetCenterTouchUpX = Math.abs(this.touchUpClickPositionX - this.targetCenterX);
+        this.clickDistanceToTargetCenterTouchUpY = Math.abs(this.touchUpClickPositionY - this.targetCenterY);
+        this.clickDistanceToTargetCenterTouchUp = Math.sqrt((this.touchUpClickPositionX - this.targetCenterX) ** 2 + (this.touchUpClickPositionY - this.targetCenterY) ** 2);
+
+        if (Config.isDebug) console.log(`tD_X ${this.touchDownClickPositionX} | tD_Y ${this.touchDownClickPositionY} | tU_X ${this.touchUpClickPositionX} | tU_Y ${this.touchUpClickPositionY}`);
     }
 
     handleClickPossibilities() {
@@ -387,8 +406,12 @@ class STTrialHandling {
             this.amplitude, mm2px(this.amplitude), this.startSize, mm2px(this.startSize), this.targetWidth, mm2px(this.targetWidthPx), this.targetHeight, mm2px(this.targetHeight), this.trialDirection, this.trialClockAngle,
             this.startCenterX, this.startCenterY, this.targetCenterX, this.targetCenterY, this.startClickedPostitionXTouchDown, this.startClickedPositionYTouchDown,
             this.startClickedPositionXTouchUp, this.startClickedPositionYTouchUp, this.targetClickedPostitionXTouchDown, this.targetClickedPositionYTouchDown,
-            this.targetClickedPositionXTouchUp, this.targetClickedPositionYTouchUp, this.clickDistanceBetweenTargetTouchDownTouchUp, this.clickDistanceToStartCenterTouchDown, this.clickDistanceToStartCenterTouchUp,
-            this.clickDistanceToTargetCenterTouchDown, this.clickDistanceToTargetCenterTouchUp, this.totalClicksAmount, this.clicksAmountAfterStartClick, this.getTimeToClickFromStartToEndMs(),
+            this.targetClickedPositionXTouchUp, this.targetClickedPositionYTouchUp, this.clickDistanceBetweenTargetTouchDownTouchUp,
+            this.clickDistanceToStartCenterTouchDown, this.clickDistanceToStartCenterTouchDownX, this.clickDistanceToStartCenterTouchDownY,
+            this.clickDistanceToStartCenterTouchUp, this.clickDistanceToStartCenterTouchUpX, this.clickDistanceToStartCenterTouchUpY,
+            this.clickDistanceToTargetCenterTouchDown, this.clickDistanceToTargetCenterTouchDownX, this.clickDistanceToTargetCenterTouchDownY,
+            this.clickDistanceToTargetCenterTouchUp, this.clickDistanceToTargetCenterTouchUpX, this.clickDistanceToTargetCenterTouchUpY,
+            this.totalClicksAmount, this.clicksAmountAfterStartClick, this.getTimeToClickFromStartToEndMs(),
             this.startTimeTouchDownToTouchUpMs, this.targetTimeTouchDownToTouchUpMs]);
 
         if (Config.isDebug) console.log(this.dataRecorder.getDataArray());
