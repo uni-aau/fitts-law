@@ -11,7 +11,7 @@ class Config {
     static trialsPerBreakTestSet = NaN;
     static trialsPerBreakPracticeSet = NaN;
     static generalUsername = "none"; // Will be displayed in dataset when no username was entered
-    static version = "8.0";
+    static version = "8.1";
 
     // Trial Config
     static isTestSet = false;                           // Determines, if test or trainings set will be used for trials
@@ -29,8 +29,8 @@ class Config {
     static randomTrialPlacement = true;                // Determines if the trials will be placed on random positions of the canvas or in the middle
     static randomTrialPlacementToleranceXLeft = 3;     // Determines how much the element has to be away from the left canvas width (X) border
     static randomTrialPlacementToleranceXRight = 3;    // Determines how much the element has to be away from the right canvas width (X) border
-    static randomTrialPlacementToleranceYUp = 3;       // Determines how much the element has to be away from the up canvas height (Y) border
-    static randomTrialPlacementToleranceYDown = 3;     // Determines how much the element has to be away from the down canvas height (Y) border
+    static randomTrialPlacementToleranceYUp = 37;       // Determines how much the element has to be away from the up canvas height (Y) border
+    static randomTrialPlacementToleranceYDown = 37;     // Determines how much the element has to be away from the down canvas height (Y) border
 
     // Debug Flags
     static isDebug = false;                         // Enables more detailed logging
@@ -46,7 +46,7 @@ class Config {
     static trialsDataCategoriesTestSet = [
         ["C1", 20, 5, 40, 'left'],
         ["C2", 12, 6, 40, 'left'],
-        ["C3", 20, 5, 40, 'left'],
+        ["C3", 5, 20, 40, 'left'],
         ["C4", 6, 12, 40, 'left'],
         ["C5", 8, 8, 40, 'left'],
         ["C6", 24, 8, 31, 'up'],
@@ -56,22 +56,22 @@ class Config {
         ["C10", 12, 12, 31, 'up'],
         ["C11", 30, 10, 43, 'up-left'],
         ["C12", 20, 12, 43, 'up-left'],
-        ["C13", 10, 30, 43, 'up-left'],
+        ["C13", 10, 30, 41, 'up-left'],
         ["C14", 12, 20, 43, 'up-left'],
         ["C15", 15, 15, 43, 'up-left'],
         ["C16", 28, 4, 39, 'up-right'],
         ["C17", 7, 7, 39, 'up-right'],
-        ["C18", 3, 6, 60, 'left-up'],
-        ["C19", 4, 4, 60, 'left-up'],
+        ["C18", 3, 6, 56, 'left-up'],
+        ["C19", 4, 4, 56, 'left-up'],
         ["C20", 13, 17, 38, 'left-up'],
         ["C21", 12, 4, 47, 'right-up'],
         ["C22", 6, 6, 47, 'right-up'],
         ["C23", 6, 18, 34, 'right-up'],
         ["C24", 9, 9, 34, 'right-up'],
         ["C25", 4, 7, 55, 'right-up'],
-        ["C26", 30, 15, 50, 'up-right'],
-        ["C27", 20, 20, 50, 'up-right'],
-        ["C28", 10, 4, 58, 'left-up'],
+        ["C26", 30, 15, 46, 'up-right'],
+        ["C27", 20, 20, 46, 'up-right'],
+        ["C28", 10, 4, 53, 'left-up'],
         ["C29", 17, 3, 22, 'up-right'],
         ["C30", 15, 10, 37, 'left-up'],
         ["C31", 20, 5, 40, 'right'],
@@ -86,41 +86,39 @@ class Config {
         ["C40", 12, 12, 31, 'down'],
         ["C41", 30, 10, 43, 'down-right'],
         ["C42", 20, 12, 43, 'down-right'],
-        ["C43", 10, 30, 43, 'down-right'],
+        ["C43", 10, 30, 41, 'down-right'],
         ["C44", 12, 20, 43, 'down-right'],
         ["C45", 15, 15, 43, 'down-right'],
         ["C46", 28, 4, 39, 'down-left'],
         ["C47", 7, 7, 39, 'down-left'],
-        ["C48", 3, 6, 60, 'right-down'],
-        ["C49", 4, 4, 60, 'right-down'],
+        ["C48", 3, 6, 56, 'right-down'],
+        ["C49", 4, 4, 56, 'right-down'],
         ["C50", 13, 17, 38, 'right-down'],
         ["C51", 12, 4, 47, 'left-down'],
         ["C52", 6, 6, 47, 'left-down'],
         ["C53", 6, 18, 34, 'left-down'],
         ["C54", 9, 9, 34, 'left-down'],
         ["C55", 4, 7, 55, 'left-down'],
-        ["C56", 30, 15, 50, 'down-left'],
-        ["C57", 20, 20, 50, 'down-left'],
-        ["C58", 10, 4, 58, 'right-down'],
+        ["C56", 30, 15, 46, 'down-left'],
+        ["C57", 20, 20, 46, 'down-left'],
+        ["C58", 10, 4, 53, 'right-down'],
         ["C59", 17, 3, 22, 'down-left'],
         ["C60", 15, 10, 37, 'right-down']
     ];
 
     static trialsDataCategoriesTrainingsSet = [
-        ["C25", 4, 7, 55, 'right-up'],
-        ["C55", 4, 7, 55, 'left-down'],
-     /*   ["C1", 8, 8, 40, 'left'],
-        ["C2", 9, 18, 31, 'up'],
-        ["C3", 20, 12, 43, 'up-left'],
-        ["C4", 6, 18, 34, 'right-up'],
-        ["C5", 30, 15, 50, 'up-right'],
-        // ["C6", 10, 4, 58, 'left-up'],
-        ["C7", 6, 12, 40, 'right'],
-        ["C8", 18, 9, 31, 'down'],
-        ["C9", 10, 30, 43, 'down-right'],
-        ["C10", 28, 4, 39, 'down-left'],
-        ["C11", 6, 6, 47, 'left-down'],*/
-        // ["C12", 10, 4, 58, 'right-down']
+        ["C5", 8, 8, 40, 'left'],
+        ["C9", 9, 18, 31, 'up'],
+        ["C12", 20, 12, 43, 'up-left'],
+        ["C23", 6, 18, 34, 'right-up'],
+        ["C26", 30, 15, 46, 'up-right'],
+        ["C28", 10, 4, 53, 'left-up'],
+        ["C34", 6, 12, 40, 'right'],
+        ["C37", 18, 9, 31, 'down'],
+        ["C43", 10, 30, 41, 'down-right'],
+        ["C46", 28, 4, 39, 'down-left'],
+        ["C52", 6, 6, 47, 'left-down'],
+        ["C58", 10, 4, 53, 'right-down'],
     ];
 
     // Predefined Clock: 12 (up), 1 (up-right), 2 (right-up), 3 (right), 4 ...
