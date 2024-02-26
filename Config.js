@@ -107,7 +107,9 @@ class Config {
     ];
 
     static trialsDataCategoriesTrainingsSet = [
-        ["C1", 8, 8, 40, 'left'],
+        ["C25", 4, 7, 55, 'right-up'],
+        ["C55", 4, 7, 55, 'left-down'],
+     /*   ["C1", 8, 8, 40, 'left'],
         ["C2", 9, 18, 31, 'up'],
         ["C3", 20, 12, 43, 'up-left'],
         ["C4", 6, 18, 34, 'right-up'],
@@ -117,7 +119,7 @@ class Config {
         ["C8", 18, 9, 31, 'down'],
         ["C9", 10, 30, 43, 'down-right'],
         ["C10", 28, 4, 39, 'down-left'],
-        ["C11", 6, 6, 47, 'left-down'],
+        ["C11", 6, 6, 47, 'left-down'],*/
         // ["C12", 10, 4, 58, 'right-down']
     ];
 
