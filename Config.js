@@ -142,5 +142,4 @@ class Config {
     static clickTolerance(amplitude) {
         return mm2px((amplitude / 2));
     }
-
 }
