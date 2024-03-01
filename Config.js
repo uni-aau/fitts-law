@@ -11,10 +11,11 @@ class Config {
     static trialsPerBreakTestSet = 30;
     static trialsPerBreakPracticeSet = 12;
     static generalUsername = "none"; // Will be displayed in dataset when no username was entered
-    static version = "8.2";
+    static version = "8.3";
 
     // Trial Config
-    static isTestSet = false;                           // Determines, if test or trainings set will be used for trials
+    static showLessScreenInformation = true;           // Shows more/less detailed trial/block information on the screen
+    static isTestSet = true;                           // Determines, if test or trainings set will be used for trials
     static numBlocksTestSet = 4;                        // Amount of blocks for test set
     static numBlocksTrainingsSet = 1;                   // Amount of blocks for trainings set
     static shuffleTrialsInBlock = true;                 // Determines, if Trials should be shuffled (random position) in the current block

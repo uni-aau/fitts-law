@@ -116,12 +116,12 @@ button {
 
     #finishedTrialsLabel {
         top: 10px;
-        right: 295px;
+        right: 50px;
     }
 
     #blocksLabel {
         top: 10px;
-        right: 102px;
+        right: 420px;
     }
 
     #totalTrialsLabel {

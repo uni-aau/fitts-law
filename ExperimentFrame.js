@@ -12,6 +12,7 @@ class ExperimentFrame {
         // Set the number of trials per break
         this.trialsPerBreak = Config.isTestSet ? Config.trialsPerBreakTestSet : Config.trialsPerBreakPracticeSet;
         this.dataRecorder = new DataRecorder();
+        this.getsReadded = false;
     }
 
     initializeExperiment() {
@@ -39,7 +40,8 @@ class ExperimentFrame {
         const currentTrial = this.currentBlock.getTrial(this.trialNumber);
 
         const STTrialsHandling = new STTrialHandling(currentTrial, this.currentBlock, this.trialNumber, this.serialNumber, this.dataRecorder, this.username, (getsReAdded) => {
-            this.trialCompleted(getsReAdded);
+            this.getsReadded = getsReAdded;
+            this.trialCompleted();
             STTrialsHandling.removeEventListeners();
         });
 
@@ -47,7 +49,7 @@ class ExperimentFrame {
         STTrialsHandling.showTrial();
 
         // Check if it's time for a break
-        if ((this.totalFinishedTrialsAmountWithoutReAddition + 1) % this.trialsPerBreak === 0) { // only determine break of correct trials
+        if (this.totalFinishedTrialsAmountWithoutReAddition !== 0 && !this.getsReadded && (this.totalFinishedTrialsAmountWithoutReAddition) % this.trialsPerBreak === 0) { // only determine break of correct trials
             // Display the break window
             this.displayBreakWindow();
         }
@@ -86,11 +88,11 @@ class ExperimentFrame {
         });
     }
 
-    trialCompleted(getsReAdded) {
+    trialCompleted() {
         const currentBlock = this.experiment.getBlock(this.blockNumber);
         this.serialNumber++;
 
-        if (getsReAdded) {
+        if (this.getsReadded) {
             if (Config.isDebug) console.log("Readding trial: " + this.trialNumber + " | " + this.currentBlock.getTrial(this.trialNumber).trialCategory)
             this.currentBlock.reAddTrial(this.trialNumber);
         } else {
@@ -104,8 +106,7 @@ class ExperimentFrame {
             } else if (this.experiment.hasNext(this.blockNumber)) {
                 this.getNextBlock();
             } else {
-                // Last trial and block completed
-                this.experimentFinished();
+                this.experimentFinished() // Last trial and block completed
             }
         } else {
             console.error("Invalid block number: " + this.blockNumber);
@@ -124,38 +125,45 @@ class ExperimentFrame {
     }
 
     displayTextValues() {
-        const currentTrialIndexEl = document.getElementById("finishedTrialsInBlock");
-        // currentTrialIndexEl.textContent = this.trialNumber;
-        currentTrialIndexEl.textContent = this.trialNumberWithoutReAddtion;
+        if (Config.showLessScreenInformation) {
+            document.getElementById("debugLabel").style.display = 'none';
+            document.getElementById("blocksLabel").style.display = 'none';
+            document.getElementById("totalTrialsLabel").style.display = 'none';
 
-        const totalCurrentTrialIndexEl = document.getElementById("totalFinishedTrials");
-        // totalCurrentTrialIndexEl.textContent = this.totalFinishedTrialsAmount;
-        totalCurrentTrialIndexEl.textContent = this.totalFinishedTrialsAmountWithoutReAddition;
+            const finishedTrialsLabel = document.getElementById("finishedTrialsLabel");
+            finishedTrialsLabel.innerHTML = `Finished Trials: ${this.totalFinishedTrialsAmountWithoutReAddition} / ${this.getTotalTrialsStartAmount().toString()}`;
+        } else {
+            const currentTrialIndexEl = document.getElementById("finishedTrialsInBlock");
+            currentTrialIndexEl.textContent = this.trialNumberWithoutReAddtion;
 
-        const totalTrialIndexPerBlockEl = document.getElementById("totalTrialsInBlock");
-        totalTrialIndexPerBlockEl.textContent = this.getTotalTrialsStartAmountPerBlock();
+            const totalCurrentTrialIndexEl = document.getElementById("totalFinishedTrials");
+            totalCurrentTrialIndexEl.textContent = this.totalFinishedTrialsAmountWithoutReAddition;
 
-        const totalTrialIndexEl = document.getElementById("totalTrialsAmount");
-        totalTrialIndexEl.textContent = this.getTotalTrialsStartAmount().toString()
+            const totalTrialIndexPerBlockEl = document.getElementById("totalTrialsInBlock");
+            totalTrialIndexPerBlockEl.textContent = this.getTotalTrialsStartAmountPerBlock();
 
-        const currentBlockIndexEl = document.getElementById("currentBlockNumber");
-        currentBlockIndexEl.textContent = this.blockNumber;
+            const totalTrialIndexEl = document.getElementById("totalTrialsAmount");
+            totalTrialIndexEl.textContent = this.getTotalTrialsStartAmount().toString()
 
-        const totalBlockIndexEl = document.getElementById("totalBlocksAmount");
-        totalBlockIndexEl.textContent = Config.isTestSet ? Config.numBlocksTestSet.toString() : Config.numBlocksTrainingsSet.toString();
+            const currentBlockIndexEl = document.getElementById("currentBlockNumber");
+            currentBlockIndexEl.textContent = this.blockNumber;
 
-        const trialsToBlockIndexEl = document.getElementById("breakCount");
-        trialsToBlockIndexEl.textContent = this.getRemainingTrials();
+            const totalBlockIndexEl = document.getElementById("totalBlocksAmount");
+            totalBlockIndexEl.textContent = Config.isTestSet ? Config.numBlocksTestSet.toString() : Config.numBlocksTrainingsSet.toString();
 
-        const versionElement = document.getElementById("versionNumber");
-        const widthText = document.getElementById("widthText");
-        const heightText = document.getElementById("heightText");
-        const isTestSetText = document.getElementById("isTestSet");
+            const trialsToBlockIndexEl = document.getElementById("breakCount");
+            trialsToBlockIndexEl.textContent = this.getRemainingTrials();
 
-        versionElement.textContent = Config.version;
-        isTestSetText.textContent = Config.isTestSet.toString();
-        widthText.textContent = getWindowInnerWidth().toString();
-        heightText.textContent = getWindowInnerHeight().toString();
+            const versionElement = document.getElementById("versionNumber");
+            const widthText = document.getElementById("widthText");
+            const heightText = document.getElementById("heightText");
+            const isTestSetText = document.getElementById("isTestSet");
+
+            versionElement.textContent = Config.version;
+            isTestSetText.textContent = Config.isTestSet.toString();
+            widthText.textContent = getWindowInnerWidth().toString();
+            heightText.textContent = getWindowInnerHeight().toString();
+        }
     }
 
     experimentFinished() {
@@ -195,7 +203,7 @@ class ExperimentFrame {
     }
 
     getRemainingTrials() {
-        // return this.trialsPerBreak - (this.trialNumber % this.trialsPerBreak); TODO
-        return this.trialsPerBreak - ((this.totalFinishedTrialsAmountWithoutReAddition + 1) % this.trialsPerBreak);
+        // return this.trialsPerBreak - (this.trialNumber % this.trialsPerBreak);
+        return this.trialsPerBreak - ((this.totalFinishedTrialsAmountWithoutReAddition) % this.trialsPerBreak);
     }
 }
