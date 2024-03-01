@@ -124,38 +124,45 @@ class ExperimentFrame {
     }
 
     displayTextValues() {
-        const currentTrialIndexEl = document.getElementById("finishedTrialsInBlock");
-        // currentTrialIndexEl.textContent = this.trialNumber;
-        currentTrialIndexEl.textContent = this.trialNumberWithoutReAddtion;
+        if (Config.showLessScreenInformation) {
+            document.getElementById("debugLabel").style.display = 'none';
+            document.getElementById("blocksLabel").style.display = 'none';
+            document.getElementById("totalTrialsLabel").style.display = 'none';
 
-        const totalCurrentTrialIndexEl = document.getElementById("totalFinishedTrials");
-        // totalCurrentTrialIndexEl.textContent = this.totalFinishedTrialsAmount;
-        totalCurrentTrialIndexEl.textContent = this.totalFinishedTrialsAmountWithoutReAddition;
+            const finishedTrialsLabel = document.getElementById("finishedTrialsLabel");
+            finishedTrialsLabel.innerHTML = `Finished Trials: ${this.totalFinishedTrialsAmountWithoutReAddition} / ${this.getTotalTrialsStartAmount().toString()}`;
+        } else {
+            const currentTrialIndexEl = document.getElementById("finishedTrialsInBlock");
+            currentTrialIndexEl.textContent = this.trialNumberWithoutReAddtion;
 
-        const totalTrialIndexPerBlockEl = document.getElementById("totalTrialsInBlock");
-        totalTrialIndexPerBlockEl.textContent = this.getTotalTrialsStartAmountPerBlock();
+            const totalCurrentTrialIndexEl = document.getElementById("totalFinishedTrials");
+            totalCurrentTrialIndexEl.textContent = this.totalFinishedTrialsAmountWithoutReAddition;
 
-        const totalTrialIndexEl = document.getElementById("totalTrialsAmount");
-        totalTrialIndexEl.textContent = this.getTotalTrialsStartAmount().toString()
+            const totalTrialIndexPerBlockEl = document.getElementById("totalTrialsInBlock");
+            totalTrialIndexPerBlockEl.textContent = this.getTotalTrialsStartAmountPerBlock();
 
-        const currentBlockIndexEl = document.getElementById("currentBlockNumber");
-        currentBlockIndexEl.textContent = this.blockNumber;
+            const totalTrialIndexEl = document.getElementById("totalTrialsAmount");
+            totalTrialIndexEl.textContent = this.getTotalTrialsStartAmount().toString()
 
-        const totalBlockIndexEl = document.getElementById("totalBlocksAmount");
-        totalBlockIndexEl.textContent = Config.isTestSet ? Config.numBlocksTestSet.toString() : Config.numBlocksTrainingsSet.toString();
+            const currentBlockIndexEl = document.getElementById("currentBlockNumber");
+            currentBlockIndexEl.textContent = this.blockNumber;
 
-        const trialsToBlockIndexEl = document.getElementById("breakCount");
-        trialsToBlockIndexEl.textContent = this.getRemainingTrials();
+            const totalBlockIndexEl = document.getElementById("totalBlocksAmount");
+            totalBlockIndexEl.textContent = Config.isTestSet ? Config.numBlocksTestSet.toString() : Config.numBlocksTrainingsSet.toString();
 
-        const versionElement = document.getElementById("versionNumber");
-        const widthText = document.getElementById("widthText");
-        const heightText = document.getElementById("heightText");
-        const isTestSetText = document.getElementById("isTestSet");
+            const trialsToBlockIndexEl = document.getElementById("breakCount");
+            trialsToBlockIndexEl.textContent = this.getRemainingTrials();
 
-        versionElement.textContent = Config.version;
-        isTestSetText.textContent = Config.isTestSet.toString();
-        widthText.textContent = getWindowInnerWidth().toString();
-        heightText.textContent = getWindowInnerHeight().toString();
+            const versionElement = document.getElementById("versionNumber");
+            const widthText = document.getElementById("widthText");
+            const heightText = document.getElementById("heightText");
+            const isTestSetText = document.getElementById("isTestSet");
+
+            versionElement.textContent = Config.version;
+            isTestSetText.textContent = Config.isTestSet.toString();
+            widthText.textContent = getWindowInnerWidth().toString();
+            heightText.textContent = getWindowInnerHeight().toString();
+        }
     }
 
     experimentFinished() {
