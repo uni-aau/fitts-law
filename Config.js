@@ -11,10 +11,10 @@ class Config {
     static trialsPerBreakTestSet = NaN;
     static trialsPerBreakPracticeSet = NaN;
     static generalUsername = "none"; // Will be displayed in dataset when no username was entered
-    static version = "8.1";
+    static version = "8.2";
 
     // Trial Config
-    static isTestSet = false;                           // Determines, if test or trainings set will be used for trials
+    static isTestSet = true;                           // Determines, if test or trainings set will be used for trials
     static numBlocksTestSet = 4;                        // Amount of blocks for test set
     static numBlocksTrainingsSet = 3;                   // Amount of blocks for trainings set
     static shuffleTrialsInBlock = true;                 // Determines, if Trials should be shuffled (random position) in the current block
@@ -54,11 +54,11 @@ class Config {
         ["C8", 8, 24, 31, 'up'],
         ["C9", 9, 18, 31, 'up'],
         ["C10", 12, 12, 31, 'up'],
-        ["C11", 30, 10, 43, 'up-left'],
-        ["C12", 20, 12, 43, 'up-left'],
+        ["C11", 30, 10, 41, 'up-left'],
+        ["C12", 20, 12, 41, 'up-left'],
         ["C13", 10, 30, 41, 'up-left'],
-        ["C14", 12, 20, 43, 'up-left'],
-        ["C15", 15, 15, 43, 'up-left'],
+        ["C14", 12, 20, 41, 'up-left'],
+        ["C15", 15, 15, 41, 'up-left'],
         ["C16", 28, 4, 39, 'up-right'],
         ["C17", 7, 7, 39, 'up-right'],
         ["C18", 3, 6, 56, 'left-up'],
@@ -76,7 +76,7 @@ class Config {
         ["C30", 15, 10, 37, 'left-up'],
         ["C31", 20, 5, 40, 'right'],
         ["C32", 12, 6, 40, 'right'],
-        ["C33", 20, 5, 40, 'right'],
+        ["C33", 5, 20, 40, 'right'],
         ["C34", 6, 12, 40, 'right'],
         ["C35", 8, 8, 40, 'right'],
         ["C36", 24, 8, 31, 'down'],
@@ -84,11 +84,11 @@ class Config {
         ["C38", 8, 24, 31, 'down'],
         ["C39", 9, 18, 31, 'down'],
         ["C40", 12, 12, 31, 'down'],
-        ["C41", 30, 10, 43, 'down-right'],
-        ["C42", 20, 12, 43, 'down-right'],
+        ["C41", 30, 10, 41, 'down-right'],
+        ["C42", 20, 12, 41, 'down-right'],
         ["C43", 10, 30, 41, 'down-right'],
-        ["C44", 12, 20, 43, 'down-right'],
-        ["C45", 15, 15, 43, 'down-right'],
+        ["C44", 12, 20, 41, 'down-right'],
+        ["C45", 15, 15, 41, 'down-right'],
         ["C46", 28, 4, 39, 'down-left'],
         ["C47", 7, 7, 39, 'down-left'],
         ["C48", 3, 6, 56, 'right-down'],
@@ -109,7 +109,7 @@ class Config {
     static trialsDataCategoriesTrainingsSet = [
         ["C5", 8, 8, 40, 'left'],
         ["C9", 9, 18, 31, 'up'],
-        ["C12", 20, 12, 43, 'up-left'],
+        ["C12", 20, 12, 41, 'up-left'],
         ["C23", 6, 18, 34, 'right-up'],
         ["C26", 30, 15, 46, 'up-right'],
         ["C28", 10, 4, 53, 'left-up'],
