@@ -2,7 +2,7 @@ class DataRecorder {
     constructor() {
         this.dataArray = [];
 
-        this.dataArray.push(["serial_number", "block_number", "trial_number", "trial_id", "trial_category", "trial_gets_repeated", "click_category", "trial_repetitions", "username", "shape", "int_device",
+        this.dataArray.push(["serial_number", "is_test_set", "block_number", "trial_number", "trial_id", "trial_category", "trial_gets_repeated", "click_category", "trial_repetitions", "username", "shape", "int_device",
             "ppi", "mm_in_pixel", "window_inner_width", "window_inner_height",
             "amplitude_mm", "amplitude_px", "start_size_mm", "start_size_px", "target_width_mm", "target_width_px", "target_height_mm", "target_height_px",
             "trial_direction", "trial_angle_degree", "start_center_x_px", "start_center_y_px", "target_center_x_px", "target_center_y_px",

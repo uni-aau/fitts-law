@@ -401,7 +401,7 @@ class STTrialHandling {
 
     // TODO check size bei circle
     saveTrialData() {
-        this.dataRecorder.addDataRow([this.serialNumber, this.blockNumber, this.trialNumber, this.trialId, this.trialCategory, this.trialGetsRepeated, this.clickCategory, this.repetitions, this.username, this.shape, this.intDevice,
+        this.dataRecorder.addDataRow([this.serialNumber, Config.isTestSet, this.blockNumber, this.trialNumber, this.trialId, this.trialCategory, this.trialGetsRepeated, this.clickCategory, this.repetitions, this.username, this.shape, this.intDevice,
             getPPI(), get1MMInPx(), getWindowInnerWidth(), getWindowInnerHeight(),
             this.amplitude, mm2px(this.amplitude), this.startSize, mm2px(this.startSize), this.targetWidth, mm2px(this.targetWidthPx), this.targetHeight, mm2px(this.targetHeight), this.trialDirection, this.trialClockAngle,
             this.startCenterX, this.startCenterY, this.targetCenterX, this.targetCenterY, this.startClickedPostitionTouchDownX, this.startClickedPositionTouchDownY,
