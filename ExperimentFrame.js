@@ -12,6 +12,7 @@ class ExperimentFrame {
         // Set the number of trials per break
         this.trialsPerBreak = Config.isTestSet ? Config.trialsPerBreakTestSet : Config.trialsPerBreakPracticeSet;
         this.dataRecorder = new DataRecorder();
+        this.getsReadded = false;
     }
 
     initializeExperiment() {
@@ -39,7 +40,8 @@ class ExperimentFrame {
         const currentTrial = this.currentBlock.getTrial(this.trialNumber);
 
         const STTrialsHandling = new STTrialHandling(currentTrial, this.currentBlock, this.trialNumber, this.serialNumber, this.dataRecorder, this.username, (getsReAdded) => {
-            this.trialCompleted(getsReAdded);
+            this.getsReadded = getsReAdded;
+            this.trialCompleted();
             STTrialsHandling.removeEventListeners();
         });
 
@@ -47,7 +49,7 @@ class ExperimentFrame {
         STTrialsHandling.showTrial();
 
         // Check if it's time for a break
-        if ((this.totalFinishedTrialsAmountWithoutReAddition + 1) % this.trialsPerBreak === 0) { // only determine break of correct trials
+        if (this.totalFinishedTrialsAmountWithoutReAddition !== 0 && !this.getsReadded && (this.totalFinishedTrialsAmountWithoutReAddition) % this.trialsPerBreak === 0) { // only determine break of correct trials
             // Display the break window
             this.displayBreakWindow();
         }
@@ -86,11 +88,11 @@ class ExperimentFrame {
         });
     }
 
-    trialCompleted(getsReAdded) {
+    trialCompleted() {
         const currentBlock = this.experiment.getBlock(this.blockNumber);
         this.serialNumber++;
 
-        if (getsReAdded) {
+        if (this.getsReadded) {
             if (Config.isDebug) console.log("Readding trial: " + this.trialNumber + " | " + this.currentBlock.getTrial(this.trialNumber).trialCategory)
             this.currentBlock.reAddTrial(this.trialNumber);
         } else {
