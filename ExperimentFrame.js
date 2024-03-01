@@ -104,8 +104,7 @@ class ExperimentFrame {
             } else if (this.experiment.hasNext(this.blockNumber)) {
                 this.getNextBlock();
             } else {
-                // Last trial and block completed
-                this.experimentFinished();
+                this.experimentFinished() // Last trial and block completed
             }
         } else {
             console.error("Invalid block number: " + this.blockNumber);
@@ -202,7 +201,7 @@ class ExperimentFrame {
     }
 
     getRemainingTrials() {
-        // return this.trialsPerBreak - (this.trialNumber % this.trialsPerBreak); TODO
-        return this.trialsPerBreak - ((this.totalFinishedTrialsAmountWithoutReAddition + 1) % this.trialsPerBreak);
+        // return this.trialsPerBreak - (this.trialNumber % this.trialsPerBreak);
+        return this.trialsPerBreak - ((this.totalFinishedTrialsAmountWithoutReAddition) % this.trialsPerBreak);
     }
 }
