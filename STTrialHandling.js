@@ -206,7 +206,7 @@ class STTrialHandling {
             this.startClickedPositionTouchUpY = this.touchUpClickPositionY;
             this.startTimeTouchDownToTouchUpMs = this.getTouchDownTouchUpTimeDifference();
 
-            this.startTimeStartToEndClick = performance.now();
+            this.startTouchUpTime = performance.now();
 
             // Clicked on the start
             this.targetElement.highlight();
@@ -253,7 +253,7 @@ class STTrialHandling {
         this.determineClickDistancesToTargetCenter();
 
         if (this.startClicked && !this.isTargetClicked) {
-            this.endTimeClickStartToEnd = performance.now(); // Determines the time between start and target click
+            this.endTouchDownTime = this.touchDownTime; // Determines the time between start and target click
 
             // Determines the target touchDown and touchUp position
             this.targetClickedPostitionTouchDownX = this.touchDownClickPositionX;
@@ -403,7 +403,7 @@ class STTrialHandling {
     saveTrialData() {
         this.dataRecorder.addDataRow([this.serialNumber, Config.isTestSet, this.blockNumber, this.trialNumber, this.trialId, this.trialCategory, this.trialGetsRepeated, this.clickCategory, this.repetitions, this.username, this.shape, this.intDevice,
             getPPI(), get1MMInPx(), getWindowInnerWidth(), getWindowInnerHeight(),
-            this.amplitude, mm2px(this.amplitude), this.startSize, mm2px(this.startSize), this.targetWidth, mm2px(this.targetWidthPx), this.targetHeight, mm2px(this.targetHeight), this.trialDirection, this.trialClockAngle,
+            this.amplitude, mm2px(this.amplitude), this.startSize, this.startSizePx, this.targetWidth, this.targetWidthPx, this.targetHeight, this.targetHeightPx, this.trialDirection, this.trialClockAngle,
             this.startCenterX, this.startCenterY, this.targetCenterX, this.targetCenterY, this.startClickedPostitionTouchDownX, this.startClickedPositionTouchDownY,
             this.startClickedPositionTouchUpX, this.startClickedPositionTouchUpY, this.targetClickedPostitionTouchDownX, this.targetClickedPositionTouchDownY,
             this.targetClickedPositionTouchUpX, this.targetClickedPositionTouchUpY, this.clickDistanceBetweenTargetTouchDownTouchUp,
@@ -424,7 +424,7 @@ class STTrialHandling {
     }
 
     getTimeToClickFromStartToEndMs() {
-        return this.endTimeClickStartToEnd - this.startTimeStartToEndClick;
+        return this.endTouchDownTime - this.startTouchUpTime;
     }
 
     printToConsole() {
