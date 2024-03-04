@@ -403,7 +403,7 @@ class STTrialHandling {
     saveTrialData() {
         this.dataRecorder.addDataRow([this.serialNumber, Config.isTestSet, this.blockNumber, this.trialNumber, this.trialId, this.trialCategory, this.trialGetsRepeated, this.clickCategory, this.repetitions, this.username, this.shape, this.intDevice,
             getPPI(), get1MMInPx(), getWindowInnerWidth(), getWindowInnerHeight(),
-            this.amplitude, mm2px(this.amplitude), this.startSize, mm2px(this.startSize), this.targetWidth, mm2px(this.targetWidthPx), this.targetHeight, mm2px(this.targetHeight), this.trialDirection, this.trialClockAngle,
+            this.amplitude, mm2px(this.amplitude), this.startSize, this.startSizePx, this.targetWidth, this.targetWidthPx, this.targetHeight, this.targetHeightPx, this.trialDirection, this.trialClockAngle,
             this.startCenterX, this.startCenterY, this.targetCenterX, this.targetCenterY, this.startClickedPostitionTouchDownX, this.startClickedPositionTouchDownY,
             this.startClickedPositionTouchUpX, this.startClickedPositionTouchUpY, this.targetClickedPostitionTouchDownX, this.targetClickedPositionTouchDownY,
             this.targetClickedPositionTouchUpX, this.targetClickedPositionTouchUpY, this.clickDistanceBetweenTargetTouchDownTouchUp,
