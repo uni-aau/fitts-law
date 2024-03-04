@@ -206,7 +206,7 @@ class STTrialHandling {
             this.startClickedPositionTouchUpY = this.touchUpClickPositionY;
             this.startTimeTouchDownToTouchUpMs = this.getTouchDownTouchUpTimeDifference();
 
-            this.startTimeStartToEndClick = performance.now();
+            this.startTouchUpTime = performance.now();
 
             // Clicked on the start
             this.targetElement.highlight();
@@ -253,7 +253,7 @@ class STTrialHandling {
         this.determineClickDistancesToTargetCenter();
 
         if (this.startClicked && !this.isTargetClicked) {
-            this.endTimeClickStartToEnd = performance.now(); // Determines the time between start and target click
+            this.endTouchDownTime = this.touchDownTime; // Determines the time between start and target click
 
             // Determines the target touchDown and touchUp position
             this.targetClickedPostitionTouchDownX = this.touchDownClickPositionX;
@@ -424,7 +424,7 @@ class STTrialHandling {
     }
 
     getTimeToClickFromStartToEndMs() {
-        return this.endTimeClickStartToEnd - this.startTimeStartToEndClick;
+        return this.endTouchDownTime - this.startTouchUpTime;
     }
 
     printToConsole() {

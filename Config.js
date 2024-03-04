@@ -11,7 +11,7 @@ class Config {
     static trialsPerBreakTestSet = NaN;
     static trialsPerBreakPracticeSet = NaN;
     static generalUsername = "none"; // Will be displayed in dataset when no username was entered
-    static version = "8.3";
+    static version = "8.4";
 
     // Trial Config
     static showLessScreenInformation = false;           // Shows more/less detailed trial/block information on the screen
