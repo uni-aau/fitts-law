@@ -125,6 +125,9 @@ class ExperimentFrame {
     }
 
     displayTextValues() {
+        const trialsToBlockIndexEl = document.getElementById("breakCount");
+        trialsToBlockIndexEl.textContent = this.getRemainingTrials();
+
         if (Config.showLessScreenInformation) {
             document.getElementById("debugLabel").style.display = 'none';
             document.getElementById("blocksLabel").style.display = 'none';
@@ -150,9 +153,6 @@ class ExperimentFrame {
 
             const totalBlockIndexEl = document.getElementById("totalBlocksAmount");
             totalBlockIndexEl.textContent = Config.isTestSet ? Config.numBlocksTestSet.toString() : Config.numBlocksTrainingsSet.toString();
-
-            const trialsToBlockIndexEl = document.getElementById("breakCount");
-            trialsToBlockIndexEl.textContent = this.getRemainingTrials();
 
             const versionElement = document.getElementById("versionNumber");
             const widthText = document.getElementById("widthText");
