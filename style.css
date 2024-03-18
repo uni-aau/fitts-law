@@ -25,11 +25,11 @@ p {
 }
 
 button {
-    margin-top: 10px;
+    /* margin-top: 10px;
     position: absolute;
     bottom: -100px;
     left: 50%;
-    transform: translateX(-50%);
+    transform: translateX(-50%); */
 }
 
 .info-value {
@@ -86,6 +86,16 @@ button {
 #startButton {
     margin-bottom: -30px;
 }
+
+.buttons-container {
+    /* border: 2px solid red; */
+    display: flex;
+    position: relative;
+    flex-direction: row;
+    justify-content: center;
+    bottom: -150px
+}
+
 
 #breakCount {
     color: red;
