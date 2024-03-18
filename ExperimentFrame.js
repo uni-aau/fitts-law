@@ -129,9 +129,10 @@ class ExperimentFrame {
         trialsToBlockIndexEl.textContent = this.getRemainingTrials();
 
         if (Config.showLessScreenInformation) {
-            document.getElementById("debugLabel").style.display = 'none';
             document.getElementById("blocksLabel").style.display = 'none';
             document.getElementById("totalTrialsLabel").style.display = 'none';
+            if(Config.isTestSet) document.getElementById("debugLabel").style.display = 'none';
+            else this.setDebugLabel();
 
             const finishedTrialsLabel = document.getElementById("finishedTrialsLabel");
             finishedTrialsLabel.innerHTML = `Finished Trials: ${this.totalFinishedTrialsAmountWithoutReAddition} / ${this.getTotalTrialsStartAmount().toString()}`;
@@ -154,16 +155,20 @@ class ExperimentFrame {
             const totalBlockIndexEl = document.getElementById("totalBlocksAmount");
             totalBlockIndexEl.textContent = Config.isTestSet ? Config.numBlocksTestSet.toString() : Config.numBlocksTrainingsSet.toString();
 
-            const versionElement = document.getElementById("versionNumber");
-            const widthText = document.getElementById("widthText");
-            const heightText = document.getElementById("heightText");
-            const isTestSetText = document.getElementById("isTestSet");
-
-            versionElement.textContent = Config.version;
-            isTestSetText.textContent = Config.isTestSet.toString();
-            widthText.textContent = getWindowInnerWidth().toString();
-            heightText.textContent = getWindowInnerHeight().toString();
+            this.setDebugLabel();
         }
+    }
+
+    setDebugLabel() {
+        const versionElement = document.getElementById("versionNumber");
+        const widthText = document.getElementById("widthText");
+        const heightText = document.getElementById("heightText");
+        const isTestSetText = document.getElementById("isTestSet");
+
+        versionElement.textContent = Config.version;
+        isTestSetText.textContent = Config.isTestSet.toString();
+        widthText.textContent = getWindowInnerWidth().toString();
+        heightText.textContent = getWindowInnerHeight().toString();
     }
 
     experimentFinished() {

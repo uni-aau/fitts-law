@@ -22,6 +22,7 @@ class Config {
     static targetElementFillStyle = ["rgba(120,120,120,1.0)"]       // Also allows selection of random colors by providing more than one rgba color
     static targetElementSelectionStyle = "rgba(0, 0, 139, 1.0)";     // Dark blue color
 
+    // Test/Trainings Set Config
     // Hint: Trainings-Set does not send data to server
     static isTestSet = true; // Determines, if test or trainings set will be used for trials (will be automatically set by buttons)
     static trialsPerBreakTestSet = NaN;
