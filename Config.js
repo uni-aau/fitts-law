@@ -13,7 +13,7 @@ class Config {
 
 
     // Trial Config
-    static showLessScreenInformation = false;           // Shows more/less detailed trial/block information on the screen
+    static showLessScreenInformation = true;           // Shows more/less detailed trial/block information on the screen
     static shuffleTrialsInBlock = true;                 // Determines, if Trials should be shuffled (random position) in the current block
     static startSize = 10;                              // Size of the start element (always AxA)
     static repeatTrial = true;                          // Determines, if Trial needs to be repeated in current block due to fail
