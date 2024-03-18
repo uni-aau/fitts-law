@@ -26,7 +26,8 @@ function handleFullScreen() {
 }
 
 // Function to start the experiment in full-screen mode
-function startExperiment() {
+function startExperiment(isTestSet) {
+    Config.isTestSet = isTestSet;
     // Hide the start window
     const startWindow = document.getElementById('startWindow');
     startWindow.style.display = 'none';
@@ -40,7 +41,9 @@ function startExperiment() {
 
 // Event listener for the start button
 const startTestButton = document.getElementById('startTestButton');
-startTestButton.addEventListener('click', startExperiment);
+startTestButton.addEventListener('click', () => startExperiment(true));
+const startTrainingsButton = document.getElementById('startTrainingButton');
+startTrainingsButton.addEventListener('click', () => startExperiment(false));
 
 // Show the start window
 if (Config.showStartWindow) showStartWindow();
