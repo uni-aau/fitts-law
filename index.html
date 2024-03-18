@@ -1,84 +1,87 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta content="IE=edge" http-equiv="X-UA-Compatible">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <link crossorigin="anonymous" href="./assets/bootstrap.min.css"
-          rel="stylesheet">
+    <link crossorigin="anonymous" href="./assets/bootstrap.min.css" rel="stylesheet">
     <title>Fitts's Law - Two Dimensional Touch</title>
     <link href="style.css" rel="stylesheet">
 
 </head>
+
 <body>
 
-<div id="info-container">
-    <div class="info-box" id="finishedTrialsLabel">Finished Trials: <span class="info-value"
-                                                                          id="finishedTrialsInBlock">0</span>
-        (in block) / <span class="info-value" id="totalFinishedTrials">0</span> (total)
-    </div>
-    <div class="info-box" id="blocksLabel">Block No.: <span class="info-value" id="currentBlockNumber">0</span> /
-        <span class="info-value" id="totalBlocksAmount">0</span>
-    </div>
-    <div class="info-box" id="totalTrialsLabel">Total Trials: <span class="info-value"
-                                                                    id="totalTrialsInBlock">0</span> (in block) /
-        <span class="info-value" id="totalTrialsAmount">0</span> (max.)
+    <div id="info-container">
+        <div class="info-box" id="finishedTrialsLabel">Finished Trials: <span class="info-value"
+                id="finishedTrialsInBlock">0</span>
+            (in block) / <span class="info-value" id="totalFinishedTrials">0</span> (total)
+        </div>
+        <div class="info-box" id="blocksLabel">Block No.: <span class="info-value" id="currentBlockNumber">0</span> /
+            <span class="info-value" id="totalBlocksAmount">0</span>
+        </div>
+        <div class="info-box" id="totalTrialsLabel">Total Trials: <span class="info-value"
+                id="totalTrialsInBlock">0</span> (in block) /
+            <span class="info-value" id="totalTrialsAmount">0</span> (max.)
+        </div>
+
+        <div class="info-box" id="trialsToBreakLabel">Next Break in <span class="info-value" id="breakCount">0</span>
+            trials
+        </div>
+        <div class="info-box" id="debugLabel">Version: <span class="info-value" id="versionNumber">-1</span> | TestSet:
+            <span class="info-value" id="isTestSet">false</span> |
+            <span class="info-value" id="widthText">0</span>/<span class="info-value" id="heightText">0</span>
+        </div>
     </div>
 
-    <div class="info-box" id="trialsToBreakLabel">Next Break in <span class="info-value" id="breakCount">0</span> trials
+    <canvas height="600" id="trialCanvas" width="800"></canvas>
+
+
+    <!-- Break Window Modal -->
+    <div class="modal" id="breakWindow">
+        <div class="modal-content">
+            <p>Take a break! Press continue when you are ready</p>
+            <button autofocus class="button-general" id="continueButton">Continue</button>
+        </div>
     </div>
-    <div class="info-box" id="debugLabel">Version: <span class="info-value" id="versionNumber">-1</span> | TestSet:
-        <span class="info-value" id="isTestSet">false</span> |
-        <span class="info-value" id="widthText">0</span>/<span class="info-value" id="heightText">0</span>
+
+    <!-- Break Window Modal -->
+    <div class="modal" id="finishWindow">
+        <div class="modal-content">
+            <p>Congratulations! You finished all trials :)</p>
+            <button autofocus class="button-general" id="downloadDataButton">OK
+            </button>
+        </div>
     </div>
-</div>
 
-<canvas height="600" id="trialCanvas" width="800"></canvas>
-
-
-<!-- Break Window Modal -->
-<div class="modal" id="breakWindow">
-    <div class="modal-content">
-        <p>Take a break! Press continue when you are ready</p>
-        <button autofocus class="button-general" id="continueButton">Continue</button>
+    <!-- Start Window Modal -->
+    <div class="modal" id="startWindow">
+        <div class="modal-content">
+            <p>Press start once you are ready<br>
+                <label for="name_input">Your name:</label>
+                <input id="name_input" placeholder="Enter your name..." type="text">
+            </p><br>
+            <button class="button-general" id="startButton">Start
+            </button>
+            <button class="button-general" id="fullScreenButton">Fullscreen
+            </button>
+        </div>
     </div>
-</div>
 
-<!-- Break Window Modal -->
-<div class="modal" id="finishWindow">
-    <div class="modal-content">
-        <p>Congratulations! You finished all trials :)</p>
-        <button autofocus class="button-general" id="downloadDataButton">OK
-        </button>
-    </div>
-</div>
-
-<!-- Start Window Modal -->
-<div class="modal" id="startWindow">
-    <div class="modal-content">
-        <p>Press start once you are ready<br>
-            <label for="name_input">Your name:</label>
-            <input id="name_input" placeholder="Enter your name..."
-                   type="text"></p><br>
-        <button class="button-general" id="startButton">Start
-        </button>
-        <button class="button-general" id="fullScreenButton">Fullscreen
-        </button>
-    </div>
-</div>
-
-<!-- Calling Javascript sources -->
-<script src="Config.js"></script>
-<script src="Trial.js"></script>
-<script src="Block.js"></script>
-<script src="Experiment.js"></script>
-<script src="STTrialHandling.js"></script>
-<script src="ExperimentFrame.js"></script>
-<script src="Support.js"></script>
-<script src="DataRecorder.js"></script>
-<script src="ElementDrawer.js"></script>
-<script src="WindowHandler.js"></script>
-<script crossorigin="anonymous" src="./assets/bootstrap.bundle.min.js"></script>
+    <!-- Calling Javascript sources -->
+    <script src="Config.js"></script>
+    <script src="Trial.js"></script>
+    <script src="Block.js"></script>
+    <script src="Experiment.js"></script>
+    <script src="STTrialHandling.js"></script>
+    <script src="ExperimentFrame.js"></script>
+    <script src="Support.js"></script>
+    <script src="DataRecorder.js"></script>
+    <script src="ElementDrawer.js"></script>
+    <script src="WindowHandler.js"></script>
+    <script crossorigin="anonymous" src="./assets/bootstrap.bundle.min.js"></script>
 
 </body>
+
 </html>
