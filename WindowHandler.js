@@ -39,8 +39,8 @@ function startExperiment() {
 }
 
 // Event listener for the start button
-const startButton = document.getElementById('startButton');
-startButton.addEventListener('click', startExperiment);
+const startTestButton = document.getElementById('startTestButton');
+startTestButton.addEventListener('click', startExperiment);
 
 // Show the start window
 if (Config.showStartWindow) showStartWindow();
