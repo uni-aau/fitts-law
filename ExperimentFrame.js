@@ -7,15 +7,15 @@ class ExperimentFrame {
         this.serialNumber = 1;
         this.totalFinishedTrialsAmount = 0;
         this.totalFinishedTrialsAmountWithoutReAddition = 0;
-        this.experiment = new Experiment();
-        this.totalBlocks = this.experiment.getNumBlocks(); // Track the total number of blocks
-        // Set the number of trials per break
-        this.trialsPerBreak = Config.isTestSet ? Config.trialsPerBreakTestSet : Config.trialsPerBreakPracticeSet;
         this.dataRecorder = new DataRecorder();
         this.getsReadded = false;
     }
 
     initializeExperiment() {
+        this.experiment = new Experiment();
+        this.totalBlocks = this.experiment.getNumBlocks(); // Track the total number of blocks
+        this.trialsPerBreak = Config.isTestSet ? Config.trialsPerBreakTestSet : Config.trialsPerBreakPracticeSet; // Set the number of trials per break
+
         this.username = document.getElementById("name_input").value;
         if (this.username === "") {
             if (Config.isDebug) console.log("No username inserted - Using general username");
@@ -129,9 +129,10 @@ class ExperimentFrame {
         trialsToBlockIndexEl.textContent = this.getRemainingTrials();
 
         if (Config.showLessScreenInformation) {
-            document.getElementById("debugLabel").style.display = 'none';
             document.getElementById("blocksLabel").style.display = 'none';
             document.getElementById("totalTrialsLabel").style.display = 'none';
+            if(Config.isTestSet) document.getElementById("debugLabel").style.display = 'none';
+            else this.setDebugLabel();
 
             const finishedTrialsLabel = document.getElementById("finishedTrialsLabel");
             finishedTrialsLabel.innerHTML = `Finished Trials: ${this.totalFinishedTrialsAmountWithoutReAddition} / ${this.getTotalTrialsStartAmount().toString()}`;
@@ -154,16 +155,20 @@ class ExperimentFrame {
             const totalBlockIndexEl = document.getElementById("totalBlocksAmount");
             totalBlockIndexEl.textContent = Config.isTestSet ? Config.numBlocksTestSet.toString() : Config.numBlocksTrainingsSet.toString();
 
-            const versionElement = document.getElementById("versionNumber");
-            const widthText = document.getElementById("widthText");
-            const heightText = document.getElementById("heightText");
-            const isTestSetText = document.getElementById("isTestSet");
-
-            versionElement.textContent = Config.version;
-            isTestSetText.textContent = Config.isTestSet.toString();
-            widthText.textContent = getWindowInnerWidth().toString();
-            heightText.textContent = getWindowInnerHeight().toString();
+            this.setDebugLabel();
         }
+    }
+
+    setDebugLabel() {
+        const versionElement = document.getElementById("versionNumber");
+        const widthText = document.getElementById("widthText");
+        const heightText = document.getElementById("heightText");
+        const isTestSetText = document.getElementById("isTestSet");
+
+        versionElement.textContent = Config.version;
+        isTestSetText.textContent = Config.isTestSet.toString();
+        widthText.textContent = getWindowInnerWidth().toString();
+        heightText.textContent = getWindowInnerHeight().toString();
     }
 
     experimentFinished() {

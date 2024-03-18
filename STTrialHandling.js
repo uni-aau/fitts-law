@@ -415,7 +415,7 @@ class STTrialHandling {
             this.startTimeTouchDownToTouchUpMs, this.targetTimeTouchDownToTouchUpMs]);
 
         if (Config.isDebug) console.log(this.dataRecorder.getDataArray());
-        if (Config.sendDataToServer) this.dataRecorder.publishCsvToServer();
+        if (Config.sendDataToServer && Config.isTestSet) this.dataRecorder.publishCsvToServer();
         this.dataRecorder.generateCsvDownloadLink(false);
     }
 

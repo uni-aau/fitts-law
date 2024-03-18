@@ -7,17 +7,13 @@ class Config {
     // PPI cannot be determined by plain javascript
     static ppi = 147.31;       // Determines proper size of elements (so that 1cm equals 1cm on every phone (S10: 155.61)
     static shape = "rectangle"; // rectangle or circle (circle not adjusted)
-    static intDevice = "touch".toLowerCase(); // Mouse, Touch (when touch enabled, mouseclick will not work)
-    static trialsPerBreakTestSet = 30;
-    static trialsPerBreakPracticeSet = 6;
+    static intDevice = "mouse".toLowerCase(); // Mouse, Touch (when touch enabled, mouseclick will not work)
     static generalUsername = "none"; // Will be displayed in dataset when no username was entered
-    static version = "8.5";
+    static version = "9.0";
+
 
     // Trial Config
-    static showLessScreenInformation = true;           // Shows more/less detailed trial/block information on the screen
-    static isTestSet = true;                           // Determines, if test or trainings set will be used for trials
-    static numBlocksTestSet = 4;                        // Amount of blocks for test set
-    static numBlocksTrainingsSet = 1;                   // Amount of blocks for trainings set
+    static showLessScreenInformation = false;           // Shows more/less detailed trial/block information on the screen
     static shuffleTrialsInBlock = true;                 // Determines, if Trials should be shuffled (random position) in the current block
     static startSize = 10;                              // Size of the start element (always AxA)
     static repeatTrial = true;                          // Determines, if Trial needs to be repeated in current block due to fail
@@ -25,6 +21,14 @@ class Config {
     static startElementFillStyle = "rgba(144, 238, 144, 1.0)";
     static targetElementFillStyle = ["rgba(120,120,120,1.0)"]       // Also allows selection of random colors by providing more than one rgba color
     static targetElementSelectionStyle = "rgba(0, 0, 139, 1.0)";     // Dark blue color
+
+    // Test/Trainings Set Config
+    // Hint: Trainings-Set does not send data to server
+    static isTestSet = true; // Determines, if test or trainings set will be used for trials (will be automatically set by buttons)
+    static trialsPerBreakTestSet = 30;
+    static trialsPerBreakPracticeSet = 6;
+    static numBlocksTestSet = 4;                        // Amount of blocks for test set
+    static numBlocksTrainingsSet = 1;                   // Amount of blocks for trainings set
 
     // Trial Config - Random Placement (in mm)
     static randomTrialPlacement = true;                // Determines if the trials will be placed on random positions of the canvas or in the middle

@@ -42,16 +42,19 @@
     <div class="modal" id="breakWindow">
         <div class="modal-content">
             <p>Take a break! Press continue when you are ready</p>
-            <button autofocus class="button-general" id="continueButton">Continue</button>
+            <div class="buttons-container">
+                <button autofocus class="button-general" id="continueButton">Continue</button>
+            </div>
         </div>
     </div>
 
-    <!-- Break Window Modal -->
+    <!-- Finish Window Modal -->
     <div class="modal" id="finishWindow">
         <div class="modal-content">
             <p>Congratulations! You finished all trials :)</p>
-            <button autofocus class="button-general" id="downloadDataButton">OK
-            </button>
+            <div class="buttons-container">
+                <button autofocus class="button-general" id="downloadDataButton">OK</button>
+            </div>
         </div>
     </div>
 
@@ -61,11 +64,12 @@
             <p>Press start once you are ready<br>
                 <label for="name_input">Your name:</label>
                 <input id="name_input" placeholder="Enter your name..." type="text">
-            </p><br>
-            <button class="button-general" id="startButton">Start
-            </button>
-            <button class="button-general" id="fullScreenButton">Fullscreen
-            </button>
+            </p>
+            <div class="buttons-container">
+                <button class="button-general" id="startTestButton">Start Test</button>
+                <button class="button-general" id="startTrainingButton">Start Training</button>
+                <button class="button-general" id="fullScreenButton">Fullscreen</button>
+            </div>
         </div>
     </div>
 

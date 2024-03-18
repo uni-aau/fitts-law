@@ -24,14 +24,6 @@ p {
     color: black;
 }
 
-button {
-    margin-top: 10px;
-    position: absolute;
-    bottom: -100px;
-    left: 50%;
-    transform: translateX(-50%);
-}
-
 .info-value {
     font-weight: bold;
 }
@@ -52,6 +44,7 @@ button {
     position: absolute;
     top: 50%;
     left: 50%;
+    height: 150px;
     transform: translate(-50%, -50%);
     background-color: #1adf24;
     padding: 60px;
@@ -66,10 +59,11 @@ button {
 }
 
 .button-general {
-    margin-right: 80px;
+    margin-left: 20px;
+    margin-right: 20px;
     font-size: 20px;
     font-weight: bold;
-    margin-top: 10px;
+    /* margin-top: 5px; */
     background-color: #1adf24;
     color: #000000;
     border-radius: 10px;
@@ -79,13 +73,16 @@ button {
     height: 50px;
 }
 
-#fullScreenButton {
-    margin-bottom: 20px;
+.buttons-container {
+    flex: 0 0 auto;
+    display: flex;
+    position: relative;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    bottom: -120px;
 }
 
-#startButton {
-    margin-bottom: -30px;
-}
 
 #breakCount {
     color: red;
@@ -142,9 +139,13 @@ button {
     }
 }
 
-@media (min-width: 400px) and (max-width: 750px) {
+@media (min-width: 400px) and (max-width: 850px) {
     p {
         font-size: 1.4em;
+    }
+
+    .buttons-container {
+        flex-direction: column;
     }
 
     #info-container {
@@ -172,6 +173,10 @@ button {
 @media (max-width: 399px) {
     p {
         font-size: 1.2em;
+    }
+
+    .buttons-container {
+        flex-direction: column;
     }
 
     #info-container {
