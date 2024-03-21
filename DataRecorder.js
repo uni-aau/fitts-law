@@ -14,7 +14,7 @@ class DataRecorder {
             "click_distance_to_target_center_touchdown_xy_px", "click_distance_to_target_center_touchdown_x_px", "click_distance_to_target_center_touchdown_y_px",
             "click_distance_to_target_center_touchup_xy_px", "click_distance_to_target_center_x_touchup_px", "click_distance_to_target_center_y_touchup_px",
             "total_clicks_amount", "clicks_amount_after_start_click",
-            "click_time_from_start_to_target_ms", "start_click_time_touchdown_to_touchup_ms", "target_click_time_touchdown_to_touchup_ms"]);
+            "click_time_from_start_to_target_ms", "start_click_time_touchdown_to_touchup_ms", "target_click_time_touchdown_to_touchup_ms", "time_stamp_after_last_touch_up"]);
     }
 
     addDataRow(data) {
