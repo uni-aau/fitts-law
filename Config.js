@@ -9,7 +9,7 @@ class Config {
     static shape = "rectangle"; // rectangle or circle (circle not adjusted)
     static intDevice = "mouse".toLowerCase(); // Mouse, Touch (when touch enabled, mouseclick will not work)
     static generalUsername = "none"; // Will be displayed in dataset when no username was entered
-    static version = "9.0";
+    static version = "9.1";
 
 
     // Trial Config

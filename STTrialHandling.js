@@ -255,6 +255,10 @@ class STTrialHandling {
         if (this.startClicked && !this.isTargetClicked) {
             this.endTouchDownTime = this.touchDownTime; // Determines the time between start and target click
 
+            const timeStamp = Date.now()
+            const date = new Date(timeStamp)
+            this.timestampAfterLastTouchUp = `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}:${date.getMilliseconds()} (${timeStamp})`;
+
             // Determines the target touchDown and touchUp position
             this.targetClickedPostitionTouchDownX = this.touchDownClickPositionX;
             this.targetClickedPositionTouchDownY = this.touchDownClickPositionY;
@@ -412,7 +416,7 @@ class STTrialHandling {
             this.clickDistanceToTargetCenterTouchDownXY, this.clickDistanceToTargetCenterTouchDownX, this.clickDistanceToTargetCenterTouchDownY,
             this.clickDistanceToTargetCenterTouchUpXY, this.clickDistanceToTargetCenterTouchUpX, this.clickDistanceToTargetCenterTouchUpY,
             this.totalClicksAmount, this.clicksAmountAfterStartClick, this.getTimeToClickFromStartToEndMs(),
-            this.startTimeTouchDownToTouchUpMs, this.targetTimeTouchDownToTouchUpMs]);
+            this.startTimeTouchDownToTouchUpMs, this.targetTimeTouchDownToTouchUpMs, this.timestampAfterLastTouchUp]);
 
         if (Config.isDebug) console.log(this.dataRecorder.getDataArray());
         if (Config.sendDataToServer && Config.isTestSet) this.dataRecorder.publishCsvToServer();
