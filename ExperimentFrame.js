@@ -83,6 +83,7 @@ class ExperimentFrame {
 
         // Event listener for the finish button
         downloadDataButton.addEventListener('click', () => {
+            if (Config.sendDataToServer && Config.isTestSet) this.dataRecorder.publishCsvToServer();
             this.dataRecorder.generateCsvDownloadLink(true);
             location.reload();
         });
