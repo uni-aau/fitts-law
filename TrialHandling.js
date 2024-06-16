@@ -1,4 +1,4 @@
-class STTrialHandling {
+class TrialHandling {
     constructor(trial, currentBlock, trialNumber, serialNumber, dataRecorder, username, onTargetClicked) {
         this.trial = trial;
         this.blockNumber = currentBlock.getBlockNumber();
