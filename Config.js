@@ -1,19 +1,19 @@
 class Config {
     // Determines location where the update script is stored on server (only needed when sendDataToServer is true)
     static serverRequestLink = 'http://david.jamnig.net/tests/fittslaw/server/update.php';
-    static sendDataToServer = false;
+    static sendDataToServer = true;
 
     // Calculation - Fullscreen -> Get windowInnerWidth/Height as resolution and inch of screen. Then calculate the ppi
     // PPI cannot be determined by plain javascript
     static ppi = 147.31;       // Determines proper size of elements (so that 1cm equals 1cm on every phone (S10: 155.61)
     static shape = "rectangle"; // rectangle or circle (circle not adjusted)
-    static intDevice = "mouse" // Mouse, Touch (when touch enabled, mouseclick will not work)
+    static intDevice = "touch"; // Mouse, Touch (when touch enabled, mouseclick will not work)
     static generalUsername = "none"; // Will be displayed in dataset when no username was entered
     static version = "10.2";
 
 
     // Trial Config
-    static showLessScreenInformation = false;           // Shows more/less detailed trial/block information on the screen
+    static showLessScreenInformation = true;           // Shows more/less detailed trial/block information on the screen
     static shuffleTrialsInBlock = true;                 // Determines, if Trials should be shuffled (random position) in the current block
     static startSize = 10;                              // Size of the start element (always AxA in mm)
     static repeatTrial = true;                          // Determines, if Trial needs to be repeated in current block due to fail
@@ -25,17 +25,17 @@ class Config {
     // Test/Trainings Set Config
     // Hint: Trainings-Set does not send data to server
     static isTestSet = true; // Determines, if test or trainings set will be used for trials (will be automatically set by buttons)
-    static trialsPerBreakTestSet = NaN;
-    static trialsPerBreakPracticeSet = NaN;
+    static trialsPerBreakTestSet = 30;
+    static trialsPerBreakPracticeSet = 6;
     static numBlocksTestSet = 4;                        // Amount of blocks for test set
-    static numBlocksTrainingsSet = 3;                   // Amount of blocks for trainings set
+    static numBlocksTrainingsSet = 1;                   // Amount of blocks for trainings set
 
     // Trial Config - Random Placement (in mm)
     static randomTrialPlacement = true;                // Determines if the trials will be placed on random positions of the canvas or in the middle
     static randomTrialPlacementToleranceXLeft = 3;     // Determines how much the element has to be away from the left canvas width (X) border
     static randomTrialPlacementToleranceXRight = 3;    // Determines how much the element has to be away from the right canvas width (X) border
-    static randomTrialPlacementToleranceYUp = 3;       // Determines how much the element has to be away from the up canvas height (Y) border
-    static randomTrialPlacementToleranceYDown = 3;     // Determines how much the element has to be away from the down canvas height (Y) border
+    static randomTrialPlacementToleranceYUp = 37;       // Determines how much the element has to be away from the up canvas height (Y) border
+    static randomTrialPlacementToleranceYDown = 37;     // Determines how much the element has to be away from the down canvas height (Y) border
 
     // Debug Flags
     static isDebug = false;                         // Enables more detailed logging
