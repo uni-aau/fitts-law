@@ -7,15 +7,15 @@ class Config {
     // PPI cannot be determined by plain javascript
     static ppi = 147.31;       // Determines proper size of elements (so that 1cm equals 1cm on every phone (S10: 155.61)
     static shape = "rectangle"; // rectangle or circle (circle not adjusted)
-    static intDevice = "touch".toLowerCase(); // Mouse, Touch (when touch enabled, mouseclick will not work)
+    static intDevice = "touch"; // Mouse, Touch (when touch enabled, mouseclick will not work)
     static generalUsername = "none"; // Will be displayed in dataset when no username was entered
-    static version = "9.2";
+    static version = "10.2";
 
 
     // Trial Config
     static showLessScreenInformation = true;           // Shows more/less detailed trial/block information on the screen
     static shuffleTrialsInBlock = true;                 // Determines, if Trials should be shuffled (random position) in the current block
-    static startSize = 10;                              // Size of the start element (always AxA)
+    static startSize = 10;                              // Size of the start element (always AxA in mm)
     static repeatTrial = true;                          // Determines, if Trial needs to be repeated in current block due to fail
     static elementStrokeStyle = "black";                  // Element border color
     static startElementFillStyle = "rgba(144, 238, 144, 1.0)";
@@ -45,7 +45,7 @@ class Config {
     static showStartWindow = true;                 // Toggles display of start window
 
     // Circle: height gets automatically replaced with width
-    // Category, targetWidth, targetHeight, Amplitude, trialDirection (e.g. up -> target is above start element)
+    // Category, targetWidth (mm), targetHeight (mm), Amplitude (mm), trialDirection (e.g. up -> target is above start element)
     // Note: When adding the same Trial Category, the Trials will be treated as the same
     // (e.g. when the first trial got a miss, the counter will be also incremented for the other trial)
     static trialsDataCategoriesTestSet = [

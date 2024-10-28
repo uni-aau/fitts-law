@@ -39,14 +39,14 @@ class ExperimentFrame {
         if (Config.isDebug) this.currentBlock.printTrials();
         const currentTrial = this.currentBlock.getTrial(this.trialNumber);
 
-        const STTrialsHandling = new STTrialHandling(currentTrial, this.currentBlock, this.trialNumber, this.serialNumber, this.dataRecorder, this.username, (getsReAdded) => {
+        const TrialsHandling = new TrialHandling(currentTrial, this.currentBlock, this.trialNumber, this.serialNumber, this.dataRecorder, this.username, (getsReAdded) => {
             this.getsReadded = getsReAdded;
             this.trialCompleted();
-            STTrialsHandling.removeEventListeners();
+            TrialsHandling.removeEventListeners();
         });
 
         this.displayTextValues();
-        STTrialsHandling.showTrial();
+        TrialsHandling.showTrial();
 
         // Check if it's time for a break
         if (this.totalFinishedTrialsAmountWithoutReAddition !== 0 && !this.getsReadded && (this.totalFinishedTrialsAmountWithoutReAddition) % this.trialsPerBreak === 0) { // only determine break of correct trials

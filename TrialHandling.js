@@ -1,4 +1,4 @@
-class STTrialHandling {
+class TrialHandling {
     constructor(trial, currentBlock, trialNumber, serialNumber, dataRecorder, username, onTargetClicked) {
         this.trial = trial;
         this.blockNumber = currentBlock.getBlockNumber();
@@ -28,7 +28,7 @@ class STTrialHandling {
         this.targetWidth = this.trial.targetWidth;
         this.targetHeight = this.trial.targetHeight;
         this.trialId = this.trial.trialId;
-        this.intDevice = Config.intDevice;
+        this.intDevice = Config.intDevice.toLowerCase();
         this.trialCategory = this.trial.trialCategory;
         this.trialGetsRepeated = false;
 
