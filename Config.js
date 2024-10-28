@@ -7,9 +7,9 @@ class Config {
     // PPI cannot be determined by plain javascript
     static ppi = 147.31;       // Determines proper size of elements (so that 1cm equals 1cm on every phone (S10: 155.61)
     static shape = "rectangle"; // rectangle or circle (circle not adjusted)
-    static intDevice = "mouse".toLowerCase(); // Mouse, Touch (when touch enabled, mouseclick will not work)
+    static intDevice = "mouse" // Mouse, Touch (when touch enabled, mouseclick will not work)
     static generalUsername = "none"; // Will be displayed in dataset when no username was entered
-    static version = "10.1";
+    static version = "10.2";
 
 
     // Trial Config
